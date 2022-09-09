@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.securityptpal">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logopal"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logopal"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Design.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".AkunUtama"
+            android:exported="false" />
+        <activity
+            android:name=".MonitoringBarang"
+            android:exported="false" />
+        <activity
+            android:name=".Barang"
+            android:exported="false" />
+        <activity
+            android:name=".MonitoringComeTooLate"
+            android:exported="false" />
+        <activity
+            android:name=".MonitoringEmployee"
+            android:exported="false" />
+        <activity
+            android:name=".MonitoringSubcontractor"
+            android:exported="false" />
+        <activity
+            android:name=".AboutUs"
+            android:exported="false" />
+        <activity
+            android:name=".FAQ"
+            android:exported="false" />
+        <activity
+            android:name=".MonitoringGuest"
+            android:exported="true" />
+        <activity
+            android:name=".Subcontractor"
+            android:exported="true" />
+        <activity
+            android:name=".CometooLate"
+            android:exported="true" />
+        <activity
+            android:name=".Login2"
+            android:exported="false" />
+        <activity
+            android:name=".Guest"
+            android:exported="true" />
+        <activity
+            android:name=".Employee"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

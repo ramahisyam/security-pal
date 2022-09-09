@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/button_loc.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/button_pict.xml" value="0.1" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/gradasi3.xml" value="0.25092592592592594" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/gradasi4.xml" value="0.25092592592592594" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_exit.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_lock.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_monitor.xml" value="0.1" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_war.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ripple_effect2.xml" value="0.1" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/camerapress.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/date.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/edittext_employ.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/edittext_log.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/edittext_monitoring.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/edittext_splash.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradasi.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradasi2.xml" value="0.14375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradasi3.xml" value="0.25092592592592594" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradasi4.xml" value="0.25092592592592594" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradient.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_arrow.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_baseline_groups_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_baseline_playlist_add_check_circle_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_camera.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_checkcircle.xml" value="0.1" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_clear.xml" value="0.11851851851851852" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_priority.xml" value="0.11851851851851852" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_username.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/nip.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/orang.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/user.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_about_us.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_akun_utama.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_barang.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_cometoo_late.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_employee.xml" value="0.2" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_faq.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_guest.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_login2.xml" value="0.176" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_main2.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_menu.xml" value="0.12107396149949341" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.2203125" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.234375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.234375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_subcontractor.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/dialog_update.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/item_drawer_main.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/item_drawer_main2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_nav_drawer.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_nav_drawer2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_toolbar.xml" value="0.13722826086956522" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_toolbar2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/nested_item.xml" value="0.1" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/slide_item_container.xml" value="0.1802536231884058" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_addperson.xml" value="0.2203125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_delete.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_edit.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_refresh.xml" value="0.2203125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_about_us.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_cometoo_late.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_employee.xml" value="0.129981884057971" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_faq.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_guest.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_login.xml" value="0.16" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.15" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_splash_screen.xml" value="0.1272644927536232" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_subcontractor.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/dialog_update.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/list_row_main.xml" value="0.16458333333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_nav_drawer.xml" value="0.129981884057971" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
