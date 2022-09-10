@@ -21,7 +21,7 @@ public class Login extends AppCompatActivity {
     ImageView arrow;
     Switch active;
     String correct_username = "karyawan@gmail.com";
-    String correct_NIP = "12345678";
+    String correct_NIP = "123456789abc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
