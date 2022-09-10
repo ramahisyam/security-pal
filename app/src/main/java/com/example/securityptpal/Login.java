@@ -20,8 +20,8 @@ public class Login extends AppCompatActivity {
     EditText username, nip;
     ImageView arrow;
     Switch active;
-    String correct_username = "karyawan@pal.co.id";
-    String correct_NIP = "123456789";
+    String correct_username = "karyawan@gmail.com";
+    String correct_NIP = "12345678";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
