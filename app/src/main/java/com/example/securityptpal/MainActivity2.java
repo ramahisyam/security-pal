@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    ImageView employee, subcon, guest, cometoolate;
+    ImageView employee, subcon, guest, cometoolate, visitor;
     private ViewPager2 viewPager2;
     private Handler sliderHandler = new Handler();
 
@@ -34,6 +34,7 @@ public class MainActivity2 extends AppCompatActivity {
         subcon = findViewById(R.id.subcon);
         guest = findViewById(R.id.guest);
         cometoolate = findViewById(R.id.cometoolate);
+        visitor = findViewById(R.id.visitor);
 
 
         employee.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +65,14 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity2.this, CometooLate.class);
+                startActivity(intent);
+            }
+        });
+
+        visitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity2.this, Visitor.class);
                 startActivity(intent);
             }
         });

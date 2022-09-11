@@ -252,28 +252,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
                 <Button
-                    android:id="@+id/sendSubcon"
-                    android:layout_width="200dp"
+                    android:id="@+id/submitSubcon"
+                    android:layout_width="150dp"
                     android:layout_height="40dp"
-                    android:text="Send"
+                    android:text="Submit"
                     android:textColor="@color/white"
                     android:background="@drawable/edittext_employ">
                 </Button>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp">
                 <Button
                     android:id="@+id/gotoMonitoring"
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="40dp"
                     android:text="Go to Monitoring"
                     android:textColor="@color/white"
-                    android:background="@drawable/edittext_monitoring">
+                    android:background="@drawable/edittext_monitoring"
+                    android:layout_marginLeft="10dp">
                 </Button>
             </LinearLayout>
         </LinearLayout>
