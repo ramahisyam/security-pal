@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MonitoringVisitor"
+            android:exported="false" />
+        <activity
+            android:name=".Visitor"
+            android:exported="false" />
+        <activity
             android:name=".AkunUtama"
             android:exported="false" />
         <activity
