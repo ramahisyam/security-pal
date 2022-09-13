@@ -57,9 +57,22 @@ public class Guest extends AppCompatActivity {
         ArrayList<String> numberList = new ArrayList<>();
 
 //        numberList.add("");
-        numberList.add("Fursan");
-        numberList.add("Meisin");
-        numberList.add("Rama");
+        numberList.add("Company Strategic Planning");
+        numberList.add("Design");
+        numberList.add("Merchant Ship");
+        numberList.add("Warship");
+        numberList.add("Submarine");
+        numberList.add("Marketing and Sales of Bangkap");
+        numberList.add("Maintenance and Repair");
+        numberList.add("General Engineering");
+        numberList.add("Recumalable Sales");
+        numberList.add("Quality Assurance");
+        numberList.add("Supply Chain");
+        numberList.add("Treasury");
+        numberList.add("Accountancy");
+        numberList.add("Information Technology");
+        numberList.add("HCM and Command Media");
+        numberList.add("Area");
 
         calGuest.setOnClickListener(new View.OnClickListener() {
             @Override
