@@ -221,9 +221,4 @@ public class Employee extends AppCompatActivity {
                 })
                 .show();
     }
-
-    public void openMonitoringEmployee() {
-        Intent intent = new Intent(this, MonitoringEmployee.class);
-        startActivity(intent);
-    }
 }
