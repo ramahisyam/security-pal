@@ -17,17 +17,19 @@ import java.util.List;
 public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEmployeeAdapter.MyViewHolder> {
     private Context context;
     private List<PermissionEmployee> list;
+    private OnPermitListener mOnPermitListener;
 
-    public PermissionEmployeeAdapter(Context context, List<PermissionEmployee> list) {
+    public PermissionEmployeeAdapter(Context context, List<PermissionEmployee> list, OnPermitListener onPermitListener) {
         this.context = context;
         this.list = list;
+        this.mOnPermitListener = onPermitListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_employee_permission, parent, false);
-        return new MyViewHolder(itemView);
+        return new MyViewHolder(itemView, mOnPermitListener);
     }
 
     @Override
@@ -53,14 +55,27 @@ public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEm
         return list.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView base, name, nip, status;
-        public MyViewHolder(@NonNull View itemView) {
+        OnPermitListener onPermitListener;
+        public MyViewHolder(@NonNull View itemView, OnPermitListener onPermitListener) {
             super(itemView);
             base = itemView.findViewById(R.id.base_permission);
             name = itemView.findViewById(R.id.employee_name);
             nip = itemView.findViewById(R.id.employee_nip);
             status = itemView.findViewById(R.id.permission_status);
+            this.onPermitListener = onPermitListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onPermitListener.onPermitClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnPermitListener {
+        void onPermitClick(int position);
     }
 }

@@ -1,6 +1,9 @@
 package com.example.securityptpal.model;
 
-public class PermissionEmployee {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class PermissionEmployee implements Parcelable {
     private String base;
     private String name;
     private String nip;
@@ -15,7 +18,7 @@ public class PermissionEmployee {
     public PermissionEmployee() {
     }
 
-    public PermissionEmployee(String base, String name, String nip, String division, String date, String necessity, String place, String timeout, String timeback, String status) {
+    public PermissionEmployee(String base, String name, String nip, String division, String date, String necessity, String place, String timeout, String timeback, String status)  {
         this.base = base;
         this.name = name;
         this.nip = nip;
@@ -27,6 +30,31 @@ public class PermissionEmployee {
         this.timeback = timeback;
         this.status = status;
     }
+
+    protected PermissionEmployee(Parcel in) {
+        base = in.readString();
+        name = in.readString();
+        nip = in.readString();
+        division = in.readString();
+        date = in.readString();
+        necessity = in.readString();
+        place = in.readString();
+        timeout = in.readString();
+        timeback = in.readString();
+        status = in.readString();
+    }
+
+    public static final Creator<PermissionEmployee> CREATOR = new Creator<PermissionEmployee>() {
+        @Override
+        public PermissionEmployee createFromParcel(Parcel in) {
+            return new PermissionEmployee(in);
+        }
+
+        @Override
+        public PermissionEmployee[] newArray(int size) {
+            return new PermissionEmployee[size];
+        }
+    };
 
     public String getBase() {
         return base;
@@ -106,5 +134,24 @@ public class PermissionEmployee {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(base);
+        parcel.writeString(name);
+        parcel.writeString(nip);
+        parcel.writeString(division);
+        parcel.writeString(date);
+        parcel.writeString(necessity);
+        parcel.writeString(place);
+        parcel.writeString(timeout);
+        parcel.writeString(timeback);
+        parcel.writeString(status);
     }
 }

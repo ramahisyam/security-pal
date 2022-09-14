@@ -16,13 +16,19 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".DetailPermissionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmployeePermitActivity"
+            android:exported="false" />
+        <activity
             android:name=".MonitoringVisitor"
             android:exported="false" />
         <activity
             android:name=".Visitor"
             android:exported="false" />
         <activity
-            android:name=".AkunUtama"
+            android:name=".DivisionActivity"
             android:exported="false" />
         <activity
             android:name=".MonitoringBarang"

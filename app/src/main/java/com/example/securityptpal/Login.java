@@ -98,11 +98,11 @@ public class Login extends AppCompatActivity {
                                                                                  Preferences.setDataRole(Login.this, "karyawan");
                                                                                  StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                                                                                  openEmployee();
-                                                                             } else {
+                                                                             } else if (value.getString("role").equals("division")){
                                                                                  Preferences.setDataLogin(Login.this, true);
-                                                                                 Preferences.setDataRole(Login.this, "karyawan't");
+                                                                                 Preferences.setDataRole(Login.this, "division");
                                                                                  StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
-                                                                                 startActivity(new Intent(Login.this, Subcontractor.class));
+                                                                                 startActivity(new Intent(Login.this, DivisionActivity.class));
                                                                                  finish();
                                                                              }
                                                                          }else {
@@ -110,10 +110,10 @@ public class Login extends AppCompatActivity {
                                                                                  Preferences.setDataLogin(Login.this, false);
                                                                                  StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                                                                                  openEmployee();
-                                                                             } else {
+                                                                             } else if (value.getString("role").equals("division")){
                                                                                  Preferences.setDataLogin(Login.this, false);
                                                                                  StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
-                                                                                 startActivity(new Intent(Login.this, Subcontractor.class));
+                                                                                 startActivity(new Intent(Login.this, DivisionActivity.class));
                                                                                  finish();
                                                                              }
                                                                          }
@@ -170,8 +170,8 @@ public class Login extends AppCompatActivity {
             if (Preferences.getDataRole(this).equals("karyawan")) {
                 startActivity(new Intent(this, Employee.class));
                 finish();
-            }else if (Preferences.getDataRole(this).equals("karyawan't")) {
-                startActivity(new Intent(this, Subcontractor.class));
+            }else if (Preferences.getDataRole(this).equals("division")) {
+                startActivity(new Intent(this, DivisionActivity.class));
                 finish();
             }
         }

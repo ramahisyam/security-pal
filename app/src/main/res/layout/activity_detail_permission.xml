@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailPermissionActivity">
+
+    <TextView
+        android:id="@+id/ph_base"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Base :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/permit_base"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Keluar PAL"
+        app:layout_constraintStart_toEndOf="@+id/ph_base"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ph_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_base" />
+
+    <TextView
+        android:id="@+id/permit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rama Hisyam"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_name"
+        app:layout_constraintTop_toBottomOf="@+id/permit_base" />
+
+    <TextView
+        android:id="@+id/ph_nip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NIP :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_name" />
+
+    <TextView
+        android:id="@+id/permit_nip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2210191031"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_nip"
+        app:layout_constraintTop_toBottomOf="@+id/permit_name" />
+
+    <TextView
+        android:id="@+id/ph_division"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Division :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_nip" />
+
+    <TextView
+        android:id="@+id/permit_division"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2210191031"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_division"
+        app:layout_constraintTop_toBottomOf="@+id/permit_nip" />
+
+    <TextView
+        android:id="@+id/ph_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_division" />
+
+    <TextView
+        android:id="@+id/permit_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2210191031"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_date"
+        app:layout_constraintTop_toBottomOf="@+id/permit_division" />
+
+    <TextView
+        android:id="@+id/ph_necessity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Necessity :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_date" />
+
+    <TextView
+        android:id="@+id/permit_necessity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2210191031"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_necessity"
+        app:layout_constraintTop_toBottomOf="@+id/permit_date" />
+
+    <TextView
+        android:id="@+id/ph_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Place :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_necessity" />
+
+    <TextView
+        android:id="@+id/permit_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2210191031"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_place"
+        app:layout_constraintTop_toBottomOf="@+id/permit_necessity" />
+
+    <TextView
+        android:id="@+id/ph_timeout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timeout :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_place" />
+
+    <TextView
+        android:id="@+id/permit_timeout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2210191031"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_timeout"
+        app:layout_constraintTop_toBottomOf="@+id/permit_place" />
+
+    <TextView
+        android:id="@+id/ph_timeback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time back :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_timeout" />
+
+    <TextView
+        android:id="@+id/permit_timeback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2210191031"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_timeback"
+        app:layout_constraintTop_toBottomOf="@+id/permit_timeout" />
+
+    <TextView
+        android:id="@+id/ph_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status :"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ph_timeback" />
+
+    <TextView
+        android:id="@+id/permit_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2210191031"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ph_status"
+        app:layout_constraintTop_toBottomOf="@+id/permit_timeback" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

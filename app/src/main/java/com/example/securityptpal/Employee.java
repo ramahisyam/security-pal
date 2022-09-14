@@ -174,7 +174,7 @@ public class Employee extends AppCompatActivity {
         imgSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout(Employee.this);
+                LogoutAccount.logout(Employee.this);
             }
         });
     }
@@ -211,28 +211,5 @@ public class Employee extends AppCompatActivity {
 
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
-    }
-
-    public static void logout(Activity activity){
-        new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("LOGOUT")
-                .setContentText("Are you sure want to logout ?")
-                .setConfirmText("OK")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        activity.startActivity(new Intent(activity,MainActivity2.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                        Preferences.clearData(activity);
-                        FirebaseAuth.getInstance().signOut();
-                        activity.finish();
-                    }
-                })
-                .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                    }
-                })
-                .show();
     }
 }
