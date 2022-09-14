@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Employee"
-    android:background="@drawable/menuall"
-    android:orientation="vertical">
+    tools:context=".UtamaEmployee"
+    android:background="@drawable/menuall">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -58,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +73,7 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtBase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +102,7 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +130,7 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtNip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,7 +143,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,25 +155,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Division\t\t\t:"
+            android:text="Division\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/spinner_division_employee"
+        <TextView
+            android:id="@+id/edtDivision"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintText="Select Division"/>
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/input_date_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/calendar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_division_layout">
 
@@ -187,31 +187,20 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
-
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/calendar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/calendar"
-        app:layout_constraintBottom_toBottomOf="@+id/input_date_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/input_date_layout" />
 
     <LinearLayout
         android:id="@+id/input_necessity_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -227,7 +216,7 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtNecessity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -240,7 +229,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -256,22 +245,22 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtPlace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/input_timeout_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/img_timeout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_place_layout">
 
@@ -284,34 +273,22 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtTimeout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
-
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/img_timeout"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="pop"
-        android:src="@drawable/timeout"
-        app:layout_constraintBottom_toBottomOf="@+id/input_timeout_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/input_timeout_layout" />
-
     <LinearLayout
         android:id="@+id/input_timein_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/img_timeout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_timeout_layout">
 
@@ -320,52 +297,58 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time back\t:"
+            android:text="Time back\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtTimeback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
-
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/img_timeback"
-        android:onClick="pop2"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/timeback"
+    <LinearLayout
+        android:id="@+id/input_status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/input_timein_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/input_timein_layout" />
-
-    <Button
-        android:id="@+id/btn_send_employee"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_employ"
-        android:text="Send"
-        android:textColor="@color/white"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_timein_layout" />
+        app:layout_constraintTop_toBottomOf="@id/input_timein_layout">
 
-    <Button
-        android:id="@+id/gotoMonitoring"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_monitoring"
-        android:text="Go to Monitoring"
-        android:textColor="@color/white"
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Status\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spinnerUtamaEmployee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintText="Select Status"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_send_employee" />
+        app:layout_constraintTop_toBottomOf="@id/input_status_layout">
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:fontFamily="@font/gabriela"
+            android:background="@drawable/edittext_save"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,15 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UtamaDataEmployee"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaEmployee"
+            android:exported="false" />
+        <activity
+            android:name=".AkunDivisi"
+            android:exported="false" />
+        <activity
             android:name=".MonitoringVisitor"
             android:exported="false" />
         <activity
