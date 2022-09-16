@@ -1,15 +1,26 @@
-package com.example.securityptpal;
+package com.example.securityptpal.employee;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.securityptpal.R;
 import com.example.securityptpal.model.PermissionEmployee;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class DetailPermissionActivity extends AppCompatActivity {
 
+    Spinner spinner;
     private TextView base, name, nip, division, date, necessity, place, timeout, timeback, status;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +48,32 @@ public class DetailPermissionActivity extends AppCompatActivity {
         timeout.setText(permissionEmployee.getTimeout());
         timeback.setText(permissionEmployee.getTimeback());
         status.setText(permissionEmployee.getStatus());
+
+        ArrayList<String> numberList = new ArrayList<>();
+
+        numberList.add("Accepted");
+        numberList.add("Pending");
+        numberList.add("Rejected");
+
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+////                if (i == 0){
+////                    Toast.makeText(getApplicationContext(),
+////                            "Please Select Division",Toast.LENGTH_SHORT).show();
+////                    textView.setText("");
+////                }else{
+////                    String sNumber = adapterView.getItemAtPosition(i).toString();
+////                    textView.setText(sNumber);
+////                }
+//                String sNumber = adapterView.getItemAtPosition(i).toString();
+////                textView.setText(sNumber);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
     }
 }

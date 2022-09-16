@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:gl="http://schemas.android.com/apk/res-auto"
-    tools:context=".DivisionActivity"
+    tools:context=".division.AkunDivisi"
     android:background="@drawable/bgutama">
 
     <androidx.core.widget.NestedScrollView
@@ -42,7 +42,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/sign_out_main_account"
+                    android:id="@+id/sign_out_division_account"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginEnd="16dp"
@@ -283,6 +283,7 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/it_division"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="15dp"

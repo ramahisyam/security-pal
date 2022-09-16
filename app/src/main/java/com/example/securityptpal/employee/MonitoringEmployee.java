@@ -1,4 +1,4 @@
-package com.example.securityptpal;
+package com.example.securityptpal.employee;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,27 +8,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.securityptpal.R;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MonitoringEmployee extends AppCompatActivity implements PermissionEmployeeAdapter.OnPermitListener {
 
@@ -37,8 +32,7 @@ public class MonitoringEmployee extends AppCompatActivity implements PermissionE
     private List<PermissionEmployee> list = new ArrayList<>();
     private PermissionEmployeeAdapter permissionEmployeeAdapter;
     private SearchView searchView;
-    private ImageView imgSignOut;
-    Intent intent;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +40,6 @@ public class MonitoringEmployee extends AppCompatActivity implements PermissionE
         setContentView(R.layout.activity_monitoring_employee);
         recyclerView = findViewById(R.id.rv_monitoring_employee);
         searchView = findViewById(R.id.search_permission);
-        imgSignOut = findViewById(R.id.sign_out_monitoring_permission);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -68,13 +61,6 @@ public class MonitoringEmployee extends AppCompatActivity implements PermissionE
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(permissionEmployeeAdapter);
-
-        imgSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LogoutAccount.logout(MonitoringEmployee.this);
-            }
-        });
     }
 
     private void searchData(String nip) {
@@ -100,8 +86,6 @@ public class MonitoringEmployee extends AppCompatActivity implements PermissionE
                                         document.getString("timeback"),
                                         document.getString("status")
                                 );
-                                intent = new Intent(MonitoringEmployee.this, DetailPermissionActivity.class);
-                                intent.putExtra("permission", permissionEmployee);
                                 list.add(permissionEmployee);
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
@@ -126,6 +110,8 @@ public class MonitoringEmployee extends AppCompatActivity implements PermissionE
 
     @Override
     public void onPermitClick(int position) {
+        intent = new Intent(MonitoringEmployee.this, DetailPermissionActivity.class);
+        intent.putExtra("permission", list.get(position));
         startActivity(intent);
     }
 }

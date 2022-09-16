@@ -16,9 +16,9 @@ public class LogoutAccount {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
+                        FirebaseAuth.getInstance().signOut();
                         activity.startActivity(new Intent(activity,MainActivity2.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         Preferences.clearData(activity);
-                        FirebaseAuth.getInstance().signOut();
                         activity.finish();
                     }
                 })

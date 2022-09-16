@@ -16,10 +16,22 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".DetailPermissionActivity"
+            android:name=".division.DetailExitActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployeePermitActivity"
+            android:name=".division.ExitPermissionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".division.EmployeePermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.UtamaDataEmployee"
+            android:exported="false" />
+        <activity
+            android:name=".employee.DetailPermissionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".division.AkunDivisi"
             android:exported="false" />
         <activity
             android:name=".MonitoringVisitor"
@@ -28,7 +40,7 @@
             android:name=".Visitor"
             android:exported="false" />
         <activity
-            android:name=".DivisionActivity"
+            android:name=".main.AkunUtama"
             android:exported="false" />
         <activity
             android:name=".MonitoringBarang"
@@ -40,7 +52,7 @@
             android:name=".MonitoringComeTooLate"
             android:exported="false" />
         <activity
-            android:name=".MonitoringEmployee"
+            android:name=".employee.MonitoringEmployee"
             android:exported="false" />
         <activity
             android:name=".MonitoringSubcontractor"
@@ -67,7 +79,7 @@
             android:name=".Guest"
             android:exported="true" />
         <activity
-            android:name=".Employee"
+            android:name=".employee.Employee"
             android:exported="true" />
         <activity
             android:name=".MainActivity2"

@@ -1,92 +1,55 @@
-package com.example.securityptpal;
-
-import android.annotation.SuppressLint;
-import android.os.Bundle;
+package com.example.securityptpal.division;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.securityptpal.R;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
+import com.example.securityptpal.employee.DetailPermissionActivity;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EmployeePermitFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class EmployeePermitFragment extends Fragment implements PermissionEmployeeAdapter.OnPermitListener {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class ExitPermissionActivity extends AppCompatActivity implements PermissionEmployeeAdapter.OnPermitListener {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<PermissionEmployee> list = new ArrayList<>();
     private PermissionEmployeeAdapter permissionEmployeeAdapter;
     private SearchView searchView;
-
-    public EmployeePermitFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EmployeePermitFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EmployeePermitFragment newInstance(String param1, String param2) {
-        EmployeePermitFragment fragment = new EmployeePermitFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private Intent intent;
+    private String EXTRA;
+    String userID;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_employee_permit, container, false);
-        recyclerView = view.findViewById(R.id.rv_exit_permission);
-        searchView = view.findViewById(R.id.search_employee_permit);
+        setContentView(R.layout.activity_exit_permission);
+        recyclerView = findViewById(R.id.rv_exit_permission);
+        searchView = findViewById(R.id.search_employee_permit);
 
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -98,23 +61,25 @@ public class EmployeePermitFragment extends Fragment implements PermissionEmploy
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                showData("design");
+                showDataDivision(EXTRA);
                 return false;
             }
         });
 
-        permissionEmployeeAdapter = new PermissionEmployeeAdapter(view.getContext(), list, this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
+        permissionEmployeeAdapter = new PermissionEmployeeAdapter(this, list, this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(permissionEmployeeAdapter);
 
-        showData("design");
-        return view;
+        Bundle extras = getIntent().getExtras();
+        EXTRA = extras.getString(Intent.EXTRA_TEXT);
+
+        showDataDivision(EXTRA);
     }
 
-    private void showData(String division) {
+    private void showDataDivision(String division) {
         db.collection("permission_employee")
                 .whereEqualTo("division", division)
                 .get()
@@ -141,14 +106,14 @@ public class EmployeePermitFragment extends Fragment implements PermissionEmploy
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getContext(), "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ExitPermissionActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ExitPermissionActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -180,20 +145,22 @@ public class EmployeePermitFragment extends Fragment implements PermissionEmploy
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getContext(), "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ExitPermissionActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ExitPermissionActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     @Override
     public void onPermitClick(int position) {
-        Toast.makeText(getContext(), "clicked " + position, Toast.LENGTH_SHORT).show();
+        intent = new Intent(ExitPermissionActivity.this, DetailExitActivity.class);
+        intent.putExtra("EXIT_PERMIT", list.get(position));
+        startActivity(intent);
     }
 }

@@ -4,206 +4,326 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailPermissionActivity">
+    tools:context=".employee.DetailPermissionActivity"
+    android:background="@drawable/menuall">
 
-    <TextView
-        android:id="@+id/ph_base"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="48dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Base :"
+        android:src="@drawable/pens1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/permit_base"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Keluar PAL"
-        app:layout_constraintStart_toEndOf="@+id/ph_base"
+        android:background="@drawable/tekkom1"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ph_name"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Employee\nPermission"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_base" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/permit_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/input_base_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rama Hisyam"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_name"
-        app:layout_constraintTop_toBottomOf="@+id/permit_base" />
-
-    <TextView
-        android:id="@+id/ph_nip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NIP :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_name" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <TextView
-        android:id="@+id/permit_nip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2210191031"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_nip"
-        app:layout_constraintTop_toBottomOf="@+id/permit_name" />
+        <TextView
+            android:id="@+id/base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Base\t\t\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ph_division"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/permit_base"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input_name_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Division :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_nip" />
+        app:layout_constraintTop_toBottomOf="@id/input_base_layout">
 
-    <TextView
-        android:id="@+id/permit_division"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2210191031"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_division"
-        app:layout_constraintTop_toBottomOf="@+id/permit_nip" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Name\t\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ph_date"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/permit_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input_nip_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Date :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_division" />
+        app:layout_constraintTop_toBottomOf="@id/input_name_layout">
 
-    <TextView
-        android:id="@+id/permit_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2210191031"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_date"
-        app:layout_constraintTop_toBottomOf="@+id/permit_division" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="NIP\t\t\t\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ph_necessity"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/permit_nip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input_division_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Necessity :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_date" />
+        app:layout_constraintTop_toBottomOf="@id/input_nip_layout">
 
-    <TextView
-        android:id="@+id/permit_necessity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2210191031"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_necessity"
-        app:layout_constraintTop_toBottomOf="@+id/permit_date" />
+        <TextView
+            android:id="@+id/division_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Division\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ph_place"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/permit_division"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/input_date_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Place :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_necessity" />
+        app:layout_constraintTop_toBottomOf="@id/input_division_layout">
 
-    <TextView
-        android:id="@+id/permit_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2210191031"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_place"
-        app:layout_constraintTop_toBottomOf="@+id/permit_necessity" />
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Date\t\t\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ph_timeout"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/permit_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input_necessity_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Timeout :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_place" />
+        app:layout_constraintTop_toBottomOf="@id/input_date_layout">
 
-    <TextView
-        android:id="@+id/permit_timeout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2210191031"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_timeout"
-        app:layout_constraintTop_toBottomOf="@+id/permit_place" />
+        <TextView
+            android:id="@+id/necessity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Necessity\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ph_timeback"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/permit_necessity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input_place_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Time back :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_timeout" />
+        app:layout_constraintTop_toBottomOf="@id/input_necessity_layout">
 
-    <TextView
-        android:id="@+id/permit_timeback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2210191031"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_timeback"
-        app:layout_constraintTop_toBottomOf="@+id/permit_timeout" />
+        <TextView
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Place\t\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ph_status"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/permit_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/input_timeout_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Status :"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ph_timeback" />
+        app:layout_constraintTop_toBottomOf="@id/input_place_layout">
 
-    <TextView
-        android:id="@+id/permit_status"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/timeout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Time out\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_timeout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/input_timein_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2210191031"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ph_status"
-        app:layout_constraintTop_toBottomOf="@+id/permit_timeback" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_timeout_layout">
+
+        <TextView
+            android:id="@+id/timein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Time back\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_timeback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/input_status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_timein_layout">
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Status\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/permit_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
