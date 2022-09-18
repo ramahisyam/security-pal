@@ -1,9 +1,7 @@
-package com.example.securityptpal;
+package com.example.securityptpal.employee;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -19,18 +17,16 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.securityptpal.LogoutAccount;
+import com.example.securityptpal.R;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Employee extends AppCompatActivity {
     ImageView Calendar, img_timeout, img_timeback, imgSignOut;
@@ -174,7 +170,7 @@ public class Employee extends AppCompatActivity {
         imgSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout(Employee.this);
+                LogoutAccount.logout(Employee.this);
             }
         });
     }
@@ -211,28 +207,5 @@ public class Employee extends AppCompatActivity {
 
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
-    }
-
-    public static void logout(Activity activity){
-        new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("LOGOUT")
-                .setContentText("Are you sure want to logout ?")
-                .setConfirmText("OK")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        activity.startActivity(new Intent(activity,MainActivity2.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                        Preferences.clearData(activity);
-                        FirebaseAuth.getInstance().signOut();
-                        activity.finish();
-                    }
-                })
-                .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                    }
-                })
-                .show();
     }
 }

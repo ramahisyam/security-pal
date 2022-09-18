@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtamaDataEmployee">
+    tools:context=".main.UtamaDataEmployee">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -41,16 +41,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/sign_out_permission"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_logout"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
-
     <LinearLayout
         android:id="@+id/input_base_layout"
         android:layout_width="match_parent"
@@ -64,13 +54,27 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/main_search_permission"
             android:layout_width="330dp"
             android:layout_height="40dp"
-            android:background="@drawable/gradasi"/>
+            android:background="@drawable/gradasi"
+            android:layout_weight="1"/>
         <ImageView
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_baseline_filter_list_24"/>
+            android:src="@drawable/ic_baseline_filter_list_24"
+            android:layout_weight="1"/>
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_main_exit_permit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_base_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

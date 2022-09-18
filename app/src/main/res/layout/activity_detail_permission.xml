@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".employee.Employee"
-    android:background="@drawable/menuall"
-    android:orientation="vertical">
+    tools:context=".employee.DetailPermissionActivity"
+    android:background="@drawable/menuall">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -43,22 +42,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/sign_out_permission"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_logout"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
-
     <LinearLayout
         android:id="@+id/input_base_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,8 +63,8 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtBase"
+        <TextView
+            android:id="@+id/permit_base"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -87,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,8 +92,8 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtName"
+        <TextView
+            android:id="@+id/permit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -116,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,8 +120,8 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtNip"
+        <TextView
+            android:id="@+id/permit_nip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -144,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,25 +145,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Division\t\t\t:"
+            android:text="Division\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/spinner_division_employee"
+        <TextView
+            android:id="@+id/permit_division"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintText="Select Division"/>
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/input_date_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/calendar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_division_layout">
 
@@ -187,31 +177,20 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtDate"
+        <TextView
+            android:id="@+id/permit_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
-
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/calendar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/calendar"
-        app:layout_constraintBottom_toBottomOf="@+id/input_date_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/input_date_layout" />
 
     <LinearLayout
         android:id="@+id/input_necessity_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -227,8 +206,8 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtNecessity"
+        <TextView
+            android:id="@+id/permit_necessity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -240,7 +219,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -256,22 +235,22 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtPlace"
+        <TextView
+            android:id="@+id/permit_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/input_timeout_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/img_timeout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_place_layout">
 
@@ -284,34 +263,22 @@
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtTimeout"
+        <TextView
+            android:id="@+id/permit_timeout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
-
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/img_timeout"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="pop"
-        android:src="@drawable/timeout"
-        app:layout_constraintBottom_toBottomOf="@+id/input_timeout_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/input_timeout_layout" />
-
     <LinearLayout
         android:id="@+id/input_timein_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/img_timeout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_timeout_layout">
 
@@ -320,52 +287,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time back\t:"
+            android:text="Time back\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtTimeback"
+        <TextView
+            android:id="@+id/permit_timeback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
-
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/img_timeback"
-        android:onClick="pop2"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/timeback"
+    <LinearLayout
+        android:id="@+id/input_status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/input_timein_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/input_timein_layout" />
-
-    <Button
-        android:id="@+id/btn_send_employee"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_employ"
-        android:text="Send"
-        android:textColor="@color/white"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_timein_layout" />
+        app:layout_constraintTop_toBottomOf="@id/input_timein_layout">
 
-    <Button
-        android:id="@+id/gotoMonitoring"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_monitoring"
-        android:text="Go to Monitoring"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_send_employee" />
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Status\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/permit_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

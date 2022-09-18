@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtamaEmployee"
+    tools:context=".division.DetailExitActivity"
     android:background="@drawable/menuall">
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="48dp"
@@ -42,16 +41,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/sign_out_permission"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_logout"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
-
     <LinearLayout
         android:id="@+id/input_base_layout"
         android:layout_width="match_parent"
@@ -74,7 +63,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtBase"
+            android:id="@+id/div_exit_permit_base"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -103,7 +92,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtName"
+            android:id="@+id/div_exit_permit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -131,7 +120,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtNip"
+            android:id="@+id/div_exit_permit_nip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -160,7 +149,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtDivision"
+            android:id="@+id/div_exit_permit_division"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -188,7 +177,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtDate"
+            android:id="@+id/div_exit_permit_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -217,7 +206,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtNecessity"
+            android:id="@+id/div_exit_permit_necessity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -246,7 +235,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtPlace"
+            android:id="@+id/div_exit_permit_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -274,7 +263,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtTimeout"
+            android:id="@+id/div_exit_permit_timeout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -302,7 +291,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtTimeback"
+            android:id="@+id/div_exit_permit_timeback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -330,7 +319,7 @@
             android:textSize="16sp" />
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/spinnerUtamaEmployee"
+            android:id="@+id/div_exit_permit_status_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hintText="Select Status"/>

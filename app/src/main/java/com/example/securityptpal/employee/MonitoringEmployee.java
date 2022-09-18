@@ -1,4 +1,4 @@
-package com.example.securityptpal;
+package com.example.securityptpal.employee;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.securityptpal.R;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,13 +25,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonitoringEmployee extends AppCompatActivity {
+public class MonitoringEmployee extends AppCompatActivity implements PermissionEmployeeAdapter.OnPermitListener {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<PermissionEmployee> list = new ArrayList<>();
     private PermissionEmployeeAdapter permissionEmployeeAdapter;
     private SearchView searchView;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class MonitoringEmployee extends AppCompatActivity {
             }
         });
 
-        permissionEmployeeAdapter = new PermissionEmployeeAdapter(getApplicationContext(), list);
+        permissionEmployeeAdapter = new PermissionEmployeeAdapter(getApplicationContext(), list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -104,5 +106,12 @@ public class MonitoringEmployee extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onPermitClick(int position) {
+        intent = new Intent(MonitoringEmployee.this, DetailPermissionActivity.class);
+        intent.putExtra("permission", list.get(position));
+        startActivity(intent);
     }
 }
