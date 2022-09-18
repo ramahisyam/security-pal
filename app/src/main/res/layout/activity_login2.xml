@@ -11,25 +11,6 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:src="@drawable/pens1"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"/>
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="48dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/tekkom1"
-            android:layout_marginTop="10dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <ImageView
@@ -37,7 +18,8 @@
             android:layout_height="100dp"
             android:id="@+id/industri"
             android:src="@drawable/industri"
-            android:layout_marginLeft="155dp">
+            android:layout_marginLeft="155dp"
+            android:layout_marginTop="50dp">
         </ImageView>
         <TextView
             android:layout_width="wrap_content"

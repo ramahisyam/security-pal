@@ -17,7 +17,7 @@ import android.widget.ImageView;
 public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
-    View first, second, third, fourth, five;
+    View third, fourth, five;
     Button lets;
 
     Animation topAnimation, middleAnimation, middle2Animation, bottomAnimation;
@@ -36,15 +36,11 @@ public class SplashScreen extends AppCompatActivity {
         middle2Animation = AnimationUtils.loadAnimation(this,R.anim.middle2_animation);
         bottomAnimation = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
-        first = findViewById(R.id.first);
-        second = findViewById(R.id.second);
         third = findViewById(R.id.third);
         fourth = findViewById(R.id.fourth);
         five = findViewById(R.id.five);
         lets = findViewById(R.id.bt_lets);
 
-        first.setAnimation(topAnimation);
-        second.setAnimation(topAnimation);
         third.setAnimation(middle2Animation);
         fourth.setAnimation(middleAnimation);
         five.setAnimation(middleAnimation);

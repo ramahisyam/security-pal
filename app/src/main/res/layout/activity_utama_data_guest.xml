@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtamaDataEmployee">
-
+    tools:context=".UtamaDataGuest">
+    <?xml version="1.0" encoding="utf-8"?>
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/fredoka_one"
-        android:text="Employee Permission"
+        android:text="Guest Permission"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,5 +52,4 @@
             android:layout_height="40dp"
             android:src="@drawable/ic_baseline_filter_list_24"/>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

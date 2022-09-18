@@ -18,26 +18,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="48dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/pens1"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"/>
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="48dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/tekkom1"
-                        android:layout_marginTop="10dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="105dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginLeft="20dp">
                     <TextView
                         android:layout_width="wrap_content"
@@ -49,7 +30,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp">
+                    android:layout_marginTop="140dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -75,17 +56,20 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/divdesain"
+                                    android:src="@drawable/engineering"
                                     android:layout_marginTop="10dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="20dp"
-                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginBottom="14dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="Design Division"
+                                    android:text="General Engineering Division"
                                     android:textColor="@color/teal_700"
-                                    android:textSize="14sp" />
+                                    android:gravity="center"
+                                    android:textSize="11.5sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
                         <androidx.cardview.widget.CardView
@@ -139,7 +123,7 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/sales"
+                                    android:src="@drawable/maintenance"
                                     android:layout_marginTop="10dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -149,7 +133,7 @@
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="Marketing &amp; Sales of Bangkap Division"
+                                    android:text="Maintenance &amp; Repair Division"
                                     android:textColor="@color/teal_700"
                                     android:textSize="11.5sp"
                                     android:gravity="center"/>
@@ -174,16 +158,19 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/sales1"
+                                    android:src="@drawable/advertisement"
                                     android:layout_marginTop="10dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="13dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginBottom="14dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="Recumalable Sales Division"
+                                    android:text="Ship Marketing &amp; Sales Division"
                                     android:textColor="@color/teal_700"
-                                    android:textSize="14sp"
+                                    android:textSize="11.5sp"
                                     android:gravity="center"/>
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -206,16 +193,16 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/quality"
+                                    android:src="@drawable/chain"
                                     android:layout_marginTop="10dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="Quality Assurance Division"
+                                    android:text="Supply Chain Division"
                                     android:textColor="@color/teal_700"
-                                    android:textSize="13sp"
+                                    android:textSize="14sp"
                                     android:gravity="center"/>
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -238,16 +225,156 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/money"
+                                    android:src="@drawable/sales"
                                     android:layout_marginTop="10dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="15dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginBottom="14dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="Treasury Division"
+                                    android:text="Company Strategic Planning Division"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="11.5sp"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/accounting"
+                                    android:layout_marginTop="10dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Accountancy Division"
                                     android:textColor="@color/teal_700"
                                     android:textSize="14sp"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/risks"
+                                    android:layout_marginTop="10dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Risk Division"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="14sp"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/legal"
+                                    android:layout_marginTop="10dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Legal Division"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="14sp"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/secretary"
+                                    android:layout_marginTop="10dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginBottom="14dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Company Secretary Division"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="11.5sp"
                                     android:gravity="center"/>
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -275,46 +402,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginBottom="14dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
                                     android:fontFamily="@font/gabriela"
                                     android:text="Information Technology Division"
                                     android:textColor="@color/teal_700"
-                                    android:textSize="12sp"
-                                    android:gravity="center"/>
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="15dp"
-                            app:cardPreventCornerOverlap="true"
-                            android:layout_marginLeft="60dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginBottom="10dp">
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:minHeight="100dp"
-                                android:orientation="vertical"
-                                android:gravity="center">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/location"
-                                    android:layout_marginTop="10dp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="20dp"
-                                    android:layout_marginBottom="25dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:fontFamily="@font/gabriela"
-                                    android:text="Area Division"
-                                    android:textColor="@color/teal_700"
-                                    android:textSize="14sp"
+                                    android:textSize="11.5sp"
                                     android:gravity="center"/>
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -343,7 +438,7 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/roadmap"
+                                    android:src="@drawable/boat"
                                     android:layout_marginTop="10dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -353,41 +448,9 @@
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="Company Strategic Planning Division"
-                                    android:textColor="@color/teal_700"
-                                    android:textSize="12sp"
-                                    android:gravity="center"/>
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="15dp"
-                            app:cardPreventCornerOverlap="true"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="60dp"
-                            android:layout_marginBottom="10dp">
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:minHeight="100dp"
-                                android:orientation="vertical"
-                                android:gravity="center">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/boat"
-                                    android:layout_marginTop="10dp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="9dp"
-                                    android:fontFamily="@font/gabriela"
                                     android:text="Merchant Ship Division"
                                     android:textColor="@color/teal_700"
-                                    android:textSize="14sp"
+                                    android:textSize="12sp"
                                     android:gravity="center"/>
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -415,12 +478,12 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
+                                    android:layout_margin="9dp"
                                     android:fontFamily="@font/gabriela"
                                     android:text="Submarine Division"
-                                    android:gravity="center"
                                     android:textColor="@color/teal_700"
-                                    android:textSize="14sp" />
+                                    android:textSize="14sp"
+                                    android:gravity="center"/>
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
                         <androidx.cardview.widget.CardView
@@ -442,7 +505,42 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/engineering"
+                                    android:src="@drawable/productionmanagement"
+                                    android:layout_marginTop="10dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="7dp"
+                                    android:layout_marginBottom="7dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Production Management Office Division"
+                                    android:gravity="center"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="11.5sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/sales1"
                                     android:layout_marginTop="10dp"/>
 
                                 <TextView
@@ -450,43 +548,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="General Engineering Division"
-                                    android:gravity="center"
-                                    android:textColor="@color/teal_700"
-                                    android:textSize="11sp" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="15dp"
-                            app:cardPreventCornerOverlap="true"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="60dp"
-                            android:layout_marginBottom="10dp">
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:minHeight="100dp"
-                                android:orientation="vertical"
-                                android:gravity="center">
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/maintenance"
-                                    android:layout_marginTop="10dp"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="15dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginBottom="20dp"
-                                    android:fontFamily="@font/gabriela"
-                                    android:text="Maintenance &amp; Repair Division"
+                                    android:text="Recumalable Sales Division"
                                     android:gravity="center"
                                     android:textColor="@color/teal_700"
                                     android:textSize="14sp" />
@@ -511,16 +573,15 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/chain"
+                                    android:src="@drawable/location"
                                     android:layout_marginTop="10dp"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="15dp"
-                                    android:layout_marginBottom="15dp"
+                                    android:layout_margin="11dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="Supply Chain Division"
+                                    android:text="Area &amp; K3LH Division"
                                     android:gravity="center"
                                     android:textColor="@color/teal_700"
                                     android:textSize="14sp" />
@@ -545,16 +606,15 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/accounting"
+                                    android:src="@drawable/money"
                                     android:layout_marginTop="10dp"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="15dp"
-                                    android:layout_marginBottom="15dp"
+                                    android:layout_margin="11dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="Accountancy Division"
+                                    android:text="Treasury Division"
                                     android:gravity="center"
                                     android:textColor="@color/teal_700"
                                     android:textSize="14sp" />
@@ -579,21 +639,162 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/advertisement"
+                                    android:src="@drawable/humanresources"
                                     android:layout_marginTop="10dp"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="15dp"
-                                    android:layout_marginBottom="16dp"
+                                    android:layout_marginTop="7dp"
+                                    android:layout_marginBottom="7dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:fontFamily="@font/gabriela"
-                                    android:text="HCM &amp; Command Media Division"
+                                    android:text="Human Capital Management Division"
                                     android:gravity="center"
                                     android:textColor="@color/teal_700"
-                                    android:textSize="13sp" />
+                                    android:textSize="11.5sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/office"
+                                    android:layout_marginTop="10dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="14dp"
+                                    android:layout_marginBottom="14dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Office of The Board Division"
+                                    android:gravity="center"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="11.5sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/quality"
+                                    android:layout_marginTop="10dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="7dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Technology &amp; Quality Assurance Division"
+                                    android:gravity="center"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="11.5sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/control"
+                                    android:layout_marginTop="10dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="14dp"
+                                    android:layout_marginBottom="14dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Internal Control Unit Division"
+                                    android:gravity="center"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="11.5sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="15dp"
+                            app:cardPreventCornerOverlap="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginBottom="10dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:minHeight="100dp"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/divdesain"
+                                    android:layout_marginTop="10dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="11dp"
+                                    android:fontFamily="@font/gabriela"
+                                    android:text="Design Division"
+                                    android:gravity="center"
+                                    android:textColor="@color/teal_700"
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 

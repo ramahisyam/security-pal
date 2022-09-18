@@ -16,6 +16,18 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UtamaDataGuest"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaGuest"
+            android:exported="false" />
+        <activity
+            android:name=".Utama_Data_Cometoolate"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaCometoolate"
+            android:exported="false" />
+        <activity
             android:name=".UtamaDataEmployee"
             android:exported="false" />
         <activity

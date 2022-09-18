@@ -8,20 +8,6 @@
         android:layout_height="80dp">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="50dp"
-            android:src="@drawable/pens1"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="23dp"/>
-
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="23dp"
-            android:background="@drawable/tekkom1" />
-
-        <ImageView
             android:id="@+id/bt_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

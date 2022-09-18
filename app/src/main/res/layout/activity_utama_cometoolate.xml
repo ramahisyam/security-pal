@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtamaEmployee"
+    tools:context=".UtamaCometoolate"
     android:background="@drawable/menuall">
 
     <TextView
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <LinearLayout
-        android:id="@+id/input_base_layout"
+        android:id="@+id/input_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -45,51 +45,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <TextView
-            android:id="@+id/base"
+            android:id="@+id/nameLate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Base\t\t\t\t\t\t\t:"
+            android:text="Name                    :"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtBase"
-            android:layout_width="match_parent"
+            android:id="@+id/edtNameLate"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/input_name_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_base_layout">
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Name\t\t\t\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/edtName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
-    </LinearLayout>
-
     <LinearLayout
         android:id="@+id/input_nip_layout"
         android:layout_width="match_parent"
@@ -100,26 +70,26 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_name_layout">
+        app:layout_constraintTop_toBottomOf="@+id/input_name_layout">
 
         <TextView
+            android:id="@+id/nipLate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="NIP\t\t\t\t\t\t\t\t:"
+            android:text="NIP                        :"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtNip"
-            android:layout_width="match_parent"
+            android:id="@+id/edtNipLate"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
     </LinearLayout>
-
     <LinearLayout
-        android:id="@+id/input_division_layout"
+        android:id="@+id/input_divLate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -128,26 +98,26 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_nip_layout">
+        app:layout_constraintTop_toBottomOf="@+id/input_nip_layout">
 
         <TextView
-            android:id="@+id/division_employee"
+            android:id="@+id/divLate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Division\t\t\t\t:"
+            android:text="Division                :"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtDivision"
+            android:id="@+id/edtDivisionLate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/input_date_layout"
+        android:id="@+id/input_latereason_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -156,27 +126,25 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_division_layout">
-
+        app:layout_constraintTop_toBottomOf="@+id/input_divLate_layout">
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/lateReason"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Date\t\t\t\t\t\t\t:"
+            android:text="Late reason         :"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtDate"
-            android:layout_width="match_parent"
+            android:id="@+id/edtLateReason"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
     </LinearLayout>
-
     <LinearLayout
-        android:id="@+id/input_necessity_layout"
+        android:id="@+id/input_picturelate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -185,27 +153,18 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_date_layout">
-
+        app:layout_constraintTop_toBottomOf="@+id/input_latereason_layout">
         <TextView
-            android:id="@+id/necessity"
+            android:id="@+id/takepictLate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Necessity\t\t:"
+            android:text="Take a picture     :"
             android:textColor="#174887"
             android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/edtNecessity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
     </LinearLayout>
-
     <LinearLayout
-        android:id="@+id/input_place_layout"
+        android:id="@+id/input_imageviewlate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -214,26 +173,16 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_necessity_layout">
-
-        <TextView
-            android:id="@+id/place"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Place\t\t\t\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/edtPlace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/input_picturelate_layout">
+        <com.zolad.zoominimageview.ZoomInImageView
+            android:id="@+id/imageViewLate"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/pict" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/input_timeout_layout"
+        android:id="@+id/input_datelate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -242,93 +191,94 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_place_layout">
-
+        app:layout_constraintTop_toBottomOf="@+id/input_imageviewlate_layout">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="21dp"
+            android:src="@drawable/date" />
         <TextView
-            android:id="@+id/timeout"
+            android:id="@+id/txtDateLate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Time out\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/edtTimeout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:layout_marginLeft="5dp"
+            android:text="Date"
+            android:textColor="@color/black"
+            android:textSize="13dp" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/input_timein_layout"
+        android:id="@+id/input_phonelate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_timeout_layout">
-
+        app:layout_constraintTop_toBottomOf="@+id/input_datelate_layout">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/hp" />
         <TextView
-            android:id="@+id/timein"
+            android:id="@+id/txtDeviceLate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Time back\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/edtTimeback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="Phone"
+            android:textSize="13dp"
+            android:textColor="@color/black" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/input_status_layout"
+        android:id="@+id/input_latitudelate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_timein_layout">
-
+        app:layout_constraintTop_toBottomOf="@+id/input_phonelate_layout">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/loc" />
         <TextView
-            android:id="@+id/status"
+            android:id="@+id/txtLatitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Status\t\t\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
-
-        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/spinnerUtamaEmployee"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hintText="Select Status"/>
+            android:layout_marginLeft="5dp"
+            android:text="Latitude"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            android:textSize="13dp"/>
     </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/input_longloclate_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_status_layout">
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:text="Save"
-            android:textColor="@color/white"
-            android:fontFamily="@font/gabriela"
-            android:background="@drawable/edittext_save"/>
+        app:layout_constraintTop_toBottomOf="@+id/input_latitudelate_layout">
+        <TextView
+            android:id="@+id/txtLongitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude"
+            android:textColor="@color/black"
+            android:textSize="13dp" />
+        <TextView
+            android:id="@+id/txtLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:textSize="13dp"
+            android:textColor="@color/black" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

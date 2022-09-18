@@ -96,22 +96,28 @@ public class Subcontractor extends AppCompatActivity {
         ArrayList<String> numberList = new ArrayList<>();
 
 //        numberList.add("");
-        numberList.add("Company Strategic Planning");
-        numberList.add("Design");
+        numberList.add("General Engineering");
         numberList.add("Merchant Ship");
         numberList.add("Warship");
         numberList.add("Submarine");
-        numberList.add("Marketing and Sales of Bangkap");
-        numberList.add("Maintenance and Repair");
-        numberList.add("General Engineering");
+        numberList.add("Maintenance & Repair");
+        numberList.add("Production Management Office");
+        numberList.add("Ship Marketing & Sales");
         numberList.add("Recumalable Sales");
-        numberList.add("Quality Assurance");
         numberList.add("Supply Chain");
+        numberList.add("Area & K3LH");
+        numberList.add("Company Strategic Planning");
         numberList.add("Treasury");
         numberList.add("Accountancy");
+        numberList.add("Human Capital Management");
+        numberList.add("Risk");
+        numberList.add("Office of The Board");
+        numberList.add("Legal");
+        numberList.add("Technology & Quality Assurance");
+        numberList.add("Company Secretary");
+        numberList.add("Internal Control Unit");
         numberList.add("Information Technology");
-        numberList.add("HCM and Command Media");
-        numberList.add("Area");
+        numberList.add("Design");
 
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
