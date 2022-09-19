@@ -77,8 +77,8 @@
         <entry key="..\:/Users/Ku-Rama/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/edittext_employ.xml" value="0.2985" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_logout.xml" value="0.2985" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_akun_divisi.xml" value="0.21927083333333333" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_akun_utama.xml" value="0.34479166666666666" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_akun_divisi.xml" value="0.67" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_akun_utama.xml" value="0.4136008918617614" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_barang.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_exit.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_permission.xml" value="0.34479166666666666" />
@@ -95,7 +95,9 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/fragment_employee_exit.xml" value="0.15729166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/fragment_employee_late.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/fragment_employee_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/main_toolbar.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_employee_permission.xml" value="0.34479166666666666" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_late_permission.xml" value="0.163671875" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/top_menu_permission_employee.xml" value="0.34375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_addperson.xml" value="0.2203125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_delete.xml" value="0.18072916666666666" />
