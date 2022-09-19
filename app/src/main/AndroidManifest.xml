@@ -16,11 +16,10 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-<<<<<<< HEAD
             android:name=".division.DetailExitActivity"
-=======
-            android:name=".UtamaDataGuest"
             android:exported="false" />
+        <activity android:name=".UtamaDataGuest"
+            android:exported="false"/>
         <activity
             android:name=".UtamaGuest"
             android:exported="false" />
@@ -31,17 +30,13 @@
             android:name=".UtamaCometoolate"
             android:exported="false" />
         <activity
-            android:name=".UtamaDataEmployee"
->>>>>>> fb6509919ee4f60de37ea7c5da34717998b0a063
+            android:name=".main.UtamaDataEmployee"
             android:exported="false" />
         <activity
             android:name=".division.ExitPermissionActivity"
             android:exported="false" />
         <activity
             android:name=".division.EmployeePermitActivity"
-            android:exported="false" />
-        <activity
-            android:name=".main.UtamaDataEmployee"
             android:exported="false" />
         <activity
             android:name=".employee.DetailPermissionActivity"
