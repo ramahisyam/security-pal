@@ -16,10 +16,10 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-<<<<<<< HEAD
-            android:name=".division.DetailExitActivity"
-=======
             android:name=".UtamaDataGuest"
+            android:exported="false" />
+        <activity
+            android:name=".division.DetailExitActivity"
             android:exported="false" />
         <activity
             android:name=".UtamaGuest"
@@ -32,7 +32,6 @@
             android:exported="false" />
         <activity
             android:name=".UtamaDataEmployee"
->>>>>>> fb6509919ee4f60de37ea7c5da34717998b0a063
             android:exported="false" />
         <activity
             android:name=".division.ExitPermissionActivity"
