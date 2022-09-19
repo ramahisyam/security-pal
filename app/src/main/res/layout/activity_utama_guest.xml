@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".division.DetailExitActivity"
-    android:background="@drawable/menuall">
+    tools:context=".UtamaGuest">
 
     <TextView
         android:id="@+id/textView"
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/fredoka_one"
-        android:text="Employee Permission"
+        android:text="Guest Permission"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20dp"
@@ -22,8 +21,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/sign_out_permission"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_logout"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
     <LinearLayout
-        android:id="@+id/input_base_layout"
+        android:id="@+id/input_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -32,36 +41,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <TextView
-            android:id="@+id/base"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Base\t\t\t\t\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/div_exit_permit_base"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/input_name_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_base_layout">
+        app:layout_constraintTop_toBottomOf="@id/textView">
 
         <TextView
             android:id="@+id/name"
@@ -73,7 +53,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/div_exit_permit_name"
+            android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -93,15 +73,16 @@
         app:layout_constraintTop_toBottomOf="@id/input_name_layout">
 
         <TextView
+            android:id="@+id/companyGuest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="NIP\t\t\t\t\t\t\t\t:"
+            android:text="Company\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/div_exit_permit_nip"
+            android:id="@+id/edtCompanyGuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -121,16 +102,16 @@
         app:layout_constraintTop_toBottomOf="@id/input_nip_layout">
 
         <TextView
-            android:id="@+id/division_employee"
+            android:id="@+id/noHPGuest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Division\t\t\t\t:"
+            android:text="Phone\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/div_exit_permit_division"
+            android:id="@+id/edtNoHPGuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -149,16 +130,16 @@
         app:layout_constraintTop_toBottomOf="@id/input_division_layout">
 
         <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Date\t\t\t\t\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
+        android:id="@+id/divisiGuest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="Division\t\t\t\t:"
+        android:textColor="#174887"
+        android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/div_exit_permit_date"
+            android:id="@+id/edtDivisionGuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -178,16 +159,16 @@
         app:layout_constraintTop_toBottomOf="@id/input_date_layout">
 
         <TextView
-            android:id="@+id/necessity"
+            android:id="@+id/picSubcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Necessity\t\t:"
+            android:text="PIC\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/div_exit_permit_necessity"
+            android:id="@+id/edtPICSubcon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -207,23 +188,22 @@
         app:layout_constraintTop_toBottomOf="@id/input_necessity_layout">
 
         <TextView
-            android:id="@+id/place"
+            android:id="@+id/necessityGuest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Place\t\t\t\t\t\t:"
+            android:text="Necessity\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
-
         <TextView
-            android:id="@+id/div_exit_permit_place"
+            android:id="@+id/edtNecessityGuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/input_timeout_layout"
+        android:id="@+id/input_dateguest_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -235,16 +215,16 @@
         app:layout_constraintTop_toBottomOf="@id/input_place_layout">
 
         <TextView
-            android:id="@+id/timeout"
+            android:id="@+id/dateGuest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time out\t\t\t:"
+            android:text="Date\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/div_exit_permit_timeout"
+            android:id="@+id/edtDateGuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -260,26 +240,26 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_timeout_layout">
+        app:layout_constraintTop_toBottomOf="@id/input_dateguest_layout">
 
         <TextView
-            android:id="@+id/timein"
+            android:id="@+id/timeinGuest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time back\t\t:"
+            android:text="Time in\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/div_exit_permit_timeback"
+            android:id="@+id/edtTimeinGuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
             android:textColor="#000000" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/input_status_layout"
+        android:id="@+id/input_timeout_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -291,6 +271,35 @@
         app:layout_constraintTop_toBottomOf="@id/input_timein_layout">
 
         <TextView
+            android:id="@+id/timeoutGuest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Time out\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/edtTimeoutGuest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/input_status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_timeout_layout">
+
+        <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -300,7 +309,7 @@
             android:textSize="16sp" />
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/div_exit_permit_status_editable"
+            android:id="@+id/spinnerUtamaEmployee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hintText="Select Status"/>

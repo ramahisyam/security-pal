@@ -9,32 +9,6 @@
     android:background="@drawable/splash">
 
     <View
-        android:id="@+id/first"
-        android:layout_width="48dp"
-        android:layout_height="50dp"
-        android:background="@drawable/pens"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/second"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        tools:ignore="MissingConstraints" />
-
-    <View
-        android:id="@+id/second"
-        android:layout_width="48dp"
-        android:layout_height="50dp"
-        android:background="@drawable/tekkom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        tools:ignore="MissingConstraints" />
-
-    <View
         android:id="@+id/third"
         android:layout_width="415dp"
         android:layout_height="220dp"
