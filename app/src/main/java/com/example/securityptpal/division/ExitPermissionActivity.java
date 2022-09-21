@@ -100,7 +100,8 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                                         document.getString("place"),
                                         document.getString("timeout"),
                                         document.getString("timeback"),
-                                        document.getString("status")
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
                                 );
                                 list.add(permissionEmployee);
                             }
@@ -139,7 +140,8 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                                         document.getString("place"),
                                         document.getString("timeout"),
                                         document.getString("timeback"),
-                                        document.getString("status")
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
                                 );
                                 list.add(permissionEmployee);
                             }
@@ -160,6 +162,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
     @Override
     public void onPermitClick(int position) {
         intent = new Intent(ExitPermissionActivity.this, DetailExitActivity.class);
+//        db.collection("permission_employee").document().getId()
         intent.putExtra("EXIT_PERMIT", list.get(position));
         startActivity(intent);
     }
