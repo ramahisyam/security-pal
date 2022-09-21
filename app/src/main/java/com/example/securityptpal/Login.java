@@ -113,6 +113,12 @@ public class Login extends AppCompatActivity {
                                                                                  StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                                                                                  startActivity(new Intent(Login.this, AkunUtama.class));
                                                                                  finish();
+                                                                             } else if (value.getString("role").equals("security")){
+                                                                                 Preferences.setDataLogin(Login.this, true);
+                                                                                 Preferences.setDataRole(Login.this, "main");
+                                                                                 StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                                                                                 startActivity(new Intent(Login.this, AkunUtama.class));
+                                                                                 finish();
                                                                              }
                                                                          }else {
                                                                              if (value.getString("role").equals("employee")) {
@@ -125,6 +131,11 @@ public class Login extends AppCompatActivity {
                                                                                  startActivity(new Intent(Login.this, AkunDivisi.class));
                                                                                  finish();
                                                                              } else if (value.getString("role").equals("main")){
+                                                                                 Preferences.setDataLogin(Login.this, false);
+                                                                                 StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                                                                                 startActivity(new Intent(Login.this, AkunUtama.class));
+                                                                                 finish();
+                                                                             } else if (value.getString("role").equals("security")){
                                                                                  Preferences.setDataLogin(Login.this, false);
                                                                                  StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                                                                                  startActivity(new Intent(Login.this, AkunUtama.class));
@@ -188,6 +199,9 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(this, AkunDivisi.class));
                 finish();
             }else if (Preferences.getDataRole(this).equals("main")) {
+                startActivity(new Intent(this, AkunUtama.class));
+                finish();
+            } else if (Preferences.getDataRole(this).equals("security")) {
                 startActivity(new Intent(this, AkunUtama.class));
                 finish();
             }

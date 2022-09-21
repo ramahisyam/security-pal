@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtamaGuest"
+    tools:context=".UtamaVisitor"
     android:background="@drawable/menuall">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/fredoka_one"
-        android:text="Guest Permission"
+        android:text="Visitor Permission"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20dp"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/textView">
 
         <TextView
-            android:id="@+id/nameG"
+            android:id="@+id/nameV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -54,7 +54,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtNameG"
+            android:id="@+id/edtNameV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@id/input_name_layout">
 
         <TextView
-            android:id="@+id/companyGuest"
+            android:id="@+id/companyV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -83,7 +83,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtCompanyGuest"
+            android:id="@+id/edtCompanyV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -103,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@id/input_nip_layout">
 
         <TextView
-            android:id="@+id/noHPGuest"
+            android:id="@+id/noHPV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -112,7 +112,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtNoHPGuest"
+            android:id="@+id/edtNoHPV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -131,16 +131,16 @@
         app:layout_constraintTop_toBottomOf="@id/input_division_layout">
 
         <TextView
-        android:id="@+id/divisiGuest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="Division\t\t\t\t:"
-        android:textColor="#174887"
-        android:textSize="16sp" />
+            android:id="@+id/divisiV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Division\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtDivisionGuest"
+            android:id="@+id/edtDivisionV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -160,7 +160,7 @@
         app:layout_constraintTop_toBottomOf="@id/input_date_layout">
 
         <TextView
-            android:id="@+id/picG"
+            android:id="@+id/picV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -169,7 +169,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtPICG"
+            android:id="@+id/edtPICV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -189,7 +189,7 @@
         app:layout_constraintTop_toBottomOf="@id/input_necessity_layout">
 
         <TextView
-            android:id="@+id/necessityG"
+            android:id="@+id/necessityV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -197,7 +197,7 @@
             android:textColor="#174887"
             android:textSize="16sp" />
         <TextView
-            android:id="@+id/edtNecessityG"
+            android:id="@+id/edtNecessityV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -216,7 +216,7 @@
         app:layout_constraintTop_toBottomOf="@id/input_place_layout">
 
         <TextView
-            android:id="@+id/dateGuest"
+            android:id="@+id/dateV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -225,7 +225,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtDateGuest"
+            android:id="@+id/edtDateV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -244,7 +244,7 @@
         app:layout_constraintTop_toBottomOf="@id/input_dateguest_layout">
 
         <TextView
-            android:id="@+id/timeinGuest"
+            android:id="@+id/timeinV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -253,7 +253,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtTimeinGuest"
+            android:id="@+id/edtTimeinV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -272,7 +272,7 @@
         app:layout_constraintTop_toBottomOf="@id/input_timein_layout">
 
         <TextView
-            android:id="@+id/timeoutGuest"
+            android:id="@+id/timeoutV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -281,7 +281,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtTimeoutGuest"
+            android:id="@+id/edtTimeoutV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -301,7 +301,7 @@
         app:layout_constraintTop_toBottomOf="@id/input_timeout_layout">
 
         <TextView
-            android:id="@+id/statusUtamaG"
+            android:id="@+id/statusV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -310,7 +310,7 @@
             android:textSize="16sp" />
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/spinnerUtamaG"
+            android:id="@+id/spinnerUtamaV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hintText="Select Status"/>
@@ -323,7 +323,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_status_layout">
         <Button
-            android:id="@+id/saveutamaG"
+            android:id="@+id/saveUtamaV"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:text="Save"
