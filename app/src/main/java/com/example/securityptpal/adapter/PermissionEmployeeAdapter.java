@@ -37,15 +37,15 @@ public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEm
         holder.base.setText(list.get(position).getBase());
         holder.name.setText(list.get(position).getName());
         holder.nip.setText(list.get(position).getNip());
-        if (list.get(position).getStatus().equals("accepted")){
-            holder.status.setText(list.get(position).getStatus());
+        if (list.get(position).getDivision_approval().equals("Accepted") && list.get(position).getCenter_approval().equals("Accepted")){
+            holder.status.setText("Accepted");
             holder.status.setTextColor(holder.status.getResources().getColor(R.color.main_green_color));
-        } else if (list.get(position).getStatus().equals("pending")) {
-            holder.status.setText(list.get(position).getStatus());
-            holder.status.setTextColor(holder.status.getResources().getColor(R.color.main_orange_color));
-        } else {
-            holder.status.setText(list.get(position).getStatus());
+        } else if (list.get(position).getDivision_approval().equals("Rejected") || list.get(position).getCenter_approval().equals("Rejected")) {
+            holder.status.setText("Rejected");
             holder.status.setTextColor(holder.status.getResources().getColor(R.color.cardColorRed));
+        } else {
+            holder.status.setText("Pending");
+            holder.status.setTextColor(holder.status.getResources().getColor(R.color.main_orange_color));
         }
 
     }

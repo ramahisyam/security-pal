@@ -2,10 +2,7 @@ package com.example.securityptpal.employee;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.securityptpal.R;
@@ -13,12 +10,9 @@ import com.example.securityptpal.model.PermissionEmployee;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
-
 public class DetailPermissionActivity extends AppCompatActivity {
 
-    Spinner spinner;
-    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, status;
+    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, division_approve, center_approve;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -35,7 +29,8 @@ public class DetailPermissionActivity extends AppCompatActivity {
         place = findViewById(R.id.permit_place);
         timeout = findViewById(R.id.permit_timeout);
         timeback = findViewById(R.id.permit_timeback);
-        status = findViewById(R.id.permit_status);
+        division_approve = findViewById(R.id.division_approval_status);
+        center_approve = findViewById(R.id.center_approval);
 
         PermissionEmployee permissionEmployee = getIntent().getParcelableExtra("permission");
         base.setText(permissionEmployee.getBase());
@@ -47,33 +42,26 @@ public class DetailPermissionActivity extends AppCompatActivity {
         place.setText(permissionEmployee.getPlace());
         timeout.setText(permissionEmployee.getTimeout());
         timeback.setText(permissionEmployee.getTimeback());
-        status.setText(permissionEmployee.getStatus());
+        if (permissionEmployee.getDivision_approval().equals("Pending")){
+            division_approve.setText(permissionEmployee.getDivision_approval());
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_orange_color));
+        } else if (permissionEmployee.getDivision_approval().equals("Accepted")){
+            division_approve.setText(permissionEmployee.getDivision_approval());
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_green_color));
+        } else {
+            division_approve.setText(permissionEmployee.getDivision_approval());
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.cardColorRed));
+        }
 
-        ArrayList<String> numberList = new ArrayList<>();
-
-        numberList.add("Accepted");
-        numberList.add("Pending");
-        numberList.add("Rejected");
-
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-////                if (i == 0){
-////                    Toast.makeText(getApplicationContext(),
-////                            "Please Select Division",Toast.LENGTH_SHORT).show();
-////                    textView.setText("");
-////                }else{
-////                    String sNumber = adapterView.getItemAtPosition(i).toString();
-////                    textView.setText(sNumber);
-////                }
-//                String sNumber = adapterView.getItemAtPosition(i).toString();
-////                textView.setText(sNumber);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
+        if (permissionEmployee.getCenter_approval().equals("Pending")){
+            center_approve.setText(permissionEmployee.getCenter_approval());
+            center_approve.setTextColor(center_approve.getResources().getColor(R.color.main_orange_color));
+        } else if (permissionEmployee.getCenter_approval().equals("Accepted")){
+            center_approve.setText(permissionEmployee.getCenter_approval());
+            center_approve.setTextColor(center_approve.getResources().getColor(R.color.main_green_color));
+        } else {
+            center_approve.setText(permissionEmployee.getCenter_approval());
+            center_approve.setTextColor(center_approve.getResources().getColor(R.color.cardColorRed));
+        }
     }
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.securityptpal.division.AkunDivisi;
 import com.example.securityptpal.employee.Employee;
 import com.example.securityptpal.main.AkunUtama;
+import com.example.securityptpal.main.UtamaDataEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -115,9 +116,9 @@ public class Login extends AppCompatActivity {
                                                                                  finish();
                                                                              } else if (value.getString("role").equals("security")){
                                                                                  Preferences.setDataLogin(Login.this, true);
-                                                                                 Preferences.setDataRole(Login.this, "main");
+                                                                                 Preferences.setDataRole(Login.this, "security");
                                                                                  StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
-                                                                                 startActivity(new Intent(Login.this, AkunUtama.class));
+                                                                                 startActivity(new Intent(Login.this, UtamaDataEmployee.class));
                                                                                  finish();
                                                                              }
                                                                          }else {
@@ -138,7 +139,7 @@ public class Login extends AppCompatActivity {
                                                                              } else if (value.getString("role").equals("security")){
                                                                                  Preferences.setDataLogin(Login.this, false);
                                                                                  StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_SHORT,R.style.logsuccess).show();
-                                                                                 startActivity(new Intent(Login.this, AkunUtama.class));
+                                                                                 startActivity(new Intent(Login.this, UtamaDataEmployee.class));
                                                                                  finish();
                                                                              }
                                                                          }
@@ -202,7 +203,7 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(this, AkunUtama.class));
                 finish();
             } else if (Preferences.getDataRole(this).equals("security")) {
-                startActivity(new Intent(this, AkunUtama.class));
+                startActivity(new Intent(this, UtamaDataEmployee.class));
                 finish();
             }
         }

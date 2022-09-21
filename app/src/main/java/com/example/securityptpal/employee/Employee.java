@@ -147,7 +147,8 @@ public class Employee extends AppCompatActivity {
                         place,
                         timeout,
                         timeback,
-                        "pending"
+                        "Pending",
+                        "Pending"
                 );
                 db.collection("permission_employee").add(permissionEmployee).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
