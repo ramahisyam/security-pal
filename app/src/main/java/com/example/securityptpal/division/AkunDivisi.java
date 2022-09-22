@@ -13,7 +13,7 @@ import com.example.securityptpal.R;
 
 public class AkunDivisi extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE_DESIGN = "design";
+    public static final String EXTRA_MESSAGE_DESIGN = "Design";
     public static final String EXTRA_MESSAGE_IT = "Information Technology";
     private ImageView imgSignOut;
     private CardView cvDesignDiv, cvITDiv;

@@ -138,6 +138,7 @@ public class Employee extends AppCompatActivity {
                 division = spinner.getSelectedItem().toString();
 
                 PermissionEmployee permissionEmployee = new PermissionEmployee(
+                        db.collection("permission_employee").document().getId(),
                         base,
                         name,
                         nip,

@@ -75,6 +75,7 @@ public class MonitoringEmployee extends AppCompatActivity implements PermissionE
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                        document.getId(),
                                         document.getString("base"),
                                         document.getString("name"),
                                         document.getString("nip"),
