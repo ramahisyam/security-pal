@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,79 +29,93 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.securityptpal.model.PermissionLate;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.zolad.zoominimageview.ZoomInImageView;
 
-import java.io.FileNotFoundException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 public class CometooLate extends AppCompatActivity {
 
     private String[] PERMISSIONS;
-    Button monitoring, btnPicture;
+    Button monitoring, btnPicture, btnSubmit;
+    EditText edtName, edtNip, edtReason;
     Spinner spinner;
     ZoomInImageView imageView;
     TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation;
     Build build;
-    String information;
+    String device, name, nip, division, reason, image, date, latitude, longitude, location;
     FusedLocationProviderClient fusedLocationProviderClient;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cometoo_late);
 
-        spinner = findViewById(R.id.spinner);
-        monitoring = findViewById(R.id.gotoMonitoring);
+        spinner = findViewById(R.id.division_late);
+        monitoring = findViewById(R.id.late_monitoring);
         btnPicture = findViewById(R.id.buttonPicture);
-        imageView = findViewById(R.id.imageViewLate);
-        txtDate = findViewById(R.id.txtDateLate);
-        txtDevice = findViewById(R.id.txtDeviceLate);
-        txtLatitude = (TextView) findViewById(R.id.txtLatitude);
-        txtLongitude = (TextView) findViewById(R.id.txtLongitude);
-        txtLocation = (TextView) findViewById(R.id.txtLocation);
+        btnSubmit = (Button) findViewById(R.id.submitLate);
+        imageView = findViewById(R.id.late_evidence);
+        edtName = findViewById(R.id.late_name);
+        edtNip = findViewById(R.id.late_nip);
+        edtReason = findViewById(R.id.late_reason);
+        txtDate = findViewById(R.id.late_date);
+        txtDevice = findViewById(R.id.late_device);
+        txtLatitude = (TextView) findViewById(R.id.late_latitude);
+        txtLongitude = (TextView) findViewById(R.id.late_longitude);
+        txtLocation = (TextView) findViewById(R.id.late_location);
 
         PERMISSIONS = new String[]{
                 Manifest.permission.CAMERA,
                 Manifest.permission.ACCESS_FINE_LOCATION
         };
 
-        ArrayList<String> numberList = new ArrayList<>();
+        ArrayList<String> divisionList = new ArrayList<>();
 
-        numberList.add("General Engineering");
-        numberList.add("Merchant Ship");
-        numberList.add("Warship");
-        numberList.add("Submarine");
-        numberList.add("Maintenance & Repair");
-        numberList.add("Production Management Office");
-        numberList.add("Ship Marketing & Sales");
-        numberList.add("Recumalable Sales");
-        numberList.add("Supply Chain");
-        numberList.add("Area & K3LH");
-        numberList.add("Company Strategic Planning");
-        numberList.add("Treasury");
-        numberList.add("Accountancy");
-        numberList.add("Human Capital Management");
-        numberList.add("Risk");
-        numberList.add("Office of The Board");
-        numberList.add("Legal");
-        numberList.add("Technology & Quality Assurance");
-        numberList.add("Company Secretary");
-        numberList.add("Internal Control Unit");
-        numberList.add("Information Technology");
-        numberList.add("Design");
+        divisionList.add("General Engineering");
+        divisionList.add("Merchant Ship");
+        divisionList.add("Warship");
+        divisionList.add("Submarine");
+        divisionList.add("Maintenance & Repair");
+        divisionList.add("Production Management Office");
+        divisionList.add("Ship Marketing & Sales");
+        divisionList.add("Recumalable Sales");
+        divisionList.add("Supply Chain");
+        divisionList.add("Area & K3LH");
+        divisionList.add("Company Strategic Planning");
+        divisionList.add("Treasury");
+        divisionList.add("Accountancy");
+        divisionList.add("Human Capital Management");
+        divisionList.add("Risk");
+        divisionList.add("Office of The Board");
+        divisionList.add("Legal");
+        divisionList.add("Technology & Quality Assurance");
+        divisionList.add("Company Secretary");
+        divisionList.add("Internal Control Unit");
+        divisionList.add("Information Technology");
+        divisionList.add("Design");
 
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +125,7 @@ public class CometooLate extends AppCompatActivity {
         });
 
         spinner.setAdapter(new ArrayAdapter<>(CometooLate.this,
-                android.R.layout.simple_spinner_dropdown_item, numberList));
+                android.R.layout.simple_spinner_dropdown_item, divisionList));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -143,6 +159,19 @@ public class CometooLate extends AppCompatActivity {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         saveinfo();
+
+        btnSubmit.setOnClickListener(view -> {
+            name = edtName.getText().toString();
+            nip = edtNip.getText().toString();
+            division = spinner.getSelectedItem().toString();
+            reason = edtReason.getText().toString();
+            date = txtDate.getText().toString();
+            device = txtDevice.getText().toString();
+            latitude = txtLatitude.getText().toString();
+            longitude = txtLongitude.getText().toString();
+            location = txtLocation.getText().toString();
+            upload(name, nip, division, reason, date, device, latitude, longitude, location);
+        });
     }
 
     private boolean hasPermissions(Context context, String... PERMISSIONS){
@@ -194,7 +223,7 @@ public class CometooLate extends AppCompatActivity {
     }
 
     private void saveinfo(){
-        information = build.MODEL;
+        device = build.MODEL;
     }
 
     @Override
@@ -222,21 +251,96 @@ public class CometooLate extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(captureImage);
+            final Bundle extras = data.getExtras();
+            Thread thread = new Thread(() -> {
+                Bitmap bitmap = (Bitmap) extras.get("data");
+                imageView.post(() -> {
+                    imageView.setImageBitmap(bitmap);
+                });
+            });
+            thread.start();
             Date dateCurrent = Calendar.getInstance().getTime();
-            txtDate.setText(dateCurrent.toString());
-            txtDevice.setText(information);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+            String dateString = dateFormat.format(dateCurrent);
+            txtDate.setText(dateString);
+            txtDevice.setText(device);
+            getLocation();
             StyleableToast.makeText(getApplicationContext(), "Image has been Captured!", Toast.LENGTH_SHORT, R.style.result).show();
         }else {
             StyleableToast.makeText(getApplicationContext(), "No Image Captured!", Toast.LENGTH_SHORT, R.style.warning).show();
         }
     }
 
+    private void upload(String name, String nip, String division, String reason, String date, String device, String latitude, String longitude, String location) {
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        StorageReference storageRef = storage.getReference("late_permission").child("IMG" + new Date().getTime()+".jpeg");
+        UploadTask uploadTask = storageRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(CometooLate.this, exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                if (taskSnapshot.getMetadata() != null) {
+                    if (taskSnapshot.getMetadata().getReference() != null) {
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                saveData(
+                                        name,
+                                        nip,
+                                        division,
+                                        reason,
+                                        date,
+                                        device,
+                                        latitude,
+                                        longitude,
+                                        location,
+                                        task.getResult().toString()
+                                );
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    private void saveData(String name, String nip, String division, String reason, String date, String device, String latitude, String longitude, String location, String img) {
+        PermissionLate permissionLate = new PermissionLate(
+                db.collection("permission_late").document().getId(),
+                name,
+                nip,
+                division,
+                reason,
+                img,
+                date,
+                device,
+                latitude,
+                longitude,
+                location
+        );
+
+        db.collection("permission_late").add(permissionLate).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(CometooLate.this, "Berhasil submit", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(this, MainActivity2.class));
+//        startActivity(new Intent(this, MainActivity2.class));
         finish();
     }
 }

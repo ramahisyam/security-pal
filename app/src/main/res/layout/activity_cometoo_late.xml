@@ -39,7 +39,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/edtNameLate"
+            android:id="@+id/late_name"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -62,7 +62,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/edtNipLate"
+            android:id="@+id/late_nip"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -85,7 +85,7 @@
             android:textSize="16sp" />
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/spinner"
+            android:id="@+id/division_late"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             app:hintText="Select Division"/>
@@ -107,7 +107,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/edtLateReason"
+            android:id="@+id/late_reason"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -138,7 +138,7 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center">
     <com.zolad.zoominimageview.ZoomInImageView
-        android:id="@+id/imageViewLate"
+        android:id="@+id/late_evidence"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:src="@drawable/pict" />
@@ -162,7 +162,7 @@
             android:layout_height="21dp"
             android:src="@drawable/date" />
         <TextView
-            android:id="@+id/txtDateLate"
+            android:id="@+id/late_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -181,7 +181,7 @@
             android:layout_marginTop="5dp"
             android:src="@drawable/hp" />
         <TextView
-            android:id="@+id/txtDeviceLate"
+            android:id="@+id/late_device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -201,7 +201,7 @@
             android:layout_marginTop="5dp"
             android:src="@drawable/loc" />
         <TextView
-            android:id="@+id/txtLatitude"
+            android:id="@+id/late_latitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -215,7 +215,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="46dp">
         <TextView
-            android:id="@+id/txtLongitude"
+            android:id="@+id/late_longitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Longitude"
@@ -227,7 +227,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="46dp">
         <TextView
-            android:id="@+id/txtLocation"
+            android:id="@+id/late_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Location"
@@ -249,7 +249,7 @@
             android:background="@drawable/edittext_employ">
         </Button>
         <Button
-            android:id="@+id/gotoMonitoring"
+            android:id="@+id/late_monitoring"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:text="Go to Monitoring"
