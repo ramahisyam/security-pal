@@ -253,7 +253,7 @@ public class Barang extends AppCompatActivity {
             txtDate.setText(dateCurrent.toString());
             txtDevice.setText(information);
             StyleableToast.makeText(getApplicationContext(), "Image has been Captured!", Toast.LENGTH_SHORT, R.style.result).show();
-//            getLocation();
+            getLocation();
         }else {
             StyleableToast.makeText(getApplicationContext(), "No Image Captured!", Toast.LENGTH_SHORT, R.style.warning).show();
         }

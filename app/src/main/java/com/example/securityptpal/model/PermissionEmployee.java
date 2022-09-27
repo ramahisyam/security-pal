@@ -13,12 +13,13 @@ public class PermissionEmployee implements Parcelable {
     private String place;
     private String timeout;
     private String timeback;
-    private String status;
+    private String division_approval;
+    private String center_approval;
 
     public PermissionEmployee() {
     }
 
-    public PermissionEmployee(String base, String name, String nip, String division, String date, String necessity, String place, String timeout, String timeback, String status)  {
+    public PermissionEmployee(String base, String name, String nip, String division, String date, String necessity, String place, String timeout, String timeback, String division_approval, String center_approval)  {
         this.base = base;
         this.name = name;
         this.nip = nip;
@@ -28,7 +29,8 @@ public class PermissionEmployee implements Parcelable {
         this.place = place;
         this.timeout = timeout;
         this.timeback = timeback;
-        this.status = status;
+        this.division_approval = division_approval;
+        this.center_approval = center_approval;
     }
 
     protected PermissionEmployee(Parcel in) {
@@ -41,7 +43,8 @@ public class PermissionEmployee implements Parcelable {
         place = in.readString();
         timeout = in.readString();
         timeback = in.readString();
-        status = in.readString();
+        division_approval = in.readString();
+        center_approval = in.readString();
     }
 
     public static final Creator<PermissionEmployee> CREATOR = new Creator<PermissionEmployee>() {
@@ -128,12 +131,20 @@ public class PermissionEmployee implements Parcelable {
         this.timeback = timeback;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDivision_approval() {
+        return division_approval;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDivision_approval(String division_approval) {
+        this.division_approval = division_approval;
+    }
+
+    public String getCenter_approval() {
+        return center_approval;
+    }
+
+    public void setCenter_approval(String center_approval) {
+        this.center_approval = center_approval;
     }
 
     @Override
@@ -152,6 +163,7 @@ public class PermissionEmployee implements Parcelable {
         parcel.writeString(place);
         parcel.writeString(timeout);
         parcel.writeString(timeback);
-        parcel.writeString(status);
+        parcel.writeString(division_approval);
+        parcel.writeString(center_approval);
     }
 }

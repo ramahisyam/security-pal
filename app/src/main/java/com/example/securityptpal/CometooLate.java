@@ -189,7 +189,7 @@ public class CometooLate extends AppCompatActivity {
     }
 
     public void openMonitoringCometooLate() {
-        Intent intent = new Intent(this, MonitoringComeTooLate.class);
+        Intent intent = new Intent(this, DocSubcon2.class);
         startActivity(intent);
     }
 
@@ -227,6 +227,7 @@ public class CometooLate extends AppCompatActivity {
             Date dateCurrent = Calendar.getInstance().getTime();
             txtDate.setText(dateCurrent.toString());
             txtDevice.setText(information);
+            getLocation();
             StyleableToast.makeText(getApplicationContext(), "Image has been Captured!", Toast.LENGTH_SHORT, R.style.result).show();
         }else {
             StyleableToast.makeText(getApplicationContext(), "No Image Captured!", Toast.LENGTH_SHORT, R.style.warning).show();
