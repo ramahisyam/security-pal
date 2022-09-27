@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class PermissionEmployee implements Parcelable {
+    private String id;
     private String base;
     private String name;
     private String nip;
@@ -19,7 +20,8 @@ public class PermissionEmployee implements Parcelable {
     public PermissionEmployee() {
     }
 
-    public PermissionEmployee(String base, String name, String nip, String division, String date, String necessity, String place, String timeout, String timeback, String division_approval, String center_approval)  {
+    public PermissionEmployee(String id, String base, String name, String nip, String division, String date, String necessity, String place, String timeout, String timeback, String division_approval, String center_approval)  {
+        this.id = id;
         this.base = base;
         this.name = name;
         this.nip = nip;
@@ -34,6 +36,7 @@ public class PermissionEmployee implements Parcelable {
     }
 
     protected PermissionEmployee(Parcel in) {
+        id = in.readString();
         base = in.readString();
         name = in.readString();
         nip = in.readString();
@@ -58,6 +61,14 @@ public class PermissionEmployee implements Parcelable {
             return new PermissionEmployee[size];
         }
     };
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getBase() {
         return base;
@@ -154,6 +165,7 @@ public class PermissionEmployee implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
         parcel.writeString(base);
         parcel.writeString(name);
         parcel.writeString(nip);
