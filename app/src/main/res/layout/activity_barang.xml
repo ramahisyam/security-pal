@@ -34,7 +34,7 @@
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
             <TextView
-                android:id="@+id/nameGuest"
+                android:id="@+id/nameGoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
@@ -43,7 +43,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/edtNameGuest"
+                android:id="@+id/edtNameGoods"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
@@ -56,7 +56,7 @@
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
             <TextView
-                android:id="@+id/noHPGuest"
+                android:id="@+id/noHPGoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
@@ -65,7 +65,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/edtNoHPGuest"
+                android:id="@+id/edtNoHPGoods"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
@@ -79,7 +79,7 @@
             tools:ignore="MissingConstraints"
             android:layout_marginTop="5dp">
             <TextView
-                android:id="@+id/picSubcon"
+                android:id="@+id/picGoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
@@ -88,7 +88,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/edtPICSubcon"
+                android:id="@+id/edtPICGoods"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
@@ -102,7 +102,7 @@
             tools:ignore="MissingConstraints"
             android:layout_marginTop="5dp">
             <TextView
-                android:id="@+id/divisiGuest"
+                android:id="@+id/divisiGoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
@@ -146,7 +146,7 @@
             tools:ignore="MissingConstraints"
             android:layout_marginTop="5dp">
             <TextView
-                android:id="@+id/typesItem"
+                android:id="@+id/typesGoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
@@ -169,7 +169,7 @@
             android:layout_marginTop="15dp">
 
             <TextView
-                android:id="@+id/takepictLate"
+                android:id="@+id/takepictGoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"

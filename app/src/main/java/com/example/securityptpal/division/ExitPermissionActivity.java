@@ -13,9 +13,13 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -61,7 +66,10 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
     String userID;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
-    private Button btnExport;
+    FloatingActionButton fab, fab1, fab2;
+    Animation fabOpen, fabClose, rotateForward, rotateBackward;
+
+    boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +77,19 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
         setContentView(R.layout.activity_exit_permission);
         recyclerView = findViewById(R.id.rv_exit_permission);
         searchView = findViewById(R.id.search_employee_permit);
-        btnExport = findViewById(R.id.div_export_excel);
         progressDialog = new ProgressDialog(ExitPermissionActivity.this);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Getting data...");
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+
+        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
+
+        rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
+        rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -103,18 +120,56 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
 
-        btnExport.setOnClickListener(view -> {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-                if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    requestPermissions(permissions, 1);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                animateFab();
+            }
+        });
+
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                    if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1);
+                    } else {
+                        importData();
+                    }
                 } else {
                     importData();
                 }
-            } else {
-                importData();
             }
         });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String foldername = "Import Excel";
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setDataAndType(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + foldername), "*/*");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void animateFab(){
+        if (isOpen){
+            fab.startAnimation(rotateBackward);
+            fab1.startAnimation(fabClose);
+            fab2.startAnimation(fabClose);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isOpen=false;
+        }
+        else{
+            fab.startAnimation(rotateForward);
+            fab1.startAnimation(fabOpen);
+            fab2.startAnimation(fabOpen);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isOpen=true;
+        }
     }
 
     private void showDataDivision(String division) {
@@ -254,6 +309,19 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
 
         cell = row.createCell(11);
         cell.setCellValue("Center Approval");
+
+        sheet.setColumnWidth(0, (30 * 200));
+        sheet.setColumnWidth(1, (30 * 200));
+        sheet.setColumnWidth(2, (30 * 200));
+        sheet.setColumnWidth(3, (30 * 200));
+        sheet.setColumnWidth(4, (30 * 200));
+        sheet.setColumnWidth(5, (30 * 200));
+        sheet.setColumnWidth(6, (30 * 200));
+        sheet.setColumnWidth(7, (30 * 200));
+        sheet.setColumnWidth(8, (30 * 200));
+        sheet.setColumnWidth(9, (30 * 200));
+        sheet.setColumnWidth(10, (30 * 200));
+        sheet.setColumnWidth(11, (30 * 200));
 
         for (int i = 0; i < list.size(); i++) {
             Row row1 = sheet.createRow(i + 1);

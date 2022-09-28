@@ -27,7 +27,7 @@
                     android:fontFamily="@font/racing_sans_one"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
-                    android:text="Security PT. PAL INDONESIA (Persero)"
+                    android:text="Security Application PT. PAL INDONESIA "
                     android:textColor="@color/gradientLightGreen"
                     android:textSize="25sp"
                     android:textStyle="bold" />
