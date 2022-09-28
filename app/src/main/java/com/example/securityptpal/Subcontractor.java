@@ -210,7 +210,7 @@ public class Subcontractor extends AppCompatActivity {
     }
 
     public void openMonitoringSubcontractor() {
-        Intent intent = new Intent(this, DocSubcon.class);
+        Intent intent = new Intent(this, MonitoringSubcontractor.class);
         startActivity(intent);
     }
 }

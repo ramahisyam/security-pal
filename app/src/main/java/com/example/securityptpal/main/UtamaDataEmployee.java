@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -58,6 +59,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
     private Intent intent;
     private ImageView imgSignOut;
     private String userID;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,9 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
         recyclerView = findViewById(R.id.rv_main_exit_permit);
         searchView = findViewById(R.id.main_search_permission);
         imgSignOut = findViewById(R.id.security_sign_out_permission);
+        progressDialog = new ProgressDialog(UtamaDataEmployee.this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Getting data...");
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = db.collection("users").document(userID);
         documentReference.addSnapshotListener(UtamaDataEmployee.this, new EventListener<DocumentSnapshot>() {
@@ -104,11 +109,11 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(permissionEmployeeAdapter);
 
-        showAllData();
     }
 
     private void showAllData() {
         db.collection("permission_employee")
+                .orderBy("division_approval")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -118,6 +123,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                        document.getId(),
                                         document.getString("base"),
                                         document.getString("name"),
                                         document.getString("nip"),
@@ -136,12 +142,14 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                         } else {
                             Toast.makeText(UtamaDataEmployee.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
                         }
+                        progressDialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(UtamaDataEmployee.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -158,6 +166,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                        document.getId(),
                                         document.getString("base"),
                                         document.getString("name"),
                                         document.getString("nip"),
@@ -188,8 +197,15 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
 
     @Override
     public void onPermitClick(int position) {
-        intent = new Intent(UtamaDataEmployee.this, DetailExitActivity.class);
-        intent.putExtra("EXIT_PERMIT", list.get(position));
+        intent = new Intent(UtamaDataEmployee.this, DetailExitPermissionActivity.class);
+        intent.putExtra("MAIN_EXIT_PERMIT", list.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        progressDialog.show();
+        showAllData();
     }
 }

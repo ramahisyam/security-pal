@@ -14,7 +14,7 @@ import com.example.securityptpal.model.PermissionEmployee;
 
 import java.util.List;
 
-public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEmployeeAdapter.MyViewHolder> {
+public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEmployeeAdapter.ExitViewHolder> {
     private Context context;
     private List<PermissionEmployee> list;
     private OnPermitListener mOnPermitListener;
@@ -27,13 +27,13 @@ public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEm
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_employee_permission, parent, false);
-        return new MyViewHolder(itemView, mOnPermitListener);
+        return new ExitViewHolder(itemView, mOnPermitListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExitViewHolder holder, int position) {
         holder.base.setText(list.get(position).getBase());
         holder.name.setText(list.get(position).getName());
         holder.nip.setText(list.get(position).getNip());
@@ -55,10 +55,10 @@ public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEm
         return list.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ExitViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView base, name, nip, status;
         OnPermitListener onPermitListener;
-        public MyViewHolder(@NonNull View itemView, OnPermitListener onPermitListener) {
+        public ExitViewHolder(@NonNull View itemView, OnPermitListener onPermitListener) {
             super(itemView);
             base = itemView.findViewById(R.id.base_permission);
             name = itemView.findViewById(R.id.employee_name);

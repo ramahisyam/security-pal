@@ -1,8 +1,10 @@
 package com.example.securityptpal.employee;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.example.securityptpal.LogoutAccount;
 import com.example.securityptpal.R;
 import com.example.securityptpal.model.PermissionEmployee;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,6 +40,8 @@ public class Employee extends AppCompatActivity {
     String base, name, nip, division, date, necessity, place, timeout, timeback;
     FirebaseFirestore db;
     Button btnSendEmployee, btnMonitoring;
+    private ArrayAdapter spinnerAdapter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,9 @@ public class Employee extends AppCompatActivity {
         btnSendEmployee = findViewById(R.id.btn_send_employee);
         btnMonitoring = findViewById(R.id.gotoMonitoring);
         spinner = findViewById(R.id.spinner_division_employee);
+        progressDialog = new ProgressDialog(Employee.this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Menyimpan...");
         db = FirebaseFirestore.getInstance();
 
         ArrayList<String> numberList = new ArrayList<>();
@@ -85,8 +93,9 @@ public class Employee extends AppCompatActivity {
         numberList.add("Information Technology");
         numberList.add("Design");
 
-        spinner.setAdapter(new ArrayAdapter<>(Employee.this,
-                android.R.layout.simple_spinner_dropdown_item, numberList));
+        spinnerAdapter = new ArrayAdapter<>(Employee.this,
+                android.R.layout.simple_spinner_dropdown_item, numberList);
+        spinner.setAdapter(spinnerAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -114,7 +123,7 @@ public class Employee extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         calendar.set(year, month, day);
 
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
                         String dateString = dateFormat.format(calendar.getTime());
                         edtDate.setText(dateString);
@@ -127,6 +136,7 @@ public class Employee extends AppCompatActivity {
         btnSendEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.show();
                 base = edtBase.getText().toString();
                 name = edtName.getText().toString();
                 nip = edtNip.getText().toString();
@@ -138,6 +148,7 @@ public class Employee extends AppCompatActivity {
                 division = spinner.getSelectedItem().toString();
 
                 PermissionEmployee permissionEmployee = new PermissionEmployee(
+                        db.collection("permission_employee").document().getId(),
                         base,
                         name,
                         nip,
@@ -162,6 +173,13 @@ public class Employee extends AppCompatActivity {
                         edtPlace.setText("");
                         edtTimeout.setText("");
                         edtTimeback.setText("");
+                        progressDialog.dismiss();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Employee.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
             }
