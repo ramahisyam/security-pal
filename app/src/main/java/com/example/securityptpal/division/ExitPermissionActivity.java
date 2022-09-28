@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -78,7 +79,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchData(query);
+                searchData(query, EXTRA);
                 return false;
             }
 
@@ -118,9 +119,10 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
     }
 
     private void showDataDivision(String division) {
+
         db.collection("permission_employee")
                 .whereEqualTo("division", division)
-//                .orderBy("date", Query.Direction.DESCENDING)
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -160,10 +162,10 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                     }
                 });
     }
-    private void searchData(String nip) {
+    private void searchData(String nip, String division) {
         db.collection("permission_employee")
                 .whereEqualTo("nip", nip)
-                .whereEqualTo("division", "design")
+                .whereEqualTo("division", division)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")

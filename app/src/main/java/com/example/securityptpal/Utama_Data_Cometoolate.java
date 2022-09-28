@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.securityptpal.adapter.LatePermissionAdapter;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
+import com.example.securityptpal.main.DetailExitPermissionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.PermissionLate;
@@ -115,6 +116,8 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
 
     @Override
     public void onLateClick(int position) {
-        Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+        intent = new Intent(Utama_Data_Cometoolate.this, UtamaCometoolate.class);
+        intent.putExtra("MAIN_LATE_PERMIT", list.get(position));
+        startActivity(intent);
     }
 }
