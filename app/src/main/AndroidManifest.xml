@@ -22,6 +22,27 @@
             android:name=".main.DetailExitPermissionActivity"
             android:exported="false" />
         <activity
+            android:name=".ShowQR"
+            android:exported="false" />
+        <activity
+            android:name=".DocSubcon2"
+            android:exported="false" />
+        <activity
+            android:name=".DocSubcon"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaDataBarang"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaBarang"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaDataVisitor"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaVisitor"
+            android:exported="false" />
+        <activity
             android:name=".division.DetailExitActivity"
             android:exported="false" />
         <activity

@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Base\t\t\t\t\t\t\t:"
+            android:text="Base\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -48,7 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -68,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Name\t\t\t\t\t\t:"
+            android:text="Name\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -77,7 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="NIP\t\t\t\t\t\t\t\t:"
+            android:text="NIP\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -105,7 +107,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -134,7 +137,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/input_date_layout"
@@ -153,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Date\t\t\t\t\t\t\t:"
+            android:text="Date\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -162,7 +166,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -182,7 +187,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Necessity\t\t:"
+            android:text="Necessity\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -191,7 +196,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -211,7 +217,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Place\t\t\t\t\t\t:"
+            android:text="Place\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -220,7 +226,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/input_timeout_layout"
@@ -239,7 +246,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time out\t\t\t:"
+            android:text="Time out\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -248,7 +255,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/input_timein_layout"
@@ -276,7 +284,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/input_status_layout"
@@ -295,7 +304,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Status\t\t\t\t\t:"
+            android:text="Status\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

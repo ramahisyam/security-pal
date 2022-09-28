@@ -218,7 +218,7 @@ public class CometooLate extends AppCompatActivity {
     }
 
     public void openMonitoringCometooLate() {
-        Intent intent = new Intent(this, MonitoringComeTooLate.class);
+        Intent intent = new Intent(this, DocSubcon2.class);
         startActivity(intent);
     }
 

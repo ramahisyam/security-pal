@@ -9,16 +9,16 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-public class UtamaGuest extends AppCompatActivity {
+public class UtamaVisitor extends AppCompatActivity {
 
     Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_utama_guest);
+        setContentView(R.layout.activity_utama_visitor);
 
-        spinner = findViewById(R.id.spinnerUtamaG);
+        spinner = findViewById(R.id.spinnerUtamaV);
 
         ArrayList<String> numberList = new ArrayList<>();
 
