@@ -332,6 +332,10 @@ public class CometooLate extends AppCompatActivity {
         db.collection("permission_late").add(permissionLate).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
+                edtName.setText("");
+                edtNip.setText("");
+                edtReason.setText("");
+                imageView.setImageResource(R.drawable.pict);
                 Toast.makeText(CometooLate.this, "Berhasil submit", Toast.LENGTH_SHORT).show();
             }
         });

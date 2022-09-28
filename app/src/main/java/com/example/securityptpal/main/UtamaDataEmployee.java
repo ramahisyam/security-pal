@@ -38,6 +38,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.muddzdev.styleabletoast.StyleableToast;
@@ -113,6 +114,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
 
     private void showAllData() {
         db.collection("permission_employee")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .orderBy("division_approval")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -148,7 +150,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataEmployee.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UtamaDataEmployee.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 });
