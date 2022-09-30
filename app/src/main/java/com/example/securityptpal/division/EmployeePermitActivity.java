@@ -31,5 +31,11 @@ public class EmployeePermitActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        cvLatePermission.setOnClickListener(view -> {
+            Intent intent = new Intent(EmployeePermitActivity.this, DivisionLatePermitActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, EXTRA);
+            startActivity(intent);
+        });
     }
 }
