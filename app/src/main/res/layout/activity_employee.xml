@@ -8,6 +8,13 @@
     android:background="@drawable/menuall"
     android:orientation="vertical">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -50,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Base\t\t\t\t\t\t\t:"
+            android:text="Base\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -79,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Name\t\t\t\t\t\t:"
+            android:text="Name\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -107,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="NIP\t\t\t\t\t\t\t\t:"
+            android:text="NIP\t\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -136,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Division\t\t\t:"
+            android:text="Division\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -148,6 +155,64 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/input_depart_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/calendar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_division_layout">
+
+        <TextView
+            android:id="@+id/depart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Departemen\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edtDepart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input_status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_depart_layout">
+
+        <TextView
+            android:id="@+id/status_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Status\t\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spinner_status_employee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintText="Select Status"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/input_date_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -156,14 +221,14 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/calendar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_division_layout">
+        app:layout_constraintTop_toBottomOf="@id/input_status_layout">
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Date\t\t\t\t\t\t\t:"
+            android:text="Date\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -203,7 +268,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Necessity\t\t:"
+            android:text="Necessity\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -232,7 +297,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Place\t\t\t\t\t\t:"
+            android:text="Place\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -260,7 +325,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time out\t\t\t:"
+            android:text="Time out\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -300,7 +365,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time back\t:"
+            android:text="Time back\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -347,5 +412,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_send_employee" />
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

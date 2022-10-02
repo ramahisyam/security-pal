@@ -59,7 +59,7 @@ public class CometooLate extends AppCompatActivity {
     private String[] PERMISSIONS;
     Button monitoring, btnPicture, btnSubmit;
     EditText edtName, edtNip, edtReason;
-    Spinner spinner;
+    Spinner spinner, spinner2;
     ZoomInImageView imageView;
     TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation;
     Build build;
@@ -74,6 +74,7 @@ public class CometooLate extends AppCompatActivity {
         setContentView(R.layout.activity_cometoo_late);
 
         spinner = findViewById(R.id.division_late);
+        spinner2 = findViewById(R.id.status_late);
         monitoring = findViewById(R.id.late_monitoring);
         btnPicture = findViewById(R.id.buttonPicture);
         btnSubmit = (Button) findViewById(R.id.submitLate);
@@ -117,6 +118,11 @@ public class CometooLate extends AppCompatActivity {
         divisionList.add("Information Technology");
         divisionList.add("Design");
 
+        ArrayList<String> statusList = new ArrayList<>();
+
+        statusList.add("PKWT");
+        statusList.add("PKWTT");
+
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +153,31 @@ public class CometooLate extends AppCompatActivity {
 
             }
         });
+
+        spinner2.setAdapter(new ArrayAdapter<>(CometooLate.this,
+                android.R.layout.simple_spinner_dropdown_item, statusList));
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (i == 0){
+//                    Toast.makeText(getApplicationContext(),
+//                            "Please Select Division",Toast.LENGTH_SHORT).show();
+//                    textView.setText("");
+//                }else{
+//                    String sNumber = adapterView.getItemAtPosition(i).toString();
+//                    textView.setText(sNumber);
+//                }
+                String sNumber = adapterView.getItemAtPosition(i).toString();
+//                textView.setText(sNumber);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         btnPicture.setOnClickListener(new View.OnClickListener() {
             @Override

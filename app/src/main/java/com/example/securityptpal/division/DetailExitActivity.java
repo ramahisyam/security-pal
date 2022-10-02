@@ -49,7 +49,6 @@ public class DetailExitActivity extends AppCompatActivity implements AdapterView
         save = findViewById(R.id.save_div_status);
 
         divStatus = new ArrayList<>();
-        divStatus.add("Change Status");
         divStatus.add("Accepted");
         divStatus.add("Pending");
         divStatus.add("Rejected");

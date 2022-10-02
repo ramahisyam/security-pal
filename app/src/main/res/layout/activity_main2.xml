@@ -171,6 +171,14 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginLeft="85dp">
                 </ImageView>
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/healthcare"
+                    android:id="@+id/checkup"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="100dp">
+                </ImageView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -185,6 +193,16 @@
                     android:textSize="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="95dp">
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check Up"
+                    android:textColor="#174887"
+                    android:fontFamily="@font/fredoka_one"
+                    android:textSize="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="113dp">
                 </TextView>
             </LinearLayout>
             <LinearLayout

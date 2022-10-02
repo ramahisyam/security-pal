@@ -8,254 +8,308 @@
     android:orientation="vertical"
     android:background="@drawable/menuall">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Come too late Permission"
-            android:fontFamily="@font/fredoka_one"
-            android:textSize="20dp"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="40dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-        <TextView
-            android:id="@+id/nameLate"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Come too late Permission"
+                android:fontFamily="@font/fredoka_one"
+                android:textSize="20dp"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="40dp"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Name                    :"
-            android:textColor="#174887"
-            android:textSize="16sp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/nameLate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Name                    :"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/late_name"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/late_name"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                android:textColor="#000000" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-        <TextView
-            android:id="@+id/nipLate"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="NIP                        :"
-            android:textColor="#174887"
-            android:textSize="16sp" />
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/nipLate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="NIP                        :"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/late_nip"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:id="@+id/divLate"
+            <EditText
+                android:id="@+id/late_nip"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                android:textColor="#000000" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Division                :"
-            android:textColor="#174887"
-            android:textSize="16sp" />
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/divLate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Division                :"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/division_late"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            app:hintText="Select Division"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:id="@+id/lateReason"
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/division_late"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                app:hintText="Select Division"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Late reason         :"
-            android:textColor="#174887"
-            android:textSize="16sp" />
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/lateDepart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Departemen        :"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/late_reason"
-            android:layout_width="240dp"
+            <EditText
+                android:id="@+id/late_Depart"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                android:textColor="#000000" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
-    </LinearLayout>
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/lateStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Status                   :"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        android:layout_marginTop="10dp">
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/status_late"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                app:hintText="Select Status"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/lateReason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Late reason         :"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/takepictLate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Take a picture     :"
-            android:textColor="#174887"
-            android:textSize="16sp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center">
-    <com.zolad.zoominimageview.ZoomInImageView
-        android:id="@+id/late_evidence"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:src="@drawable/pict" />
-    <Button
-        android:id="@+id/buttonPicture"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/camerapress"/>
+            <EditText
+                android:id="@+id/late_reason"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                android:textColor="#000000" />
+        </LinearLayout>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp">
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="21dp"
-            android:src="@drawable/date" />
-        <TextView
-            android:id="@+id/late_date"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Date"
-            android:textColor="@color/black"
-            android:textSize="13dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp">
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="21dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/hp" />
-        <TextView
-            android:id="@+id/late_device"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/takepictLate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Take a picture     :"
+                android:textColor="#174887"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:text="Phone"
-            android:textSize="13dp"
-            android:textColor="@color/black" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp">
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="21dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/loc" />
-        <TextView
-            android:id="@+id/late_latitude"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center">
+            <com.zolad.zoominimageview.ZoomInImageView
+                android:id="@+id/late_evidence"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:src="@drawable/pict" />
+            <Button
+                android:id="@+id/buttonPicture"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/camerapress"/>
+
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Latitude"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
-            android:textSize="13dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="46dp">
-        <TextView
-            android:id="@+id/late_longitude"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp">
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="21dp"
+                android:src="@drawable/date" />
+            <TextView
+                android:id="@+id/late_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Date"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Longitude"
-            android:textColor="@color/black"
-            android:textSize="13dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="46dp">
-        <TextView
-            android:id="@+id/late_location"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/hp" />
+            <TextView
+                android:id="@+id/late_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="Phone"
+                android:textSize="13dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location"
-            android:textSize="13dp"
-            android:textColor="@color/black" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/submitLate"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:text="Submit"
-            android:textColor="@color/white"
-            android:background="@drawable/edittext_employ">
-        </Button>
-        <Button
-            android:id="@+id/late_monitoring"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:text="Go to Monitoring"
-            android:textColor="@color/white"
-            android:background="@drawable/edittext_monitoring"
-            android:layout_marginLeft="10dp">
-        </Button>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/loc" />
+            <TextView
+                android:id="@+id/late_latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Latitude"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="46dp">
+            <TextView
+                android:id="@+id/late_longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Longitude"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="46dp">
+            <TextView
+                android:id="@+id/late_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="13dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/submitLate"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="Submit"
+                android:textColor="@color/white"
+                android:background="@drawable/edittext_employ">
+            </Button>
+            <Button
+                android:id="@+id/late_monitoring"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="Go to Monitoring"
+                android:textColor="@color/white"
+                android:background="@drawable/edittext_monitoring"
+                android:layout_marginLeft="10dp">
+            </Button>
+        </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

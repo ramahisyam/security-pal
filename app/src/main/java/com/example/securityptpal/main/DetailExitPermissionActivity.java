@@ -49,7 +49,6 @@ public class DetailExitPermissionActivity extends AppCompatActivity implements A
         save = findViewById(R.id.save_center_status);
 
         centerStatus = new ArrayList<>();
-        centerStatus.add("Change Status");
         centerStatus.add("Accepted");
         centerStatus.add("Pending");
         centerStatus.add("Rejected");

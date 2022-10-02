@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.securityptpal.CometooLate;
 import com.example.securityptpal.LogoutAccount;
 import com.example.securityptpal.R;
 import com.example.securityptpal.model.PermissionEmployee;
@@ -35,7 +36,7 @@ public class Employee extends AppCompatActivity {
     ImageView Calendar, img_timeout, img_timeback, imgSignOut;
     EditText edtBase, edtName, edtNip, edtDate, edtNecessity, edtPlace, edtTimeout, edtTimeback;
     DatePickerDialog.OnDateSetListener setListener;
-    Spinner spinner;
+    Spinner spinner, spinner2;
     int hour, minute;
     String base, name, nip, division, date, necessity, place, timeout, timeback;
     FirebaseFirestore db;
@@ -63,6 +64,7 @@ public class Employee extends AppCompatActivity {
         btnSendEmployee = findViewById(R.id.btn_send_employee);
         btnMonitoring = findViewById(R.id.gotoMonitoring);
         spinner = findViewById(R.id.spinner_division_employee);
+        spinner2 = findViewById(R.id.spinner_status_employee);
         progressDialog = new ProgressDialog(Employee.this);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Menyimpan...");
@@ -92,6 +94,36 @@ public class Employee extends AppCompatActivity {
         numberList.add("Internal Control Unit");
         numberList.add("Information Technology");
         numberList.add("Design");
+
+        ArrayList<String> statusList = new ArrayList<>();
+
+        statusList.add("PKWT");
+        statusList.add("PKWTT");
+
+        spinner2.setAdapter(new ArrayAdapter<>(Employee.this,
+                android.R.layout.simple_spinner_dropdown_item, statusList));
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (i == 0){
+//                    Toast.makeText(getApplicationContext(),
+//                            "Please Select Division",Toast.LENGTH_SHORT).show();
+//                    textView.setText("");
+//                }else{
+//                    String sNumber = adapterView.getItemAtPosition(i).toString();
+//                    textView.setText(sNumber);
+//                }
+                String sNumber = adapterView.getItemAtPosition(i).toString();
+//                textView.setText(sNumber);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         spinnerAdapter = new ArrayAdapter<>(Employee.this,
                 android.R.layout.simple_spinner_dropdown_item, numberList);
