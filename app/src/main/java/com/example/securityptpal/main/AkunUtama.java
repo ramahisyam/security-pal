@@ -15,7 +15,7 @@ import com.example.securityptpal.division.ExitPermissionActivity;
 
 public class AkunUtama extends AppCompatActivity {
 
-    private CardView cvExitPermit, cvLatePermit;
+    private CardView cvExitPermit, cvLatePermit, cvDivision;
     private ImageView imgSignOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class AkunUtama extends AppCompatActivity {
         imgSignOut = findViewById(R.id.sign_out_main_account);
         cvExitPermit = findViewById(R.id.card_exit_permission_main);
         cvLatePermit = findViewById(R.id.card_late_permission_main);
+        cvDivision = findViewById(R.id.card_division);
 
         cvExitPermit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +36,11 @@ public class AkunUtama extends AppCompatActivity {
         cvLatePermit.setOnClickListener(view -> {
             startActivity(new Intent(AkunUtama.this, Utama_Data_Cometoolate.class));
         });
+
+        cvDivision.setOnClickListener(view -> {
+            startActivity(new Intent(AkunUtama.this, MainDivisionActivity.class));
+        });
+
         imgSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
