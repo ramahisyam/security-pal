@@ -174,7 +174,7 @@
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/healthcare"
+                    android:src="@drawable/medicalinsurance"
                     android:id="@+id/checkup"
                     android:layout_marginTop="30dp"
                     android:layout_marginLeft="100dp">

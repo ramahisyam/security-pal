@@ -54,7 +54,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtNameLate"
+            android:id="@+id/main_late_name"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -82,7 +82,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtNipLate"
+            android:id="@+id/main_late_nip"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -110,7 +110,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtDivisionLate"
+            android:id="@+id/main_late_division"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -137,7 +137,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/edtLateReason"
+            android:id="@+id/main_late_reason"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -159,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Take a picture     :"
+            android:text="Picture Evidence :"
             android:textColor="#174887"
             android:textSize="16sp" />
     </LinearLayout>
@@ -176,7 +176,7 @@
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/input_picturelate_layout">
         <com.zolad.zoominimageview.ZoomInImageView
-            android:id="@+id/imageViewLate"
+            android:id="@+id/main_image_late"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:src="@drawable/pict" />
@@ -197,7 +197,7 @@
             android:layout_height="21dp"
             android:src="@drawable/date" />
         <TextView
-            android:id="@+id/txtDateLate"
+            android:id="@+id/main_late_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -221,7 +221,7 @@
             android:layout_marginTop="5dp"
             android:src="@drawable/hp" />
         <TextView
-            android:id="@+id/txtDeviceLate"
+            android:id="@+id/main_late_device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -246,7 +246,7 @@
             android:layout_marginTop="5dp"
             android:src="@drawable/loc" />
         <TextView
-            android:id="@+id/txtLatitude"
+            android:id="@+id/main_late_latitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -266,14 +266,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_latitudelate_layout">
         <TextView
-            android:id="@+id/txtLongitude"
+            android:id="@+id/main_late_longitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Longitude"
             android:textColor="@color/black"
             android:textSize="13dp" />
         <TextView
-            android:id="@+id/txtLocation"
+            android:id="@+id/main_late_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Location"

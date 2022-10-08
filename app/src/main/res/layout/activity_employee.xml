@@ -66,7 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -95,7 +96,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -123,7 +125,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -151,7 +154,8 @@
             android:id="@+id/spinner_division_employee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintText="Select Division"/>
+            app:hintText="Select Division"
+            android:layout_marginLeft="5dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -159,8 +163,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/calendar"
         app:layout_constraintStart_toStartOf="parent"
@@ -171,16 +176,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Departemen\t\t:"
+            android:text="Department\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtDepart"
+        <TextView
+            android:id="@+id/txtDepart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"/>
 
     </LinearLayout>
 
@@ -189,7 +196,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -201,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Status\t\t\t\t\t\t:"
+            android:text="Status\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -209,7 +216,8 @@
             android:id="@+id/spinner_status_employee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintText="Select Status"/>
+            app:hintText="Select Status"
+            android:layout_marginLeft="5dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -237,7 +245,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 
@@ -277,7 +286,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -306,7 +316,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -334,7 +345,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 
@@ -374,7 +386,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 
@@ -391,27 +404,28 @@
 
     <Button
         android:id="@+id/btn_send_employee"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/edittext_employ"
-        android:text="Send"
+        android:text="Submit"
         android:textColor="@color/white"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_timein_layout" />
 
     <Button
         android:id="@+id/gotoMonitoring"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/edittext_monitoring"
         android:text="Go to Monitoring"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_send_employee" />
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@+id/btn_send_employee"
+        app:layout_constraintTop_toBottomOf="@+id/input_timein_layout"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

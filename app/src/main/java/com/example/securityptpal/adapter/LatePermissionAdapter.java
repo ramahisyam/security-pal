@@ -37,6 +37,7 @@ public class LatePermissionAdapter extends RecyclerView.Adapter<LatePermissionAd
     public void onBindViewHolder(@NonNull LateViewHolder holder, int position) {
         holder.name.setText(list.get(position).getName());
         holder.nip.setText(list.get(position).getNip());
+        holder.date.setText(list.get(position).getDate());
     }
 
     @Override
@@ -45,12 +46,13 @@ public class LatePermissionAdapter extends RecyclerView.Adapter<LatePermissionAd
     }
 
     class LateViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView name, nip;
+        TextView name, nip, date;
         OnLateListener onLateListener;
         public LateViewHolder(@NonNull View itemView, OnLateListener onLateListener) {
             super(itemView);
             name = itemView.findViewById(R.id.late_employee_name);
             nip = itemView.findViewById(R.id.late_employee_nip);
+            date = itemView.findViewById(R.id.late_employee_date);
             this.onLateListener = onLateListener;
 
             itemView.setOnClickListener(this);

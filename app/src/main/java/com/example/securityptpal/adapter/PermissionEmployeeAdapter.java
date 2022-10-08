@@ -34,9 +34,9 @@ public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEm
 
     @Override
     public void onBindViewHolder(@NonNull ExitViewHolder holder, int position) {
-        holder.base.setText(list.get(position).getBase());
         holder.name.setText(list.get(position).getName());
         holder.nip.setText(list.get(position).getNip());
+        holder.date.setText(list.get(position).getDate());
         if (list.get(position).getDivision_approval().equals("Accepted") && list.get(position).getCenter_approval().equals("Accepted")){
             holder.status.setText("Accepted");
             holder.status.setTextColor(holder.status.getResources().getColor(R.color.main_green_color));
@@ -56,14 +56,14 @@ public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEm
     }
 
     class ExitViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView base, name, nip, status;
+        TextView name, nip, status, date;
         OnPermitListener onPermitListener;
         public ExitViewHolder(@NonNull View itemView, OnPermitListener onPermitListener) {
             super(itemView);
-            base = itemView.findViewById(R.id.base_permission);
             name = itemView.findViewById(R.id.employee_name);
             nip = itemView.findViewById(R.id.employee_nip);
             status = itemView.findViewById(R.id.permission_status);
+            date = itemView.findViewById(R.id.employee_date);
             this.onPermitListener = onPermitListener;
 
             itemView.setOnClickListener(this);

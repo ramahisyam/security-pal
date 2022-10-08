@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.securityptpal.employee.Employee;
 
@@ -15,11 +16,12 @@ import java.util.ArrayList;
 public class CheckUp extends AppCompatActivity {
 
     Spinner spinner, spinner2, spinner3;
-
+    TextView edtDepart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_up);
+        edtDepart = findViewById(R.id.edtDepart);
         spinner = findViewById(R.id.spinner_division_checkup);
         spinner2 = findViewById(R.id.spinner_status_checkup);
         spinner3 = findViewById(R.id.spinner_type_checkup);
@@ -65,6 +67,23 @@ public class CheckUp extends AppCompatActivity {
 //                }
                 String sNumber = adapterView.getItemAtPosition(i).toString();
 //                textView.setText(sNumber);
+                if (i == 0 || i == 1 || i == 2|| i == 3|| i == 4|| i == 5){
+                    edtDepart.setText("Production Directorate");
+                }else if (i == 6 || i == 7 || i == 8 || i == 9){
+                    edtDepart.setText("Marketing Directorate");
+                }
+                else if (i == 10 || i == 11 || i == 12 || i == 13 || i == 14){
+                    edtDepart.setText("Directorate of Finance, Risk Management & HR");
+                }
+                else if (i == 15 || i == 16){
+                    edtDepart.setText("SEVP Transformation Management");
+                }
+                else if (i == 17){
+                    edtDepart.setText("SEVP Technology & Naval System");
+                }
+                else if (i == 18 || i == 19 || i == 20 || i == 21){
+                    edtDepart.setText("-");
+                }
             }
 
             @Override

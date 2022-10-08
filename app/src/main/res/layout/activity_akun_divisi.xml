@@ -409,7 +409,10 @@
                         android:layout_marginLeft="45dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:focusable="true">
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
