@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Base\t\t\t\t\t\t\t\t:"
+            android:text="Base\t\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Name\t\t\t\t\t\t\t:"
+            android:text="Name\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="NIP\t\t\t\t\t\t\t\t\t:"
+            android:text="NIP\t\t\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -128,12 +128,70 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Division\t\t\t\t:"
+            android:text="Division\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/div_exit_permit_division"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/input_depart_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_division_layout">
+
+        <TextView
+            android:id="@+id/depart_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Department\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/div_exit_permit_depart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/input_statusE_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_depart_layout">
+
+        <TextView
+            android:id="@+id/statusE_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Status\t\t\t\t\t\t\t\t:"
+            android:textColor="#174887"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/div_exit_permit_statusE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -150,14 +208,14 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_division_layout">
+        app:layout_constraintTop_toBottomOf="@id/input_statusE_layout">
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Date\t\t\t\t\t\t\t\t:"
+            android:text="Date\t\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -187,7 +245,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Necessity\t\t\t:"
+            android:text="Necessity\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -217,7 +275,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Place\t\t\t\t\t\t\t:"
+            android:text="Place\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -246,7 +304,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time out\t\t\t\t:"
+            android:text="Time out\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -275,7 +333,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Time back\t\t:"
+            android:text="Time back\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -304,7 +362,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Status\t\t\t\t\t\t:"
+            android:text="Approver\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -329,7 +387,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-black"
-            android:text="Center"
+            android:text="Security"
             android:textColor="#174887"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -228,7 +228,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(UtamaDataEmployee.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                         progressDialog.dismiss();
                     }
@@ -271,14 +271,14 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(UtamaDataEmployee.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataEmployee.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                     }
                 });
     }
@@ -287,7 +287,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
         if(list.size()>0){
             createXlFile();
         } else {
-            Toast.makeText(this, "list are empty", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"List Are Empty!", Toast.LENGTH_SHORT,R.style.warning).show();
         }
     }
 
@@ -405,7 +405,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
             outputStream = new FileOutputStream(path);
             wb.write(outputStream);
             // ShareViaEmail(file.getParentFile().getName(),file.getName());
-            Toast.makeText(getApplicationContext(), "Excel Created in " + path, Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"Excel Created in " + path, Toast.LENGTH_SHORT,R.style.logsuccess).show();
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -439,7 +439,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             importData();
         } else {
-            Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"Permission Denied!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
         }
     }
 }

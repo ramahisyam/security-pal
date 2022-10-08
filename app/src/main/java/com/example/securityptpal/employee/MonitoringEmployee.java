@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,14 +95,14 @@ public class MonitoringEmployee extends AppCompatActivity implements PermissionE
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(MonitoringEmployee.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MonitoringEmployee.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                     }
                 });
     }

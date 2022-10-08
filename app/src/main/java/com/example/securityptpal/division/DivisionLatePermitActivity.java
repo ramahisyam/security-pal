@@ -36,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -181,7 +182,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
                             }
                             latePermissionAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(DivisionLatePermitActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                         progressDialog.dismiss();
                     }
@@ -189,7 +190,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(DivisionLatePermitActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         progressDialog.dismiss();
                     }
                 });
@@ -199,7 +200,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
         if(list.size()>0){
             createXlFile();
         } else {
-            Toast.makeText(this, "list are empty", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"List Are Empty!", Toast.LENGTH_SHORT,R.style.warning).show();
         }
     }
 
@@ -310,7 +311,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
             outputStream = new FileOutputStream(path);
             wb.write(outputStream);
             // ShareViaEmail(file.getParentFile().getName(),file.getName());
-            Toast.makeText(getApplicationContext(), "Excel Created in " + path, Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"Excel Created in " + path, Toast.LENGTH_SHORT,R.style.logsuccess).show();
         } catch (IOException e) {
             e.printStackTrace();
 

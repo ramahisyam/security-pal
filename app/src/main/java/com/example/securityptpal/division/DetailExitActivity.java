@@ -15,6 +15,7 @@ import com.example.securityptpal.R;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 
@@ -49,7 +50,6 @@ public class DetailExitActivity extends AppCompatActivity implements AdapterView
         save = findViewById(R.id.save_div_status);
 
         divStatus = new ArrayList<>();
-        divStatus.add("Change Status");
         divStatus.add("Accepted");
         divStatus.add("Pending");
         divStatus.add("Rejected");
@@ -120,13 +120,13 @@ public class DetailExitActivity extends AppCompatActivity implements AdapterView
 
     private void saveValue(String item) {
         if (item.equals("Change Status")) {
-            Toast.makeText(this, "Please select a status", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"Please select a status", Toast.LENGTH_SHORT,R.style.warning).show();
         }
         else {
             permissionEmployee.setDivision_approval(item);
             String id = permissionEmployee.getId();
             db.collection("permission_employee").document(id).set(permissionEmployee);
-            Toast.makeText(this, "Berhasil mengubah status", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"Change Status Successfull", Toast.LENGTH_SHORT,R.style.logsuccess).show();
         }
     }
 }

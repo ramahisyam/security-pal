@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    ImageView employee, subcon, guest, cometoolate, visitor;
+    ImageView employee, subcon, guest, cometoolate, visitor, checkup;
     private ViewPager2 viewPager2;
     private Handler sliderHandler = new Handler();
     TextView textView;
@@ -42,6 +42,7 @@ public class MainActivity2 extends AppCompatActivity {
         guest = findViewById(R.id.guest);
         cometoolate = findViewById(R.id.cometoolate);
         visitor = findViewById(R.id.visitor);
+        checkup = findViewById(R.id.checkup);
 
 
         employee.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +81,14 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity2.this, Visitor.class);
+                startActivity(intent);
+            }
+        });
+
+        checkup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity2.this, CheckUp.class);
                 startActivity(intent);
             }
         });

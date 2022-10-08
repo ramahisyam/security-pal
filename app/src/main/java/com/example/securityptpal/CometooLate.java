@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,6 +31,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.securityptpal.employee.Employee;
+import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.PermissionLate;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -42,6 +46,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.muddzdev.styleabletoast.StyleableToast;
+import com.tapadoo.alerter.Alerter;
+import com.tapadoo.alerter.OnHideAlertListener;
+import com.tapadoo.alerter.OnShowAlertListener;
 import com.zolad.zoominimageview.ZoomInImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -59,9 +66,9 @@ public class CometooLate extends AppCompatActivity {
     private String[] PERMISSIONS;
     Button monitoring, btnPicture, btnSubmit;
     EditText edtName, edtNip, edtReason;
-    Spinner spinner;
+    Spinner spinner, spinner2;
     ZoomInImageView imageView;
-    TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation;
+    TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation, txtDepart;
     Build build;
     String device, name, nip, division, reason, image, date, latitude, longitude, location;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -74,6 +81,7 @@ public class CometooLate extends AppCompatActivity {
         setContentView(R.layout.activity_cometoo_late);
 
         spinner = findViewById(R.id.division_late);
+        spinner2 = findViewById(R.id.status_late);
         monitoring = findViewById(R.id.late_monitoring);
         btnPicture = findViewById(R.id.buttonPicture);
         btnSubmit = (Button) findViewById(R.id.submitLate);
@@ -86,6 +94,7 @@ public class CometooLate extends AppCompatActivity {
         txtLatitude = (TextView) findViewById(R.id.late_latitude);
         txtLongitude = (TextView) findViewById(R.id.late_longitude);
         txtLocation = (TextView) findViewById(R.id.late_location);
+        txtDepart = findViewById(R.id.txtDepartlate);
 
         PERMISSIONS = new String[]{
                 Manifest.permission.CAMERA,
@@ -117,6 +126,11 @@ public class CometooLate extends AppCompatActivity {
         divisionList.add("Information Technology");
         divisionList.add("Design");
 
+        ArrayList<String> statusList = new ArrayList<>();
+
+        statusList.add("PKWT");
+        statusList.add("PKWTT");
+
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +154,23 @@ public class CometooLate extends AppCompatActivity {
 //                }
                 String sNumber = adapterView.getItemAtPosition(i).toString();
 //                textView.setText(sNumber);
+                if (i == 0 || i == 1 || i == 2|| i == 3|| i == 4|| i == 5){
+                    txtDepart.setText("Production Directorate");
+                }else if (i == 6 || i == 7 || i == 8 || i == 9){
+                    txtDepart.setText("Marketing Directorate");
+                }
+                else if (i == 10 || i == 11 || i == 12 || i == 13 || i == 14){
+                    txtDepart.setText("Directorate of Finance, Risk Management & HR");
+                }
+                else if (i == 15 || i == 16){
+                    txtDepart.setText("SEVP Transformation Management");
+                }
+                else if (i == 17){
+                    txtDepart.setText("SEVP Technology & Naval System");
+                }
+                else if (i == 18 || i == 19 || i == 20 || i == 21){
+                    txtDepart.setText("-");
+                }
             }
 
             @Override
@@ -147,6 +178,31 @@ public class CometooLate extends AppCompatActivity {
 
             }
         });
+
+        spinner2.setAdapter(new ArrayAdapter<>(CometooLate.this,
+                android.R.layout.simple_spinner_dropdown_item, statusList));
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (i == 0){
+//                    Toast.makeText(getApplicationContext(),
+//                            "Please Select Division",Toast.LENGTH_SHORT).show();
+//                    textView.setText("");
+//                }else{
+//                    String sNumber = adapterView.getItemAtPosition(i).toString();
+//                    textView.setText(sNumber);
+//                }
+                String sNumber = adapterView.getItemAtPosition(i).toString();
+//                textView.setText(sNumber);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         btnPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,16 +217,53 @@ public class CometooLate extends AppCompatActivity {
         saveinfo();
 
         btnSubmit.setOnClickListener(view -> {
-            name = edtName.getText().toString();
-            nip = edtNip.getText().toString();
-            division = spinner.getSelectedItem().toString();
-            reason = edtReason.getText().toString();
-            date = txtDate.getText().toString();
-            device = txtDevice.getText().toString();
-            latitude = txtLatitude.getText().toString();
-            longitude = txtLongitude.getText().toString();
-            location = txtLocation.getText().toString();
-            upload(name, nip, division, reason, date, device, latitude, longitude, location);
+            try{
+                if (TextUtils.isEmpty(edtName.getText().toString()) || TextUtils.isEmpty(edtNip.getText().toString()) || TextUtils.isEmpty(edtReason.getText().toString()) || TextUtils.isEmpty(txtDate.getText().toString()) || TextUtils.isEmpty(txtDevice.getText().toString()) || TextUtils.isEmpty(txtLatitude.getText().toString()) || TextUtils.isEmpty(txtLongitude.getText().toString()) || TextUtils.isEmpty(txtLocation.getText().toString())){
+//                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+                    Alerter.create(CometooLate.this)
+                            .setTitle("Add Data Failed!")
+                            .setText("Please fill all the data")
+                            .setIcon(R.drawable.ic_close)
+                            .setBackgroundColorRes(android.R.color.holo_red_dark)
+                            .setDuration(2000)
+                            .enableSwipeToDismiss()
+                            .enableProgress(true)
+                            .setProgressColorRes(R.color.design_default_color_primary)
+                            .setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            })
+                            .setOnShowListener(new OnShowAlertListener() {
+                                @Override
+                                public void onShow() {
+
+                                }
+                            })
+                            .setOnHideListener(new OnHideAlertListener() {
+                                @Override
+                                public void onHide() {
+
+                                }
+                            })
+                            .show();
+                }else{
+                    name = edtName.getText().toString();
+                    nip = edtNip.getText().toString();
+                    division = spinner.getSelectedItem().toString();
+                    reason = edtReason.getText().toString();
+                    date = txtDate.getText().toString();
+                    device = txtDevice.getText().toString();
+                    latitude = txtLatitude.getText().toString();
+                    longitude = txtLongitude.getText().toString();
+                    location = txtLocation.getText().toString();
+                    upload(name, nip, division, reason, date, device, latitude, longitude, location);
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         });
     }
 
@@ -336,6 +429,12 @@ public class CometooLate extends AppCompatActivity {
                 edtNip.setText("");
                 edtReason.setText("");
                 imageView.setImageResource(R.drawable.pict);
+                txtDepart.setText("");
+                txtDate.setText("Date");
+                txtDevice.setText("Phone");
+                txtLatitude.setText("Latitude");
+                txtLongitude.setText("Longitude");
+                txtLocation.setText("Location");
                 Toast.makeText(CometooLate.this, "Berhasil submit", Toast.LENGTH_SHORT).show();
             }
         });

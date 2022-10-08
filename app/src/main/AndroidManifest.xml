@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
-            android:name=".division.DivisionLatePermitActivity"
+            android:name=".CheckUp"
             android:exported="false" />
         <activity
             android:name=".main.DetailExitPermissionActivity"
