@@ -174,7 +174,8 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
                                         document.getString("device"),
                                         document.getString("latitude"),
                                         document.getString("longitude"),
-                                        document.getString("location")
+                                        document.getString("location"),
+                                        document.getString("status")
                                 );
                                 list.add(permissionLate);
                             }

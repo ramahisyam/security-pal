@@ -88,7 +88,8 @@ public class MonitoringEmployee extends AppCompatActivity implements PermissionE
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("status")
                                 );
                                 list.add(permissionEmployee);
                             }

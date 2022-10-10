@@ -15,11 +15,12 @@ public class PermissionLate implements Parcelable{
     private String latitude;
     private String longitude;
     private String location;
+    private String employee_status;
 
     public PermissionLate() {
     }
 
-    public PermissionLate(String id, String name, String nip, String division, String reason, String img, String date, String device, String latitude, String longitude, String location) {
+    public PermissionLate(String id, String name, String nip, String division, String reason, String img, String date, String device, String latitude, String longitude, String location, String employee_status) {
         this.id = id;
         this.name = name;
         this.nip = nip;
@@ -31,6 +32,7 @@ public class PermissionLate implements Parcelable{
         this.latitude = latitude;
         this.longitude = longitude;
         this.location = location;
+        this.employee_status = employee_status;
     }
 
     protected PermissionLate(Parcel in) {
@@ -45,6 +47,7 @@ public class PermissionLate implements Parcelable{
         latitude = in.readString();
         longitude = in.readString();
         location = in.readString();
+        employee_status = in.readString();
     }
 
     public static final Creator<PermissionLate> CREATOR = new Creator<PermissionLate>() {
@@ -147,6 +150,14 @@ public class PermissionLate implements Parcelable{
         this.location = location;
     }
 
+    public String getEmployee_status() {
+        return employee_status;
+    }
+
+    public void setEmployee_status(String employee_status) {
+        this.employee_status = employee_status;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -165,5 +176,6 @@ public class PermissionLate implements Parcelable{
         parcel.writeString(latitude);
         parcel.writeString(longitude);
         parcel.writeString(location);
+        parcel.writeString(employee_status);
     }
 }

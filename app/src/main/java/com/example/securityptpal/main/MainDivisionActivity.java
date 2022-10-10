@@ -75,7 +75,7 @@ public class MainDivisionActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
                             case 0:
-                                Intent intent = new Intent(MainDivisionActivity.this, AddDivisionActivity.class);
+                                Intent intent = new Intent(MainDivisionActivity.this, EditDivisionActivity.class);
                                 intent.putExtra("DIVISION_EDIT", list.get(pos));
                                 startActivity(intent);
                                 break;

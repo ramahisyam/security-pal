@@ -25,7 +25,9 @@ import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,13 +37,14 @@ public class Employee extends AppCompatActivity {
     ImageView Calendar, img_timeout, img_timeback, imgSignOut;
     EditText edtBase, edtName, edtNip, edtDate, edtNecessity, edtPlace, edtTimeout, edtTimeback;
     DatePickerDialog.OnDateSetListener setListener;
-    Spinner spinner;
+    Spinner divSpinner, statusSpinner;
     int hour, minute;
-    String base, name, nip, division, date, necessity, place, timeout, timeback;
+    String base, name, nip, division, date, necessity, place, timeout, timeback, status;
     FirebaseFirestore db;
     Button btnSendEmployee, btnMonitoring;
-    private ArrayAdapter spinnerAdapter;
+    private ArrayAdapter divSpinnerAdapter, statusSpinnerAdapter;
     private ProgressDialog progressDialog;
+    ArrayList<String> divisionList, statusList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,52 +65,26 @@ public class Employee extends AppCompatActivity {
         edtPlace = (EditText) findViewById(R.id.edtPlace);
         btnSendEmployee = findViewById(R.id.btn_send_employee);
         btnMonitoring = findViewById(R.id.gotoMonitoring);
-        spinner = findViewById(R.id.spinner_division_employee);
+        divSpinner = findViewById(R.id.spinner_division_employee);
+        statusSpinner = findViewById(R.id.spinner_status_employee);
         progressDialog = new ProgressDialog(Employee.this);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Menyimpan...");
         db = FirebaseFirestore.getInstance();
 
-        ArrayList<String> numberList = new ArrayList<>();
+        getDivision();
+        divisionList = new ArrayList<>();
+        statusList = new ArrayList<>();
+        statusList.add("PKWT");
+        statusList.add("PKWTT");
 
-        numberList.add("General Engineering");
-        numberList.add("Merchant Ship");
-        numberList.add("Warship");
-        numberList.add("Submarine");
-        numberList.add("Maintenance & Repair");
-        numberList.add("Production Management Office");
-        numberList.add("Ship Marketing & Sales");
-        numberList.add("Recumalable Sales");
-        numberList.add("Supply Chain");
-        numberList.add("Area & K3LH");
-        numberList.add("Company Strategic Planning");
-        numberList.add("Treasury");
-        numberList.add("Accountancy");
-        numberList.add("Human Capital Management");
-        numberList.add("Risk");
-        numberList.add("Office of The Board");
-        numberList.add("Legal");
-        numberList.add("Technology & Quality Assurance");
-        numberList.add("Company Secretary");
-        numberList.add("Internal Control Unit");
-        numberList.add("Information Technology");
-        numberList.add("Design");
+        divSpinnerAdapter = new ArrayAdapter<>(Employee.this,
+                android.R.layout.simple_spinner_dropdown_item, divisionList);
+        divSpinner.setAdapter(divSpinnerAdapter);
 
-        spinnerAdapter = new ArrayAdapter<>(Employee.this,
-                android.R.layout.simple_spinner_dropdown_item, numberList);
-        spinner.setAdapter(spinnerAdapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String sNumber = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        statusSpinnerAdapter = new ArrayAdapter<>(Employee.this,
+                android.R.layout.simple_spinner_dropdown_item, statusList);
+        statusSpinner.setAdapter(statusSpinnerAdapter);
 
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         final int year = calendar.get(java.util.Calendar.YEAR);
@@ -145,7 +122,8 @@ public class Employee extends AppCompatActivity {
                 place = edtPlace.getText().toString();
                 timeout = edtTimeout.getText().toString();
                 timeback = edtTimeback.getText().toString();
-                division = spinner.getSelectedItem().toString();
+                division = divSpinner.getSelectedItem().toString();
+                status = statusSpinner.getSelectedItem().toString();
 
                 PermissionEmployee permissionEmployee = new PermissionEmployee(
                         db.collection("permission_employee").document().getId(),
@@ -159,7 +137,8 @@ public class Employee extends AppCompatActivity {
                         timeout,
                         timeback,
                         "Pending",
-                        "Pending"
+                        "Pending",
+                        status
                 );
                 db.collection("permission_employee").add(permissionEmployee).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -232,5 +211,28 @@ public class Employee extends AppCompatActivity {
 
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
+    }
+
+    private void getDivision() {
+        progressDialog.show();
+        db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                progressDialog.hide();
+                if (queryDocumentSnapshots.size()>0) {
+                    divisionList.clear();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        divisionList.add(doc.getString("name"));
+                    }
+                    divSpinnerAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.hide();
+                Toast.makeText(Employee.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

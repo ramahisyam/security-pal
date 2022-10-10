@@ -198,7 +198,8 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("status")
                                 );
                                 list.add(permissionEmployee);
                             }
@@ -241,7 +242,8 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("status")
                                 );
                                 list.add(permissionEmployee);
                             }

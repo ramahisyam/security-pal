@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".main.EditDivisionActivity"
+            android:exported="false" />
+        <activity
             android:name=".main.AddDivisionActivity"
             android:exported="false" />
         <activity

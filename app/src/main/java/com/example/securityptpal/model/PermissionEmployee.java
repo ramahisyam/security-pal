@@ -16,11 +16,12 @@ public class PermissionEmployee implements Parcelable {
     private String timeback;
     private String division_approval;
     private String center_approval;
+    private String employee_status;
 
     public PermissionEmployee() {
     }
 
-    public PermissionEmployee(String id, String base, String name, String nip, String division, String date, String necessity, String place, String timeout, String timeback, String division_approval, String center_approval)  {
+    public PermissionEmployee(String id, String base, String name, String nip, String division, String date, String necessity, String place, String timeout, String timeback, String division_approval, String center_approval, String employee_status)  {
         this.id = id;
         this.base = base;
         this.name = name;
@@ -33,6 +34,7 @@ public class PermissionEmployee implements Parcelable {
         this.timeback = timeback;
         this.division_approval = division_approval;
         this.center_approval = center_approval;
+        this.employee_status = employee_status;
     }
 
     protected PermissionEmployee(Parcel in) {
@@ -48,6 +50,7 @@ public class PermissionEmployee implements Parcelable {
         timeback = in.readString();
         division_approval = in.readString();
         center_approval = in.readString();
+        employee_status = in.readString();
     }
 
     public static final Creator<PermissionEmployee> CREATOR = new Creator<PermissionEmployee>() {
@@ -158,6 +161,14 @@ public class PermissionEmployee implements Parcelable {
         this.center_approval = center_approval;
     }
 
+    public String getEmployee_status() {
+        return employee_status;
+    }
+
+    public void setEmployee_status(String employee_status) {
+        this.employee_status = employee_status;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -177,5 +188,6 @@ public class PermissionEmployee implements Parcelable {
         parcel.writeString(timeback);
         parcel.writeString(division_approval);
         parcel.writeString(center_approval);
+        parcel.writeString(employee_status);
     }
 }
