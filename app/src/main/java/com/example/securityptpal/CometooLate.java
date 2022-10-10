@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +30,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.securityptpal.employee.Employee;
+import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.PermissionLate;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -43,6 +47,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.muddzdev.styleabletoast.StyleableToast;
+import com.tapadoo.alerter.Alerter;
+import com.tapadoo.alerter.OnHideAlertListener;
+import com.tapadoo.alerter.OnShowAlertListener;
 import com.zolad.zoominimageview.ZoomInImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -61,7 +68,7 @@ public class CometooLate extends AppCompatActivity {
     EditText edtName, edtNip, edtReason;
     Spinner divSpinner, statusSpinner;
     ZoomInImageView imageView;
-    TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation;
+    TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation, txtDepart;
     Build build;
     String device, name, nip, division, reason, image, date, latitude, longitude, location, status;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -89,6 +96,7 @@ public class CometooLate extends AppCompatActivity {
         txtLatitude = (TextView) findViewById(R.id.late_latitude);
         txtLongitude = (TextView) findViewById(R.id.late_longitude);
         txtLocation = (TextView) findViewById(R.id.late_location);
+        txtDepart = findViewById(R.id.txtDepartlate);
 
         PERMISSIONS = new String[]{
                 Manifest.permission.CAMERA,
@@ -98,6 +106,11 @@ public class CometooLate extends AppCompatActivity {
         getDivision();
         divisionList = new ArrayList<>();
         statusList = new ArrayList<>();
+        statusList.add("PKWT");
+        statusList.add("PKWTT");
+
+        ArrayList<String> statusList = new ArrayList<>();
+
         statusList.add("PKWT");
         statusList.add("PKWTT");
 
@@ -129,17 +142,54 @@ public class CometooLate extends AppCompatActivity {
         saveinfo();
 
         btnSubmit.setOnClickListener(view -> {
-            name = edtName.getText().toString();
-            nip = edtNip.getText().toString();
-            division = divSpinner.getSelectedItem().toString();
-            status = statusSpinner.getSelectedItem().toString();
-            reason = edtReason.getText().toString();
-            date = txtDate.getText().toString();
-            device = txtDevice.getText().toString();
-            latitude = txtLatitude.getText().toString();
-            longitude = txtLongitude.getText().toString();
-            location = txtLocation.getText().toString();
-            upload(name, nip, division, reason, date, device, latitude, longitude, location, status);
+            try{
+                if (TextUtils.isEmpty(edtName.getText().toString()) || TextUtils.isEmpty(edtNip.getText().toString()) || TextUtils.isEmpty(edtReason.getText().toString()) || TextUtils.isEmpty(txtDate.getText().toString()) || TextUtils.isEmpty(txtDevice.getText().toString()) || TextUtils.isEmpty(txtLatitude.getText().toString()) || TextUtils.isEmpty(txtLongitude.getText().toString()) || TextUtils.isEmpty(txtLocation.getText().toString())){
+//                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+                    Alerter.create(CometooLate.this)
+                            .setTitle("Add Data Failed!")
+                            .setText("Please fill all the data")
+                            .setIcon(R.drawable.ic_close)
+                            .setBackgroundColorRes(android.R.color.holo_red_dark)
+                            .setDuration(2000)
+                            .enableSwipeToDismiss()
+                            .enableProgress(true)
+                            .setProgressColorRes(R.color.design_default_color_primary)
+                            .setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            })
+                            .setOnShowListener(new OnShowAlertListener() {
+                                @Override
+                                public void onShow() {
+
+                                }
+                            })
+                            .setOnHideListener(new OnHideAlertListener() {
+                                @Override
+                                public void onHide() {
+
+                                }
+                            })
+                            .show();
+                }else{
+                    name = edtName.getText().toString();
+                    nip = edtNip.getText().toString();
+                    division = divSpinner.getSelectedItem().toString();
+                    status = statusSpinner.getSelectedItem().toString();
+                    reason = edtReason.getText().toString();
+                    date = txtDate.getText().toString();
+                    device = txtDevice.getText().toString();
+                    latitude = txtLatitude.getText().toString();
+                    longitude = txtLongitude.getText().toString();
+                    location = txtLocation.getText().toString();
+                    upload(name, nip, division, reason, date, device, latitude, longitude, location, status);
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         });
     }
 
@@ -307,6 +357,12 @@ public class CometooLate extends AppCompatActivity {
                 edtNip.setText("");
                 edtReason.setText("");
                 imageView.setImageResource(R.drawable.pict);
+                txtDepart.setText("");
+                txtDate.setText("Date");
+                txtDevice.setText("Phone");
+                txtLatitude.setText("Latitude");
+                txtLongitude.setText("Longitude");
+                txtLocation.setText("Location");
                 Toast.makeText(CometooLate.this, "Berhasil submit", Toast.LENGTH_SHORT).show();
             }
         });

@@ -30,6 +30,8 @@
         <activity
             android:name=".division.DivisionLatePermitActivity"
             android:exported="false" />
+        <activity android:name=".CheckUp"
+            android:exported="false"/>
         <activity
             android:name=".main.DetailExitPermissionActivity"
             android:exported="false" />

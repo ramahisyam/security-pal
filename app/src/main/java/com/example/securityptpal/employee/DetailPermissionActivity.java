@@ -3,12 +3,15 @@ package com.example.securityptpal.employee;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.securityptpal.R;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetailPermissionActivity extends AppCompatActivity {
 
@@ -45,23 +48,119 @@ public class DetailPermissionActivity extends AppCompatActivity {
         if (permissionEmployee.getDivision_approval().equals("Pending")){
             division_approve.setText(permissionEmployee.getDivision_approval());
             division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_orange_color));
+            division_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailPermissionActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("PENDING")
+                            .setContentText("Please wait the permission status")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
         } else if (permissionEmployee.getDivision_approval().equals("Accepted")){
             division_approve.setText(permissionEmployee.getDivision_approval());
             division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_green_color));
+            division_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailPermissionActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("ACCEPTED")
+                            .setContentText("Please continue to security permission")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
         } else {
             division_approve.setText(permissionEmployee.getDivision_approval());
             division_approve.setTextColor(division_approve.getResources().getColor(R.color.cardColorRed));
+            division_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailPermissionActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("REJECTED")
+                            .setContentText("Sorry you can't continue to security permission")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
         }
 
         if (permissionEmployee.getCenter_approval().equals("Pending")){
             center_approve.setText(permissionEmployee.getCenter_approval());
             center_approve.setTextColor(center_approve.getResources().getColor(R.color.main_orange_color));
+            center_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailPermissionActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("PENDING")
+                            .setContentText("Please wait")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
         } else if (permissionEmployee.getCenter_approval().equals("Accepted")){
             center_approve.setText(permissionEmployee.getCenter_approval());
             center_approve.setTextColor(center_approve.getResources().getColor(R.color.main_green_color));
+            center_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailPermissionActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("ACCEPTED")
+                            .setContentText("Congratulations")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
         } else {
             center_approve.setText(permissionEmployee.getCenter_approval());
             center_approve.setTextColor(center_approve.getResources().getColor(R.color.cardColorRed));
+            center_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailPermissionActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("REJECTED")
+                            .setContentText("Contact your department")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
         }
     }
 }

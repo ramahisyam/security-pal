@@ -42,6 +42,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -205,7 +206,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(ExitPermissionActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                         progressDialog.dismiss();
                     }
@@ -249,14 +250,14 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(ExitPermissionActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ExitPermissionActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                     }
                 });
     }
@@ -265,7 +266,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
         if(list.size()>0){
             createXlFile();
         } else {
-            Toast.makeText(this, "list are empty", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"List Are Empty!", Toast.LENGTH_SHORT,R.style.warning).show();
         }
     }
 
@@ -383,7 +384,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
             outputStream = new FileOutputStream(path);
             wb.write(outputStream);
             // ShareViaEmail(file.getParentFile().getName(),file.getName());
-            Toast.makeText(getApplicationContext(), "Excel Created in " + path, Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"Excel Created in " + path, Toast.LENGTH_SHORT,R.style.logsuccess).show();
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -417,7 +418,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             importData();
         } else {
-            Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"Permission Denied!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
         }
     }
 }
