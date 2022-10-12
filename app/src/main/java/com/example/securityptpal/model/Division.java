@@ -3,21 +3,26 @@ package com.example.securityptpal.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 public class Division implements Parcelable {
     private String id;
     private String name;
+    List<String> department;
 
     public Division() {
     }
 
-    public Division(String id, String name) {
+    public Division(String id, String name, List<String> department) {
         this.id = id;
         this.name = name;
+        this.department = department;
     }
 
     protected Division(Parcel in) {
         id = in.readString();
         name = in.readString();
+        department = in.createStringArrayList();
     }
 
     public static final Creator<Division> CREATOR = new Creator<Division>() {
@@ -48,6 +53,14 @@ public class Division implements Parcelable {
         this.name = name;
     }
 
+    public List<String> getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(List<String> department) {
+        this.department = department;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -57,5 +70,6 @@ public class Division implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
         parcel.writeString(name);
+        parcel.writeStringList(department);
     }
 }

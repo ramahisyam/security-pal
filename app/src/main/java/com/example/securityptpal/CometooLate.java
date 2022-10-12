@@ -31,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.securityptpal.employee.Employee;
+import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.PermissionLate;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -66,16 +67,17 @@ public class CometooLate extends AppCompatActivity {
     private String[] PERMISSIONS;
     Button monitoring, btnPicture, btnSubmit;
     EditText edtName, edtNip, edtReason;
-    Spinner divSpinner, statusSpinner;
+    Spinner divSpinner, depSpinner, statusSpinner;
     ZoomInImageView imageView;
-    TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation, txtDepart;
+    TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation;
     Build build;
-    String device, name, nip, division, reason, image, date, latitude, longitude, location, status;
+    String device, name, nip, division, reason, image, date, latitude, longitude, location, status, department;
     FusedLocationProviderClient fusedLocationProviderClient;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<String> divisionList, statusList;
-    ArrayAdapter divSpinnerAdapter, statusSpinnerAdapter;
+    ArrayList<String> divisionList, statusList, departmentList;
+    ArrayAdapter divSpinnerAdapter, depSpinnerAdapter, statusSpinnerAdapter;
+    private List<Division> departments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +98,7 @@ public class CometooLate extends AppCompatActivity {
         txtLatitude = (TextView) findViewById(R.id.late_latitude);
         txtLongitude = (TextView) findViewById(R.id.late_longitude);
         txtLocation = (TextView) findViewById(R.id.late_location);
-        txtDepart = findViewById(R.id.txtDepartlate);
+        depSpinner = findViewById(R.id.spinner_department_late);
 
         PERMISSIONS = new String[]{
                 Manifest.permission.CAMERA,
@@ -106,6 +108,7 @@ public class CometooLate extends AppCompatActivity {
         getDivision();
         divisionList = new ArrayList<>();
         statusList = new ArrayList<>();
+        departmentList = new ArrayList<>();
         statusList.add("PKWT");
         statusList.add("PKWTT");
 
@@ -124,6 +127,24 @@ public class CometooLate extends AppCompatActivity {
         divSpinnerAdapter = new ArrayAdapter<>(CometooLate.this,
                 android.R.layout.simple_spinner_dropdown_item, divisionList);
         divSpinner.setAdapter(divSpinnerAdapter);
+        divSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+//                Toast.makeText(Employee.this, departments.get(i).getName(), Toast.LENGTH_SHORT).show();
+                for (String mDepartment : departments.get(i).getDepartment()){
+                    departmentList.add(mDepartment);
+                }
+                depSpinnerAdapter = new ArrayAdapter<>(CometooLate.this,
+                        android.R.layout.simple_spinner_dropdown_item, departmentList);
+                depSpinner.setAdapter(depSpinnerAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         statusSpinnerAdapter = new ArrayAdapter<>(CometooLate.this,
                 android.R.layout.simple_spinner_dropdown_item, statusList);
@@ -184,7 +205,8 @@ public class CometooLate extends AppCompatActivity {
                     latitude = txtLatitude.getText().toString();
                     longitude = txtLongitude.getText().toString();
                     location = txtLocation.getText().toString();
-                    upload(name, nip, division, reason, date, device, latitude, longitude, location, status);
+                    department = depSpinner.getSelectedItem().toString();
+                    upload(name, nip, division, reason, date, device, latitude, longitude, location, status, department);
                 }
             }
             catch (Exception e){
@@ -290,7 +312,7 @@ public class CometooLate extends AppCompatActivity {
         }
     }
 
-    private void upload(String name, String nip, String division, String reason, String date, String device, String latitude, String longitude, String location, String status) {
+    private void upload(String name, String nip, String division, String reason, String date, String device, String latitude, String longitude, String location, String status, String department) {
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -324,7 +346,8 @@ public class CometooLate extends AppCompatActivity {
                                         longitude,
                                         location,
                                         task.getResult().toString(),
-                                        status
+                                        status,
+                                        department
                                 );
                             }
                         });
@@ -334,7 +357,7 @@ public class CometooLate extends AppCompatActivity {
         });
     }
 
-    private void saveData(String name, String nip, String division, String reason, String date, String device, String latitude, String longitude, String location, String img, String status) {
+    private void saveData(String name, String nip, String division, String reason, String date, String device, String latitude, String longitude, String location, String img, String status, String department) {
         PermissionLate permissionLate = new PermissionLate(
                 db.collection("permission_late").document().getId(),
                 name,
@@ -347,7 +370,8 @@ public class CometooLate extends AppCompatActivity {
                 latitude,
                 longitude,
                 location,
-                status
+                status,
+                department
         );
 
         db.collection("permission_late").add(permissionLate).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -357,7 +381,6 @@ public class CometooLate extends AppCompatActivity {
                 edtNip.setText("");
                 edtReason.setText("");
                 imageView.setImageResource(R.drawable.pict);
-                txtDepart.setText("");
                 txtDate.setText("Date");
                 txtDevice.setText("Phone");
                 txtLatitude.setText("Latitude");
@@ -372,6 +395,7 @@ public class CometooLate extends AppCompatActivity {
         db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                departments = queryDocumentSnapshots.toObjects(Division.class);
                 if (queryDocumentSnapshots.size()>0) {
                     divisionList.clear();
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {

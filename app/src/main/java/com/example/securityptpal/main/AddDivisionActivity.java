@@ -20,9 +20,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class AddDivisionActivity extends AppCompatActivity {
 
-    EditText edtName;
+    EditText edtName, edtDepartment;
     Button btnSubmit;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressDialog progressDialog;
@@ -33,6 +36,7 @@ public class AddDivisionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_division);
         edtName = findViewById(R.id.name_division);
+        edtDepartment = findViewById(R.id.department_division);
         btnSubmit = findViewById(R.id.btn_add_division);
         progressDialog = new ProgressDialog(AddDivisionActivity.this);
         progressDialog.setTitle("Loading");
@@ -41,17 +45,22 @@ public class AddDivisionActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(view -> {
             saveData(
                     db.collection("division").document().getId(),
-                    edtName.getText().toString()
+                    edtName.getText().toString(),
+                    edtDepartment.getText().toString()
             );
         });
     }
 
-    private void saveData(String id, String name) {
+    private void saveData(String id, String name, String departmentInput) {
         progressDialog.show();
+
+        String[] departmentArray = departmentInput.split("\\s*,\\s*");
+        List<String> department = Arrays.asList(departmentArray);
 
         Division division = new Division(
                 id,
-                name
+                name,
+                department
         );
 
         db.collection("division").add(division)

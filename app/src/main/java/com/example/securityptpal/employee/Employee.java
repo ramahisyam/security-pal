@@ -3,15 +3,11 @@ package com.example.securityptpal.employee;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,9 +21,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.securityptpal.CometooLate;
 import com.example.securityptpal.LogoutAccount;
 import com.example.securityptpal.R;
+import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,6 +38,7 @@ import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class Employee extends AppCompatActivity {
@@ -49,21 +46,22 @@ public class Employee extends AppCompatActivity {
     EditText edtBase, edtName, edtNip, edtDate, edtNecessity, edtPlace, edtTimeout, edtTimeback;
     TextView txtDepart;
     DatePickerDialog.OnDateSetListener setListener;
-    Spinner divSpinner, statusSpinner;
+    Spinner divSpinner, depSpinner, statusSpinner;
     int hour, minute;
-    String base, name, nip, division, date, necessity, place, timeout, timeback, status;
+    String base, name, nip, division, date, necessity, place, timeout, timeback, status, department;
     FirebaseFirestore db;
     Button btnSendEmployee, btnMonitoring;
-    private ArrayAdapter divSpinnerAdapter, statusSpinnerAdapter;
+    private ArrayAdapter divSpinnerAdapter, depSpinnerAdapter, statusSpinnerAdapter;
     private ProgressDialog progressDialog;
-    ArrayList<String> divisionList, statusList;
+    ArrayList<String> divisionList, departmentList, statusList;
+    private List<Division> departments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
 
-        txtDepart = findViewById(R.id.txtDepart);
+//        txtDepart = findViewById(R.id.txtDepart);
         Calendar = findViewById(R.id.calendar);
         edtDate = (EditText) findViewById(R.id.edtDate);
         img_timeout = findViewById(R.id.img_timeout);
@@ -79,6 +77,7 @@ public class Employee extends AppCompatActivity {
         btnSendEmployee = findViewById(R.id.btn_send_employee);
         btnMonitoring = findViewById(R.id.gotoMonitoring);
         divSpinner = findViewById(R.id.spinner_division_employee);
+        depSpinner = findViewById(R.id.spinner_department_employee);
         statusSpinner = findViewById(R.id.spinner_status_employee);
         progressDialog = new ProgressDialog(Employee.this);
         progressDialog.setTitle("Loading");
@@ -88,11 +87,30 @@ public class Employee extends AppCompatActivity {
         getDivision();
         divisionList = new ArrayList<>();
         statusList = new ArrayList<>();
+        departmentList = new ArrayList<>();
         statusList.add("PKWT");
         statusList.add("PKWTT");
         divSpinnerAdapter = new ArrayAdapter<>(Employee.this,
                 android.R.layout.simple_spinner_dropdown_item, divisionList);
         divSpinner.setAdapter(divSpinnerAdapter);
+        divSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+//                Toast.makeText(Employee.this, departments.get(i).getName(), Toast.LENGTH_SHORT).show();
+                for (String mDepartment : departments.get(i).getDepartment()){
+                    departmentList.add(mDepartment);
+                }
+                depSpinnerAdapter = new ArrayAdapter<>(Employee.this,
+                        android.R.layout.simple_spinner_dropdown_item, departmentList);
+                depSpinner.setAdapter(depSpinnerAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         statusSpinnerAdapter = new ArrayAdapter<>(Employee.this,
                 android.R.layout.simple_spinner_dropdown_item, statusList);
@@ -167,6 +185,7 @@ public class Employee extends AppCompatActivity {
                         timeback = edtTimeback.getText().toString();
                         division = divSpinner.getSelectedItem().toString();
                         status = statusSpinner.getSelectedItem().toString();
+                        department = depSpinner.getSelectedItem().toString();
 
                         progressDialog = new ProgressDialog(Employee.this);
                         progressDialog.show();
@@ -204,7 +223,8 @@ public class Employee extends AppCompatActivity {
                                 timeback,
                                 "Pending",
                                 "Pending",
-                                status
+                                status,
+                                department
                         );
                         db.collection("permission_employee").add(permissionEmployee).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
@@ -281,6 +301,7 @@ public class Employee extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 progressDialog.hide();
+                departments = queryDocumentSnapshots.toObjects(Division.class);
                 if (queryDocumentSnapshots.size()>0) {
                     divisionList.clear();
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {

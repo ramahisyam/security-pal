@@ -91,7 +91,8 @@ public class MonitoringComeTooLate extends AppCompatActivity implements LatePerm
                                         document.getString("latitude"),
                                         document.getString("longitude"),
                                         document.getString("location"),
-                                        document.getString("status")
+                                        document.getString("employee_status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionLate);
                             }

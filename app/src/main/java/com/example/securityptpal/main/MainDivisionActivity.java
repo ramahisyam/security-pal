@@ -22,6 +22,7 @@ import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -75,9 +76,10 @@ public class MainDivisionActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
                             case 0:
-                                Intent intent = new Intent(MainDivisionActivity.this, EditDivisionActivity.class);
-                                intent.putExtra("DIVISION_EDIT", list.get(pos));
-                                startActivity(intent);
+//                                Intent intent = new Intent(MainDivisionActivity.this, EditDivisionActivity.class);
+//                                intent.putExtra("DIVISION_EDIT", list.get(pos));
+//                                startActivity(intent);
+                                Toast.makeText(MainDivisionActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                                 break;
                             case 1:
                                 deleteData(list.get(pos).getId());
@@ -96,23 +98,22 @@ public class MainDivisionActivity extends AppCompatActivity {
         db.collection("division")
                 .orderBy("name", Query.Direction.ASCENDING)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Division division = new Division(
-                                        document.getId(),
-                                        document.getString("name")
-                                );
-                                list.add(division);
-                            }
-                            divisionAdapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(MainDivisionActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            Division mDivision = documentSnapshot.toObject(Division.class);
+
+                            Division division = new Division(
+                                    documentSnapshot.getId(),
+                                    documentSnapshot.getString("name"),
+                                    mDivision.getDepartment()
+                            );
+                            list.add(division);
                         }
+                        divisionAdapter.notifyDataSetChanged();
                         progressDialog.dismiss();
                     }
                 })
@@ -123,6 +124,36 @@ public class MainDivisionActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 });
+//        db.collection("division")
+//                .orderBy("name", Query.Direction.ASCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Division division = new Division(
+//                                        document.getId(),
+//                                        document.getString("name")
+//                                );
+//                                list.add(division);
+//                            }
+//                            divisionAdapter.notifyDataSetChanged();
+//                        } else {
+//                            Toast.makeText(MainDivisionActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+//                        }
+//                        progressDialog.dismiss();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
     }
 
     private void deleteData(String id){

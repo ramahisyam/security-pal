@@ -177,7 +177,8 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
                                         document.getString("latitude"),
                                         document.getString("longitude"),
                                         document.getString("location"),
-                                        document.getString("status")
+                                        document.getString("status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionLate);
                             }
