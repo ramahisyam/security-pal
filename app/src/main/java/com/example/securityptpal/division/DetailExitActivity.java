@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class DetailExitActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     Spinner spinner;
-    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, divApproval, centerApproval;
+    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, divApproval, centerApproval, department, status;
     private Button save;
     String item;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -48,6 +48,8 @@ public class DetailExitActivity extends AppCompatActivity implements AdapterView
         centerApproval = findViewById(R.id.div_center_approval);
         spinner = findViewById(R.id.div_exit_permit_status_editable);
         save = findViewById(R.id.save_div_status);
+        department = findViewById(R.id.div_exit_permit_depart);
+        status = findViewById(R.id.div_exit_permit_statusE);
 
         divStatus = new ArrayList<>();
         divStatus.add("Accepted");
@@ -69,6 +71,8 @@ public class DetailExitActivity extends AppCompatActivity implements AdapterView
         place.setText(permissionEmployee.getPlace());
         timeout.setText(permissionEmployee.getTimeout());
         timeback.setText(permissionEmployee.getTimeback());
+        department.setText(permissionEmployee.getDepartment());
+        status.setText(permissionEmployee.getEmployee_status());
 
         if (permissionEmployee.getDivision_approval().equals("Pending")){
             divApproval.setText(permissionEmployee.getDivision_approval());

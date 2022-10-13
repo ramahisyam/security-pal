@@ -175,7 +175,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
     }
 
     private void showDataDivision(String division) {
-
+        progressDialog.show();
         db.collection("permission_employee")
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
@@ -199,7 +199,9 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionEmployee);
                             }
@@ -242,7 +244,9 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("employee_status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionEmployee);
                             }

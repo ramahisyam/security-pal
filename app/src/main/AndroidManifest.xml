@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@drawable/logopal"
         android:label="@string/app_name"
@@ -19,8 +20,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
-            android:name=".CheckUp"
+            android:name=".main.EditDivisionActivity"
             android:exported="false" />
+        <activity
+            android:name=".main.AddDivisionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.MainDivisionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".division.DivisionLatePermitActivity"
+            android:exported="false" />
+        <activity android:name=".CheckUp"
+            android:exported="false"/>
         <activity
             android:name=".main.DetailExitPermissionActivity"
             android:exported="false" />
@@ -118,7 +130,7 @@
             android:name=".Login2"
             android:exported="false" />
         <activity
-            android:name=".Guest"
+            android:name=".GuestPermissionActivity"
             android:exported="true" />
         <activity
             android:name=".employee.Employee"

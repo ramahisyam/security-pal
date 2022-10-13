@@ -2,12 +2,8 @@ package com.example.securityptpal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MonitoringGuest extends AppCompatActivity {
 
@@ -43,7 +39,7 @@ public class MonitoringGuest extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(this, Guest.class));
+        startActivity(new Intent(this, GuestPermissionActivity.class));
         finish();
     }
 }

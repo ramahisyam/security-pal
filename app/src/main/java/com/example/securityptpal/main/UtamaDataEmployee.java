@@ -222,7 +222,9 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionEmployee);
                             }
@@ -265,7 +267,9 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("employee_status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionEmployee);
                             }
