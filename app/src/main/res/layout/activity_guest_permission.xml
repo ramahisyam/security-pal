@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Guest"
+    tools:context=".GuestPermissionActivity"
     android:orientation="vertical"
     android:background="@drawable/menuall">
 
@@ -113,7 +113,7 @@
             android:textSize="16sp" />
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-            android:id="@+id/spinner"
+            android:id="@+id/guest_div_spinner"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             app:hintText="Select Division"/>
@@ -135,7 +135,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/edtPICSubcon"
+            android:id="@+id/edtPICGuest"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -217,7 +217,7 @@
             android:textColor="#000000" />
 
         <ImageView
-            android:id="@+id/img_timein"
+            android:id="@+id/img_guest_timein"
             android:onClick="pop"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -248,36 +248,13 @@
             android:textColor="#000000" />
 
         <ImageView
-            android:id="@+id/img_timeout"
+            android:id="@+id/img_guest_timeout"
             android:onClick="pop2"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/timeback"
             android:layout_marginTop="5dp"
             tools:ignore="OnClick" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-        <TextView
-            android:id="@+id/statusGuest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Status                  :"
-            android:textColor="#174887"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/edtStatusGuest"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"

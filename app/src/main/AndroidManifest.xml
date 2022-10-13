@@ -130,7 +130,7 @@
             android:name=".Login2"
             android:exported="false" />
         <activity
-            android:name=".Guest"
+            android:name=".GuestPermissionActivity"
             android:exported="true" />
         <activity
             android:name=".employee.Employee"

@@ -49,8 +49,6 @@ public class AkunDivisi extends AppCompatActivity implements DivisionGridAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_akun_divisi);
         imgSignOut = findViewById(R.id.sign_out_division_account);
-//        cvDesignDiv = findViewById(R.id.design_division);
-//        cvITDiv = findViewById(R.id.it_division);
         recyclerView = findViewById(R.id.rv_div);
         progressDialog = new ProgressDialog(AkunDivisi.this);
         progressDialog.setTitle("Loading");
@@ -62,24 +60,6 @@ public class AkunDivisi extends AppCompatActivity implements DivisionGridAdapter
         recyclerView.setAdapter(divisionAdapter);
 
         showAllData();
-
-//        cvITDiv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(AkunDivisi.this, EmployeePermitActivity.class);
-//                intent.putExtra(Intent.EXTRA_TEXT, EXTRA_MESSAGE_IT);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        cvDesignDiv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(AkunDivisi.this, EmployeePermitActivity.class);
-//                intent.putExtra(Intent.EXTRA_TEXT, EXTRA_MESSAGE_DESIGN);
-//                startActivity(intent);
-//            }
-//        });
 
         imgSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
