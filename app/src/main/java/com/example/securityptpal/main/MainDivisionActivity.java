@@ -124,36 +124,6 @@ public class MainDivisionActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 });
-//        db.collection("division")
-//                .orderBy("name", Query.Direction.ASCENDING)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @SuppressLint("NotifyDataSetChanged")
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        list.clear();
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Division division = new Division(
-//                                        document.getId(),
-//                                        document.getString("name")
-//                                );
-//                                list.add(division);
-//                            }
-//                            divisionAdapter.notifyDataSetChanged();
-//                        } else {
-//                            Toast.makeText(MainDivisionActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
-//                        }
-//                        progressDialog.dismiss();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                        progressDialog.dismiss();
-//                    }
-//                });
     }
 
     private void deleteData(String id){

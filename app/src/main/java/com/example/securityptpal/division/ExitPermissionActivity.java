@@ -175,7 +175,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
     }
 
     private void showDataDivision(String division) {
-
+        progressDialog.show();
         db.collection("permission_employee")
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)

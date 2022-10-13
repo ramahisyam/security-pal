@@ -154,6 +154,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
     }
 
     private void showDataDivision(String division) {
+        progressDialog.show();
         db.collection("permission_late")
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
