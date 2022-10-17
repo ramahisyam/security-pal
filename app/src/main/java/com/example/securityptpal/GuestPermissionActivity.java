@@ -64,7 +64,7 @@ public class GuestPermissionActivity extends AppCompatActivity {
         edtTimeout = findViewById(R.id.edtTimeoutGuest);
         edtTimein = findViewById(R.id.edtTimeinGuest);
         divSpinner = findViewById(R.id.guest_div_spinner);
-        monitoring = findViewById(R.id.gotoMonitoring);
+        monitoring = findViewById(R.id.btn_monitoring_guest);
         submit = findViewById(R.id.submitGuest);
         progressDialog = new ProgressDialog(GuestPermissionActivity.this);
 

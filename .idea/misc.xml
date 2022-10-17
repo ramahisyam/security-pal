@@ -157,6 +157,7 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_exit_permission.xml" value="0.15729166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_faq.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_guest.xml" value="0.25" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_guest_permission.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_login2.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_main.xml" value="0.34479166666666666" />
@@ -190,6 +191,7 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/nested_item.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_division_list.xml" value="0.5" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_employee_permission.xml" value="0.34479166666666666" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_guest_list.xml" value="0.2" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_late_permission.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/slide_item_container.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/top_menu_permission_employee.xml" value="0.34375" />
