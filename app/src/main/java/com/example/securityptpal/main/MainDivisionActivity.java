@@ -9,10 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.securityptpal.R;
@@ -25,12 +30,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MainDivisionActivity extends AppCompatActivity {
@@ -42,6 +51,7 @@ public class MainDivisionActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FloatingActionButton fab;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +61,6 @@ public class MainDivisionActivity extends AppCompatActivity {
         searchView = findViewById(R.id.main_search_division);
         fab = findViewById(R.id.fab_add_division);
         progressDialog = new ProgressDialog(MainDivisionActivity.this);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Getting data...");
 
         divisionAdapter = new DivisionAdapter(this, list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -62,13 +70,13 @@ public class MainDivisionActivity extends AppCompatActivity {
         recyclerView.setAdapter(divisionAdapter);
 
         fab.setOnClickListener(view -> {
-            startActivity(new Intent(this, AddDivisionActivity.class));
+            showAddDialog();
         });
 
         divisionAdapter.setDialog(new DivisionAdapter.Dialog() {
             @Override
             public void onClick(int pos) {
-                final CharSequence[] dialogItem = {"Edit", "Delete"};
+                final CharSequence[] dialogItem = {"Add Department", "Edit", "Delete"};
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainDivisionActivity.this);
                 dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
 
@@ -76,12 +84,15 @@ public class MainDivisionActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
                             case 0:
+                                addDepartment(list.get(pos).getId());
+                                break;
+                            case 1:
 //                                Intent intent = new Intent(MainDivisionActivity.this, EditDivisionActivity.class);
 //                                intent.putExtra("DIVISION_EDIT", list.get(pos));
 //                                startActivity(intent);
                                 Toast.makeText(MainDivisionActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                                 break;
-                            case 1:
+                            case 2:
                                 deleteData(list.get(pos).getId());
                                 break;
                         }
@@ -90,11 +101,12 @@ public class MainDivisionActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-        showAllData();
     }
 
     private void showAllData() {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Getting data...");
+        progressDialog.show();
         db.collection("division")
                 .orderBy("name", Query.Direction.ASCENDING)
                 .get()
@@ -127,6 +139,8 @@ public class MainDivisionActivity extends AppCompatActivity {
     }
 
     private void deleteData(String id){
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Deleting data...");
         progressDialog.show();
         db.collection("division").document(id)
                 .delete()
@@ -137,7 +151,99 @@ public class MainDivisionActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
-                        showAllData();
+                        onStart();
+                    }
+                });
+    }
+
+    private void addDepartment(String id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainDivisionActivity.this);
+        builder.setTitle("Add Department");
+        View view = getLayoutInflater().inflate(R.layout.add_division_dialog, null);
+
+        EditText edtName = view.findViewById(R.id.name_division);
+        Button btnSubmit = view.findViewById(R.id.btn_add_division);
+
+        btnSubmit.setOnClickListener(view1 -> {
+            progressDialog.setTitle("Loading");
+            progressDialog.setMessage("Sending data...");
+            progressDialog.show();
+            List<String> department = Collections.singletonList(edtName.getText().toString());
+
+            Division division = new Division(
+                department
+            );
+
+            db.collection("division").document(id)
+                    .update("department", FieldValue.arrayUnion(edtName.getText().toString()))
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(MainDivisionActivity.this, "Data berhasil dikirim", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    });
+            dialog.dismiss();
+            onStart();
+        });
+
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showAddDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainDivisionActivity.this);
+        builder.setTitle("Add Division");
+        View view = getLayoutInflater().inflate(R.layout.add_division_dialog, null);
+
+        EditText edtName = view.findViewById(R.id.name_division);
+        Button btnSubmit = view.findViewById(R.id.btn_add_division);
+
+        btnSubmit.setOnClickListener(view1 -> {
+            saveData(
+                    db.collection("division").document().getId(),
+                    edtName.getText().toString()
+            );
+            dialog.dismiss();
+            onStart();
+        });
+
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    private void saveData(String id, String name) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Sending data...");
+        progressDialog.show();
+
+        Division division = new Division(
+                id,
+                name
+        );
+
+        db.collection("division").add(division)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(MainDivisionActivity.this, "Data berhasil dikirim", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -145,7 +251,6 @@ public class MainDivisionActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        progressDialog.show();
         showAllData();
     }
 }

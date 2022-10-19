@@ -370,7 +370,7 @@
             android:background="@drawable/edittext_employ">
         </Button>
         <Button
-            android:id="@+id/gotoMonitoring"
+            android:id="@+id/btn_monitoring_guest"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:text="Go to Monitoring"

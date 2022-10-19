@@ -35,9 +35,9 @@ public class AddDivisionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_division);
-        edtName = findViewById(R.id.name_division);
+        edtName = findViewById(R.id.add_name_division);
         edtDepartment = findViewById(R.id.department_division);
-        btnSubmit = findViewById(R.id.btn_add_division);
+        btnSubmit = findViewById(R.id.btn_add_name_division);
         progressDialog = new ProgressDialog(AddDivisionActivity.this);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Menyimpan...");
@@ -45,22 +45,21 @@ public class AddDivisionActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(view -> {
             saveData(
                     db.collection("division").document().getId(),
-                    edtName.getText().toString(),
-                    edtDepartment.getText().toString()
+                    edtName.getText().toString()
             );
         });
     }
 
-    private void saveData(String id, String name, String departmentInput) {
+    private void saveData(String id, String name) {
         progressDialog.show();
 
-        String[] departmentArray = departmentInput.split("\\s*,\\s*");
-        List<String> department = Arrays.asList(departmentArray);
+//        String[] departmentArray = departmentInput.split("\\s*,\\s*");
+//        List<String> department = Arrays.asList(departmentArray);
 
         Division division = new Division(
                 id,
-                name,
-                department
+                name
+//                department
         );
 
         db.collection("division").add(division)
