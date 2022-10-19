@@ -28,7 +28,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AkunUtama extends AppCompatActivity {
 
-    private CardView cvExitPermit, cvLatePermit, cvDivision;
     private ImageView imgSignOut;
     DrawerLayout drawerLayout;
     ImageView btMenu;
@@ -95,7 +94,7 @@ public class AkunUtama extends AppCompatActivity {
     }
 
     public void ClickEdit(View view){
-        redirectActivity(this, AkunUtama.class);
+        redirectActivity(this, MainDivisionActivity.class);
     }
 
     public static void redirectActivity(Activity activity, Class aClass){
