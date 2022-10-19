@@ -3,12 +3,15 @@ package com.example.securityptpal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.securityptpal.adapter.LatePermissionAdapter;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
+import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.DetailExitPermissionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.example.securityptpal.model.PermissionEmployee;
@@ -64,6 +68,8 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
     private ProgressDialog progressDialog;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
+    DrawerLayout drawerLayout;
+    ImageView btMenu;
 
     boolean isOpen = false;
 
@@ -73,10 +79,12 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
         setContentView(R.layout.activity_utama_data_cometoolate);
         recyclerView = findViewById(R.id.rv_main_late_permit);
         searchView = findViewById(R.id.search_late_permission);
-        imgSignOut = findViewById(R.id.sign_out_permission_late);
         progressDialog = new ProgressDialog(Utama_Data_Cometoolate.this);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Getting data...");
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
 //        userID = mAuth.getCurrentUser().getUid();
 
         latePermissionAdapter = new LatePermissionAdapter(this, list, this);
@@ -95,6 +103,16 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
 
         rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        btMenu = findViewById(R.id.bt_menu);
+
+        btMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
@@ -345,5 +363,59 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
         } else {
             Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void ClickLogo(View view){
+        closeDrawer(drawerLayout);
+    }
+
+    public static void closeDrawer(DrawerLayout drawerLayout){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    public void ClickMain(View view){
+        AkunUtama.redirectActivity(this, AkunUtama.class);
+    }
+
+    public void ClickEmployee(View view){
+        AkunUtama.redirectActivity(this, UtamaDataEmployee.class);
+        finish();
+    }
+
+    public void ClickComelate(View view){
+        AkunUtama.redirectActivity(this, Utama_Data_Cometoolate.class);
+    }
+
+    public void ClickCheckup(View view){ AkunUtama.redirectActivity(this, UtamaDataCheckup.class); }
+
+    public void ClickSubcon(View view){ AkunUtama.redirectActivity(this, UtamaDataSubcon.class); }
+
+    public void ClickGuest(View view){
+        AkunUtama.redirectActivity(this, UtamaDataGuest.class);
+    }
+
+    public void ClickVisitor(View view){
+        AkunUtama.redirectActivity(this, UtamaDataVisitor.class);
+    }
+
+    public void ClickGoods(View view){
+        AkunUtama.redirectActivity(this, UtamaDataBarang.class);
+    }
+
+    public void ClickEdit(View view){
+        AkunUtama.redirectActivity(this, AkunUtama.class);
+    }
+
+    public void ClickExit(View view){
+        AkunUtama.exit(this);
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass){
+        Intent intent = new Intent(activity,aClass);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        activity.startActivity(intent);
     }
 }

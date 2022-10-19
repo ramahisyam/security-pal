@@ -13,15 +13,13 @@ import android.widget.ImageView;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.UtamaDataEmployee;
 
-public class UtamaDataGuest extends AppCompatActivity {
-
+public class UtamaDataCheckup extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView btMenu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_utama_data_guest);
+        setContentView(R.layout.activity_utama_data_checkup);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         btMenu = findViewById(R.id.bt_menu);

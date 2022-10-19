@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.securityptpal.main.AkunUtama;
+
 public class AboutUs extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
@@ -72,19 +74,19 @@ public class AboutUs extends AppCompatActivity {
         }
     }
 
-    public void ClickMain(View view){ MainActivity.redirectActivity(this, MainActivity.class); }
+    public void ClickMain(View view){ AkunUtama.redirectActivity(this, MainActivity.class); }
 
     public void ClickFaq(View view){
-        MainActivity.redirectActivity(this, FAQ.class);
+        AkunUtama.redirectActivity(this, FAQ.class);
     }
 
     public void ClickAboutus(View view){
-        MainActivity.redirectActivity(this, AboutUs.class);
+        AkunUtama.redirectActivity(this, AboutUs.class);
         finish();
     }
 
     public void ClickExit(View view){
-        MainActivity.exit(this);
+        AkunUtama.exit(this);
     }
 
     public static void redirectActivity(Activity activity, Class aClass){

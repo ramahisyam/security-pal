@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.securityptpal.main.AkunUtama;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,20 +96,20 @@ public class FAQ extends AppCompatActivity {
     }
 
     public void ClickMain(View view){
-        MainActivity.redirectActivity(this, MainActivity.class);
+        AkunUtama.redirectActivity(this, MainActivity.class);
     }
 
     public void ClickFaq(View view){
-        MainActivity.redirectActivity(this, FAQ.class);
+        AkunUtama.redirectActivity(this, FAQ.class);
         finish();
     }
 
     public void ClickAboutus(View view){
-        MainActivity.redirectActivity(this, AboutUs.class);
+        AkunUtama.redirectActivity(this, AboutUs.class);
     }
 
     public void ClickExit(View view){
-        MainActivity.exit(this);
+        AkunUtama.exit(this);
     }
 
     public static void redirectActivity(Activity activity, Class aClass){

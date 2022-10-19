@@ -68,8 +68,10 @@
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable-v24/edittext_setimage.xml" value="0.2037037037037037" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable-v24/et_search1.xml" value="0.12129629629629629" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable-v24/ic_close.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable-v24/ripple_effect2.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/add.xml" value="0.26205128205128203" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/barang.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/bg_round2.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/folder.xml" value="0.1" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/ic_folder.xml" value="0.1" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/linearqr.xml" value="0.26205128205128203" />
@@ -89,13 +91,17 @@
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_employee.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_employee_permit.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_exit_permission.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_guest.xml" value="0.21875" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_faq.xml" value="0.125" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_guest.xml" value="0.264" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_login.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_login2.xml" value="0.2" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_main.xml" value="0.20425724637681159" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_main2.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.16893115942028986" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_check_up.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.16893115942028986" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_visitor.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_show_qr.xml" value="0.25" />
@@ -104,15 +110,20 @@
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_barang.xml" value="0.2359375" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_cometoolate.xml" value="0.264" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_barang.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_cometoolate.xml" value="0.18297101449275363" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_employee.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_guest.xml" value="0.18297101449275363" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_checkup.xml" value="0.2" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_cometoolate.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_employee.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_guest.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_subcon.xml" value="0.13489583333333333" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_visitor.xml" value="0.2359375" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_guest.xml" value="0.18297101449275363" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_subcon.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_visitor.xml" value="0.2359375" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_visitor.xml" value="0.2" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_visitor.xml" value="0.264" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/main_nav_drawer.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/main_toolbar.xml" value="0.1816123188405797" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/progress_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/progress_dialog1.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/row_employee_permission.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/row_late_permission.xml" value="0.25" />
         <entry key="..\:/Users/Ku-Rama/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.34479166666666666" />

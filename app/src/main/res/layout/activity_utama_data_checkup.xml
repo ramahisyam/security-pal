@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UtamaDataVisitor"
-    android:id="@+id/drawer_layout"
-    android:background="@drawable/bgutama1">
+    tools:context=".UtamaDataCheckup"
+    android:background="@drawable/bgutama1"
+    android:id="@+id/drawer_layout">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                     android:id="@+id/textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Visitor"
+                    android:text="Checkup"
                     android:textSize="20dp"
                     android:fontFamily="@font/gabriela"
                     android:textColor="@color/black"

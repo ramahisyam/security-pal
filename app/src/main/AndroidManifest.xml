@@ -19,6 +19,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".UtamaDataCheckup"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaDataSubcon"
+            android:exported="false" />
+        <activity
+            android:name=".MonitoringCheckUp"
+            android:exported="false" />
+        <activity
             android:name=".CheckUp"
             android:exported="false" />
         <activity
