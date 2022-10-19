@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -209,7 +210,13 @@ public class Employee extends AppCompatActivity {
                             }
                         };
                         timer.start();
-
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                //do something
+                                StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                            }
+                        }, 2000 );
                         PermissionEmployee permissionEmployee = new PermissionEmployee(
                                 db.collection("permission_employee").document().getId(),
                                 base,
@@ -229,7 +236,7 @@ public class Employee extends AppCompatActivity {
                         db.collection("permission_employee").add(permissionEmployee).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                                //StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

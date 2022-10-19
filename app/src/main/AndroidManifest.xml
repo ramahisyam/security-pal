@@ -23,6 +23,15 @@
             android:name=".main.EditDivisionActivity"
             android:exported="false" />
         <activity
+            android:name=".UtamaDataCheckup"
+            android:exported="false"/>
+        <activity
+            android:name=".UtamaDataSubcon"
+            android:exported="false" />
+        <activity
+            android:name=".MonitoringCheckUp"
+            android:exported="false" />
+        <activity
             android:name=".main.AddDivisionActivity"
             android:exported="false" />
         <activity
@@ -31,7 +40,8 @@
         <activity
             android:name=".division.DivisionLatePermitActivity"
             android:exported="false" />
-        <activity android:name=".CheckUp"
+        <activity
+            android:name=".CheckUp"
             android:exported="false"/>
         <activity
             android:name=".main.DetailExitPermissionActivity"
