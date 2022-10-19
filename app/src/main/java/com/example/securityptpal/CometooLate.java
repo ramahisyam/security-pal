@@ -13,6 +13,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Html;
 import android.text.TextUtils;
@@ -78,6 +79,7 @@ public class CometooLate extends AppCompatActivity {
     ArrayList<String> divisionList, statusList, departmentList;
     ArrayAdapter divSpinnerAdapter, depSpinnerAdapter, statusSpinnerAdapter;
     private List<Division> departments;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,6 +209,35 @@ public class CometooLate extends AppCompatActivity {
                     location = txtLocation.getText().toString();
                     department = depSpinner.getSelectedItem().toString();
                     upload(name, nip, division, reason, date, device, latitude, longitude, location, status, department);
+                    progressDialog = new ProgressDialog(CometooLate.this);
+                    progressDialog.show();
+                    progressDialog.setContentView(R.layout.progress_dialog);
+                    progressDialog.getWindow().setBackgroundDrawableResource(
+                            android.R.color.transparent
+                    );
+                    Thread timer = new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                sleep(2000);
+                                Intent intent = new Intent(getApplicationContext(),CometooLate.class);
+                                startActivity(intent);
+                                progressDialog.dismiss();
+                                finish();
+                                super.run();
+                            }catch (InterruptedException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    timer.start();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //do something
+                            StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                        }
+                    }, 2000 );
                 }
             }
             catch (Exception e){
@@ -386,7 +417,7 @@ public class CometooLate extends AppCompatActivity {
                 txtLatitude.setText("Latitude");
                 txtLongitude.setText("Longitude");
                 txtLocation.setText("Location");
-                Toast.makeText(CometooLate.this, "Berhasil submit", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CometooLate.this, "Berhasil submit", Toast.LENGTH_SHORT).show();
             }
         });
     }

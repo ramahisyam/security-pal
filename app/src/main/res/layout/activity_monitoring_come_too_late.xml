@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MonitoringComeTooLate"
-    android:background="@drawable/menuall">
+    android:background="@drawable/moni">
 
     <TextView
         android:id="@+id/textView6"
@@ -23,6 +23,7 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_late"
+        android:background="@drawable/et_search1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

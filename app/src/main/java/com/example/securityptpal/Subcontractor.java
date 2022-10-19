@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -30,6 +31,7 @@ public class Subcontractor extends AppCompatActivity {
     Button monitoring;
     DatePickerDialog.OnDateSetListener setListener;
     RecyclerView recyclerView;
+    TextView txtDepart;
 
     List<MainData> dataList = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
@@ -54,6 +56,7 @@ public class Subcontractor extends AppCompatActivity {
         btAdd = findViewById(R.id.bt_add);
         btReset = findViewById(R.id.bt_reset);
         recyclerView = findViewById(R.id.recycler_view);
+        txtDepart = findViewById(R.id.txtdepartSubcon);
 
         database = RoomDB.getInstance(this);
         dataList = database.mainDao().getAll();
@@ -174,6 +177,23 @@ public class Subcontractor extends AppCompatActivity {
 //                }
                 String sNumber = adapterView.getItemAtPosition(i).toString();
 //                textView.setText(sNumber);
+                if (i == 0 || i == 1 || i == 2|| i == 3|| i == 4|| i == 5){
+                    txtDepart.setText("Production Directorate");
+                }else if (i == 6 || i == 7 || i == 8 || i == 9){
+                    txtDepart.setText("Marketing Directorate");
+                }
+                else if (i == 10 || i == 11 || i == 12 || i == 13 || i == 14){
+                    txtDepart.setText("Directorate of Finance, Risk Management & HR");
+                }
+                else if (i == 15 || i == 16){
+                    txtDepart.setText("SEVP Transformation Management");
+                }
+                else if (i == 17){
+                    txtDepart.setText("SEVP Technology & Naval System");
+                }
+                else if (i == 18 || i == 19 || i == 20 || i == 21){
+                    txtDepart.setText("-");
+                }
             }
 
             @Override
