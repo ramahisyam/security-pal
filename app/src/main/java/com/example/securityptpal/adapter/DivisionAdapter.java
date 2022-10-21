@@ -25,6 +25,7 @@ public class DivisionAdapter extends RecyclerView.Adapter<DivisionAdapter.Divisi
     private Context context;
     private List<Division> list;
     private Dialog dialog;
+    private DivisionAdapter.OnDivisionListener mOnDivisionListener;
 
     public interface Dialog {
         void onClick(int pos);
@@ -34,16 +35,17 @@ public class DivisionAdapter extends RecyclerView.Adapter<DivisionAdapter.Divisi
         this.dialog = dialog;
     }
 
-    public DivisionAdapter(Context context, List<Division> list) {
+    public DivisionAdapter(Context context, List<Division> list, OnDivisionListener mOnDivisionListener) {
         this.context = context;
         this.list = list;
+        this.mOnDivisionListener = mOnDivisionListener;
     }
 
     @NonNull
     @Override
     public DivisionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_division_list, parent, false);
-        return new DivisionViewHolder(itemView);
+        return new DivisionViewHolder(itemView, mOnDivisionListener);
     }
 
     @Override
@@ -56,10 +58,11 @@ public class DivisionAdapter extends RecyclerView.Adapter<DivisionAdapter.Divisi
         return list.size();
     }
 
-    public class DivisionViewHolder extends RecyclerView.ViewHolder {
+    public class DivisionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name;
         ImageView settings;
-        public DivisionViewHolder(@NonNull View itemView) {
+        OnDivisionListener onDivisionListener;
+        public DivisionViewHolder(@NonNull View itemView, OnDivisionListener onDivisionListener) {
             super(itemView);
             name = itemView.findViewById(R.id.division_name);
             settings = itemView.findViewById(R.id.division_settings);
@@ -68,6 +71,17 @@ public class DivisionAdapter extends RecyclerView.Adapter<DivisionAdapter.Divisi
                     dialog.onClick(getLayoutPosition());
                 }
             });
+            this.onDivisionListener = onDivisionListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onDivisionListener.onDivisionClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnDivisionListener {
+        void onDivisionClick(int position);
     }
 }
