@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.securityptpal.R;
+import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,7 +28,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonitoringEmployee extends AppCompatActivity implements PermissionEmployeeAdapter.OnPermitListener {
+public class MonitoringEmployee extends AppCompatActivity implements OnPermitListener {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();

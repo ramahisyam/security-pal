@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".main.EditExitPermitActivity"
+            android:exported="false" />
+        <activity
             android:name=".main.DetailDivisionActivity"
             android:exported="false" />
         <activity
