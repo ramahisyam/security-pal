@@ -2,6 +2,7 @@ package com.example.securityptpal.main;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
@@ -9,11 +10,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -23,6 +26,8 @@ import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,19 +43,16 @@ import com.example.securityptpal.UtamaDataGuest;
 import com.example.securityptpal.UtamaDataSubcon;
 import com.example.securityptpal.UtamaDataVisitor;
 import com.example.securityptpal.Utama_Data_Cometoolate;
+import com.example.securityptpal.adapter.MainEmployeePermitAdapter;
+import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
-import com.example.securityptpal.division.AkunDivisi;
-import com.example.securityptpal.division.DetailExitActivity;
-import com.example.securityptpal.division.ExitPermissionActivity;
-import com.example.securityptpal.employee.DetailPermissionActivity;
-import com.example.securityptpal.employee.Employee;
-import com.example.securityptpal.employee.MonitoringEmployee;
+import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -61,9 +63,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.muddzdev.styleabletoast.StyleableToast;
-import com.tapadoo.alerter.Alerter;
-import com.tapadoo.alerter.OnHideAlertListener;
-import com.tapadoo.alerter.OnShowAlertListener;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -77,13 +76,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtamaDataEmployee extends AppCompatActivity implements PermissionEmployeeAdapter.OnPermitListener{
+public class UtamaDataEmployee extends AppCompatActivity implements OnPermitListener {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private List<PermissionEmployee> list = new ArrayList<>();
-    private PermissionEmployeeAdapter permissionEmployeeAdapter;
+    private MainEmployeePermitAdapter mainEmployeePermitAdapter;
     private SearchView searchView;
     private Intent intent;
     private ImageView imgSignOut;
@@ -93,6 +92,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     DrawerLayout drawerLayout;
     ImageView btMenu;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     boolean isOpen = false;
 
@@ -102,15 +102,13 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
         setContentView(R.layout.activity_utama_data_employee);
         recyclerView = findViewById(R.id.rv_main_exit_permit);
         searchView = findViewById(R.id.main_search_permission);
+        mSwipeRefreshLayout = findViewById(R.id.refresh_main_employee_permit);
+
 //        progressDialog = new ProgressDialog(UtamaDataEmployee.this);
 //        progressDialog.setTitle("Loading");
 //        progressDialog.setMessage("Getting data...");
         progressDialog = new ProgressDialog(UtamaDataEmployee.this);
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog1);
-        progressDialog.getWindow().setBackgroundDrawableResource(
-                android.R.color.transparent
-        );
+        imgSignOut = findViewById(R.id.sign_out_main_permit);
 
         userID = mAuth.getCurrentUser().getUid();
 
@@ -159,17 +157,42 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                showAllData();
                 return false;
             }
         });
 
-        permissionEmployeeAdapter = new PermissionEmployeeAdapter(this, list, this);
+        mainEmployeePermitAdapter = new MainEmployeePermitAdapter(this, list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
-        recyclerView.setAdapter(permissionEmployeeAdapter);
+        recyclerView.setAdapter(mainEmployeePermitAdapter);
+        mainEmployeePermitAdapter.setDialog(new MainEmployeePermitAdapter.Dialog() {
+            @Override
+            public void onClick(int pos) {
+                final CharSequence[] dialogItem = {"Edit", "Delete"};
+                AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataEmployee.this);
+                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case 0:
+//                                editData(list, pos);
+                                Intent intentEdit = new Intent(getApplicationContext(), EditExitPermitActivity.class);
+                                intentEdit.putExtra("MAIN_EDIT_EXIT_PERMIT", list.get(pos));
+                                startActivity(intentEdit);
+//                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 1:
+                                deleteData(list.get(pos).getId());
+                                break;
+                        }
+                    }
+                });
+                dialog.show();
+            }
+        });
 
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
@@ -206,6 +229,32 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                 startActivity(intent);
             }
         });
+        showAllData();
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showAllData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    private void deleteData(String id) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Deleting data...");
+        progressDialog.show();
+        db.collection("permission_employee").document(id)
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
+                        showAllData();
+                    }
+                });
     }
 
     private void animateFab(){
@@ -228,6 +277,11 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
     }
 
     private void showAllData() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_employee")
                 .orderBy("date", Query.Direction.DESCENDING)
                 .orderBy("division_approval")
@@ -252,12 +306,12 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
                                         document.getString("center_approval"),
-                                        document.getString("status"),
+                                        document.getString("employee_status"),
                                         document.getString("department")
                                 );
                                 list.add(permissionEmployee);
                             }
-                            permissionEmployeeAdapter.notifyDataSetChanged();
+                            mainEmployeePermitAdapter.notifyDataSetChanged();
                         } else {
                             StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
@@ -274,6 +328,11 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
     }
 
     private void searchData(String nip) {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_employee")
                 .whereEqualTo("nip", nip)
                 .get()
@@ -302,16 +361,18 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
                                 );
                                 list.add(permissionEmployee);
                             }
-                            permissionEmployeeAdapter.notifyDataSetChanged();
+                            mainEmployeePermitAdapter.notifyDataSetChanged();
                         } else {
                             StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
+                        progressDialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -460,13 +521,6 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        progressDialog.show();
-        showAllData();
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -528,5 +582,17 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showAllData();
     }
 }

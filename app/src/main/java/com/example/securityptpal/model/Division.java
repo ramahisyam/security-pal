@@ -13,15 +13,6 @@ public class Division implements Parcelable {
     public Division() {
     }
 
-    public Division(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Division(List<String> department) {
-        this.department = department;
-    }
-
     public Division(String id, String name, List<String> department) {
         this.id = id;
         this.name = name;

@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -26,9 +28,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.LatePermissionAdapter;
+import com.example.securityptpal.adapter.MainLatePermitAdapter;
+import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.DetailExitPermissionActivity;
+import com.example.securityptpal.main.EditExitPermitActivity;
+import com.example.securityptpal.main.EditLatePermitActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.PermissionLate;
@@ -41,6 +47,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -54,13 +61,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePermissionAdapter.OnLateListener{
+public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermitListener {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private List<PermissionLate> list = new ArrayList<>();
-    private LatePermissionAdapter latePermissionAdapter;
+    private MainLatePermitAdapter latePermissionAdapter;
     private SearchView searchView;
     private Intent intent;
     private ImageView imgSignOut;
@@ -87,12 +94,36 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
         );
 //        userID = mAuth.getCurrentUser().getUid();
 
-        latePermissionAdapter = new LatePermissionAdapter(this, list, this);
+        latePermissionAdapter = new MainLatePermitAdapter(this, list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(latePermissionAdapter);
+        latePermissionAdapter.setDialog(new MainLatePermitAdapter.Dialog() {
+            @Override
+            public void onClick(int pos) {
+                final CharSequence[] dialogItem = {"Edit", "Delete"};
+                AlertDialog.Builder dialog = new AlertDialog.Builder(Utama_Data_Cometoolate.this);
+                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case 0:
+                                Intent intentEdit = new Intent(getApplicationContext(), EditLatePermitActivity.class);
+                                intentEdit.putExtra("MAIN_EDIT_LATE_PERMIT", list.get(pos));
+                                startActivity(intentEdit);
+                                break;
+                            case 1:
+                                deleteData(list.get(pos).getId(), list.get(pos).getImg());
+                                break;
+                        }
+                    }
+                });
+                dialog.show();
+            }
+        });
 
         fab = (FloatingActionButton) findViewById(R.id.main_late_fab);
         fab1 = (FloatingActionButton) findViewById(R.id.main_late_fab1);
@@ -149,6 +180,32 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
                 startActivity(intent);
             }
         });
+    }
+
+    private void deleteData(String id, String urlImage) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Deleting data...");
+        progressDialog.show();
+        db.collection("permission_late").document(id)
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful()){
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            FirebaseStorage.getInstance().getReferenceFromUrl(urlImage).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(Utama_Data_Cometoolate.this, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                    showAllData();
+                                }
+                            });
+                        }
+                    }
+                });
     }
 
     private void animateFab(){
@@ -351,7 +408,7 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
     }
 
     @Override
-    public void onLateClick(int position) {
+    public void onPermitClick(int position) {
         intent = new Intent(Utama_Data_Cometoolate.this, UtamaCometoolate.class);
         intent.putExtra("MAIN_LATE_PERMIT", list.get(position));
         startActivity(intent);

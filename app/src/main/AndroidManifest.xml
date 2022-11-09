@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:hardwareAccelerated="true"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/logopal"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
@@ -20,19 +20,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
-            android:name=".main.EditDivisionActivity"
+            android:name=".DetailBarangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.EditGoodsPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.EditLatePermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.EditExitPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.DetailDivisionActivity"
             android:exported="false" />
         <activity
             android:name=".UtamaDataCheckup"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".UtamaDataSubcon"
             android:exported="false" />
         <activity
             android:name=".MonitoringCheckUp"
-            android:exported="false" />
-        <activity
-            android:name=".main.AddDivisionActivity"
             android:exported="false" />
         <activity
             android:name=".main.MainDivisionActivity"
@@ -42,7 +51,7 @@
             android:exported="false" />
         <activity
             android:name=".CheckUp"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".main.DetailExitPermissionActivity"
             android:exported="false" />
@@ -110,7 +119,7 @@
             android:name=".MonitoringBarang"
             android:exported="false" />
         <activity
-            android:name=".Barang"
+            android:name=".BarangActivity"
             android:exported="false" />
         <activity
             android:name=".MonitoringComeTooLate"

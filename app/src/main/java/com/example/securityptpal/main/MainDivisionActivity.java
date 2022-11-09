@@ -9,22 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.securityptpal.R;
 import com.example.securityptpal.adapter.DivisionAdapter;
-import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.model.Division;
-import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,11 +34,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class MainDivisionActivity extends AppCompatActivity {
+public class MainDivisionActivity extends AppCompatActivity implements DivisionAdapter.OnDivisionListener {
 
     private RecyclerView recyclerView;
     private SearchView searchView;
@@ -62,7 +56,7 @@ public class MainDivisionActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab_add_division);
         progressDialog = new ProgressDialog(MainDivisionActivity.this);
 
-        divisionAdapter = new DivisionAdapter(this, list);
+        divisionAdapter = new DivisionAdapter(this, list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -87,10 +81,7 @@ public class MainDivisionActivity extends AppCompatActivity {
                                 addDepartment(list.get(pos).getId());
                                 break;
                             case 1:
-//                                Intent intent = new Intent(MainDivisionActivity.this, EditDivisionActivity.class);
-//                                intent.putExtra("DIVISION_EDIT", list.get(pos));
-//                                startActivity(intent);
-                                Toast.makeText(MainDivisionActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                                editData(list, pos);
                                 break;
                             case 2:
                                 deleteData(list.get(pos).getId());
@@ -156,10 +147,47 @@ public class MainDivisionActivity extends AppCompatActivity {
                 });
     }
 
+    private void editData(List<Division> divisions, int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainDivisionActivity.this);
+        builder.setTitle("Edit Division");
+        View view = getLayoutInflater().inflate(R.layout.editor_division_dialog, null);
+
+        EditText edtName = view.findViewById(R.id.name_division);
+        Button btnSubmit = view.findViewById(R.id.btn_add_division);
+
+        edtName.setText(divisions.get(pos).getName());
+
+        btnSubmit.setOnClickListener(view1 -> {
+            progressDialog.setTitle("Loading");
+            progressDialog.setMessage("Sending data...");
+            progressDialog.show();
+            db.collection("division").document(divisions.get(pos).getId())
+                    .update("name", edtName.getText().toString())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(MainDivisionActivity.this, "Berhasil mengubah data", Toast.LENGTH_SHORT).show();
+                            onStart();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MainDivisionActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            dialog.dismiss();
+            onStart();
+        });
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+    }
+
     private void addDepartment(String id){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainDivisionActivity.this);
         builder.setTitle("Add Department");
-        View view = getLayoutInflater().inflate(R.layout.add_division_dialog, null);
+        View view = getLayoutInflater().inflate(R.layout.editor_division_dialog, null);
 
         EditText edtName = view.findViewById(R.id.name_division);
         Button btnSubmit = view.findViewById(R.id.btn_add_division);
@@ -168,11 +196,6 @@ public class MainDivisionActivity extends AppCompatActivity {
             progressDialog.setTitle("Loading");
             progressDialog.setMessage("Sending data...");
             progressDialog.show();
-            List<String> department = Collections.singletonList(edtName.getText().toString());
-
-            Division division = new Division(
-                department
-            );
 
             db.collection("division").document(id)
                     .update("department", FieldValue.arrayUnion(edtName.getText().toString()))
@@ -202,7 +225,7 @@ public class MainDivisionActivity extends AppCompatActivity {
     private void showAddDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainDivisionActivity.this);
         builder.setTitle("Add Division");
-        View view = getLayoutInflater().inflate(R.layout.add_division_dialog, null);
+        View view = getLayoutInflater().inflate(R.layout.editor_division_dialog, null);
 
         EditText edtName = view.findViewById(R.id.name_division);
         Button btnSubmit = view.findViewById(R.id.btn_add_division);
@@ -226,9 +249,12 @@ public class MainDivisionActivity extends AppCompatActivity {
         progressDialog.setMessage("Sending data...");
         progressDialog.show();
 
+        List<String> department = new ArrayList<>();
+
         Division division = new Division(
                 id,
-                name
+                name,
+                department
         );
 
         db.collection("division").add(division)
@@ -252,5 +278,18 @@ public class MainDivisionActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         showAllData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showAllData();
+    }
+
+    @Override
+    public void onDivisionClick(int position) {
+        Intent intent = new Intent(MainDivisionActivity.this, DetailDivisionActivity.class);
+        intent.putExtra("division", list.get(position));
+        startActivity(intent);
     }
 }
