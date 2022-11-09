@@ -239,10 +239,6 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
         });
     }
 
-    private void editData(List<Division> divisions, int pos) {
-
-    }
-
     private void deleteData(String id) {
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Deleting data...");

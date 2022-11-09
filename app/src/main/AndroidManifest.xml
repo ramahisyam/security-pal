@@ -20,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".DetailBarangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.EditGoodsPermitActivity"
+            android:exported="false" />
+        <activity
             android:name=".main.EditLatePermitActivity"
             android:exported="false" />
         <activity
@@ -113,7 +119,7 @@
             android:name=".MonitoringBarang"
             android:exported="false" />
         <activity
-            android:name=".Barang"
+            android:name=".BarangActivity"
             android:exported="false" />
         <activity
             android:name=".MonitoringComeTooLate"

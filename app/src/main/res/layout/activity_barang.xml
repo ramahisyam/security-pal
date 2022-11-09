@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Barang"
-    android:orientation="vertical"
+    tools:context=".BarangActivity"
     android:background="@drawable/menuall">
 
     <ScrollView
@@ -29,16 +28,6 @@
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/sign_out_permission"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_logout"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <LinearLayout
             android:id="@+id/nameG"
@@ -143,7 +132,7 @@
                 android:textSize="16sp" />
 
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:id="@+id/spinner"
+                android:id="@+id/goods_spinner_division"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 app:hintText="Select Division"
@@ -169,14 +158,12 @@
                 android:textColor="#174887"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/txtDepartGoods"
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/goods_spinner_department"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:backgroundTint="#000000"
-                android:textColor="#000000"
-                android:textSize="16dp"/>
+                app:hintText="Select Department"
+                android:layout_marginLeft="5dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/itemG"
@@ -227,7 +214,7 @@
                 android:textSize="16sp" />
 
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:id="@+id/spinner2"
+                android:id="@+id/goods_spinner_type"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 app:hintText="Select Types"
@@ -388,36 +375,39 @@
                 android:textSize="13dp"
                 android:textColor="@color/black" />
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/buttonG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locG">
-            <Button
-                android:id="@+id/submitGoods"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:text="Submit"
-                android:textColor="@color/white"
-                android:background="@drawable/edittext_employ">
-            </Button>
-            <Button
-                android:id="@+id/gotoMonitoring"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:text="Go to Monitoring"
-                android:textColor="@color/white"
-                android:background="@drawable/edittext_monitoring"
-                android:layout_marginLeft="10dp">
-            </Button>
-        </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttonG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locG">
+
+                <Button
+                    android:id="@+id/submitGoods"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edittext_employ"
+                    android:text="Submit"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/gotoMonitoring"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/edittext_monitoring"
+                    android:text="Go to Monitoring"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
