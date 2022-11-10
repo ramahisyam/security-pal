@@ -15,6 +15,7 @@ import com.example.securityptpal.AboutUs;
 import com.example.securityptpal.FAQ;
 import com.example.securityptpal.LogoutAccount;
 import com.example.securityptpal.MainActivity;
+import com.example.securityptpal.MainActivity2;
 import com.example.securityptpal.R;
 import com.example.securityptpal.UtamaDataBarang;
 import com.example.securityptpal.UtamaDataCheckup;
@@ -127,5 +128,12 @@ public class AkunUtama extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity2.class));
+        finish();
     }
 }

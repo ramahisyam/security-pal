@@ -2,7 +2,9 @@ package com.example.securityptpal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +13,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.muddzdev.styleabletoast.StyleableToast;
@@ -22,6 +27,7 @@ import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Visitor extends AppCompatActivity {
 
@@ -31,6 +37,9 @@ public class Visitor extends AppCompatActivity {
     ProgressDialog progressDialog;
     EditText edtNameVisitor, edtCompanyVisitor, edtNoHPVisitor, edtPICVisitor, edtNecessityVisitor, edtDateVisitor, edtTimeoutVisitor, edtTimeinVisitor;
     String name, company, phone, division, department, pic, necessity, date, timein, timeout;
+    ImageView dateVisitor, img_timeoutVisitor, img_timeinVisitor;
+    int hour, minute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +58,30 @@ public class Visitor extends AppCompatActivity {
         edtDateVisitor = findViewById(R.id.edtDateVisitor);
         edtTimeoutVisitor = findViewById(R.id.edtTimeoutVisitor);
         edtTimeinVisitor = findViewById(R.id.edtTimeinVisitor);
+        dateVisitor = findViewById(R.id.dateVisitor);
+        img_timeoutVisitor = findViewById(R.id.img_timeoutVisitor);
+        img_timeinVisitor = findViewById(R.id.img_timeinVisitor);
+
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        final int year = calendar.get(java.util.Calendar.YEAR);
+        final int month = calendar.get(java.util.Calendar.MONTH);
+        final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+
+        dateVisitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        Visitor.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month + 1;
+                        String date = day+"-"+month+"-"+year;
+                        edtDateVisitor.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
 
         bt_visitor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +225,40 @@ public class Visitor extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void pop(View view)
+    {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                hour = selectedHour;
+                minute = selectedMinute;
+                edtTimeinVisitor.setText(String.format(Locale.getDefault(),"%02d:%02d",hour,minute));
+            }
+        };
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,onTimeSetListener,hour,minute,true);
+
+        timePickerDialog.setTitle("Select Time");
+        timePickerDialog.show();
+    }
+
+    public void pop2(View view)
+    {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                hour = selectedHour;
+                minute = selectedMinute;
+                edtTimeoutVisitor.setText(String.format(Locale.getDefault(),"%02d:%02d",hour,minute));
+            }
+        };
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,onTimeSetListener,hour,minute,true);
+
+        timePickerDialog.setTitle("Select Time");
+        timePickerDialog.show();
     }
 
     private void openMonitoringVisitor() {

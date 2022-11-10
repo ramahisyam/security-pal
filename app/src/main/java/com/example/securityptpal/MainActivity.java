@@ -18,7 +18,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity {
     boolean isPressed = false;
-    ImageView orang, barang;
+    ImageView orang, barang, faq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         orang = findViewById(R.id.orang);
         barang = findViewById(R.id.barang);
+        faq = findViewById(R.id.faq);
 
         orang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Barang.class);
+                startActivity(intent);
+            }
+        });
+        faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FAQ.class);
                 startActivity(intent);
             }
         });

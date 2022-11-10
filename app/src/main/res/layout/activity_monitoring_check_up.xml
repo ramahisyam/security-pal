@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MonitoringCheckUp"
-    android:background="@drawable/moni">
+    android:background="@drawable/moncheck">
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/et_search1"
-        app:queryHint="Masukkan nip untuk pencarian"
+        app:queryHint="Input your NIP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />

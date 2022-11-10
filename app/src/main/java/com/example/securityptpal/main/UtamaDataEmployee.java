@@ -30,6 +30,7 @@ import com.example.securityptpal.CometooLate;
 import com.example.securityptpal.Login;
 import com.example.securityptpal.LogoutAccount;
 import com.example.securityptpal.MainActivity;
+import com.example.securityptpal.MainActivity2;
 import com.example.securityptpal.Preferences;
 import com.example.securityptpal.R;
 import com.example.securityptpal.UtamaDataBarang;
@@ -226,6 +227,8 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
             isOpen=true;
         }
     }
+
+
 
     private void showAllData() {
         db.collection("permission_employee")
@@ -438,7 +441,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
         } catch (IOException e) {
             e.printStackTrace();
 
-            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+            StyleableToast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG,R.style.warning).show();
             try {
                 outputStream.close();
             } catch (Exception ex) {
@@ -524,5 +527,12 @@ public class UtamaDataEmployee extends AppCompatActivity implements PermissionEm
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, AkunUtama.class));
+        finish();
     }
 }

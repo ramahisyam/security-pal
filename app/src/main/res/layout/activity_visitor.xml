@@ -233,71 +233,67 @@
             android:textColor="#000000"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/dateV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/necV">
-        <TextView
-            android:id="@+id/dateGuest"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/dateV"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Date\t\t\t\t\t\t\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/dateVisitor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/necV">
+            <TextView
+                android:id="@+id/TV_dateV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Date\t\t\t\t\t\t\t\t\t:"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtDateVisitor"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000"
-            android:layout_marginLeft="10dp"/>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edtDateVisitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                android:textColor="#000000"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
         <ImageView
-            android:id="@+id/calVisitor"
+            android:id="@+id/dateVisitor"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/calendar"
-            android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/dateV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/dateV"/>
-    <LinearLayout
-        android:id="@+id/timeinV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dateV">
-        <TextView
-            android:id="@+id/timeinVisitor"
-            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/dateV" />
+        <LinearLayout
+            android:id="@+id/timeinV"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Time in\t\t\t\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/img_timeinVisitor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateV">
+            <TextView
+                android:id="@+id/timeinVisitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Time in\t\t\t\t\t\t:"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtTimeinVisitor"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000"
-            android:layout_marginLeft="10dp"/>
-
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edtTimeinVisitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                android:textColor="#000000"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
         <ImageView
             android:id="@+id/img_timeinVisitor"
             android:onClick="pop"
@@ -309,34 +305,33 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/timeinV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/timeinV"/>
-    <LinearLayout
-        android:id="@+id/timeoutV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timeinV">
-        <TextView
-            android:id="@+id/timeoutVisitor"
-            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/timeinV" />
+        <LinearLayout
+            android:id="@+id/timeoutV"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="Time out\t\t\t\t\t:"
-            android:textColor="#174887"
-            android:textSize="16sp" />
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/img_timeoutVisitor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeinV">
+            <TextView
+                android:id="@+id/timeoutVisitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Time out\t\t\t\t\t:"
+                android:textColor="#174887"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtTimeoutVisitor"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:textColor="#000000"
-            android:layout_marginLeft="10dp"/>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edtTimeoutVisitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                android:textColor="#000000"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
         <ImageView
             android:id="@+id/img_timeoutVisitor"
             android:onClick="pop2"

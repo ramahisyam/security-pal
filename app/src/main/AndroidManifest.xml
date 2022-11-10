@@ -19,6 +19,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".LoginKey2"
+            android:exported="false" />
+        <activity
+            android:name=".LoginKey"
+            android:exported="false" />
+        <activity
+            android:name=".FilterPage"
+            android:exported="false" />
+        <activity
+            android:name=".ForgetPassword"
+            android:exported="false" />
+        <activity
+            android:name=".Register"
+            android:exported="false" />
+        <activity
             android:name=".UtamaDataCheckup"
             android:exported="false" />
         <activity

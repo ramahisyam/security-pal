@@ -72,7 +72,7 @@ public class MainActivity2 extends AppCompatActivity {
         cometoolate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, CometooLate.class);
+                Intent intent = new Intent(MainActivity2.this, LoginKey.class);
                 startActivity(intent);
             }
         });
@@ -88,7 +88,7 @@ public class MainActivity2 extends AppCompatActivity {
         checkup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, CheckUp.class);
+                Intent intent = new Intent(MainActivity2.this, LoginKey2.class);
                 startActivity(intent);
             }
         });

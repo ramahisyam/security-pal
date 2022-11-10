@@ -2,6 +2,7 @@ package com.example.securityptpal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,11 +30,12 @@ import java.util.ArrayList;
 public class CheckUp extends AppCompatActivity {
 
     Spinner spinner, spinner2, spinner3;
-    Button submitCheckup;
+    Button submitCheckup, monitoring;
     TextView edtDepartCheckup;
     ProgressDialog progressDialog;
     String name, nip, division, department, status, date, type, others;
     EditText edtDateCheckup, edtNameCheckup, edtNIPCheckup, edtOthersCheckup;
+    ImageView dateCheckup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,36 @@ public class CheckUp extends AppCompatActivity {
         edtNIPCheckup = findViewById(R.id.edtNIPCheckup);
         edtOthersCheckup = findViewById(R.id.edtOthersCheckup);
         submitCheckup = findViewById(R.id.submitCheckup);
+        dateCheckup = findViewById(R.id.dateCheckup);
+        monitoring = findViewById(R.id.gotoMonitoring);
+
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        final int year = calendar.get(java.util.Calendar.YEAR);
+        final int month = calendar.get(java.util.Calendar.MONTH);
+        final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+
+        monitoring.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMonitoringCheckup();
+            }
+        });
+
+        dateCheckup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        CheckUp.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month + 1;
+                        String date = day+"-"+month+"-"+year;
+                        edtDateCheckup.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
 
         submitCheckup.setOnClickListener(view -> {
             try{
@@ -251,5 +285,10 @@ public class CheckUp extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void openMonitoringCheckup() {
+        Intent intent = new Intent(this, MonitoringCheckUp.class);
+        startActivity(intent);
     }
 }

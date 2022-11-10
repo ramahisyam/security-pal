@@ -22,6 +22,7 @@ import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -69,7 +71,7 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     DrawerLayout drawerLayout;
-    ImageView btMenu;
+    ImageView btMenu, filter;
 
     boolean isOpen = false;
 
@@ -105,6 +107,14 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+        filter = findViewById(R.id.filter);
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Utama_Data_Cometoolate.this, FilterPage.class));
+            }
+        });
         btMenu = findViewById(R.id.bt_menu);
 
         btMenu.setOnClickListener(new View.OnClickListener() {
@@ -327,11 +337,11 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
             outputStream = new FileOutputStream(path);
             wb.write(outputStream);
             // ShareViaEmail(file.getParentFile().getName(),file.getName());
-            Toast.makeText(getApplicationContext(), "Excel Created in " + path, Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(),"Excel Created in " + path, Toast.LENGTH_SHORT,R.style.logsuccess).show();
         } catch (IOException e) {
             e.printStackTrace();
 
-            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+            StyleableToast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG,R.style.warning).show();
             try {
                 outputStream.close();
             } catch (Exception ex) {
@@ -417,5 +427,12 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements LatePer
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, AkunUtama.class));
+        finish();
     }
 }
