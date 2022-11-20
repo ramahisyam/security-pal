@@ -20,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".main.EditGuestPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailGuestPermitActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailBarangActivity"
             android:exported="false" />
         <activity

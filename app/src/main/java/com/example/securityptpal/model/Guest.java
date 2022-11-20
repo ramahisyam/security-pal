@@ -9,6 +9,7 @@ public class Guest implements Parcelable {
     private String company;
     private String phone;
     private String division;
+    private String department;
     private String pic;
     private String necessity;
     private String date;
@@ -18,12 +19,13 @@ public class Guest implements Parcelable {
     public Guest() {
     }
 
-    public Guest(String id, String name, String company, String phone, String division, String pic, String necessity, String date, String timeIn, String timeOut) {
+    public Guest(String id, String name, String company, String phone, String division, String department, String pic, String necessity, String date, String timeIn, String timeOut) {
         this.id = id;
         this.name = name;
         this.company = company;
         this.phone = phone;
         this.division = division;
+        this.department = department;
         this.pic = pic;
         this.necessity = necessity;
         this.date = date;
@@ -37,6 +39,7 @@ public class Guest implements Parcelable {
         company = in.readString();
         phone = in.readString();
         division = in.readString();
+        department = in.readString();
         pic = in.readString();
         necessity = in.readString();
         date = in.readString();
@@ -90,6 +93,14 @@ public class Guest implements Parcelable {
 
     public String getDivision() {
         return division;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public void setDivision(String division) {
@@ -148,6 +159,7 @@ public class Guest implements Parcelable {
         parcel.writeString(company);
         parcel.writeString(phone);
         parcel.writeString(division);
+        parcel.writeString(department);
         parcel.writeString(pic);
         parcel.writeString(necessity);
         parcel.writeString(date);
