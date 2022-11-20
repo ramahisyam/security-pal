@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.Guest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,20 +34,22 @@ import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class GuestPermissionActivity extends AppCompatActivity {
     ImageView calGuest, img_timeout, img_timein;
     EditText edtDate, edtTimeout, edtTimein, edtName, edtCompany, edtPhone, edtPic, edtNecessity;
-    String name, company, phone, division, pic, necessity, date, timeIn, timeOut;
+    String name, company, phone, division, department, pic, necessity, date, timeIn, timeOut;
     Button monitoring, submit;
     DatePickerDialog.OnDateSetListener setListener;
     int hour, minute;
-    ArrayList<String> divisionList;
-    Spinner divSpinner;
+    ArrayList<String> divisionList, departmentList;
+    Spinner divSpinner, depSpinner;
     private ProgressDialog progressDialog;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ArrayAdapter divSpinnerAdapter;
+    private ArrayAdapter divSpinnerAdapter, depSpinnerAdapter;
+    private List<Division> departments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class GuestPermissionActivity extends AppCompatActivity {
         edtTimeout = findViewById(R.id.edtTimeoutGuest);
         edtTimein = findViewById(R.id.edtTimeinGuest);
         divSpinner = findViewById(R.id.guest_div_spinner);
+        depSpinner = findViewById(R.id.guest_dep_spinner);
         monitoring = findViewById(R.id.btn_monitoring_guest);
         submit = findViewById(R.id.submitGuest);
         progressDialog = new ProgressDialog(GuestPermissionActivity.this);
@@ -75,9 +80,28 @@ public class GuestPermissionActivity extends AppCompatActivity {
 
         getDivision();
         divisionList = new ArrayList<>();
+        departmentList = new ArrayList<>();
+
         divSpinnerAdapter = new ArrayAdapter<>(GuestPermissionActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, divisionList);
         divSpinner.setAdapter(divSpinnerAdapter);
+        divSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                for (String mDepartment : departments.get(i).getDepartment()){
+                    departmentList.add(mDepartment);
+                }
+                depSpinnerAdapter = new ArrayAdapter<>(GuestPermissionActivity.this,
+                        android.R.layout.simple_spinner_dropdown_item, departmentList);
+                depSpinner.setAdapter(depSpinnerAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         calGuest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +177,7 @@ public class GuestPermissionActivity extends AppCompatActivity {
         db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                departments = queryDocumentSnapshots.toObjects(Division.class);
                 progressDialog.hide();
                 if (queryDocumentSnapshots.size()>0) {
                     divisionList.clear();
@@ -212,6 +237,7 @@ public class GuestPermissionActivity extends AppCompatActivity {
                 timeIn = edtTimein.getText().toString();
                 timeOut = edtTimeout.getText().toString();
                 division = divSpinner.getSelectedItem().toString();
+                department = depSpinner.getSelectedItem().toString();
 
                 progressDialog.setTitle("Loading");
                 progressDialog.setMessage("Saving Data...");
@@ -243,6 +269,7 @@ public class GuestPermissionActivity extends AppCompatActivity {
                         company,
                         phone,
                         division,
+                        department,
                         pic,
                         necessity,
                         date,
