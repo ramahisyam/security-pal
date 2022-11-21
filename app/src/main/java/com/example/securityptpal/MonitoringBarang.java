@@ -16,7 +16,6 @@ public class MonitoringBarang extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(this, Barang.class));
         finish();
     }
 }

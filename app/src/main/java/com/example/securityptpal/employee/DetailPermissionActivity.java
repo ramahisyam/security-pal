@@ -20,7 +20,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetailPermissionActivity extends AppCompatActivity {
 
-    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, division_approve, center_approve;
+    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, division_approve, center_approve, departmen, status;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ImageView qrEmployee;
@@ -50,6 +50,8 @@ public class DetailPermissionActivity extends AppCompatActivity {
                 startActivity(new Intent(DetailPermissionActivity.this, ShowQR.class));
             }
         });
+        departmen = findViewById(R.id.permit_depart);
+        status = findViewById(R.id.permit_status);
 
         PermissionEmployee permissionEmployee = getIntent().getParcelableExtra("permission");
         base.setText(permissionEmployee.getBase());
@@ -61,6 +63,8 @@ public class DetailPermissionActivity extends AppCompatActivity {
         place.setText(permissionEmployee.getPlace());
         timeout.setText(permissionEmployee.getTimeout());
         timeback.setText(permissionEmployee.getTimeback());
+        departmen.setText(permissionEmployee.getDepartment());
+        status.setText(permissionEmployee.getEmployee_status());
         if (permissionEmployee.getDivision_approval().equals("Pending")){
             division_approve.setText(permissionEmployee.getDivision_approval());
             division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_orange_color));

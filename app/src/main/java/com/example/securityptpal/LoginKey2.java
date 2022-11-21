@@ -22,7 +22,7 @@ public class LoginKey2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_key);
+        setContentView(R.layout.activity_login_key2);
         key = findViewById(R.id.key);
         loginkey = findViewById(R.id.loginkey);
 
@@ -97,7 +97,7 @@ public class LoginKey2 extends AppCompatActivity {
     }
 
     public void openCheckup() {
-        Intent intent = new Intent(this, CheckUp.class);
+        Intent intent = new Intent(this, CheckUpPermissionActivity.class);
         startActivity(intent);
     }
 }

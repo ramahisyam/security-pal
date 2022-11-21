@@ -1,12 +1,13 @@
 package com.example.securityptpal;
 
-import android.app.Activity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,10 +21,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
+import com.example.securityptpal.model.Visitor;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
@@ -32,48 +34,72 @@ import com.tapadoo.alerter.OnShowAlertListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Guest extends AppCompatActivity {
-    ImageView calGuest, img_timeout, img_timein;
-    EditText edtDate, edtTimeout, edtTimein, edtNameGuest, edtCompanyGuest, edtNoHPGuest, edtPICGuest, edtNecessityGuest;
-    TextView txtDepart;
-    Button monitoring, submitGuest;
-    DatePickerDialog.OnDateSetListener setListener;
-    String name, company, phone, department, pic, necessity, date, timein, timeout, division;
-    int hour, minute;
-    ProgressDialog progressDialog;
+public class VisitorPermissionActivity extends AppCompatActivity {
 
-//    DrawerLayout drawerLayout;
-//    ImageView btMenu;
+    Button bt_visitor, submitVisitor;
     Spinner spinner;
+    TextView txtDepart, edtDepartVisitor;
+    ProgressDialog progressDialog;
+    EditText edtNameVisitor, edtCompanyVisitor, edtNoHPVisitor, edtPICVisitor, edtNecessityVisitor, edtDateVisitor, edtTimeoutVisitor, edtTimeinVisitor;
+    String name, company, phone, division, department, pic, necessity, date, timein, timeout;
+    ImageView dateVisitor, img_timeoutVisitor, img_timeinVisitor;
+    int hour, minute;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest);
+        setContentView(R.layout.activity_visitor);
 
-        calGuest = findViewById(R.id.calGuest);
-        edtDate = findViewById(R.id.edtDateGuest);
-        img_timeout = findViewById(R.id.img_timeout);
-        img_timein = findViewById(R.id.img_timein);
-        edtTimeout = findViewById(R.id.edtTimeoutGuest);
-        edtTimein = findViewById(R.id.edtTimeinGuest);
-        edtNameGuest = findViewById(R.id.edtNameGuest);
-        edtCompanyGuest = findViewById(R.id.edtCompanyGuest);
-        edtNoHPGuest = findViewById(R.id.edtNoHPGuest);
-        edtPICGuest = findViewById(R.id.edtPICGuest);
-        edtNecessityGuest = findViewById(R.id.edtNecessityGuest);
-//        drawerLayout = findViewById(R.id.drawer_layout);
-//        btMenu = findViewById(R.id.bt_menu);
+        bt_visitor = findViewById(R.id.gotoMonitoring);
         spinner = findViewById(R.id.spinner);
-        monitoring = findViewById(R.id.gotoMonitoring);
-        txtDepart = findViewById(R.id.txtdepartGuest);
-        submitGuest = findViewById(R.id.submitGuest);
+        txtDepart = findViewById(R.id.edtDepartVisitor);
+        submitVisitor = findViewById(R.id.submitVisitor);
+        edtNameVisitor = findViewById(R.id.edtNameVisitor);
+        edtCompanyVisitor = findViewById(R.id.edtCompanyVisitor);
+        edtNoHPVisitor = findViewById(R.id.edtNoHPVisitor);
+        edtDepartVisitor = findViewById(R.id.edtDepartVisitor);
+        edtPICVisitor = findViewById(R.id.edtPICVisitor);
+        edtNecessityVisitor = findViewById(R.id.edtNecessityVisitor);
+        edtDateVisitor = findViewById(R.id.edtDateVisitor);
+        edtTimeoutVisitor = findViewById(R.id.edtTimeoutVisitor);
+        edtTimeinVisitor = findViewById(R.id.edtTimeinVisitor);
+        dateVisitor = findViewById(R.id.dateVisitor);
+        img_timeoutVisitor = findViewById(R.id.img_timeoutVisitor);
+        img_timeinVisitor = findViewById(R.id.img_timeinVisitor);
 
-        submitGuest.setOnClickListener(view -> {
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        final int year = calendar.get(java.util.Calendar.YEAR);
+        final int month = calendar.get(java.util.Calendar.MONTH);
+        final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+
+        dateVisitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        VisitorPermissionActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month + 1;
+                        String date = day+"-"+month+"-"+year;
+                        edtDateVisitor.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
+
+        bt_visitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { openMonitoringVisitor();
+            }
+        });
+
+        submitVisitor.setOnClickListener(view -> {
             try{
-                if (TextUtils.isEmpty(edtNameGuest.getText().toString()) || TextUtils.isEmpty(edtCompanyGuest.getText().toString()) || TextUtils.isEmpty(edtNoHPGuest.getText().toString()) || TextUtils.isEmpty(edtPICGuest.getText().toString()) || TextUtils.isEmpty(edtNecessityGuest.getText().toString()) || TextUtils.isEmpty(edtDate.getText().toString()) || TextUtils.isEmpty(edtTimein.getText().toString()) || TextUtils.isEmpty(edtTimeout.getText().toString())){
+                if (TextUtils.isEmpty(edtNameVisitor.getText().toString()) || TextUtils.isEmpty(edtCompanyVisitor.getText().toString()) || TextUtils.isEmpty(edtNoHPVisitor.getText().toString()) || TextUtils.isEmpty(edtPICVisitor.getText().toString()) || TextUtils.isEmpty(edtNecessityVisitor.getText().toString()) || TextUtils.isEmpty(edtDateVisitor.getText().toString()) || TextUtils.isEmpty(edtTimeoutVisitor.getText().toString()) || TextUtils.isEmpty(edtTimeinVisitor.getText().toString())){
 //                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
-                    Alerter.create(Guest.this)
+                    Alerter.create(VisitorPermissionActivity.this)
                             .setTitle("Add Data Failed!")
                             .setText("Please fill all the data")
                             .setIcon(R.drawable.ic_close)
@@ -102,18 +128,18 @@ public class Guest extends AppCompatActivity {
                             })
                             .show();
                 }else{
-                    name = edtNameGuest.getText().toString();
-                    company = edtCompanyGuest.getText().toString();
-                    phone = edtNoHPGuest.getText().toString();
+                    name = edtNameVisitor.getText().toString();
+                    company = edtCompanyVisitor.getText().toString();
+                    phone = edtNoHPVisitor.getText().toString();
                     division = spinner.getSelectedItem().toString();
-                    department = txtDepart.getText().toString();
-                    pic = edtPICGuest.getText().toString();
-                    necessity = edtNecessityGuest.getText().toString();
-                    date = edtDate.getText().toString();
-                    timein = edtTimein.getText().toString();
-                    timeout = edtTimeout.getText().toString();
+                    department = edtDepartVisitor.getText().toString();
+                    pic = edtPICVisitor.getText().toString();
+                    necessity = edtNecessityVisitor.getText().toString();
+                    date = edtDateVisitor.getText().toString();
+                    timein = edtTimeoutVisitor.getText().toString();
+                    timeout = edtTimeinVisitor.getText().toString();
 
-                    progressDialog = new ProgressDialog(Guest.this);
+                    progressDialog = new ProgressDialog(VisitorPermissionActivity.this);
                     progressDialog.show();
                     progressDialog.setContentView(R.layout.progress_dialog);
                     progressDialog.getWindow().setBackgroundDrawableResource(
@@ -124,7 +150,7 @@ public class Guest extends AppCompatActivity {
                         public void run() {
                             try {
                                 sleep(2000);
-                                Intent intent = new Intent(getApplicationContext(),Guest.class);
+                                Intent intent = new Intent(getApplicationContext(), VisitorPermissionActivity.class);
                                 startActivity(intent);
                                 progressDialog.dismiss();
                                 finish();
@@ -135,13 +161,38 @@ public class Guest extends AppCompatActivity {
                         }
                     };
                     timer.start();
-                    new Handler().postDelayed(new Runnable() {
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            //do something
+//                            StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+//                        }
+//                    }, 2000 );
+                    Visitor visitor = new Visitor(
+                            db.collection("permission_visitor").document().getId(),
+                            name,
+                            company,
+                            phone,
+                            division,
+                            department,
+                            pic,
+                            necessity,
+                            date,
+                            timein,
+                            timeout
+                    );
+                    db.collection("permission_visitor").add(visitor).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
-                        public void run() {
-                            //do something
+                        public void onSuccess(DocumentReference documentReference) {
                             StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                         }
-                    }, 2000 );
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                            progressDialog.dismiss();
+                        }
+                    });
                 }
             }
             catch (Exception e){
@@ -149,14 +200,8 @@ public class Guest extends AppCompatActivity {
             }
         });
 
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        final int year = calendar.get(java.util.Calendar.YEAR);
-        final int month = calendar.get(java.util.Calendar.MONTH);
-        final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-
         ArrayList<String> numberList = new ArrayList<>();
 
-//        numberList.add("");
         numberList.add("General Engineering");
         numberList.add("Merchant Ship");
         numberList.add("Warship");
@@ -180,52 +225,13 @@ public class Guest extends AppCompatActivity {
         numberList.add("Information Technology");
         numberList.add("Design");
 
-        calGuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        Guest.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month + 1;
-                        String date = day+"-"+month+"-"+year;
-                        edtDate.setText(date);
-                    }
-                },year,month,day);
-                datePickerDialog.show();
-            }
-        });
-
-        monitoring.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openMonitoringGuest();
-            }
-        });
-
-//        btMenu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                drawerLayout.openDrawer(GravityCompat.END);
-//            }
-//        });
-
-        spinner.setAdapter(new ArrayAdapter<>(Guest.this,
+        spinner.setAdapter(new ArrayAdapter<>(VisitorPermissionActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, numberList));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (i == 0){
-//                    Toast.makeText(getApplicationContext(),
-//                            "Please Select Division",Toast.LENGTH_SHORT).show();
-//                    textView.setText("");
-//                }else{
-//                    String sNumber = adapterView.getItemAtPosition(i).toString();
-//                    textView.setText(sNumber);
-//                }
                 String sNumber = adapterView.getItemAtPosition(i).toString();
-//                textView.setText(sNumber);
                 if (i == 0 || i == 1 || i == 2|| i == 3|| i == 4|| i == 5){
                     txtDepart.setText("Production Directorate");
                 }else if (i == 6 || i == 7 || i == 8 || i == 9){
@@ -259,7 +265,7 @@ public class Guest extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 hour = selectedHour;
                 minute = selectedMinute;
-                edtTimein.setText(String.format(Locale.getDefault(),"%02d:%02d",hour,minute));
+                edtTimeinVisitor.setText(String.format(Locale.getDefault(),"%02d:%02d",hour,minute));
             }
         };
 
@@ -276,7 +282,7 @@ public class Guest extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 hour = selectedHour;
                 minute = selectedMinute;
-                edtTimeout.setText(String.format(Locale.getDefault(),"%02d:%02d",hour,minute));
+                edtTimeoutVisitor.setText(String.format(Locale.getDefault(),"%02d:%02d",hour,minute));
             }
         };
 
@@ -286,36 +292,11 @@ public class Guest extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    public void openMonitoringGuest() {
-        Intent intent = new Intent(this, MonitoringGuest.class);
+    private void openMonitoringVisitor() {
+        Intent intent = new Intent(this, MonitoringVisitor.class);
         startActivity(intent);
     }
 
-//    public void ClickLogo(View view){
-//        closeDrawer(drawerLayout);
-//    }
-//
-//    public static void closeDrawer(DrawerLayout drawerLayout){
-//        if(drawerLayout.isDrawerOpen(GravityCompat.END)){
-//            drawerLayout.closeDrawer(GravityCompat.END);
-//        }
-//    }
-//
-//    public void ClickFillData(View view){
-//        redirectActivity(this, Guest.class);
-//    }
-//
-//    public void ClickMonitoring(View view){
-//        redirectActivity(this, MonitoringGuest.class);
-//    }
-//
-//    public static void redirectActivity(Activity activity, Class aClass){
-//        Intent intent = new Intent(activity,aClass);
-//
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        activity.startActivity(intent);
-//    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

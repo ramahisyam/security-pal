@@ -154,6 +154,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
     }
 
     private void showDataDivision(String division) {
+        progressDialog.show();
         db.collection("permission_late")
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
@@ -176,7 +177,9 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
                                         document.getString("device"),
                                         document.getString("latitude"),
                                         document.getString("longitude"),
-                                        document.getString("location")
+                                        document.getString("location"),
+                                        document.getString("status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionLate);
                             }

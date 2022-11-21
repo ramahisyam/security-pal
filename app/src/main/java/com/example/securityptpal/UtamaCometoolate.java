@@ -11,7 +11,7 @@ import com.example.securityptpal.model.PermissionLate;
 
 public class UtamaCometoolate extends AppCompatActivity {
 
-    private TextView name, nip, division, date, reason, device, latitude, longitude, location;
+    private TextView name, nip, division, date, reason, device, latitude, longitude, location, status, department;
     private ImageView imgEvidence;
     PermissionLate permissionLate;
 
@@ -30,6 +30,8 @@ public class UtamaCometoolate extends AppCompatActivity {
         longitude = findViewById(R.id.main_late_longitude);
         location = findViewById(R.id.main_late_location);
         imgEvidence = findViewById(R.id.main_image_late);
+        status = findViewById(R.id.main_late_status);
+        department = findViewById(R.id.main_late_department);
 
         permissionLate = getIntent().getParcelableExtra("MAIN_LATE_PERMIT");
         name.setText(permissionLate.getName());
@@ -41,6 +43,8 @@ public class UtamaCometoolate extends AppCompatActivity {
         latitude.setText(permissionLate.getLatitude());
         longitude.setText(permissionLate.getLongitude());
         location.setText(permissionLate.getLocation());
+        status.setText(permissionLate.getEmployee_status());
+        department.setText(permissionLate.getDepartment());
         Glide.with(this).load(permissionLate.getImg()).placeholder(R.drawable.pict).into(imgEvidence);
     }
 }

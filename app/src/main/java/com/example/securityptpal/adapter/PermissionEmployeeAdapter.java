@@ -74,8 +74,4 @@ public class PermissionEmployeeAdapter extends RecyclerView.Adapter<PermissionEm
             onPermitListener.onPermitClick(getAdapterPosition());
         }
     }
-
-    public interface OnPermitListener {
-        void onPermitClick(int position);
-    }
 }

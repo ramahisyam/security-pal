@@ -11,9 +11,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,35 +31,54 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.securityptpal.model.Barang;
+import com.example.securityptpal.model.Division;
+import com.example.securityptpal.model.PermissionLate;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
 import com.zolad.zoominimageview.ZoomInImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Barang extends AppCompatActivity {
+public class BarangActivity extends AppCompatActivity {
 
     private String[] PERMISSIONS;
     Button monitoring, btnPicture, submitGoods;
-    Spinner spinner, spinner2;
+    Spinner divSpinner, typesSpinner, depSpinner;
     ZoomInImageView imageView;
-    TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation, txtDepartGoods;
+    TextView txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation;
     Build build;
     String information;
     FusedLocationProviderClient fusedLocationProviderClient;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText edtNameGoods, edtNoHPGoods, edtPICGoods, edtItemGoods;
+    ArrayList<String> divisionList, typeList, departmentList;
+    ArrayAdapter divSpinnerAdapter, typeSpinnerAdapter, depSpinnerAdapter;
     String name, phone, pic, division, department, goodsname, typesgoods, date, device, latitude, longitude, location;
+    private List<Division> departments;
     ProgressDialog progressDialog;
 
     @Override
@@ -65,8 +86,8 @@ public class Barang extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barang);
 
-        spinner = findViewById(R.id.spinner);
-        spinner2 = findViewById(R.id.spinner2);
+        divSpinner = findViewById(R.id.goods_spinner_division);
+        typesSpinner = findViewById(R.id.goods_spinner_type);
         monitoring = findViewById(R.id.gotoMonitoring);
         btnPicture = findViewById(R.id.buttonPictureBarang);
         imageView = findViewById(R.id.imageViewBarang);
@@ -75,7 +96,7 @@ public class Barang extends AppCompatActivity {
         txtLatitude = (TextView) findViewById(R.id.txtLatitudeBarang);
         txtLongitude = (TextView) findViewById(R.id.txtLongitudeBarang);
         txtLocation = (TextView) findViewById(R.id.txtLocationBarang);
-        txtDepartGoods = findViewById(R.id.txtDepartGoods);
+        depSpinner = findViewById(R.id.goods_spinner_department);
         submitGoods = findViewById(R.id.submitGoods);
         edtNameGoods = findViewById(R.id.edtNameGoods);
         edtNoHPGoods = findViewById(R.id.edtNoHPGoods);
@@ -87,36 +108,13 @@ public class Barang extends AppCompatActivity {
                 Manifest.permission.ACCESS_FINE_LOCATION
         };
 
+        getDivision();
+        divisionList = new ArrayList<>();
+        typeList = new ArrayList<>();
+        departmentList = new ArrayList<>();
 
-        ArrayList<String> numberList = new ArrayList<>();
-
-        numberList.add("General Engineering");
-        numberList.add("Merchant Ship");
-        numberList.add("Warship");
-        numberList.add("Submarine");
-        numberList.add("Maintenance & Repair");
-        numberList.add("Production Management Office");
-        numberList.add("Ship Marketing & Sales");
-        numberList.add("Recumalable Sales");
-        numberList.add("Supply Chain");
-        numberList.add("Area & K3LH");
-        numberList.add("Company Strategic Planning");
-        numberList.add("Treasury");
-        numberList.add("Accountancy");
-        numberList.add("Human Capital Management");
-        numberList.add("Risk");
-        numberList.add("Office of The Board");
-        numberList.add("Legal");
-        numberList.add("Technology & Quality Assurance");
-        numberList.add("Company Secretary");
-        numberList.add("Internal Control Unit");
-        numberList.add("Information Technology");
-        numberList.add("Design");
-
-        ArrayList<String> numberList1 = new ArrayList<>();
-
-        numberList1.add("Heavy Goods");
-        numberList1.add("Light Goods");
+        typeList.add("Heavy Goods");
+        typeList.add("Light Goods");
 
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,39 +123,19 @@ public class Barang extends AppCompatActivity {
             }
         });
 
-        spinner.setAdapter(new ArrayAdapter<>(Barang.this,
-                android.R.layout.simple_spinner_dropdown_item, numberList));
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        divSpinnerAdapter = new ArrayAdapter<>(BarangActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, divisionList);
+        divSpinner.setAdapter(divSpinnerAdapter);
+        divSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (i == 0){
-//                    Toast.makeText(getApplicationContext(),
-//                            "Please Select Division",Toast.LENGTH_SHORT).show();
-//                    textView.setText("");
-//                }else{
-//                    String sNumber = adapterView.getItemAtPosition(i).toString();
-//                    textView.setText(sNumber);
-//                }
-                String sNumber = adapterView.getItemAtPosition(i).toString();
-//                textView.setText(sNumber);
-                if (i == 0 || i == 1 || i == 2|| i == 3|| i == 4|| i == 5){
-                    txtDepartGoods.setText("Production Directorate");
-                }else if (i == 6 || i == 7 || i == 8 || i == 9){
-                    txtDepartGoods.setText("Marketing Directorate");
+
+                for (String mDepartment : departments.get(i).getDepartment()){
+                    departmentList.add(mDepartment);
                 }
-                else if (i == 10 || i == 11 || i == 12 || i == 13 || i == 14){
-                    txtDepartGoods.setText("Directorate of Finance, Risk Management & HR");
-                }
-                else if (i == 15 || i == 16){
-                    txtDepartGoods.setText("SEVP Transformation Management");
-                }
-                else if (i == 17){
-                    txtDepartGoods.setText("SEVP Technology & Naval System");
-                }
-                else if (i == 18 || i == 19 || i == 20 || i == 21){
-                    txtDepartGoods.setText("-");
-                }
+                depSpinnerAdapter = new ArrayAdapter<>(BarangActivity.this,
+                        android.R.layout.simple_spinner_dropdown_item, departmentList);
+                depSpinner.setAdapter(depSpinnerAdapter);
             }
 
             @Override
@@ -166,35 +144,14 @@ public class Barang extends AppCompatActivity {
             }
         });
 
-        spinner2.setAdapter(new ArrayAdapter<>(Barang.this,
-                android.R.layout.simple_spinner_dropdown_item, numberList1));
-
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (i == 0){
-//                    Toast.makeText(getApplicationContext(),
-//                            "Please Select Division",Toast.LENGTH_SHORT).show();
-//                    textView.setText("");
-//                }else{
-//                    String sNumber = adapterView.getItemAtPosition(i).toString();
-//                    textView.setText(sNumber);
-//                }
-                String sNumber = adapterView.getItemAtPosition(i).toString();
-//                textView.setText(sNumber);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        typesSpinner.setAdapter(new ArrayAdapter<>(BarangActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, typeList));
 
         btnPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!hasPermissions(Barang.this,PERMISSIONS)){
-                    ActivityCompat.requestPermissions(Barang.this,PERMISSIONS,2);
+                if (!hasPermissions(BarangActivity.this,PERMISSIONS)){
+                    ActivityCompat.requestPermissions(BarangActivity.this,PERMISSIONS,2);
                 }
             }
         });
@@ -203,7 +160,7 @@ public class Barang extends AppCompatActivity {
             try{
                 if (TextUtils.isEmpty(edtNameGoods.getText().toString()) || TextUtils.isEmpty(edtNoHPGoods.getText().toString()) || TextUtils.isEmpty(edtPICGoods.getText().toString()) || TextUtils.isEmpty(edtPICGoods.getText().toString()) || TextUtils.isEmpty(edtItemGoods.getText().toString())){
 //                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
-                    Alerter.create(Barang.this)
+                    Alerter.create(BarangActivity.this)
                             .setTitle("Add Data Failed!")
                             .setText("Please fill all the data")
                             .setIcon(R.drawable.ic_close)
@@ -235,18 +192,18 @@ public class Barang extends AppCompatActivity {
                     name = edtNameGoods.getText().toString();
                     phone = edtNoHPGoods.getText().toString();
                     pic = edtPICGoods.getText().toString();
-                    division = spinner.getSelectedItem().toString();
-                    pic = edtPICGoods.getText().toString();
-                    department = txtDepartGoods.getText().toString();
+                    division = divSpinner.getSelectedItem().toString();
+                    department = depSpinner.getSelectedItem().toString();
                     goodsname = edtItemGoods.getText().toString();
-                    typesgoods = spinner2.getSelectedItem().toString();
+                    typesgoods = typesSpinner.getSelectedItem().toString();
                     date = txtDate.getText().toString();
                     device = txtDevice.getText().toString();
                     latitude = txtLatitude.getText().toString();
                     longitude = txtLongitude.getText().toString();
                     location = txtLocation.getText().toString();
+                    upload(name, phone, pic, division, department, goodsname, typesgoods, date, device, latitude, longitude, location);
 
-                    progressDialog = new ProgressDialog(Barang.this);
+                    progressDialog = new ProgressDialog(BarangActivity.this);
                     progressDialog.show();
                     progressDialog.setContentView(R.layout.progress_dialog);
                     progressDialog.getWindow().setBackgroundDrawableResource(
@@ -257,7 +214,7 @@ public class Barang extends AppCompatActivity {
                         public void run() {
                             try {
                                 sleep(2000);
-                                Intent intent = new Intent(getApplicationContext(),Barang.class);
+                                Intent intent = new Intent(getApplicationContext(), BarangActivity.class);
                                 startActivity(intent);
                                 progressDialog.dismiss();
                                 finish();
@@ -284,6 +241,105 @@ public class Barang extends AppCompatActivity {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         saveinfo();
+    }
+
+    private void upload(String name, String phone, String pic, String division, String department, String goodsname, String typesgoods, String date, String device, String latitude, String longitude, String location) {
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        StorageReference storageRef = storage.getReference("goods_permit").child("IMG" + new Date().getTime()+".jpeg");
+        UploadTask uploadTask = storageRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(BarangActivity.this, exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                if (taskSnapshot.getMetadata() != null) {
+                    if (taskSnapshot.getMetadata().getReference() != null) {
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                saveData(
+                                        name,
+                                        phone,
+                                        pic,
+                                        division,
+                                        department,
+                                        goodsname,
+                                        typesgoods,
+                                        date,
+                                        device,
+                                        latitude,
+                                        longitude,
+                                        location,
+                                        task.getResult().toString()
+                                );
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    private void saveData(String name, String phone, String pic, String division, String department, String goodsname, String typesgoods, String date, String device, String latitude, String longitude, String location, String img) {
+        Barang barang = new Barang(
+                db.collection("goods_permit").document().getId(),
+                name,
+                phone,
+                pic,
+                division,
+                department,
+                goodsname,
+                typesgoods,
+                img,
+                date,
+                device,
+                latitude,
+                longitude,
+                location
+        );
+
+        db.collection("goods_permit").add(barang).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(BarangActivity.this, "Berhasil submit", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void getDivision() {
+        db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                departments = queryDocumentSnapshots.toObjects(Division.class);
+                if (queryDocumentSnapshots.size()>0) {
+                    divisionList.clear();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        divisionList.add(doc.getString("name"));
+                    }
+                    divSpinnerAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(BarangActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private boolean hasPermissions(Context context, String... PERMISSIONS){
@@ -315,7 +371,7 @@ public class Barang extends AppCompatActivity {
 
                 if (location != null) {
                     try {
-                        Geocoder geocoder = new Geocoder(Barang.this, Locale.getDefault());
+                        Geocoder geocoder = new Geocoder(BarangActivity.this, Locale.getDefault());
 
                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                         txtLatitude.setText(Html.fromHtml("<font color = '000000'></font>" + addresses.get(0).getLatitude()));
@@ -363,10 +419,18 @@ public class Barang extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(captureImage);
+            final Bundle extras = data.getExtras();
+            Thread thread = new Thread(() -> {
+                Bitmap bitmap = (Bitmap) extras.get("data");
+                imageView.post(() -> {
+                    imageView.setImageBitmap(bitmap);
+                });
+            });
+            thread.start();
             Date dateCurrent = Calendar.getInstance().getTime();
-            txtDate.setText(dateCurrent.toString());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+            String dateString = dateFormat.format(dateCurrent);
+            txtDate.setText(dateString);
             txtDevice.setText(information);
             StyleableToast.makeText(getApplicationContext(), "Image has been Captured!", Toast.LENGTH_SHORT, R.style.result).show();
             getLocation();

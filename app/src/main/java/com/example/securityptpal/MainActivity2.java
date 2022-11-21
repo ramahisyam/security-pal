@@ -2,14 +2,11 @@ package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +20,7 @@ import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    ImageView employee, subcon, guest, cometoolate, visitor, checkup;
+    ImageView employee, subcon, guest, cometoolate, visitor, checkup, parksub;
     private ViewPager2 viewPager2;
     private Handler sliderHandler = new Handler();
     TextView textView;
@@ -43,6 +40,7 @@ public class MainActivity2 extends AppCompatActivity {
         cometoolate = findViewById(R.id.cometoolate);
         visitor = findViewById(R.id.visitor);
         checkup = findViewById(R.id.checkup);
+        parksub = findViewById(R.id.parksub);
 
 
         employee.setOnClickListener(new View.OnClickListener() {
@@ -61,10 +59,18 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
+        parksub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity2.this, ParkingSubcontractor.class);
+                startActivity(intent);
+            }
+        });
+
         guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, Guest.class);
+                Intent intent = new Intent(MainActivity2.this, GuestPermissionActivity.class);
                 startActivity(intent);
             }
         });
@@ -80,7 +86,7 @@ public class MainActivity2 extends AppCompatActivity {
         visitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, Visitor.class);
+                Intent intent = new Intent(MainActivity2.this, VisitorPermissionActivity.class);
                 startActivity(intent);
             }
         });

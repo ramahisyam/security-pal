@@ -134,6 +134,8 @@ public class UtamaDataCheckup extends AppCompatActivity {
 
     public void ClickSubcon(View view){ AkunUtama.redirectActivity(this, UtamaDataSubcon.class); }
 
+    public void ClickParksub(View view){ AkunUtama.redirectActivity(this, UtamaDataParksub.class); }
+
     public void ClickGuest(View view){
         AkunUtama.redirectActivity(this, UtamaDataGuest.class);
     }

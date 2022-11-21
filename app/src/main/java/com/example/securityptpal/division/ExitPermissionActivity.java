@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.securityptpal.R;
+import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.employee.DetailPermissionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
@@ -56,7 +57,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExitPermissionActivity extends AppCompatActivity implements PermissionEmployeeAdapter.OnPermitListener {
+public class ExitPermissionActivity extends AppCompatActivity implements OnPermitListener {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -175,7 +176,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
     }
 
     private void showDataDivision(String division) {
-
+        progressDialog.show();
         db.collection("permission_employee")
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
@@ -199,7 +200,9 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionEmployee);
                             }
@@ -242,7 +245,9 @@ public class ExitPermissionActivity extends AppCompatActivity implements Permiss
                                         document.getString("timeout"),
                                         document.getString("timeback"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval")
+                                        document.getString("center_approval"),
+                                        document.getString("employee_status"),
+                                        document.getString("department")
                                 );
                                 list.add(permissionEmployee);
                             }

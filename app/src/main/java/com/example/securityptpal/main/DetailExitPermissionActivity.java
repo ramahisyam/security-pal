@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,13 +23,14 @@ import java.util.ArrayList;
 public class DetailExitPermissionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinner;
-    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, divApproval, centerApproval;
+    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, divApproval, centerApproval, department, employeeStatus;
     private Button save;
     String item;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<String> centerStatus;
     PermissionEmployee permissionEmployee;
+    ImageView permit_ttd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,9 @@ public class DetailExitPermissionActivity extends AppCompatActivity implements A
         centerApproval = findViewById(R.id.main_center_approval);
         spinner = findViewById(R.id.main_exit_permit_status_editable);
         save = findViewById(R.id.save_center_status);
+        department = findViewById(R.id.main_exit_permit_depart);
+        employeeStatus = findViewById(R.id.main_exit_permit_statusE);
+        permit_ttd = findViewById(R.id.permit_ttd);
 
         centerStatus = new ArrayList<>();
         centerStatus.add("Accepted");
@@ -69,6 +74,8 @@ public class DetailExitPermissionActivity extends AppCompatActivity implements A
         place.setText(permissionEmployee.getPlace());
         timeout.setText(permissionEmployee.getTimeout());
         timeback.setText(permissionEmployee.getTimeback());
+        department.setText(permissionEmployee.getDepartment());
+        employeeStatus.setText(permissionEmployee.getEmployee_status());
 
         if (permissionEmployee.getDivision_approval().equals("Pending")){
             divApproval.setText(permissionEmployee.getDivision_approval());
@@ -90,6 +97,10 @@ public class DetailExitPermissionActivity extends AppCompatActivity implements A
         } else {
             centerApproval.setText(permissionEmployee.getCenter_approval());
             centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.cardColorRed));
+        }
+
+        if (permissionEmployee.getCenter_approval().equals("Accepted") && permissionEmployee.getDivision_approval().equals("Accepted")){
+            permit_ttd.setImageResource(R.drawable.ttdhcm);
         }
 
         save.setOnClickListener(new View.OnClickListener() {

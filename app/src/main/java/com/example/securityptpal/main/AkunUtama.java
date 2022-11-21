@@ -20,6 +20,7 @@ import com.example.securityptpal.R;
 import com.example.securityptpal.UtamaDataBarang;
 import com.example.securityptpal.UtamaDataCheckup;
 import com.example.securityptpal.UtamaDataGuest;
+import com.example.securityptpal.UtamaDataParksub;
 import com.example.securityptpal.UtamaDataSubcon;
 import com.example.securityptpal.UtamaDataVisitor;
 import com.example.securityptpal.Utama_Data_Cometoolate;
@@ -29,7 +30,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AkunUtama extends AppCompatActivity {
 
-    private CardView cvExitPermit, cvLatePermit;
     private ImageView imgSignOut;
     DrawerLayout drawerLayout;
     ImageView btMenu;
@@ -83,6 +83,8 @@ public class AkunUtama extends AppCompatActivity {
 
     public void ClickSubcon(View view){ redirectActivity(this, UtamaDataSubcon.class); }
 
+    public void ClickParksub(View view){ redirectActivity(this, UtamaDataParksub.class); }
+
     public void ClickGuest(View view){
         redirectActivity(this, UtamaDataGuest.class);
     }
@@ -96,7 +98,7 @@ public class AkunUtama extends AppCompatActivity {
     }
 
     public void ClickEdit(View view){
-        redirectActivity(this, AkunUtama.class);
+        redirectActivity(this, MainDivisionActivity.class);
     }
 
     public static void redirectActivity(Activity activity, Class aClass){

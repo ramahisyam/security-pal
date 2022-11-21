@@ -84,7 +84,6 @@
                 android:text="NIP\t\t\t\t\t\t\t\t\t\t\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
-
             <EditText
                 android:id="@+id/late_nip"
                 android:layout_width="240dp"
@@ -112,7 +111,6 @@
                 android:text="Division\t\t\t\t\t\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
-
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/division_late"
                 android:layout_width="240dp"
@@ -140,14 +138,11 @@
                 android:textColor="#174887"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/txtDepartlate"
-                android:layout_width="240dp"
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spinner_department_late"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#000000"
-                android:textColor="#000000"
-                android:layout_marginLeft="15dp"
-                android:textSize="16dp"/>
+                app:hintText="Select Department"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/statusL"
@@ -170,7 +165,7 @@
                 android:textSize="16sp" />
 
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:id="@+id/status_late"
+                android:id="@+id/late_employee_status"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 app:hintText="Select Status"
@@ -388,6 +383,6 @@
                 android:layout_marginLeft="10dp">
             </Button>
         </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

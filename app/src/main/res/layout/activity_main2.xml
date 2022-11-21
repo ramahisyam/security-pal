@@ -76,17 +76,19 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:src="@drawable/employee"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginLeft="85dp">
                 </ImageView>
 
                 <ImageView
-                    android:id="@+id/subcon"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/engineer"></ImageView>
+                    android:src="@drawable/medicalinsurance"
+                    android:id="@+id/checkup"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="100dp">
+                </ImageView>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -105,12 +107,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Subcontractor"
+                    android:text="Visitor"
                     android:textColor="#174887"
                     android:fontFamily="@font/fredoka_one"
                     android:textSize="15dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginLeft="82dp">
+                    android:layout_marginLeft="110dp">
                 </TextView>
             </LinearLayout>
             <LinearLayout
@@ -164,20 +166,59 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
+                    android:id="@+id/subcon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/engineer">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/parksub"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/parksub">
+                </ImageView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subcontractor"
+                    android:textColor="#174887"
+                    android:fontFamily="@font/fredoka_one"
+                    android:textSize="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="65dp">
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Parking\nSubcontractor"
+                    android:gravity="center"
+                    android:textColor="#174887"
+                    android:fontFamily="@font/fredoka_one"
+                    android:textSize="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="68dp">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:src="@drawable/kunjungan"
                     android:id="@+id/visitor"
                     android:layout_marginTop="30dp"
                     android:layout_marginLeft="85dp">
-                </ImageView>
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/medicalinsurance"
-                    android:id="@+id/checkup"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="100dp">
                 </ImageView>
             </LinearLayout>
             <LinearLayout
@@ -193,16 +234,6 @@
                     android:textSize="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="95dp">
-                </TextView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Check Up"
-                    android:textColor="#174887"
-                    android:fontFamily="@font/fredoka_one"
-                    android:textSize="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="113dp">
                 </TextView>
             </LinearLayout>
             <LinearLayout

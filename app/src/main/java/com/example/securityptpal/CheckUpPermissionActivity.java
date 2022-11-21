@@ -1,5 +1,6 @@
 package com.example.securityptpal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -19,7 +20,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.securityptpal.employee.Employee;
+import com.example.securityptpal.model.CheckUp;
+import com.example.securityptpal.model.Visitor;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
@@ -27,7 +33,7 @@ import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.util.ArrayList;
 
-public class CheckUp extends AppCompatActivity {
+public class CheckUpPermissionActivity extends AppCompatActivity {
 
     Spinner spinner, spinner2, spinner3;
     Button submitCheckup, monitoring;
@@ -36,6 +42,7 @@ public class CheckUp extends AppCompatActivity {
     String name, nip, division, department, status, date, type, others;
     EditText edtDateCheckup, edtNameCheckup, edtNIPCheckup, edtOthersCheckup;
     ImageView dateCheckup;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +76,7 @@ public class CheckUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        CheckUp.this, new DatePickerDialog.OnDateSetListener() {
+                        CheckUpPermissionActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month + 1;
@@ -85,7 +92,7 @@ public class CheckUp extends AppCompatActivity {
             try{
                 if (TextUtils.isEmpty(edtNameCheckup.getText().toString()) || TextUtils.isEmpty(edtNIPCheckup.getText().toString()) || TextUtils.isEmpty(edtDepartCheckup.getText().toString()) || TextUtils.isEmpty(edtDateCheckup.getText().toString()) || TextUtils.isEmpty(edtOthersCheckup.getText().toString())){
 //                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
-                    Alerter.create(CheckUp.this)
+                    Alerter.create(CheckUpPermissionActivity.this)
                             .setTitle("Add Data Failed!")
                             .setText("Please fill all the data")
                             .setIcon(R.drawable.ic_close)
@@ -123,7 +130,7 @@ public class CheckUp extends AppCompatActivity {
                     type = spinner3.getSelectedItem().toString();
                     others = edtOthersCheckup.getText().toString();
 
-                    progressDialog = new ProgressDialog(CheckUp.this);
+                    progressDialog = new ProgressDialog(CheckUpPermissionActivity.this);
                     progressDialog.show();
                     progressDialog.setContentView(R.layout.progress_dialog);
                     progressDialog.getWindow().setBackgroundDrawableResource(
@@ -134,7 +141,7 @@ public class CheckUp extends AppCompatActivity {
                         public void run() {
                             try {
                                 sleep(2000);
-                                Intent intent = new Intent(getApplicationContext(),CheckUp.class);
+                                Intent intent = new Intent(getApplicationContext(), CheckUpPermissionActivity.class);
                                 startActivity(intent);
                                 progressDialog.dismiss();
                                 finish();
@@ -145,13 +152,36 @@ public class CheckUp extends AppCompatActivity {
                         }
                     };
                     timer.start();
-                    new Handler().postDelayed(new Runnable() {
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            //do something
+//                            StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+//                        }
+//                    }, 2000 );
+                    CheckUp checkup = new CheckUp(
+                            db.collection("permission_checkup").document().getId(),
+                            name,
+                            nip,
+                            division,
+                            department,
+                            status,
+                            date,
+                            type,
+                            others
+                    );
+                    db.collection("permission_checkup").add(checkup).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
-                        public void run() {
-                            //do something
+                        public void onSuccess(DocumentReference documentReference) {
                             StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                         }
-                    }, 2000 );
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                            progressDialog.dismiss();
+                        }
+                    });
                 }
             }
             catch (Exception e){
@@ -184,7 +214,7 @@ public class CheckUp extends AppCompatActivity {
         numberList.add("Information Technology");
         numberList.add("Design");
 
-        spinner.setAdapter(new ArrayAdapter<>(CheckUp.this,
+        spinner.setAdapter(new ArrayAdapter<>(CheckUpPermissionActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, numberList));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -230,7 +260,7 @@ public class CheckUp extends AppCompatActivity {
         statusList.add("PKWT");
         statusList.add("PKWTT");
 
-        spinner2.setAdapter(new ArrayAdapter<>(CheckUp.this,
+        spinner2.setAdapter(new ArrayAdapter<>(CheckUpPermissionActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, statusList));
 
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -262,7 +292,7 @@ public class CheckUp extends AppCompatActivity {
         typeList.add("Heart Check");
         typeList.add("Eye Examination");
 
-        spinner3.setAdapter(new ArrayAdapter<>(CheckUp.this,
+        spinner3.setAdapter(new ArrayAdapter<>(CheckUpPermissionActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, typeList));
 
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
