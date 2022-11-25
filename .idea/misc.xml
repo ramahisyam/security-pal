@@ -137,6 +137,7 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_addperson.xml" value="0.168" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_faq.xml" value="0.168" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_logout.xml" value="0.2985" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/qrcode.xml" value="0.322" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/font/fredoka_one.xml" value="0.1890625" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/font/gabriela.xml" value="0.1890625" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/font/racing_sans_one.xml" value="0.1890625" />
@@ -177,6 +178,7 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_visitor.xml" value="0.15885416666666666" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_show_qr.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_splash_screen.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_subcontractor.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_cometoolate.xml" value="0.25" />
@@ -200,6 +202,7 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/main_nav_drawer.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/main_toolbar.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/nested_item.xml" value="0.33" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/progress_dialog.xml" value="0.1546875" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/progress_dialog1.xml" value="0.2390625" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_department_list.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_division_list.xml" value="0.5" />

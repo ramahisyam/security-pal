@@ -11,12 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,6 +31,7 @@ import android.widget.Toast;
 import com.example.securityptpal.adapter.MainEmployeePermitAdapter;
 import com.example.securityptpal.adapter.MainGoodsPermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.DetailExitPermissionActivity;
 import com.example.securityptpal.main.EditExitPermitActivity;
@@ -42,12 +48,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 import com.muddzdev.styleabletoast.StyleableToast;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtamaDataBarang extends AppCompatActivity implements OnPermitListener {
+public class UtamaDataBarang extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -63,6 +79,7 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
     DrawerLayout drawerLayout;
     ImageView btMenu;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,15 +89,15 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
         searchView = findViewById(R.id.main_search_goods);
         mSwipeRefreshLayout = findViewById(R.id.refresh_main_goods_permit);
         progressDialog = new ProgressDialog(UtamaDataBarang.this);
-//        fab = (FloatingActionButton) findViewById(R.id.main_employee_fab);
-//        fab1 = (FloatingActionButton) findViewById(R.id.main_employee_fab1);
-//        fab2 = (FloatingActionButton) findViewById(R.id.main_employee_fab2);
+        fab = (FloatingActionButton) findViewById(R.id.main_goods_fab);
+        fab1 = (FloatingActionButton) findViewById(R.id.main_goods_fab1);
+        fab2 = (FloatingActionButton) findViewById(R.id.main_goods_fab2);
 
-//        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
-//        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
+        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
 
-//        rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
-//        rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
+        rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
+        rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
         drawerLayout = findViewById(R.id.drawer_layout);
         btMenu = findViewById(R.id.bt_menu);
 
@@ -105,7 +122,7 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
             }
         });
 
-        mainGoodsPermitAdapter = new MainGoodsPermitAdapter(this, list, this);
+        mainGoodsPermitAdapter = new MainGoodsPermitAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -127,7 +144,7 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                                 startActivity(intentEdit);
                                 break;
                             case 1:
-                                deleteData(list.get(pos).getId());
+                                deleteData(list.get(pos).getId(), list.get(pos).getImg());
                                 break;
                         }
                     }
@@ -144,9 +161,231 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                animateFab();
+            }
+        });
+
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                    if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1);
+                    } else {
+                        importData();
+                    }
+                } else {
+                    importData();
+                }
+            }
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String foldername = "Import Excel";
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setDataAndType(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + foldername), "*/*");
+                startActivity(intent);
+            }
+        });
     }
 
-    private void deleteData(String id) {
+    private void animateFab(){
+        if (isOpen){
+            fab.startAnimation(rotateBackward);
+            fab1.startAnimation(fabClose);
+            fab2.startAnimation(fabClose);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isOpen=false;
+        }
+        else{
+            fab.startAnimation(rotateForward);
+            fab1.startAnimation(fabOpen);
+            fab2.startAnimation(fabOpen);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isOpen=true;
+        }
+    }
+
+    private void importData(){
+        if(list.size()>0){
+            createXlFile();
+        } else {
+            StyleableToast.makeText(getApplicationContext(),"List Are Empty!", Toast.LENGTH_SHORT,R.style.warning).show();
+        }
+    }
+
+    private void createXlFile() {
+        Workbook wb = new HSSFWorkbook();
+        Cell cell = null;
+
+        Sheet sheet = null;
+        sheet = wb.createSheet("Demo Excel Sheet");
+
+        Row row = sheet.createRow(0);
+
+        cell = row.createCell(0);
+        cell.setCellValue("Id");
+
+        cell = row.createCell(1);
+        cell.setCellValue("Name");
+
+        cell = row.createCell(2);
+        cell.setCellValue("Phone");
+
+        cell = row.createCell(3);
+        cell.setCellValue("PIC");
+
+        cell = row.createCell(4);
+        cell.setCellValue("Division");
+
+        cell = row.createCell(5);
+        cell.setCellValue("Department");
+
+        cell = row.createCell(6);
+        cell.setCellValue("Goods Name");
+
+        cell = row.createCell(7);
+        cell.setCellValue("Type of Goods");
+
+        cell = row.createCell(8);
+        cell.setCellValue("Picture");
+
+        cell = row.createCell(9);
+        cell.setCellValue("Date");
+
+        cell = row.createCell(10);
+        cell.setCellValue("Device");
+
+        cell = row.createCell(11);
+        cell.setCellValue("Latitude");
+
+        cell = row.createCell(12);
+        cell.setCellValue("Longitude");
+
+        cell = row.createCell(13);
+        cell.setCellValue("Location");
+
+        cell = row.createCell(14);
+        cell.setCellValue("Status");
+
+        sheet.setColumnWidth(0, (30 * 200));
+        sheet.setColumnWidth(1, (30 * 200));
+        sheet.setColumnWidth(2, (30 * 200));
+        sheet.setColumnWidth(3, (30 * 200));
+        sheet.setColumnWidth(4, (30 * 200));
+        sheet.setColumnWidth(5, (30 * 200));
+        sheet.setColumnWidth(6, (30 * 200));
+        sheet.setColumnWidth(7, (30 * 200));
+        sheet.setColumnWidth(8, (30 * 200));
+        sheet.setColumnWidth(9, (30 * 200));
+        sheet.setColumnWidth(10, (30 * 200));
+        sheet.setColumnWidth(11, (30 * 200));
+        sheet.setColumnWidth(12, (30 * 200));
+        sheet.setColumnWidth(13, (30 * 200));
+        sheet.setColumnWidth(14, (30 * 200));
+
+        for (int i = 0; i < list.size(); i++) {
+            Row row1 = sheet.createRow(i + 1);
+
+            cell = row1.createCell(0);
+            cell.setCellValue(list.get(i).getId());
+
+            cell = row1.createCell(1);
+            cell.setCellValue((list.get(i).getName()));
+
+            cell = row1.createCell(2);
+            cell.setCellValue(list.get(i).getPhone());
+
+            cell = row1.createCell(3);
+            cell.setCellValue(list.get(i).getPic());
+
+            cell = row1.createCell(4);
+            cell.setCellValue(list.get(i).getDivision());
+
+            cell = row1.createCell(5);
+            cell.setCellValue(list.get(i).getDepartment());
+
+            cell = row1.createCell(6);
+            cell.setCellValue(list.get(i).getGoods_name());
+
+            cell = row1.createCell(7);
+            cell.setCellValue(list.get(i).getType());
+
+            cell = row1.createCell(8);
+            cell.setCellValue(list.get(i).getImg());
+
+            cell = row1.createCell(9);
+            cell.setCellValue(list.get(i).getDate());
+
+            cell = row1.createCell(10);
+            cell.setCellValue(list.get(i).getDevice());
+
+            cell = row1.createCell(11);
+            cell.setCellValue(list.get(i).getLatitude());
+
+            cell = row1.createCell(12);
+            cell.setCellValue(list.get(i).getLongitude());
+
+            cell = row1.createCell(13);
+            cell.setCellValue(list.get(i).getLocation());
+
+            cell = row1.createCell(14);
+            cell.setCellValue(list.get(i).getStatus());
+
+        }
+
+        String folderName = "Import Excel";
+        String fileName = "Goods Permission_" + System.currentTimeMillis() + ".xls";
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + folderName + File.separator + fileName;
+
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + folderName);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        FileOutputStream outputStream = null;
+
+        try {
+            outputStream = new FileOutputStream(path);
+            wb.write(outputStream);
+            // ShareViaEmail(file.getParentFile().getName(),file.getName());
+            StyleableToast.makeText(getApplicationContext(),"Excel Created in " + path, Toast.LENGTH_SHORT,R.style.logsuccess).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+            try {
+                outputStream.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            importData();
+        } else {
+            StyleableToast.makeText(getApplicationContext(),"Permission Denied!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+        }
+    }
+
+    private void deleteData(String id, String urlImage) {
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Deleting data...");
         progressDialog.show();
@@ -157,6 +396,13 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()){
                             Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            FirebaseStorage.getInstance().getReferenceFromUrl(urlImage).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(UtamaDataBarang.this, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                         progressDialog.dismiss();
                         showAllData();
@@ -194,7 +440,8 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                                         document.getString("device"),
                                         document.getString("latitude"),
                                         document.getString("longitude"),
-                                        document.getString("location")
+                                        document.getString("location"),
+                                        document.getString("status")
                                 );
                                 list.add(barang);
                             }
@@ -244,7 +491,8 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                                         document.getString("device"),
                                         document.getString("latitude"),
                                         document.getString("longitude"),
-                                        document.getString("location")
+                                        document.getString("location"),
+                                        document.getString("status")
                                 );
                                 list.add(barang);
                             }
@@ -324,5 +572,40 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
         intent = new Intent(UtamaDataBarang.this, DetailBarangActivity.class);
         intent.putExtra("MAIN_GOODS_PERMIT", list.get(position));
         startActivity(intent);
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showAllData();
+    }
+
+    @Override
+    public void onLongCLickListener(int pos) {
+        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataBarang.this);
+        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+                        Intent intentEdit = new Intent(getApplicationContext(), EditGoodsPermitActivity.class);
+                        intentEdit.putExtra("MAIN_EDIT_GOODS_PERMIT", list.get(pos));
+                        startActivity(intentEdit);
+                        break;
+                    case 1:
+                        deleteData(list.get(pos).getId(), list.get(pos).getImg());
+                        break;
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    private void filterList(String filter) {
+
     }
 }
