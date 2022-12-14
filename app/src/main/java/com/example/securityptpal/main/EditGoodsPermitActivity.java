@@ -86,6 +86,7 @@ public class EditGoodsPermitActivity extends AppCompatActivity {
 
                 divItem = divSpinner.getSelectedItem().toString();
                 division.setText(divItem);
+                departmentList.clear();
                 for (String mDepartment : departments.get(i).getDepartment()){
                     departmentList.add(mDepartment);
                 }

@@ -21,35 +21,42 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.securityptpal.model.CheckUp;
+import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CheckUpPermissionActivity extends AppCompatActivity {
 
-    Spinner spinner, spinner2, spinner3;
+    Spinner spinner, spinner1, spinner2, spinner3;
     Button submitCheckup, monitoring;
     TextView edtDepartCheckup;
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
     String name, nip, division, department, status, date, type, others;
     EditText edtDateCheckup, edtNameCheckup, edtNIPCheckup, edtOthersCheckup;
     ImageView dateCheckup;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ArrayAdapter divSpinnerAdapter, depSpinnerAdapter;
+    private List<Division> departments;
+    ArrayList<String> divisionList, departmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_up);
-        edtDepartCheckup = findViewById(R.id.edtDepartCheckup);
         spinner = findViewById(R.id.spinner_division_checkup);
+        spinner1 = findViewById(R.id.spinner_dep_checkup);
         spinner2 = findViewById(R.id.spinner_status_checkup);
         spinner3 = findViewById(R.id.spinner_type_checkup);
         edtDateCheckup = findViewById(R.id.edtDateCheckup);
@@ -59,6 +66,7 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
         submitCheckup = findViewById(R.id.submitCheckup);
         dateCheckup = findViewById(R.id.dateCheckup);
         monitoring = findViewById(R.id.gotoMonitoring);
+        progressDialog = new ProgressDialog(CheckUpPermissionActivity.this);
 
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         final int year = calendar.get(java.util.Calendar.YEAR);
@@ -69,6 +77,31 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openMonitoringCheckup();
+            }
+        });
+
+         getDivision();
+        divisionList = new ArrayList<>();
+        departmentList = new ArrayList<>();
+
+        divSpinnerAdapter = new ArrayAdapter<>(CheckUpPermissionActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, divisionList);
+        spinner.setAdapter(divSpinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                for (String mDepartment : departments.get(i).getDepartment()){
+                    departmentList.add(mDepartment);
+                }
+                depSpinnerAdapter = new ArrayAdapter<>(CheckUpPermissionActivity.this,
+                        android.R.layout.simple_spinner_dropdown_item, departmentList);
+                spinner1.setAdapter(depSpinnerAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -90,7 +123,7 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
 
         submitCheckup.setOnClickListener(view -> {
             try{
-                if (TextUtils.isEmpty(edtNameCheckup.getText().toString()) || TextUtils.isEmpty(edtNIPCheckup.getText().toString()) || TextUtils.isEmpty(edtDepartCheckup.getText().toString()) || TextUtils.isEmpty(edtDateCheckup.getText().toString()) || TextUtils.isEmpty(edtOthersCheckup.getText().toString())){
+                if (TextUtils.isEmpty(edtNameCheckup.getText().toString()) || TextUtils.isEmpty(edtNIPCheckup.getText().toString()) || TextUtils.isEmpty(edtDateCheckup.getText().toString()) || TextUtils.isEmpty(edtOthersCheckup.getText().toString())){
 //                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                     Alerter.create(CheckUpPermissionActivity.this)
                             .setTitle("Add Data Failed!")
@@ -124,7 +157,7 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
                     name = edtNameCheckup.getText().toString();
                     nip = edtNIPCheckup.getText().toString();
                     division = spinner.getSelectedItem().toString();
-                    department = edtDepartCheckup.getText().toString();
+                    department = spinner1.getSelectedItem().toString();
                     status = spinner2.getSelectedItem().toString();
                     date = edtDateCheckup.getText().toString();
                     type = spinner3.getSelectedItem().toString();
@@ -168,7 +201,9 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
                             status,
                             date,
                             type,
-                            others
+                            others,
+                            "Pending",
+                            "Pending"
                     );
                     db.collection("permission_checkup").add(checkup).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
@@ -186,72 +221,6 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
             }
             catch (Exception e){
                 e.printStackTrace();
-            }
-        });
-
-        ArrayList<String> numberList = new ArrayList<>();
-
-        numberList.add("General Engineering");
-        numberList.add("Merchant Ship");
-        numberList.add("Warship");
-        numberList.add("Submarine");
-        numberList.add("Maintenance & Repair");
-        numberList.add("Production Management Office");
-        numberList.add("Ship Marketing & Sales");
-        numberList.add("Recumalable Sales");
-        numberList.add("Supply Chain");
-        numberList.add("Area & K3LH");
-        numberList.add("Company Strategic Planning");
-        numberList.add("Treasury");
-        numberList.add("Accountancy");
-        numberList.add("Human Capital Management");
-        numberList.add("Risk");
-        numberList.add("Office of The Board");
-        numberList.add("Legal");
-        numberList.add("Technology & Quality Assurance");
-        numberList.add("Company Secretary");
-        numberList.add("Internal Control Unit");
-        numberList.add("Information Technology");
-        numberList.add("Design");
-
-        spinner.setAdapter(new ArrayAdapter<>(CheckUpPermissionActivity.this,
-                android.R.layout.simple_spinner_dropdown_item, numberList));
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (i == 0){
-//                    Toast.makeText(getApplicationContext(),
-//                            "Please Select Division",Toast.LENGTH_SHORT).show();
-//                    textView.setText("");
-//                }else{
-//                    String sNumber = adapterView.getItemAtPosition(i).toString();
-//                    textView.setText(sNumber);
-//                }
-                String sNumber = adapterView.getItemAtPosition(i).toString();
-//                textView.setText(sNumber);
-                if (i == 0 || i == 1 || i == 2|| i == 3|| i == 4|| i == 5){
-                    edtDepartCheckup.setText("Production Directorate");
-                }else if (i == 6 || i == 7 || i == 8 || i == 9){
-                    edtDepartCheckup.setText("Marketing Directorate");
-                }
-                else if (i == 10 || i == 11 || i == 12 || i == 13 || i == 14){
-                    edtDepartCheckup.setText("Directorate of Finance, Risk Management & HR");
-                }
-                else if (i == 15 || i == 16){
-                    edtDepartCheckup.setText("SEVP Transformation Management");
-                }
-                else if (i == 17){
-                    edtDepartCheckup.setText("SEVP Technology & Naval System");
-                }
-                else if (i == 18 || i == 19 || i == 20 || i == 21){
-                    edtDepartCheckup.setText("-");
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -313,6 +282,34 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+    }
+    private void getDivision() {
+        progressDialog = new ProgressDialog(CheckUpPermissionActivity.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                departments = queryDocumentSnapshots.toObjects(Division.class);
+                progressDialog.hide();
+                if (queryDocumentSnapshots.size() > 0) {
+                    divisionList.clear();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        divisionList.add(doc.getString("name"));
+                    }
+                    divSpinnerAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.hide();
+                Toast.makeText(CheckUpPermissionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

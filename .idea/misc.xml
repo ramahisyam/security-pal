@@ -3,11 +3,55 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_akun_divisi.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_akun_utama.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_check_up.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_checkup_permit.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_checkup.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_checkup2.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_checkup_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_division.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_exit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_exit_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_visitor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_visitor2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_visitor_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_visitor_permit.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_division_late_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_edit_checkup_permit.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_edit_exit_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_edit_guest_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_edit_visitor_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_employee_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_exit_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_guest_permission.xml" value="0.16757246376811594" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_login_key.xml" value="0.17798913043478262" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_login_key2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_main2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_main_division.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_check_up.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_visitor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_checkup.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_employee.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_visitor.xml" value="0.17889492753623187" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_visitor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_visitor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_visitor_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/grid_division_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/progress_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/progress_dialog1.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/progress_dialog2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_checkup_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_division_list.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_employee_permission.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_guest_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_main_checkup_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_main_employee_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_main_visitor_permission.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_visitor_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.1234375" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable-v24/edittext_setimage.xml" value="0.21510416666666668" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/edittext_scan.xml" value="0.21510416666666668" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/ic_code.xml" value="0.2203125" />

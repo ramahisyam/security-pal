@@ -21,30 +21,36 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class VisitorPermissionActivity extends AppCompatActivity {
 
     Button bt_visitor, submitVisitor;
-    Spinner spinner;
-    TextView txtDepart, edtDepartVisitor;
-    ProgressDialog progressDialog;
+    Spinner spinner, spinner2;
+    private ProgressDialog progressDialog;
     EditText edtNameVisitor, edtCompanyVisitor, edtNoHPVisitor, edtPICVisitor, edtNecessityVisitor, edtDateVisitor, edtTimeoutVisitor, edtTimeinVisitor;
     String name, company, phone, division, department, pic, necessity, date, timein, timeout;
     ImageView dateVisitor, img_timeoutVisitor, img_timeinVisitor;
     int hour, minute;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ArrayAdapter divSpinnerAdapter, depSpinnerAdapter;
+    private List<Division> departments;
+    ArrayList<String> divisionList, departmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +58,12 @@ public class VisitorPermissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_visitor);
 
         bt_visitor = findViewById(R.id.gotoMonitoring);
-        spinner = findViewById(R.id.spinner);
-        txtDepart = findViewById(R.id.edtDepartVisitor);
+        spinner = findViewById(R.id.vis_div_spinner);
+        spinner2 = findViewById(R.id.vis_dep_spinner);
         submitVisitor = findViewById(R.id.submitVisitor);
         edtNameVisitor = findViewById(R.id.edtNameVisitor);
         edtCompanyVisitor = findViewById(R.id.edtCompanyVisitor);
         edtNoHPVisitor = findViewById(R.id.edtNoHPVisitor);
-        edtDepartVisitor = findViewById(R.id.edtDepartVisitor);
         edtPICVisitor = findViewById(R.id.edtPICVisitor);
         edtNecessityVisitor = findViewById(R.id.edtNecessityVisitor);
         edtDateVisitor = findViewById(R.id.edtDateVisitor);
@@ -67,11 +72,37 @@ public class VisitorPermissionActivity extends AppCompatActivity {
         dateVisitor = findViewById(R.id.dateVisitor);
         img_timeoutVisitor = findViewById(R.id.img_timeoutVisitor);
         img_timeinVisitor = findViewById(R.id.img_timeinVisitor);
+        progressDialog = new ProgressDialog(VisitorPermissionActivity.this);
 
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         final int year = calendar.get(java.util.Calendar.YEAR);
         final int month = calendar.get(java.util.Calendar.MONTH);
         final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+
+        getDivision();
+        divisionList = new ArrayList<>();
+        departmentList = new ArrayList<>();
+
+        divSpinnerAdapter = new ArrayAdapter<>(VisitorPermissionActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, divisionList);
+        spinner.setAdapter(divSpinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                for (String mDepartment : departments.get(i).getDepartment()){
+                    departmentList.add(mDepartment);
+                }
+                depSpinnerAdapter = new ArrayAdapter<>(VisitorPermissionActivity.this,
+                        android.R.layout.simple_spinner_dropdown_item, departmentList);
+                spinner2.setAdapter(depSpinnerAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         dateVisitor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,12 +163,12 @@ public class VisitorPermissionActivity extends AppCompatActivity {
                     company = edtCompanyVisitor.getText().toString();
                     phone = edtNoHPVisitor.getText().toString();
                     division = spinner.getSelectedItem().toString();
-                    department = edtDepartVisitor.getText().toString();
+                    department = spinner2.getSelectedItem().toString();
                     pic = edtPICVisitor.getText().toString();
                     necessity = edtNecessityVisitor.getText().toString();
                     date = edtDateVisitor.getText().toString();
-                    timein = edtTimeoutVisitor.getText().toString();
-                    timeout = edtTimeinVisitor.getText().toString();
+                    timein = edtTimeinVisitor.getText().toString();
+                    timeout = edtTimeoutVisitor.getText().toString();
 
                     progressDialog = new ProgressDialog(VisitorPermissionActivity.this);
                     progressDialog.show();
@@ -179,7 +210,9 @@ public class VisitorPermissionActivity extends AppCompatActivity {
                             necessity,
                             date,
                             timein,
-                            timeout
+                            timeout,
+                            "Pending",
+                            "Pending"
                     );
                     db.collection("permission_visitor").add(visitor).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
@@ -199,61 +232,33 @@ public class VisitorPermissionActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+    }
 
-        ArrayList<String> numberList = new ArrayList<>();
-
-        numberList.add("General Engineering");
-        numberList.add("Merchant Ship");
-        numberList.add("Warship");
-        numberList.add("Submarine");
-        numberList.add("Maintenance & Repair");
-        numberList.add("Production Management Office");
-        numberList.add("Ship Marketing & Sales");
-        numberList.add("Recumalable Sales");
-        numberList.add("Supply Chain");
-        numberList.add("Area & K3LH");
-        numberList.add("Company Strategic Planning");
-        numberList.add("Treasury");
-        numberList.add("Accountancy");
-        numberList.add("Human Capital Management");
-        numberList.add("Risk");
-        numberList.add("Office of The Board");
-        numberList.add("Legal");
-        numberList.add("Technology & Quality Assurance");
-        numberList.add("Company Secretary");
-        numberList.add("Internal Control Unit");
-        numberList.add("Information Technology");
-        numberList.add("Design");
-
-        spinner.setAdapter(new ArrayAdapter<>(VisitorPermissionActivity.this,
-                android.R.layout.simple_spinner_dropdown_item, numberList));
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    private void getDivision() {
+        progressDialog = new ProgressDialog(VisitorPermissionActivity.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String sNumber = adapterView.getItemAtPosition(i).toString();
-                if (i == 0 || i == 1 || i == 2|| i == 3|| i == 4|| i == 5){
-                    txtDepart.setText("Production Directorate");
-                }else if (i == 6 || i == 7 || i == 8 || i == 9){
-                    txtDepart.setText("Marketing Directorate");
-                }
-                else if (i == 10 || i == 11 || i == 12 || i == 13 || i == 14){
-                    txtDepart.setText("Directorate of Finance, Risk Management & HR");
-                }
-                else if (i == 15 || i == 16){
-                    txtDepart.setText("SEVP Transformation Management");
-                }
-                else if (i == 17){
-                    txtDepart.setText("SEVP Technology & Naval System");
-                }
-                else if (i == 18 || i == 19 || i == 20 || i == 21){
-                    txtDepart.setText("-");
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                departments = queryDocumentSnapshots.toObjects(Division.class);
+                progressDialog.hide();
+                if (queryDocumentSnapshots.size()>0) {
+                    divisionList.clear();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        divisionList.add(doc.getString("name"));
+                    }
+                    divSpinnerAdapter.notifyDataSetChanged();
                 }
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.hide();
+                Toast.makeText(VisitorPermissionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

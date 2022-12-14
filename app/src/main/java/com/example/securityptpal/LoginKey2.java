@@ -14,22 +14,22 @@ import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
 
 public class LoginKey2 extends AppCompatActivity {
-    String key2 = "checkup";
+    String key22 = "checkup";
 
-    EditText key;
-    Button loginkey;
+    EditText key2;
+    Button loginkey2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_key2);
-        key = findViewById(R.id.key);
-        loginkey = findViewById(R.id.loginkey);
+        key2 = findViewById(R.id.key2);
+        loginkey2 = findViewById(R.id.loginkey2);
 
-        loginkey.setOnClickListener(new View.OnClickListener() {
+        loginkey2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(key.getText().toString())){
+                if(TextUtils.isEmpty(key2.getText().toString())){
                     Alerter.create(LoginKey2.this)
                             .setTitle("Empty Data Provided!")
                             .setText("Please fill the data correctly")
@@ -59,45 +59,46 @@ public class LoginKey2 extends AppCompatActivity {
                             })
                             .show();
                 }
-                else
-                if (key.getText().toString().equals(key2)){
-                    openCheckup();
-                }else {
-                    Alerter.create(LoginKey2.this)
-                            .setTitle("Login Failed!")
-                            .setText("Invalid Key")
-                            .setIcon(R.drawable.ic_clear)
-                            .setBackgroundColorRes(android.R.color.holo_red_dark)
-                            .setDuration(2000)
-                            .enableSwipeToDismiss()
-                            .enableProgress(true)
-                            .setProgressColorRes(R.color.design_default_color_primary)
-                            .setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                else {
+                    if (key2.getText().toString().equals(key22)) {
+                        openCheckup();
+                    } else {
+                        Alerter.create(LoginKey2.this)
+                                .setTitle("Login Failed!")
+                                .setText("Invalid Key")
+                                .setIcon(R.drawable.ic_clear)
+                                .setBackgroundColorRes(android.R.color.holo_red_dark)
+                                .setDuration(2000)
+                                .enableSwipeToDismiss()
+                                .enableProgress(true)
+                                .setProgressColorRes(R.color.design_default_color_primary)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
 
-                                }
-                            })
-                            .setOnShowListener(new OnShowAlertListener() {
-                                @Override
-                                public void onShow() {
+                                    }
+                                })
+                                .setOnShowListener(new OnShowAlertListener() {
+                                    @Override
+                                    public void onShow() {
 
-                                }
-                            })
-                            .setOnHideListener(new OnHideAlertListener() {
-                                @Override
-                                public void onHide() {
+                                    }
+                                })
+                                .setOnHideListener(new OnHideAlertListener() {
+                                    @Override
+                                    public void onHide() {
 
-                                }
-                            })
-                            .show();
+                                    }
+                                })
+                                .show();
+                    }
                 }
             }
         });
     }
 
     public void openCheckup() {
-        Intent intent = new Intent(this, CheckUpPermissionActivity.class);
+        Intent intent = new Intent(LoginKey2.this, CheckUpPermissionActivity.class);
         startActivity(intent);
     }
 }

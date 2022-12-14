@@ -115,7 +115,6 @@ public class CometooLate extends AppCompatActivity {
         statusList.add("PKWTT");
 
         ArrayList<String> statusList = new ArrayList<>();
-
         statusList.add("PKWT");
         statusList.add("PKWTT");
 
@@ -133,7 +132,7 @@ public class CometooLate extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-//                Toast.makeText(Employee.this, departments.get(i).getName(), Toast.LENGTH_SHORT).show();
+                departmentList.clear();
                 for (String mDepartment : departments.get(i).getDepartment()){
                     departmentList.add(mDepartment);
                 }

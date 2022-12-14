@@ -278,8 +278,6 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
         }
     }
 
-
-
     private void showAllData() {
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);

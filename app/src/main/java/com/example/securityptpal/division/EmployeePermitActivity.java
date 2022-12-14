@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.securityptpal.CheckupPermitActivity;
 import com.example.securityptpal.R;
+import com.example.securityptpal.VisitorPermitActivity;
 
 public class EmployeePermitActivity extends AppCompatActivity {
 
     private String EXTRA;
-    private CardView cvLatePermission, cvExitPermission;
+    private CardView cvLatePermission, cvExitPermission, cvVisitorPermission, cvCheckupPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,8 @@ public class EmployeePermitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_employee_permit);
         cvExitPermission = findViewById(R.id.card_exit_permission);
         cvLatePermission = findViewById(R.id.card_late_permission);
+        cvVisitorPermission = findViewById(R.id.card_vis_permission);
+        cvCheckupPermission = findViewById(R.id.card_check_permission);
 
         Bundle extras = getIntent().getExtras();
         EXTRA = extras.getString(Intent.EXTRA_TEXT);
@@ -36,6 +40,24 @@ public class EmployeePermitActivity extends AppCompatActivity {
             Intent intent = new Intent(EmployeePermitActivity.this, DivisionLatePermitActivity.class);
             intent.putExtra(Intent.EXTRA_TEXT, EXTRA);
             startActivity(intent);
+        });
+
+        cvVisitorPermission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeePermitActivity.this, VisitorPermitActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, EXTRA);
+                startActivity(intent);
+            }
+        });
+
+        cvCheckupPermission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeePermitActivity.this, CheckupPermitActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, EXTRA);
+                startActivity(intent);
+            }
         });
     }
 }

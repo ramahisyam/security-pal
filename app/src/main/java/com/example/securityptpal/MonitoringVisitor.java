@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -14,6 +15,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.VisitorAdapter;
+import com.example.securityptpal.employee.DetailPermissionActivity;
+import com.example.securityptpal.employee.MonitoringEmployee;
 import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,6 +37,7 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
     private SearchView searchView;
     private ProgressDialog progressDialog;
     private Intent intent;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
         setContentView(R.layout.activity_monitoring_visitor);
         recyclerView = findViewById(R.id.rv_monitoring_visitor);
         progressDialog = new ProgressDialog(MonitoringVisitor.this);
+        mSwipeRefreshLayout = findViewById(R.id.refresh_visitor);
         searchView = findViewById(R.id.search_visitor);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -57,6 +62,14 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
             }
         });
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showAllData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         visitorAdapter = new VisitorAdapter(getApplicationContext(), list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
@@ -67,12 +80,15 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
     }
 
     private void searchData(String name) {
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching Data...");
+        progressDialog = new ProgressDialog(MonitoringVisitor.this);
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_visitor")
                 .whereEqualTo("name", name)
-//                .orderBy("date", Query.Direction.DESCENDING)
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -92,7 +108,9 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
                                         document.getString("necessity"),
                                         document.getString("date"),
                                         document.getString("timein"),
-                                        document.getString("timeout")
+                                        document.getString("timeout"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
                                 );
                                 list.add(visitor);
                             }
@@ -137,7 +155,9 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
                                         document.getString("necessity"),
                                         document.getString("date"),
                                         document.getString("timein"),
-                                        document.getString("timeout")
+                                        document.getString("timeout"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
                                 );
                                 list.add(visitor);
                             }
@@ -167,6 +187,14 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
 
     @Override
     public void onVisitorClick(int position) {
+        intent = new Intent(MonitoringVisitor.this, DetailVisitorAct.class);
+        intent.putExtra("permission", list.get(position));
+        startActivity(intent);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showAllData();
     }
 }

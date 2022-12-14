@@ -98,7 +98,7 @@ public class Employee extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-//                Toast.makeText(Employee.this, departments.get(i).getName(), Toast.LENGTH_SHORT).show();
+                departmentList.clear();
                 for (String mDepartment : departments.get(i).getDepartment()){
                     departmentList.add(mDepartment);
                 }

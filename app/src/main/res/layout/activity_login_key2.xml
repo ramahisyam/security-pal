@@ -35,10 +35,11 @@
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/industri">
     </TextView>
+
     <EditText
         android:layout_width="335dp"
         android:layout_height="55dp"
-        android:id="@+id/key"
+        android:id="@+id/key2"
         android:hint="Key"
         android:textColorHint="#858585"
         android:textColor="@color/black"
@@ -51,10 +52,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv"/>
+
     <Button
         android:layout_width="150dp"
         android:layout_height="45dp"
-        android:id="@+id/loginkey"
+        android:id="@+id/loginkey2"
         android:background="@drawable/edittext_log"
         android:layout_marginTop="30dp"
         android:text="LOGIN"
@@ -63,7 +65,7 @@
         android:fontFamily="@font/gabriela"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/key">
+        app:layout_constraintTop_toBottomOf="@+id/key2">
     </Button>
 
     <ImageView
@@ -75,7 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/imageView5"
         app:layout_constraintVertical_bias="0.7"
-        app:layout_constraintTop_toBottomOf="@+id/loginkey"/>
+        app:layout_constraintTop_toBottomOf="@+id/loginkey2"/>
 
     <ImageView
         android:id="@+id/imageView5"

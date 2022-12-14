@@ -130,6 +130,7 @@ public class BarangActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                departmentList.clear();
                 for (String mDepartment : departments.get(i).getDepartment()){
                     departmentList.add(mDepartment);
                 }

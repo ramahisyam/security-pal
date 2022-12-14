@@ -59,45 +59,46 @@ public class LoginKey extends AppCompatActivity {
                             })
                             .show();
                 }
-                else
-                if (key.getText().toString().equals(key1)){
-                   openCometoolate();
-                }else {
-                    Alerter.create(LoginKey.this)
-                            .setTitle("Login Failed!")
-                            .setText("Invalid Key")
-                            .setIcon(R.drawable.ic_clear)
-                            .setBackgroundColorRes(android.R.color.holo_red_dark)
-                            .setDuration(2000)
-                            .enableSwipeToDismiss()
-                            .enableProgress(true)
-                            .setProgressColorRes(R.color.design_default_color_primary)
-                            .setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                else {
+                    if (key.getText().toString().equals(key1)) {
+                        openCometoolate();
+                    } else {
+                        Alerter.create(LoginKey.this)
+                                .setTitle("Login Failed!")
+                                .setText("Invalid Key")
+                                .setIcon(R.drawable.ic_clear)
+                                .setBackgroundColorRes(android.R.color.holo_red_dark)
+                                .setDuration(2000)
+                                .enableSwipeToDismiss()
+                                .enableProgress(true)
+                                .setProgressColorRes(R.color.design_default_color_primary)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
 
-                                }
-                            })
-                            .setOnShowListener(new OnShowAlertListener() {
-                                @Override
-                                public void onShow() {
+                                    }
+                                })
+                                .setOnShowListener(new OnShowAlertListener() {
+                                    @Override
+                                    public void onShow() {
 
-                                }
-                            })
-                            .setOnHideListener(new OnHideAlertListener() {
-                                @Override
-                                public void onHide() {
+                                    }
+                                })
+                                .setOnHideListener(new OnHideAlertListener() {
+                                    @Override
+                                    public void onHide() {
 
-                                }
-                            })
-                            .show();
+                                    }
+                                })
+                                .show();
+                    }
                 }
             }
         });
    }
 
     public void openCometoolate() {
-        Intent intent = new Intent(this, CometooLate.class);
+        Intent intent = new Intent(LoginKey.this, CometooLate.class);
         startActivity(intent);
     }
 }

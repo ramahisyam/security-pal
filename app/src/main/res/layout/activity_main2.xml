@@ -107,12 +107,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Visitor"
+                    android:text="Check Up"
                     android:textColor="#174887"
                     android:fontFamily="@font/fredoka_one"
                     android:textSize="15dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginLeft="110dp">
+                    android:layout_marginLeft="102dp">
                 </TextView>
             </LinearLayout>
             <LinearLayout

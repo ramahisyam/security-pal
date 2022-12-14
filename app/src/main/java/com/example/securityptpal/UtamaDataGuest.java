@@ -1,22 +1,53 @@
 package com.example.securityptpal;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.securityptpal.adapter.MainGoodsPermitAdapter;
+import com.example.securityptpal.adapter.MainGuestAdapter;
+import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.main.AkunUtama;
+import com.example.securityptpal.main.EditGoodsPermitActivity;
+import com.example.securityptpal.main.EditGuestPermitActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class UtamaDataGuest extends AppCompatActivity {
+import com.example.securityptpal.model.Barang;
+import com.example.securityptpal.model.Guest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class UtamaDataGuest extends AppCompatActivity implements OnPermitListener {
 
     DrawerLayout drawerLayout;
     ImageView btMenu;
@@ -24,11 +55,23 @@ public class UtamaDataGuest extends AppCompatActivity {
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     boolean isOpen = false;
 
+    RecyclerView recyclerView;
+    SearchView searchView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    private ProgressDialog progressDialog;
+    private MainGuestAdapter mainGuestAdapter;
+    private List<Guest> list = new ArrayList<>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_utama_data_guest);
 
+        recyclerView = findViewById(R.id.rv_main_guest_permit);
+        searchView = findViewById(R.id.main_search_guest);
+        mSwipeRefreshLayout = findViewById(R.id.refresh_main_guest_permit);
+        progressDialog = new ProgressDialog(UtamaDataGuest.this);
         drawerLayout = findViewById(R.id.drawer_layout);
         btMenu = findViewById(R.id.bt_menu);
 
@@ -99,7 +142,175 @@ public class UtamaDataGuest extends AppCompatActivity {
             fab2.setClickable(true);
             isOpen=true;
         }
+
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        mainGuestAdapter = new MainGuestAdapter(this, list, this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(decoration);
+        recyclerView.setAdapter(mainGuestAdapter);
+        mainGuestAdapter.setDialog(new MainGuestAdapter.Dialog() {
+            @Override
+            public void onClick(int pos) {
+                final CharSequence[] dialogItem = {"Edit", "Delete"};
+                AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataGuest.this);
+                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case 0:
+                                Intent intentEdit = new Intent(getApplicationContext(), EditGuestPermitActivity.class);
+                                intentEdit.putExtra("MAIN_EDIT_GUEST_PERMIT", list.get(pos));
+                                startActivity(intentEdit);
+                                break;
+                            case 1:
+                                deleteData(list.get(pos).getId());
+                                break;
+                        }
+                    }
+                });
+                dialog.show();
+            }
+        });
+
+        showAllData();
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showAllData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
+
+    private void deleteData(String id) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Deleting data...");
+        progressDialog.show();
+        db.collection("permission_guest").document(id)
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Data berhasil di hapus!", Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
+                        showAllData();
+                    }
+                });
+    }
+
+    private void showAllData(){
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Fetching Data...");
+        progressDialog.show();
+        db.collection("permission_guest")
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Guest guest = new Guest(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
+                                        document.getString("necessity"),
+                                        document.getString("date"),
+                                        document.getString("timeIn"),
+                                        document.getString("timeOut")
+                                );
+                                list.add(guest);
+                            }
+                            mainGuestAdapter.notifyDataSetChanged();
+                            progressDialog.dismiss();
+                        } else {
+                            Toast.makeText(UtamaDataGuest.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UtamaDataGuest.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+    private void searchData(String name) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Fetching Data...");
+        progressDialog.show();
+        db.collection("permission_guest")
+                .whereEqualTo("name", name)
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Guest guest = new Guest(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
+                                        document.getString("necessity"),
+                                        document.getString("date"),
+                                        document.getString("timeIn"),
+                                        document.getString("timeOut")
+                                );
+                                list.add(guest);
+                            }
+                            mainGuestAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(UtamaDataGuest.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UtamaDataGuest.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
+    }
+
     public void ClickLogo(View view){
         closeDrawer(drawerLayout);
     }
@@ -162,5 +373,11 @@ public class UtamaDataGuest extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(this, AkunUtama.class));
         finish();
+    }
+
+    public void onPermitClick(int position) {
+        Intent intent = new Intent(UtamaDataGuest.this, DetailGuestPermitActivity.class);
+        intent.putExtra("MAIN_GUEST_PERMIT", list.get(position));
+        startActivity(intent);
     }
 }

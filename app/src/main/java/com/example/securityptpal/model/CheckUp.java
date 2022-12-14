@@ -13,11 +13,13 @@ public class CheckUp implements Parcelable {
     private String date;
     private String type;
     private String others;
+    private String division_approval;
+    private String center_approval;
 
     public CheckUp() {
     }
 
-    public CheckUp(String id, String name, String nip, String division, String department, String status, String date, String type, String others) {
+    public CheckUp(String id, String name, String nip, String division, String department, String status, String date, String type, String others, String division_approval, String center_approval) {
         this.id = id;
         this.name = name;
         this.nip = nip;
@@ -27,6 +29,8 @@ public class CheckUp implements Parcelable {
         this.date = date;
         this.type = type;
         this.others = others;
+        this.division_approval = division_approval;
+        this.center_approval = center_approval;
     }
 
     protected CheckUp(Parcel in) {
@@ -39,6 +43,8 @@ public class CheckUp implements Parcelable {
         date = in.readString();
         type = in.readString();
         others = in.readString();
+        division_approval = in.readString();
+        center_approval = in.readString();
     }
 
     public static final Creator<CheckUp> CREATOR = new Creator<CheckUp>() {
@@ -125,6 +131,22 @@ public class CheckUp implements Parcelable {
         this.others = others;
     }
 
+    public String getDivision_approval() {
+        return division_approval;
+    }
+
+    public void setDivision_approval(String division_approval) {
+        this.division_approval = division_approval;
+    }
+
+    public String getCenter_approval() {
+        return center_approval;
+    }
+
+    public void setCenter_approval(String center_approval) {
+        this.center_approval = center_approval;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -141,5 +163,7 @@ public class CheckUp implements Parcelable {
         parcel.writeString(date);
         parcel.writeString(type);
         parcel.writeString(others);
+        parcel.writeString(division_approval);
+        parcel.writeString(center_approval);
     }
 }
