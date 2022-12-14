@@ -33,18 +33,17 @@ import java.util.List;
 
 public class EditGoodsPermitActivity extends AppCompatActivity {
 
-    Spinner divSpinner, depSpinner, typeSpinner;
+    Spinner divSpinner, depSpinner, typeSpinner, statusSpinner;
     EditText edtNameGoods, edtNoHPGoods, edtPICGoods, edtItemGoods;
     Button submitGoods;
     ZoomInImageView imageView;
-    TextView division, department, type, txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation;
-    private Button save;
-    String typeItem, divItem, depItem;
+    TextView division, department, type, txtDate, txtDevice, txtLatitude, txtLongitude, txtLocation, status;
+    String typeItem, divItem, depItem, statusItem;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ArrayList<String> divisionList, departmentList, typeList;
+    private ArrayList<String> divisionList, departmentList, typeList, statusList;
     Barang barang;
     private ProgressDialog progressDialog;
-    private ArrayAdapter<String> divisionAdapter, departmentAdapter, typeAdapter;
+    private ArrayAdapter<String> divisionAdapter, departmentAdapter, typeAdapter, statusAdapter;
     private List<Division> departments;
 
     @Override
@@ -70,6 +69,36 @@ public class EditGoodsPermitActivity extends AppCompatActivity {
         division = findViewById(R.id.goods_edit_division);
         department = findViewById(R.id.goods_edit_department);
         type = findViewById(R.id.goods_edit_type);
+        status = findViewById(R.id.goods_edit_status);
+        statusSpinner = findViewById(R.id.goods_edit_spinner_status);
+
+        statusList = new ArrayList<>();
+        statusList.add("Accepted");
+        statusList.add("Pending");
+        statusList.add("Rejected");
+
+        statusAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statusSpinner.setAdapter(statusAdapter);
+        statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                statusItem = statusSpinner.getSelectedItem().toString();
+                status.setText(statusItem);
+                if (statusItem.equals("Pending")){
+                    status.setTextColor(status.getResources().getColor(R.color.main_orange_color));
+                } else if (statusItem.equals("Accepted")){
+                    status.setTextColor(status.getResources().getColor(R.color.main_green_color));
+                } else {
+                    status.setTextColor(status.getResources().getColor(R.color.cardColorRed));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         barang = getIntent().getParcelableExtra("MAIN_EDIT_GOODS_PERMIT");
 
@@ -133,6 +162,17 @@ public class EditGoodsPermitActivity extends AppCompatActivity {
         txtLocation.setText(barang.getLocation());
         Glide.with(this).load(barang.getImg()).placeholder(R.drawable.pict).into(imageView);
 
+        if (barang.getStatus().equals("Pending")){
+            status.setText(barang.getStatus());
+            status.setTextColor(status.getResources().getColor(R.color.main_orange_color));
+        } else if (barang.getStatus().equals("Accepted")){
+            status.setText(barang.getStatus());
+            status.setTextColor(status.getResources().getColor(R.color.main_green_color));
+        } else {
+            status.setText(barang.getStatus());
+            status.setTextColor(status.getResources().getColor(R.color.cardColorRed));
+        }
+
         submitGoods.setOnClickListener(view -> {
             db.collection("goods_permit").document(barang.getId())
                     .update(
@@ -142,7 +182,8 @@ public class EditGoodsPermitActivity extends AppCompatActivity {
                             "division", division.getText().toString(),
                             "department", department.getText().toString(),
                             "goods_name", edtItemGoods.getText().toString(),
-                            "type", type.getText().toString()
+                            "type", type.getText().toString(),
+                            "status", status.getText().toString()
                     )
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

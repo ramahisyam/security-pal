@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".GoodsPermitRecapActivity"
+            android:exported="false" />
+        <activity
             android:name=".main.EditGuestPermitActivity"
             android:exported="false" />
         <activity

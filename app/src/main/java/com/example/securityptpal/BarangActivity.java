@@ -305,7 +305,8 @@ public class BarangActivity extends AppCompatActivity {
                 device,
                 latitude,
                 longitude,
-                location
+                location,
+                "Pending"
         );
 
         db.collection("goods_permit").add(barang).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
