@@ -27,15 +27,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.securityptpal.CometooLate;
-import com.example.securityptpal.Login;
 import com.example.securityptpal.LogoutAccount;
-import com.example.securityptpal.MainActivity;
-import com.example.securityptpal.Preferences;
 import com.example.securityptpal.R;
 import com.example.securityptpal.UtamaDataBarang;
 import com.example.securityptpal.UtamaDataCheckup;
@@ -45,12 +40,9 @@ import com.example.securityptpal.UtamaDataVisitor;
 import com.example.securityptpal.Utama_Data_Cometoolate;
 import com.example.securityptpal.adapter.MainEmployeePermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
-import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
-import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,10 +83,12 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     DrawerLayout drawerLayout;
-    ImageView btMenu;
+    ImageView btMenu, btnFilter;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    AlertDialog dialog;
 
     boolean isOpen = false;
+    int filterCode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +118,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
 
         drawerLayout = findViewById(R.id.drawer_layout);
         btMenu = findViewById(R.id.bt_menu);
+        btnFilter = findViewById(R.id.main_filter_employee);
 
         btMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,14 +224,43 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
                 startActivity(intent);
             }
         });
-        showAllData();
+        filter(filterCode);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showAllData();
+                filter(filterCode);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        btnFilter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataEmployee.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+    }
+
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc();
+        } else if (code == 1) {
+            showAllDataAsc();
+        }
     }
 
     private void deleteData(String id) {
@@ -252,7 +276,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
                             Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
-                        showAllData();
+                        showAllDataDesc();
                     }
                 });
     }
@@ -276,7 +300,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
         }
     }
 
-    private void showAllData() {
+    private void showAllDataDesc() {
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
         progressDialog.getWindow().setBackgroundDrawableResource(
@@ -284,7 +308,56 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
         );
         db.collection("permission_employee")
                 .orderBy("date", Query.Direction.DESCENDING)
-                .orderBy("division_approval")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                        document.getId(),
+                                        document.getString("base"),
+                                        document.getString("name"),
+                                        document.getString("nip"),
+                                        document.getString("division"),
+                                        document.getString("date"),
+                                        document.getString("necessity"),
+                                        document.getString("place"),
+                                        document.getString("timeout"),
+                                        document.getString("timeback"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval"),
+                                        document.getString("employee_status"),
+                                        document.getString("department")
+                                );
+                                list.add(permissionEmployee);
+                            }
+                            mainEmployeePermitAdapter.notifyDataSetChanged();
+                        } else {
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UtamaDataEmployee.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+    private void showAllDataAsc() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("permission_employee")
+                .orderBy("date", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -593,6 +666,6 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
     @Override
     protected void onResume() {
         super.onResume();
-        showAllData();
+        showAllDataDesc();
     }
 }

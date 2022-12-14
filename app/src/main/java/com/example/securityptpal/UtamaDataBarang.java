@@ -25,25 +25,22 @@ import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.securityptpal.adapter.MainEmployeePermitAdapter;
 import com.example.securityptpal.adapter.MainGoodsPermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.main.AkunUtama;
-import com.example.securityptpal.main.DetailExitPermissionActivity;
-import com.example.securityptpal.main.EditExitPermitActivity;
 import com.example.securityptpal.main.EditGoodsPermitActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.example.securityptpal.model.Barang;
-import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -77,9 +74,11 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     DrawerLayout drawerLayout;
-    ImageView btMenu;
+    ImageView btMenu, filter;
     SwipeRefreshLayout mSwipeRefreshLayout;
     boolean isOpen = false;
+    AlertDialog dialog;
+    int filterCode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +99,7 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
         drawerLayout = findViewById(R.id.drawer_layout);
         btMenu = findViewById(R.id.bt_menu);
+        filter = findViewById(R.id.main_filter_goods);
 
         btMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,11 +153,11 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
             }
         });
 
-        showAllData();
+        filter(filterCode);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showAllData();
+                filter(filterCode);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -197,6 +197,35 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                 startActivity(intent);
             }
         });
+
+        filter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataBarang.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+    }
+
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc();
+        } else if (code == 1) {
+            showAllDataAsc();
+        }
     }
 
     private void animateFab(){
@@ -405,12 +434,12 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                             });
                         }
                         progressDialog.dismiss();
-                        showAllData();
+                        showAllDataDesc();
                     }
                 });
     }
 
-    private void showAllData() {
+    private void showAllDataDesc() {
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
         progressDialog.getWindow().setBackgroundDrawableResource(
@@ -418,6 +447,57 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
         );
         db.collection("goods_permit")
                 .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Barang barang = new Barang(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("phone"),
+                                        document.getString("pic"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("goods_name"),
+                                        document.getString("type"),
+                                        document.getString("img"),
+                                        document.getString("date"),
+                                        document.getString("device"),
+                                        document.getString("latitude"),
+                                        document.getString("longitude"),
+                                        document.getString("location"),
+                                        document.getString("status")
+                                );
+                                list.add(barang);
+                            }
+                            mainGoodsPermitAdapter.notifyDataSetChanged();
+                        } else {
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UtamaDataBarang.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+    private void showAllDataAsc() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("goods_permit")
+                .orderBy("date", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -579,7 +659,7 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
     @Override
     protected void onResume() {
         super.onResume();
-        showAllData();
+        showAllDataDesc();
     }
 
     @Override

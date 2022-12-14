@@ -13,69 +13,75 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_main_late_permit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/include"
-                layout="@layout/main_toolbar"/>
-
-            <TextView
-                android:id="@+id/textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Late"
-                android:textSize="20dp"
-                android:fontFamily="@font/gabriela"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include"
-                android:layout_marginEnd="260dp"
-                android:layout_marginTop="75dp"/>
-
-            <LinearLayout
-                android:id="@+id/input_base_layout"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textview">
+                android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_late_permission"
-                    android:layout_width="330dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/gradasi"
-                    android:layout_weight="1"/>
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_baseline_filter_list_24"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_main_late_permit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_base_layout" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <include
+                        android:id="@+id/include"
+                        layout="@layout/main_toolbar"/>
+
+                    <TextView
+                        android:id="@+id/textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Late"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/gabriela"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include"
+                        android:layout_marginEnd="260dp"
+                        android:layout_marginTop="75dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/input_base_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textview">
+
+                        <androidx.appcompat.widget.SearchView
+                            android:id="@+id/search_late_permission"
+                            android:layout_width="330dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/gradasi"
+                            android:layout_weight="1"/>
+                        <ImageView
+                            android:id="@+id/main_filter_late"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_baseline_filter_list_24"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_main_late_permit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/input_base_layout" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
