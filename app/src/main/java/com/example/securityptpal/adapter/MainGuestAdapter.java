@@ -21,6 +21,7 @@ public class MainGuestAdapter extends RecyclerView.Adapter<MainGuestAdapter.Main
     private List<Guest> list;
     private OnPermitListener mOnPermitListener;
     private Dialog dialog;
+    private OnPermitLongClick mOnPermitLongClick;
 
     public interface Dialog {
         void onClick(int pos);
@@ -30,17 +31,18 @@ public class MainGuestAdapter extends RecyclerView.Adapter<MainGuestAdapter.Main
         this.dialog = dialog;
     }
 
-    public MainGuestAdapter(Context context, List<Guest> list, OnPermitListener mOnPermitListener) {
+    public MainGuestAdapter(Context context, List<Guest> list, OnPermitListener mOnPermitListener, OnPermitLongClick mOnPermitLongClick) {
         this.context = context;
         this.list = list;
         this.mOnPermitListener = mOnPermitListener;
+        this.mOnPermitLongClick = mOnPermitLongClick;
     }
 
     @NonNull
     @Override
     public MainGuestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_main_guest_permit, parent, false);
-        return new MainGuestAdapter.MainGuestViewHolder(itemView, mOnPermitListener);
+        return new MainGuestAdapter.MainGuestViewHolder(itemView, mOnPermitListener, mOnPermitLongClick);
     }
 
     @Override
@@ -55,11 +57,12 @@ public class MainGuestAdapter extends RecyclerView.Adapter<MainGuestAdapter.Main
         return list.size();
     }
 
-    public class MainGuestViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MainGuestViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         TextView name, phone, date;
         ImageView options;
         OnPermitListener onPermitListener;
-        public MainGuestViewHolder(@NonNull View itemView, OnPermitListener mOnPermitListener) {
+        OnPermitLongClick onPermitLongClick;
+        public MainGuestViewHolder(@NonNull View itemView, OnPermitListener mOnPermitListener, OnPermitLongClick onPermitLongClick) {
             super(itemView);
             name = itemView.findViewById(R.id.main_guest_name);
             phone = itemView.findViewById(R.id.main_guest_phone);
@@ -71,13 +74,26 @@ public class MainGuestAdapter extends RecyclerView.Adapter<MainGuestAdapter.Main
                 }
             });
             this.onPermitListener = mOnPermitListener;
+            this.onPermitLongClick = onPermitLongClick;
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             onPermitListener.onPermitClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (onPermitLongClick != null) {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION){
+                    onPermitLongClick.onLongCLickListener(pos);
+                }
+            }
+            return true;
         }
     }
 }
