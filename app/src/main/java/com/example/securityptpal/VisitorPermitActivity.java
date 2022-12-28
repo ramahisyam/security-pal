@@ -220,6 +220,7 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
         db.collection("permission_visitor")
                 .whereEqualTo("name", name)
                 .whereEqualTo("division", division)
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")

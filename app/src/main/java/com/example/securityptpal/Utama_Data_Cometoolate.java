@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -21,23 +22,20 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Filter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.securityptpal.adapter.LatePermissionAdapter;
 import com.example.securityptpal.adapter.MainLatePermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
-import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.main.AkunUtama;
-import com.example.securityptpal.main.DetailExitPermissionActivity;
-import com.example.securityptpal.main.EditExitPermitActivity;
 import com.example.securityptpal.main.EditLatePermitActivity;
+import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
-import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.PermissionLate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,8 +46,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.muddzdev.styleabletoast.StyleableToast;
 import com.google.firebase.storage.FirebaseStorage;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -62,6 +60,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermitListener {
 
@@ -78,9 +78,12 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     DrawerLayout drawerLayout;
-    ImageView btMenu, filter;
+    ImageView btMenu, btnFilter;
+    AlertDialog dialog;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     boolean isOpen = false;
+    int filterCode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,7 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
         searchView = findViewById(R.id.search_late_permission);
         progressDialog = new ProgressDialog(Utama_Data_Cometoolate.this);
         progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.setContentView(R.layout.progress_dialog2);
         progressDialog.getWindow().setBackgroundDrawableResource(
                 android.R.color.transparent
         );
@@ -118,8 +121,29 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
                                 startActivity(intentEdit);
                                 break;
                             case 1:
-                                deleteData(list.get(pos).getId(), list.get(pos).getImg());
-                                break;
+                                new SweetAlertDialog(Utama_Data_Cometoolate.this, SweetAlertDialog.WARNING_TYPE)
+                                        .setTitleText("Warning!!!")
+                                        .setContentText("Are you sure want to delete this data ?")
+                                        .setConfirmText("OK")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                try{
+                                                    deleteData(list.get(pos).getId(), list.get(pos).getImg());
+                                                    sDialog.dismissWithAnimation();
+                                                    StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                                } catch (Exception e) {
+                                                    Log.e("error",e.getMessage());
+                                                }
+                                            }
+                                        })
+                                        .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.dismissWithAnimation();
+                                            }
+                                        })
+                                        .show();
                         }
                     }
                 });
@@ -138,15 +162,9 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        filter = findViewById(R.id.filter);
-
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Utama_Data_Cometoolate.this, FilterPage.class));
-            }
-        });
         btMenu = findViewById(R.id.bt_menu);
+        btnFilter = findViewById(R.id.main_filter_late);
+        mSwipeRefreshLayout = findViewById(R.id.refresh_main_late_permit);
 
         btMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +208,44 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
                 startActivity(intent);
             }
         });
+
+        filter(filterCode);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                filter(filterCode);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        btnFilter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Utama_Data_Cometoolate.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+    }
+
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc();
+        } else if (code == 1) {
+            showAllDataAsc();
+        }
     }
 
     private void deleteData(String id, String urlImage) {
@@ -210,7 +266,7 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Toast.makeText(Utama_Data_Cometoolate.this, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
-                                    showAllData();
+                                    showAllDataDesc();
                                 }
                             });
                         }
@@ -237,9 +293,53 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
         }
     }
 
-    private void showAllData() {
+    private void showAllDataDesc() {
         db.collection("permission_late")
                 .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PermissionLate permissionLate = new PermissionLate(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("nip"),
+                                        document.getString("division"),
+                                        document.getString("reason"),
+                                        document.getString("img"),
+                                        document.getString("date"),
+                                        document.getString("device"),
+                                        document.getString("latitude"),
+                                        document.getString("longitude"),
+                                        document.getString("location"),
+                                        document.getString("employee_status"),
+                                        document.getString("department")
+                                );
+                                list.add(permissionLate);
+                            }
+                            latePermissionAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(Utama_Data_Cometoolate.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Utama_Data_Cometoolate.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+    private void showAllDataAsc() {
+        db.collection("permission_late")
+                .orderBy("date", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -396,11 +496,11 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
             outputStream = new FileOutputStream(path);
             wb.write(outputStream);
             // ShareViaEmail(file.getParentFile().getName(),file.getName());
-            StyleableToast.makeText(getApplicationContext(),"Excel Created in " + path, Toast.LENGTH_SHORT,R.style.logsuccess).show();
+            Toast.makeText(getApplicationContext(), "Excel Created in " + path, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
 
-            StyleableToast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG,R.style.warning).show();
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
             try {
                 outputStream.close();
             } catch (Exception ex) {
@@ -414,7 +514,7 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
     protected void onStart() {
         super.onStart();
         progressDialog.show();
-        showAllData();
+        showAllDataDesc();
     }
 
     @Override
@@ -460,8 +560,6 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
 
     public void ClickSubcon(View view){ AkunUtama.redirectActivity(this, UtamaDataSubcon.class); }
 
-    public void ClickParksub(View view){ AkunUtama.redirectActivity(this, UtamaDataParksub.class); }
-
     public void ClickGuest(View view){
         AkunUtama.redirectActivity(this, UtamaDataGuest.class);
     }
@@ -475,7 +573,7 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
     }
 
     public void ClickEdit(View view){
-        AkunUtama.redirectActivity(this, AkunUtama.class);
+        AkunUtama.redirectActivity(this, MainDivisionActivity.class);
     }
 
     public void ClickExit(View view){
@@ -488,12 +586,5 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         activity.startActivity(intent);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, AkunUtama.class));
-        finish();
     }
 }

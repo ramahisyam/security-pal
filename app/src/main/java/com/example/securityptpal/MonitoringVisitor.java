@@ -82,7 +82,7 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
     private void searchData(String name) {
         progressDialog = new ProgressDialog(MonitoringVisitor.this);
         progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.setContentView(R.layout.progress_dialog1);
         progressDialog.getWindow().setBackgroundDrawableResource(
                 android.R.color.transparent
         );
@@ -132,10 +132,13 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
     }
 
     private void showAllData(){
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_visitor")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")

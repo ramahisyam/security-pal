@@ -18,11 +18,12 @@ public class Barang implements Parcelable {
     private String latitude;
     private String longitude;
     private String location;
+    private String status;
 
     public Barang() {
     }
 
-    public Barang(String id, String name, String phone, String pic, String division, String department, String goods_name, String type, String img, String date, String device, String latitude, String longitude, String location) {
+    public Barang(String id, String name, String phone, String pic, String division, String department, String goods_name, String type, String img, String date, String device, String latitude, String longitude, String location, String status) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -37,6 +38,7 @@ public class Barang implements Parcelable {
         this.latitude = latitude;
         this.longitude = longitude;
         this.location = location;
+        this.status = status;
     }
 
     protected Barang(Parcel in) {
@@ -54,6 +56,7 @@ public class Barang implements Parcelable {
         latitude = in.readString();
         longitude = in.readString();
         location = in.readString();
+        status = in.readString();
     }
 
     public static final Creator<Barang> CREATOR = new Creator<Barang>() {
@@ -180,6 +183,14 @@ public class Barang implements Parcelable {
         this.location = location;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -201,5 +212,6 @@ public class Barang implements Parcelable {
         parcel.writeString(latitude);
         parcel.writeString(longitude);
         parcel.writeString(location);
+        parcel.writeString(status);
     }
 }

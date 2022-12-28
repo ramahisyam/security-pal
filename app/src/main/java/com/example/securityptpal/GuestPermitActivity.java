@@ -1,7 +1,6 @@
-package com.example.securityptpal.division;
+package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -20,26 +19,18 @@ import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.securityptpal.R;
-import com.example.securityptpal.adapter.OnPermitListener;
-import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
-import com.example.securityptpal.employee.DetailPermissionActivity;
-import com.example.securityptpal.main.UtamaDataEmployee;
-import com.example.securityptpal.model.PermissionEmployee;
+import com.example.securityptpal.adapter.GuestAdapter;
+import com.example.securityptpal.adapter.VisitorAdapter;
+import com.example.securityptpal.model.Guest;
+import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -57,12 +48,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExitPermissionActivity extends AppCompatActivity implements OnPermitListener {
-
+public class GuestPermitActivity extends AppCompatActivity implements GuestAdapter.OnGuestListener{
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private List<PermissionEmployee> list = new ArrayList<>();
-    private PermissionEmployeeAdapter permissionEmployeeAdapter;
+    private List<Guest> list = new ArrayList<>();
+    private GuestAdapter guestAdapter;
     private SearchView searchView;
     private Intent intent;
     private String EXTRA;
@@ -73,14 +63,13 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
 
     boolean isOpen = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exit_permission);
-        recyclerView = findViewById(R.id.rv_exit_permission);
-        searchView = findViewById(R.id.search_employee_permit);
-        progressDialog = new ProgressDialog(ExitPermissionActivity.this);
+        setContentView(R.layout.activity_guest_permit);
+        recyclerView = findViewById(R.id.rv_guest_permission);
+        searchView = findViewById(R.id.search_guest_permit);
+        progressDialog = new ProgressDialog(GuestPermitActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
         progressDialog.getWindow().setBackgroundDrawableResource(
@@ -111,13 +100,12 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
                 return false;
             }
         });
-
-        permissionEmployeeAdapter = new PermissionEmployeeAdapter(this, list, this);
+        guestAdapter = new GuestAdapter(this, list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
-        recyclerView.setAdapter(permissionEmployeeAdapter);
+        recyclerView.setAdapter(guestAdapter);
 
         Bundle extras = getIntent().getExtras();
         EXTRA = extras.getString(Intent.EXTRA_TEXT);
@@ -177,10 +165,9 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
             isOpen=true;
         }
     }
-
     private void showDataDivision(String division) {
         progressDialog.show();
-        db.collection("permission_employee")
+        db.collection("permission_guest")
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
                 .get()
@@ -191,25 +178,24 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
                         list.clear();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                Guest guest = new Guest(
                                         document.getId(),
-                                        document.getString("base"),
                                         document.getString("name"),
-                                        document.getString("nip"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
                                         document.getString("division"),
-                                        document.getString("date"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
                                         document.getString("necessity"),
-                                        document.getString("place"),
-                                        document.getString("timeout"),
-                                        document.getString("timeback"),
+                                        document.getString("date"),
+                                        document.getString("timeIn"),
+                                        document.getString("timeOut"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval"),
-                                        document.getString("status"),
-                                        document.getString("department")
+                                        document.getString("center_approval")
                                 );
-                                list.add(permissionEmployee);
+                                list.add(guest);
                             }
-                            permissionEmployeeAdapter.notifyDataSetChanged();
+                            guestAdapter.notifyDataSetChanged();
                         } else {
                             StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
@@ -219,15 +205,16 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ExitPermissionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GuestPermitActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 });
     }
-    private void searchData(String nip, String division) {
-        db.collection("permission_employee")
-                .whereEqualTo("nip", nip)
+    private void searchData(String name, String division) {
+        db.collection("permission_guest")
+                .whereEqualTo("name", name)
                 .whereEqualTo("division", division)
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -236,25 +223,24 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
                         list.clear();
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                Guest guest = new Guest(
                                         document.getId(),
-                                        document.getString("base"),
                                         document.getString("name"),
-                                        document.getString("nip"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
                                         document.getString("division"),
-                                        document.getString("date"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
                                         document.getString("necessity"),
-                                        document.getString("place"),
-                                        document.getString("timeout"),
-                                        document.getString("timeback"),
+                                        document.getString("date"),
+                                        document.getString("timeIn"),
+                                        document.getString("timeOut"),
                                         document.getString("division_approval"),
-                                        document.getString("center_approval"),
-                                        document.getString("employee_status"),
-                                        document.getString("department")
+                                        document.getString("center_approval")
                                 );
-                                list.add(permissionEmployee);
+                                list.add(guest);
                             }
-                            permissionEmployeeAdapter.notifyDataSetChanged();
+                            guestAdapter.notifyDataSetChanged();
                         } else {
                             StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
@@ -281,7 +267,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         Cell cell = null;
 
         Sheet sheet = null;
-        sheet = wb.createSheet("Demo Excel Sheet");
+        sheet = wb.createSheet("Excel Permission Guest");
 
         Row row = sheet.createRow(0);
 
@@ -289,36 +275,39 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         cell.setCellValue("Id");
 
         cell = row.createCell(1);
-        cell.setCellValue("Base");
-
-        cell = row.createCell(2);
         cell.setCellValue("Name");
 
+        cell = row.createCell(2);
+        cell.setCellValue("Company");
+
         cell = row.createCell(3);
-        cell.setCellValue("Nip");
+        cell.setCellValue("Phone");
 
         cell = row.createCell(4);
         cell.setCellValue("Division");
 
         cell = row.createCell(5);
-        cell.setCellValue("Date");
+        cell.setCellValue("Department");
 
         cell = row.createCell(6);
-        cell.setCellValue("Necessity");
+        cell.setCellValue("PIC");
 
         cell = row.createCell(7);
-        cell.setCellValue("Place");
+        cell.setCellValue("Necessity");
 
         cell = row.createCell(8);
-        cell.setCellValue("Time Out");
+        cell.setCellValue("Date");
 
         cell = row.createCell(9);
-        cell.setCellValue("Time Back");
+        cell.setCellValue("Time in");
 
         cell = row.createCell(10);
-        cell.setCellValue("Division Approval");
+        cell.setCellValue("Time out");
 
         cell = row.createCell(11);
+        cell.setCellValue("Division Approval");
+
+        cell = row.createCell(12);
         cell.setCellValue("Center Approval");
 
         sheet.setColumnWidth(0, (30 * 200));
@@ -333,6 +322,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         sheet.setColumnWidth(9, (30 * 200));
         sheet.setColumnWidth(10, (30 * 200));
         sheet.setColumnWidth(11, (30 * 200));
+        sheet.setColumnWidth(12, (30 * 200));
 
         for (int i = 0; i < list.size(); i++) {
             Row row1 = sheet.createRow(i + 1);
@@ -341,42 +331,45 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
             cell.setCellValue(list.get(i).getId());
 
             cell = row1.createCell(1);
-            cell.setCellValue((list.get(i).getBase()));
+            cell.setCellValue((list.get(i).getName()));
 
             cell = row1.createCell(2);
-            cell.setCellValue(list.get(i).getName());
+            cell.setCellValue(list.get(i).getCompany());
 
             cell = row1.createCell(3);
-            cell.setCellValue(list.get(i).getNip());
+            cell.setCellValue(list.get(i).getPhone());
 
             cell = row1.createCell(4);
             cell.setCellValue(list.get(i).getDivision());
 
             cell = row1.createCell(5);
-            cell.setCellValue(list.get(i).getDate());
+            cell.setCellValue(list.get(i).getDepartment());
 
             cell = row1.createCell(6);
-            cell.setCellValue(list.get(i).getNecessity());
+            cell.setCellValue(list.get(i).getPic());
 
             cell = row1.createCell(7);
-            cell.setCellValue(list.get(i).getPlace());
+            cell.setCellValue(list.get(i).getNecessity());
 
             cell = row1.createCell(8);
-            cell.setCellValue(list.get(i).getTimeout());
+            cell.setCellValue(list.get(i).getDate());
 
             cell = row1.createCell(9);
-            cell.setCellValue(list.get(i).getTimeback());
+            cell.setCellValue(list.get(i).getTimeIn());
 
             cell = row1.createCell(10);
-            cell.setCellValue(list.get(i).getDivision_approval());
+            cell.setCellValue(list.get(i).getTimeOut());
 
             cell = row1.createCell(11);
+            cell.setCellValue(list.get(i).getDivision_approval());
+
+            cell = row1.createCell(12);
             cell.setCellValue(list.get(i).getCenter_approval());
 
         }
 
         String folderName = "Import Excel";
-        String fileName = "Exit Permission_"+ EXTRA + System.currentTimeMillis() + ".xls";
+        String fileName = "Guest Permission_"+ EXTRA + System.currentTimeMillis() + ".xls";
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + folderName + File.separator + fileName;
 
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + folderName);
@@ -405,13 +398,6 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
     }
 
     @Override
-    public void onPermitClick(int position) {
-        intent = new Intent(ExitPermissionActivity.this, DetailExitActivity.class);
-        intent.putExtra("EXIT_PERMIT", list.get(position));
-        startActivity(intent);
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
         progressDialog.show();
@@ -426,5 +412,11 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         } else {
             StyleableToast.makeText(getApplicationContext(),"Permission Denied!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
         }
+    }
+    @Override
+    public void onGuestClick(int position) {
+        intent = new Intent(GuestPermitActivity.this, DetailGuestActivity.class);
+        intent.putExtra("MAIN_GUEST_PERMIT", list.get(position));
+        startActivity(intent);
     }
 }

@@ -13,18 +13,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.securityptpal.model.Barang;
 import com.example.securityptpal.model.Guest;
+import com.example.securityptpal.model.Visitor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.muddzdev.styleabletoast.StyleableToast;
-import com.zolad.zoominimageview.ZoomInImageView;
 
 import java.util.ArrayList;
 
-public class DetailGuestPermitActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-
-    private TextView name, company, phone, division, department, pic, necessity, date, timeIn, timeOut, division_approve, center_approve;
+public class DetailGuestActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    TextView name, company, phone, division, department, pic, necessity, date, timeIn, timeOut, division_approve, center_approve;
     ProgressDialog progressDialog;
     Guest guest;
     Spinner spinner;
@@ -34,12 +32,10 @@ public class DetailGuestPermitActivity extends AppCompatActivity implements Adap
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<String> centerStatus;
     ImageView permit_ttd;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_guest_permit);
-        progressDialog = new ProgressDialog(DetailGuestPermitActivity.this);
+        setContentView(R.layout.activity_detail_guest2);
         name = findViewById(R.id.detail_name_guest);
         company = findViewById(R.id.detail_company_guest);
         phone = findViewById(R.id.detail_phone_guest);
@@ -67,7 +63,6 @@ public class DetailGuestPermitActivity extends AppCompatActivity implements Adap
         spinner.setOnItemSelectedListener(this);
 
         guest = getIntent().getParcelableExtra("MAIN_GUEST_PERMIT");
-
         name.setText(guest.getName());
         company.setText(guest.getCompany());
         phone.setText(guest.getPhone());
@@ -116,19 +111,14 @@ public class DetailGuestPermitActivity extends AppCompatActivity implements Adap
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         item = spinner.getSelectedItem().toString();
-        center_approve.setText(item);
+        division_approve.setText(item);
         if (item.equals("Pending")){
-            center_approve.setTextColor(center_approve.getResources().getColor(R.color.main_orange_color));
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_orange_color));
         } else if (item.equals("Accepted")){
-            center_approve.setTextColor(center_approve.getResources().getColor(R.color.main_green_color));
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_green_color));
         } else {
-            center_approve.setTextColor(center_approve.getResources().getColor(R.color.cardColorRed));
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.cardColorRed));
         }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 
     private void saveValue(String item) {
@@ -136,10 +126,15 @@ public class DetailGuestPermitActivity extends AppCompatActivity implements Adap
             StyleableToast.makeText(getApplicationContext(),"Please select a status", Toast.LENGTH_SHORT,R.style.warning).show();
         }
         else {
-            guest.setCenter_approval(item);
+            guest.setDivision_approval(item);
             String id = guest.getId();
-            db.collection("permission_guest").document(id).set(guest);
+            db.collection("permission_visitor").document(id).set(guest);
             StyleableToast.makeText(getApplicationContext(),"Change Status Successfull", Toast.LENGTH_SHORT,R.style.logsuccess).show();
         }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

@@ -129,10 +129,13 @@ public class MonitoringCheckUp extends AppCompatActivity implements CheckupAdapt
     }
 
     private void showAllData(){
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_checkup")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -184,5 +187,11 @@ public class MonitoringCheckUp extends AppCompatActivity implements CheckupAdapt
         intent = new Intent(MonitoringCheckUp.this, DetailCheckupAct.class);
         intent.putExtra("permission_cu", list.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showAllData();
     }
 }

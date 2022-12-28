@@ -113,7 +113,7 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month + 1;
-                        String date = day+"-"+month+"-"+year;
+                        String date = year+"/"+month+"/"+day;
                         edtDateCheckup.setText(date);
                     }
                 },year,month,day);

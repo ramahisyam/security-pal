@@ -20,6 +20,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".DetailGuestAct"
+            android:exported="false" />
+        <activity
+            android:name=".DetailGuestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GuestPermitActivity"
+            android:exported="false" />
+        <activity
             android:name=".CheckupPermitActivity"
             android:exported="false" />
         <activity
@@ -61,12 +70,6 @@
             android:name=".ParkingSubcontractor"
             android:exported="false" />
         <activity
-            android:name=".LoginKey2"
-            android:exported="true" />
-        <activity
-            android:name=".LoginKey"
-            android:exported="true" />
-        <activity
             android:name=".FilterPage"
             android:exported="false" />
         <activity
@@ -74,6 +77,12 @@
             android:exported="false" />
         <activity
             android:name=".Register"
+            android:exported="false" />
+        <activity
+            android:name=".main.GoodsPermitRecapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.EditGuestPermitActivity"
             android:exported="false" />
         <activity
             android:name=".DetailGuestPermitActivity"

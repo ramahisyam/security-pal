@@ -22,9 +22,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,8 +36,10 @@ import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.DetailExitPermissionActivity;
 import com.example.securityptpal.main.EditExitPermitActivity;
+import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.example.securityptpal.model.PermissionEmployee;
+import com.example.securityptpal.model.PermissionLate;
 import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -60,6 +64,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListener {
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -72,10 +78,12 @@ public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListe
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     DrawerLayout drawerLayout;
-    ImageView btMenu;
+    ImageView btMenu, btnFilter;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     boolean isOpen = false;
+    int filterCode = 0;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +109,7 @@ public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListe
 
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
+        btnFilter = findViewById(R.id.main_filter_vis);
 
         rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
@@ -141,6 +150,8 @@ public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListe
             }
         });
 
+        filter(filterCode);
+
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -179,13 +190,79 @@ public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListe
 //                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
                                 break;
                             case 1:
-                                deleteData(list.get(pos).getId());
-                                break;
+                                new SweetAlertDialog(UtamaDataVisitor.this, SweetAlertDialog.WARNING_TYPE)
+                                        .setTitleText("Warning!!!")
+                                        .setContentText("Are you sure want to delete this data ?")
+                                        .setConfirmText("OK")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                try{
+                                                    deleteData(list.get(pos).getId());
+                                                    sDialog.dismissWithAnimation();
+                                                    StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                                } catch (Exception e) {
+                                                    Log.e("error",e.getMessage());
+                                                }
+                                            }
+                                        })
+                                        .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.dismissWithAnimation();
+                                            }
+                                        })
+                                        .show();
                         }
                     }
                 });
                 dialog.show();
             }
+
+            @Override
+            public void onLongClickListener(int pos) {
+                final CharSequence[] dialogItem = {"Edit", "Delete"};
+                AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataVisitor.this);
+                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case 0:
+//                                editData(list, pos);
+                                Intent intentEdit = new Intent(getApplicationContext(), EditVisitorPermitActivity.class);
+                                intentEdit.putExtra("MAIN_EDIT_VISITOR_PERMIT", list.get(pos));
+                                startActivity(intentEdit);
+//                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 1:
+                                new SweetAlertDialog(UtamaDataVisitor.this, SweetAlertDialog.WARNING_TYPE)
+                                        .setTitleText("Warning!!!")
+                                        .setContentText("Are you sure want to delete this data ?")
+                                        .setConfirmText("OK")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                try{
+                                                    deleteData(list.get(pos).getId());
+                                                    sDialog.dismissWithAnimation();
+                                                    StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                                } catch (Exception e) {
+                                                    Log.e("error",e.getMessage());
+                                                }
+                                            }
+                                        })
+                                        .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.dismissWithAnimation();
+                                            }
+                                        })
+                                        .show();
+                        }
+                    }
+                });
+                dialog.show();
         });
 
         showAllData();
@@ -194,9 +271,129 @@ public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListe
             @Override
             public void onRefresh() {
                 showAllData();
+                filter(filterCode);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        btnFilter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataVisitor.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+    }
+
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc();
+        } else if (code == 1) {
+            showAllDataAsc();
+        }
+    }
+
+    private void showAllDataDesc() {
+        db.collection("permission_visitor")
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Visitor visitor = new Visitor(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
+                                        document.getString("necessity"),
+                                        document.getString("date"),
+                                        document.getString("timein"),
+                                        document.getString("timeout"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(visitor);
+                            }
+                            mainVisitorPermitAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(UtamaDataVisitor.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UtamaDataVisitor.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
+    }
+
+    private void showAllDataAsc() {
+        db.collection("permission_visitor")
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Visitor visitor = new Visitor(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
+                                        document.getString("necessity"),
+                                        document.getString("date"),
+                                        document.getString("timein"),
+                                        document.getString("timeout"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(visitor);
+                            }
+                            mainVisitorPermitAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(UtamaDataVisitor.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UtamaDataVisitor.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
     }
 
     private void importData(){
@@ -363,7 +560,7 @@ public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListe
     private void searchData(String name) {
         progressDialog = new ProgressDialog(UtamaDataVisitor.this);
         progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.setContentView(R.layout.progress_dialog1);
         progressDialog.getWindow().setBackgroundDrawableResource(
                 android.R.color.transparent
         );
@@ -413,10 +610,13 @@ public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListe
     }
 
     private void showAllData(){
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_visitor")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -519,7 +719,7 @@ public class UtamaDataVisitor extends AppCompatActivity implements OnPermitListe
     }
 
     public void ClickEdit(View view){
-        AkunUtama.redirectActivity(this, AkunUtama.class);
+        AkunUtama.redirectActivity(this, MainDivisionActivity.class);
     }
 
     public void ClickExit(View view){

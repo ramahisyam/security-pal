@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -36,12 +37,14 @@ public class MonitoringComeTooLate extends AppCompatActivity implements LatePerm
     private LatePermissionAdapter latePermissionAdapter;
     private SearchView searchView;
     private Intent intent;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoring_come_too_late);
         recyclerView = findViewById(R.id.rv_monitoring_late);
+        progressDialog = new ProgressDialog(MonitoringComeTooLate.this);
         searchView = findViewById(R.id.search_late);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -68,6 +71,11 @@ public class MonitoringComeTooLate extends AppCompatActivity implements LatePerm
     }
 
     private void searchData(String nip) {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_late")
                 .whereEqualTo("nip", nip)
                 .orderBy("date", Query.Direction.DESCENDING)

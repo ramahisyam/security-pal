@@ -111,7 +111,7 @@ public class GuestPermissionActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month + 1;
-                        String date = day+"-"+month+"-"+year;
+                        String date = year+"/"+month+"/"+day;
                         edtDate.setText(date);
                     }
                 },year,month,day);
@@ -274,7 +274,9 @@ public class GuestPermissionActivity extends AppCompatActivity {
                         necessity,
                         date,
                         timeIn,
-                        timeOut
+                        timeOut,
+                        "Pending",
+                        "Pending"
                 );
                 db.collection("permission_guest").add(guest).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

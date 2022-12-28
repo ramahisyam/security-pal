@@ -43,17 +43,6 @@
                         android:layout_marginEnd="260dp"
                         android:layout_marginTop="75dp"/>
 
-                    <ImageView
-                        android:id="@+id/sign_out_main_permit"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginEnd="16dp"
-                        android:padding="0dp"
-                        android:src="@drawable/ic_logout"
-                        app:layout_constraintBottom_toBottomOf="@+id/textview"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textview" />
-
                     <LinearLayout
                         android:id="@+id/input_base_layout"
                         android:layout_width="match_parent"
@@ -72,9 +61,10 @@
                             android:layout_height="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/gradasi"
-                            app:queryHint="Masukkan nip untuk pencarian" />
+                            app:queryHint="Input NIP for search data" />
 
                         <ImageView
+                            android:id="@+id/main_filter_employee"
                             android:layout_width="50dp"
                             android:layout_height="40dp"
                             android:layout_weight="1"

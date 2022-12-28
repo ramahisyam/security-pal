@@ -31,16 +31,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/sign_out_permission"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_logout"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
-
             <LinearLayout
                 android:id="@+id/input_name_layout"
                 android:layout_width="match_parent"
@@ -58,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Name\t\t\t\t\t\t\t\t\t\t\t:"
+                    android:text="Name\t\t\t\t\t\t\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
@@ -144,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Department\t\t\t\t\t:"
+                    android:text="Department\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner

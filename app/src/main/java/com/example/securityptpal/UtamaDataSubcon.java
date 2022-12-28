@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.securityptpal.main.AkunUtama;
+import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -140,7 +141,7 @@ public class UtamaDataSubcon extends AppCompatActivity {
     }
 
     public void ClickEdit(View view){
-        AkunUtama.redirectActivity(this, AkunUtama.class);
+        AkunUtama.redirectActivity(this, MainDivisionActivity.class);
     }
 
     public void ClickExit(View view){

@@ -61,9 +61,10 @@
                             android:layout_height="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/gradasi"
-                            app:queryHint="Masukkan nama untuk pencarian" />
+                            app:queryHint="Input name for search data" />
 
                         <ImageView
+                            android:id="@+id/main_filter_vis"
                             android:layout_width="50dp"
                             android:layout_height="40dp"
                             android:layout_weight="1"
