@@ -175,7 +175,7 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_main.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_main2.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_main_division.xml" value="0.19322916666666667" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.15885416666666666" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.25" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.15885416666666666" />
@@ -222,6 +222,7 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_guest_permission.xml" value="0.22" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_guest_permit.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_late_permit.xml" value="0.34375" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_monitoring_goods_permit.xml" value="0.34375" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/rown_main_guest_permit.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/slide_item_container.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/top_menu_permission_employee.xml" value="0.34375" />

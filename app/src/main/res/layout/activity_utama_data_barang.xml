@@ -61,7 +61,7 @@
                             android:layout_height="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/gradasi"
-                            app:queryHint="Masukkan nip untuk pencarian" />
+                            app:queryHint="Masukkan nama untuk pencarian" />
 
                         <ImageView
                             android:id="@+id/main_filter_goods"
