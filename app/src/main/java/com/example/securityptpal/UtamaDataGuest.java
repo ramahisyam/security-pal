@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.securityptpal.adapter.MainGoodsPermitAdapter;
 import com.example.securityptpal.adapter.MainGuestAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.EditGoodsPermitActivity;
 import com.example.securityptpal.main.EditGuestPermitActivity;
@@ -42,7 +43,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtamaDataGuest extends AppCompatActivity implements OnPermitListener {
+public class UtamaDataGuest extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
 
     DrawerLayout drawerLayout;
     ImageView btMenu;
@@ -87,7 +88,7 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
             }
         });
 
-        mainGuestAdapter = new MainGuestAdapter(this, list, this);
+        mainGuestAdapter = new MainGuestAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -301,5 +302,28 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
         Intent intent = new Intent(UtamaDataGuest.this, DetailGuestPermitActivity.class);
         intent.putExtra("MAIN_GUEST_PERMIT", list.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onLongCLickListener(int pos) {
+        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataGuest.this);
+        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+                        Intent intentEdit = new Intent(getApplicationContext(), EditGuestPermitActivity.class);
+                        intentEdit.putExtra("MAIN_EDIT_GUEST_PERMIT", list.get(pos));
+                        startActivity(intentEdit);
+                        break;
+                    case 1:
+                        deleteData(list.get(pos).getId());
+                        break;
+                }
+            }
+        });
+        dialog.show();
     }
 }

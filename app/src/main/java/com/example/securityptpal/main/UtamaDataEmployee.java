@@ -40,6 +40,7 @@ import com.example.securityptpal.UtamaDataVisitor;
 import com.example.securityptpal.Utama_Data_Cometoolate;
 import com.example.securityptpal.adapter.MainEmployeePermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -68,7 +69,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtamaDataEmployee extends AppCompatActivity implements OnPermitListener {
+public class UtamaDataEmployee extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -156,7 +157,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
             }
         });
 
-        mainEmployeePermitAdapter = new MainEmployeePermitAdapter(this, list, this);
+        mainEmployeePermitAdapter = new MainEmployeePermitAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -667,5 +668,30 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
     protected void onResume() {
         super.onResume();
         showAllDataDesc();
+    }
+
+    @Override
+    public void onLongCLickListener(int pos) {
+        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataEmployee.this);
+        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+//                                editData(list, pos);
+                        Intent intentEdit = new Intent(getApplicationContext(), EditExitPermitActivity.class);
+                        intentEdit.putExtra("MAIN_EDIT_EXIT_PERMIT", list.get(pos));
+                        startActivity(intentEdit);
+//                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        deleteData(list.get(pos).getId());
+                        break;
+                }
+            }
+        });
+        dialog.show();
     }
 }

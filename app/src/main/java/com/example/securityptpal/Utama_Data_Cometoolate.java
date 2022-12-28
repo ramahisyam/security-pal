@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.securityptpal.adapter.MainLatePermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.EditLatePermitActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
@@ -58,7 +59,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermitListener {
+public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -94,7 +95,7 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
         );
 //        userID = mAuth.getCurrentUser().getUid();
 
-        latePermissionAdapter = new MainLatePermitAdapter(this, list, this);
+        latePermissionAdapter = new MainLatePermitAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -560,5 +561,28 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void onLongCLickListener(int pos) {
+        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(Utama_Data_Cometoolate.this);
+        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+                        Intent intentEdit = new Intent(getApplicationContext(), EditLatePermitActivity.class);
+                        intentEdit.putExtra("MAIN_EDIT_LATE_PERMIT", list.get(pos));
+                        startActivity(intentEdit);
+                        break;
+                    case 1:
+                        deleteData(list.get(pos).getId(), list.get(pos).getImg());
+                        break;
+                }
+            }
+        });
+        dialog.show();
     }
 }
