@@ -58,6 +58,7 @@
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_visitor.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_visitor.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_visitor_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/edit_delete.xml" value="0.14990942028985507" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/filter_dialog.xml" value="0.15896739130434784" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/grid_division_list.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/progress_dialog.xml" value="0.25" />
@@ -96,7 +97,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

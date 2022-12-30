@@ -201,44 +201,47 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
             @Override
             public void onClick(int pos) {
                 final CharSequence[] dialogItem = {"Edit", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataBarang.this);
-                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataBarang.this);
+                View layout = getLayoutInflater().inflate(R.layout.edit_delete, null);
+                Button btnEdit = layout.findViewById(R.id.btn_edt);
+                Button btnDelete = layout.findViewById(R.id.btn_dlt);
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-                                Intent intentEdit = new Intent(getApplicationContext(), EditGoodsPermitActivity.class);
-                                intentEdit.putExtra("MAIN_EDIT_GOODS_PERMIT", list.get(pos));
-                                startActivity(intentEdit);
-                                break;
-                            case 1:
-                                new SweetAlertDialog(UtamaDataBarang.this, SweetAlertDialog.WARNING_TYPE)
-                                        .setTitleText("Warning!!!")
-                                        .setContentText("Are you sure want to delete this data ?")
-                                        .setConfirmText("OK")
-                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                try{
-                                                    deleteData(list.get(pos).getId(), list.get(pos).getImg());
-                                                    sDialog.dismissWithAnimation();
-                                                    StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
-                                                } catch (Exception e) {
-                                                    Log.e("error",e.getMessage());
-                                                }
-                                            }
-                                        })
-                                        .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation();
-                                            }
-                                        })
-                                        .show();
-                        }
-                    }
+                btnEdit.setOnClickListener(view1 -> {
+                    filterCode = 1;
+                    Intent intentEdit = new Intent(getApplicationContext(), EditGoodsPermitActivity.class);
+                    intentEdit.putExtra("MAIN_EDIT_GOODS_PERMIT", list.get(pos));
+                    startActivity(intentEdit);
+                    dialog.dismiss();
                 });
+                btnDelete.setOnClickListener(view1 -> {
+                    filterCode = 0;
+                    new SweetAlertDialog(UtamaDataBarang.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Warning!!!")
+                            .setContentText("Are you sure want to delete this data ?")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    try{
+                                        deleteData(list.get(pos).getId());
+                                        sDialog.dismissWithAnimation();
+                                        StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                    } catch (Exception e) {
+                                        Log.e("error",e.getMessage());
+                                    }
+                                }
+                            })
+                            .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                    dialog.dismiss();
+                });
+                builder.setView(layout);
+                dialog = builder.create();
                 dialog.show();
             }
         });

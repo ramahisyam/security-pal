@@ -36,6 +36,7 @@ public class DetailGuestActivity extends AppCompatActivity implements AdapterVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_guest2);
+        progressDialog = new ProgressDialog(DetailGuestActivity.this);
         name = findViewById(R.id.detail_name_guest);
         company = findViewById(R.id.detail_company_guest);
         phone = findViewById(R.id.detail_phone_guest);
@@ -128,7 +129,7 @@ public class DetailGuestActivity extends AppCompatActivity implements AdapterVie
         else {
             guest.setDivision_approval(item);
             String id = guest.getId();
-            db.collection("permission_visitor").document(id).set(guest);
+            db.collection("permission_guest").document(id).set(guest);
             StyleableToast.makeText(getApplicationContext(),"Change Status Successfull", Toast.LENGTH_SHORT,R.style.logsuccess).show();
         }
     }

@@ -62,7 +62,7 @@ public class EmployeePermitActivity extends AppCompatActivity {
             }
         });
 
-        cvCheckupPermission.setOnClickListener(new View.OnClickListener() {
+        cvGuestPermission.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EmployeePermitActivity.this, GuestPermitActivity.class);

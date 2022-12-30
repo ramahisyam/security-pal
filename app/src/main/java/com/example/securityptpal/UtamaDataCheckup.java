@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.securityptpal.adapter.MainCheckupPermitAdapter;
 import com.example.securityptpal.adapter.MainVisitorPermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
@@ -63,7 +64,7 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListener {
+public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -162,7 +163,7 @@ public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListe
             }
         });
 
-        mainCheckupPermitAdapter = new MainCheckupPermitAdapter(this, list, this);
+        mainCheckupPermitAdapter = new MainCheckupPermitAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -172,46 +173,47 @@ public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListe
             @Override
             public void onClick(int pos) {
                 final CharSequence[] dialogItem = {"Edit", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataCheckup.this);
-                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataCheckup.this);
+                View layout = getLayoutInflater().inflate(R.layout.edit_delete, null);
+                Button btnEdit = layout.findViewById(R.id.btn_edt);
+                Button btnDelete = layout.findViewById(R.id.btn_dlt);
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-//                                Intent intentEdit(list, pos);
-                                Intent intentEdit = new Intent(getApplicationContext(), EditCheckupPermitActivity.class);
-                                intentEdit.putExtra("MAIN_EDIT_CHECKUP_PERMIT", list.get(pos));
-                                startActivity(intentEdit);
-//                                Toast.makeText(UtamaDataCheckup.this, "coming soon", Toast.LENGTH_SHORT).show();
-                                break;
-                            case 1:
-                                new SweetAlertDialog(UtamaDataCheckup.this, SweetAlertDialog.WARNING_TYPE)
-                                        .setTitleText("Warning!!!")
-                                        .setContentText("Are you sure want to delete this data ?")
-                                        .setConfirmText("OK")
-                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                try{
-                                                    deleteData(list.get(pos).getId());
-                                                    sDialog.dismissWithAnimation();
-                                                    StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
-                                                } catch (Exception e) {
-                                                    Log.e("error",e.getMessage());
-                                                }
-                                            }
-                                        })
-                                        .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation();
-                                            }
-                                        })
-                                        .show();
-                        }
-                    }
+                btnEdit.setOnClickListener(view1 -> {
+                    filterCode = 1;
+                    Intent intentEdit = new Intent(getApplicationContext(), EditCheckupPermitActivity.class);
+                    intentEdit.putExtra("MAIN_EDIT_CHECKUP_PERMIT", list.get(pos));
+                    startActivity(intentEdit);
+                    dialog.dismiss();
                 });
+                btnDelete.setOnClickListener(view1 -> {
+                    filterCode = 0;
+                    new SweetAlertDialog(UtamaDataCheckup.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Warning!!!")
+                            .setContentText("Are you sure want to delete this data ?")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    try{
+                                        deleteData(list.get(pos).getId());
+                                        sDialog.dismissWithAnimation();
+                                        StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                    } catch (Exception e) {
+                                        Log.e("error",e.getMessage());
+                                    }
+                                }
+                            })
+                            .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                    dialog.dismiss();
+                });
+                builder.setView(layout);
+                dialog = builder.create();
                 dialog.show();
             }
         });
@@ -674,6 +676,52 @@ public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListe
         intent = new Intent(UtamaDataCheckup.this, DetailCheckupPermissionActivity.class);
         intent.putExtra("MAIN_CHECKUP_PERMIT", list.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onLongCLickListener(int pos) {
+        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataCheckup.this);
+        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+//                                Intent intentEdit(list, pos);
+                        Intent intentEdit = new Intent(getApplicationContext(), EditCheckupPermitActivity.class);
+                        intentEdit.putExtra("MAIN_EDIT_CHECKUP_PERMIT", list.get(pos));
+                        startActivity(intentEdit);
+//                                Toast.makeText(UtamaDataCheckup.this, "coming soon", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        new SweetAlertDialog(UtamaDataCheckup.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Warning!!!")
+                                .setContentText("Are you sure want to delete this data ?")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        try{
+                                            deleteData(list.get(pos).getId());
+                                            sDialog.dismissWithAnimation();
+                                            StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                        } catch (Exception e) {
+                                            Log.e("error",e.getMessage());
+                                        }
+                                    }
+                                })
+                                .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+                }
+            }
+        });
+        dialog.show();
     }
 
     @Override

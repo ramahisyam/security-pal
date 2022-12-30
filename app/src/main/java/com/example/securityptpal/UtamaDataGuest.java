@@ -19,8 +19,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,17 +26,15 @@ import android.widget.Toast;
 import com.example.securityptpal.adapter.MainGoodsPermitAdapter;
 import com.example.securityptpal.adapter.MainGuestAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.EditGoodsPermitActivity;
 import com.example.securityptpal.main.EditGuestPermitActivity;
 import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
-
-import com.example.securityptpal.model.Visitor;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import com.example.securityptpal.model.Barang;
 import com.example.securityptpal.model.Guest;
+import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -53,16 +49,10 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class UtamaDataGuest extends AppCompatActivity implements OnPermitListener {
+public class UtamaDataGuest extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
 
     DrawerLayout drawerLayout;
     ImageView btMenu, btnFilter;
-    FloatingActionButton fab, fab1, fab2;
-    Animation fabOpen, fabClose, rotateForward, rotateBackward;
-    boolean isOpen = false;
-    int filterCode = 0;
-    AlertDialog dialog;
-
     RecyclerView recyclerView;
     SearchView searchView;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -70,6 +60,8 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
     private MainGuestAdapter mainGuestAdapter;
     private List<Guest> list = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    AlertDialog dialog;
+    int filterCode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +73,7 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
         mSwipeRefreshLayout = findViewById(R.id.refresh_main_guest_permit);
         progressDialog = new ProgressDialog(UtamaDataGuest.this);
         drawerLayout = findViewById(R.id.drawer_layout);
+        btnFilter = findViewById(R.id.main_filter_guest);
         btMenu = findViewById(R.id.bt_menu);
 
         btMenu.setOnClickListener(new View.OnClickListener() {
@@ -90,67 +83,21 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
             }
         });
 
-        fab = (FloatingActionButton) findViewById(R.id.main_guest_fab);
-        fab1 = (FloatingActionButton) findViewById(R.id.main_guest_fab1);
-        fab2 = (FloatingActionButton) findViewById(R.id.main_guest_fab2);
-
-        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
-
-        rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
-        rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
-
-        btnFilter = findViewById(R.id.main_filter_guest);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                animateFab();
-            }
-        });
-
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-//                    if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-//                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//                        requestPermissions(permissions, 1);
-//                    } else {
-//                        importData();
-//                    }
-//                } else {
-//                    importData();
-//                }
-            }
-        });
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                String foldername = "Import Excel";
-//                Intent intent = new Intent(Intent.ACTION_PICK);
-//                intent.setDataAndType(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + foldername), "*/*");
-//                startActivity(intent);
-            }
-        });
-
-        filter(filterCode);
-
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                searchData(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchData(newText);
                 return false;
             }
         });
 
-        mainGuestAdapter = new MainGuestAdapter(this, list, this);
+        mainGuestAdapter = new MainGuestAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -160,44 +107,45 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
             @Override
             public void onClick(int pos) {
                 final CharSequence[] dialogItem = {"Edit", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataGuest.this);
-                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataGuest.this);
+                View layout = getLayoutInflater().inflate(R.layout.edit_delete, null);
+                Button btnEdit = layout.findViewById(R.id.btn_edt);
+                Button btnDelete = layout.findViewById(R.id.btn_dlt);
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-                                Intent intentEdit = new Intent(getApplicationContext(), EditGuestPermitActivity.class);
-                                intentEdit.putExtra("MAIN_EDIT_GUEST_PERMIT", list.get(pos));
-                                startActivity(intentEdit);
-                                break;
-                            case 1:
-                                new SweetAlertDialog(UtamaDataGuest.this, SweetAlertDialog.WARNING_TYPE)
-                                        .setTitleText("Warning!!!")
-                                        .setContentText("Are you sure want to delete this data ?")
-                                        .setConfirmText("OK")
-                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                try{
-                                                    deleteData(list.get(pos).getId());
-                                                    sDialog.dismissWithAnimation();
-                                                    StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
-                                                } catch (Exception e) {
-                                                    Log.e("error",e.getMessage());
-                                                }
-                                            }
-                                        })
-                                        .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation();
-                                            }
-                                        })
-                                        .show();
-                        }
-                    }
+                btnEdit.setOnClickListener(view1 -> {
+                    Intent intentEdit = new Intent(getApplicationContext(), EditGuestPermitActivity.class);
+                    intentEdit.putExtra("MAIN_EDIT_GUEST_PERMIT", list.get(pos));
+                    startActivity(intentEdit);
+                    dialog.dismiss();
                 });
+                btnDelete.setOnClickListener(view1 -> {
+                    new SweetAlertDialog(UtamaDataGuest.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Warning!!!")
+                            .setContentText("Are you sure want to delete this data ?")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    try{
+                                        deleteData(list.get(pos).getId());
+                                        sDialog.dismissWithAnimation();
+                                        StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                    } catch (Exception e) {
+                                        Log.e("error",e.getMessage());
+                                    }
+                                }
+                            })
+                            .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                    dialog.dismiss();
+                });
+                builder.setView(layout);
+                dialog = builder.create();
                 dialog.show();
             }
         });
@@ -331,24 +279,6 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
                 });
     }
 
-    private void animateFab() {
-        if (isOpen) {
-            fab.startAnimation(rotateBackward);
-            fab1.startAnimation(fabClose);
-            fab2.startAnimation(fabClose);
-            fab1.setClickable(false);
-            fab2.setClickable(false);
-            isOpen = false;
-        } else {
-            fab.startAnimation(rotateForward);
-            fab1.startAnimation(fabOpen);
-            fab2.startAnimation(fabOpen);
-            fab1.setClickable(true);
-            fab2.setClickable(true);
-            isOpen = true;
-        }
-    }
-
     private void deleteData(String id) {
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Deleting data...");
@@ -361,7 +291,7 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
                         if (!task.isSuccessful()){
                             Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
                         } else {
-                            //Toast.makeText(getApplicationContext(), "Data berhasil di hapus!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Data berhasil di hapus!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
                         showAllData();
@@ -420,11 +350,9 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
     }
 
     private void searchData(String name) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog1);
-        progressDialog.getWindow().setBackgroundDrawableResource(
-                android.R.color.transparent
-        );
         db.collection("permission_guest")
                 .whereEqualTo("name", name)
                 .orderBy("date", Query.Direction.DESCENDING)
@@ -497,8 +425,6 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
 
     public void ClickSubcon(View view){ AkunUtama.redirectActivity(this, UtamaDataSubcon.class); }
 
-    public void ClickParksub(View view){ AkunUtama.redirectActivity(this, UtamaDataParksub.class); }
-
     public void ClickGuest(View view){
         AkunUtama.redirectActivity(this, UtamaDataGuest.class);
     }
@@ -528,15 +454,32 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, AkunUtama.class));
-        finish();
-    }
-
     public void onPermitClick(int position) {
         Intent intent = new Intent(UtamaDataGuest.this, DetailGuestPermitActivity.class);
         intent.putExtra("MAIN_GUEST_PERMIT", list.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onLongCLickListener(int pos) {
+        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataGuest.this);
+        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+                        Intent intentEdit = new Intent(getApplicationContext(), EditGuestPermitActivity.class);
+                        intentEdit.putExtra("MAIN_EDIT_GUEST_PERMIT", list.get(pos));
+                        startActivity(intentEdit);
+                        break;
+                    case 1:
+                        deleteData(list.get(pos).getId());
+                        break;
+                }
+            }
+        });
+        dialog.show();
     }
 }

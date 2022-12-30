@@ -21,6 +21,7 @@ public class MainLatePermitAdapter extends RecyclerView.Adapter<MainLatePermitAd
     private List<PermissionLate> list;
     private OnPermitListener mOnPermitListener;
     private MainLatePermitAdapter.Dialog dialog;
+    private OnPermitLongClick mOnPermitLongClick;
 
     public interface Dialog {
         void onClick(int pos);
@@ -30,17 +31,18 @@ public class MainLatePermitAdapter extends RecyclerView.Adapter<MainLatePermitAd
         this.dialog = dialog;
     }
 
-    public MainLatePermitAdapter(Context context, List<PermissionLate> list, OnPermitListener mOnPermitListener) {
+    public MainLatePermitAdapter(Context context, List<PermissionLate> list, OnPermitListener mOnPermitListener, OnPermitLongClick mOnPermitLongClick) {
         this.context = context;
         this.list = list;
         this.mOnPermitListener = mOnPermitListener;
+        this.mOnPermitLongClick = mOnPermitLongClick;
     }
 
     @NonNull
     @Override
     public MainLatePermitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_main_late_permit, parent, false);
-        return new MainLatePermitAdapter.MainLatePermitViewHolder(itemView, mOnPermitListener);
+        return new MainLatePermitAdapter.MainLatePermitViewHolder(itemView, mOnPermitListener, mOnPermitLongClick);
     }
 
     @Override
@@ -55,12 +57,12 @@ public class MainLatePermitAdapter extends RecyclerView.Adapter<MainLatePermitAd
         return list.size();
     }
 
-    public class MainLatePermitViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MainLatePermitViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView name, nip, date;
         ImageView options;
         OnPermitListener onPermitListener;
-
-        public MainLatePermitViewHolder(@NonNull View itemView, OnPermitListener onPermitListener) {
+        OnPermitLongClick onPermitLongClick;
+        public MainLatePermitViewHolder(@NonNull View itemView, OnPermitListener onPermitListener, OnPermitLongClick onPermitLongClick) {
             super(itemView);
             name = itemView.findViewById(R.id.main_late_employee_name);
             nip = itemView.findViewById(R.id.main_late_employee_nip);
@@ -72,13 +74,26 @@ public class MainLatePermitAdapter extends RecyclerView.Adapter<MainLatePermitAd
                 }
             });
             this.onPermitListener = onPermitListener;
+            this.onPermitLongClick = onPermitLongClick;
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             onPermitListener.onPermitClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (onPermitLongClick != null) {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION){
+                    onPermitLongClick.onLongCLickListener(pos);
+                }
+            }
+            return true;
         }
     }
 }
