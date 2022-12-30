@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -33,7 +34,7 @@ import com.tapadoo.alerter.OnShowAlertListener;
 
 public class Login extends AppCompatActivity {
     EditText edtEmail, edtPassword;
-    ImageView arrow;
+    Button arrow;
     Switch active;
     String userID;
     FirebaseAuth mAuth;

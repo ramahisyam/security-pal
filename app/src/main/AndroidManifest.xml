@@ -20,7 +20,66 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
-            android:name=".GoodsPermitRecapActivity"
+            android:name=".DetailGuestAct"
+            android:exported="false" />
+        <activity
+            android:name=".DetailGuestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GuestPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CheckupPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailCheckupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailVisitorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VisitorPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditCheckupPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditVisitorPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailCheckupPermissionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailVisitorPermissionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailCheckupAct"
+            android:exported="false" />
+        <activity
+            android:name=".DetailVisitorAct"
+            android:exported="false" />
+        <activity
+            android:name=".UtamaDataParksub"
+            android:exported="false" />
+        <activity
+            android:name=".CaptureAct"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ParkingSubcontractor"
+            android:exported="false" />
+        <activity
+            android:name=".FilterPage"
+            android:exported="false" />
+        <activity
+            android:name=".ForgetPassword"
+            android:exported="false" />
+        <activity
+            android:name=".Register"
+            android:exported="false" />
+        <activity
+            android:name=".main.GoodsPermitRecapActivity"
             android:exported="false" />
         <activity
             android:name=".main.EditGuestPermitActivity"
@@ -59,7 +118,7 @@
             android:name=".division.DivisionLatePermitActivity"
             android:exported="false" />
         <activity
-            android:name=".CheckUp"
+            android:name=".CheckUpPermissionActivity"
             android:exported="false" />
         <activity
             android:name=".main.DetailExitPermissionActivity"
@@ -119,8 +178,8 @@
             android:name=".MonitoringVisitor"
             android:exported="false" />
         <activity
-            android:name=".Visitor"
-            android:exported="false" />
+            android:name=".VisitorPermissionActivity"
+            android:exported="true" />
         <activity
             android:name=".main.AkunUtama"
             android:exported="false" />

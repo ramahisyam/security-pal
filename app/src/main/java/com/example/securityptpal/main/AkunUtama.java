@@ -15,10 +15,12 @@ import com.example.securityptpal.AboutUs;
 import com.example.securityptpal.FAQ;
 import com.example.securityptpal.LogoutAccount;
 import com.example.securityptpal.MainActivity;
+import com.example.securityptpal.MainActivity2;
 import com.example.securityptpal.R;
 import com.example.securityptpal.UtamaDataBarang;
 import com.example.securityptpal.UtamaDataCheckup;
 import com.example.securityptpal.UtamaDataGuest;
+import com.example.securityptpal.UtamaDataParksub;
 import com.example.securityptpal.UtamaDataSubcon;
 import com.example.securityptpal.UtamaDataVisitor;
 import com.example.securityptpal.Utama_Data_Cometoolate;
@@ -81,6 +83,8 @@ public class AkunUtama extends AppCompatActivity {
 
     public void ClickSubcon(View view){ redirectActivity(this, UtamaDataSubcon.class); }
 
+    public void ClickParksub(View view){ redirectActivity(this, UtamaDataParksub.class); }
+
     public void ClickGuest(View view){
         redirectActivity(this, UtamaDataGuest.class);
     }
@@ -126,5 +130,12 @@ public class AkunUtama extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity2.class));
+        finish();
     }
 }

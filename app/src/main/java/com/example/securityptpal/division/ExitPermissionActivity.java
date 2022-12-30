@@ -81,8 +81,11 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         recyclerView = findViewById(R.id.rv_exit_permission);
         searchView = findViewById(R.id.search_employee_permit);
         progressDialog = new ProgressDialog(ExitPermissionActivity.this);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Getting data...");
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);

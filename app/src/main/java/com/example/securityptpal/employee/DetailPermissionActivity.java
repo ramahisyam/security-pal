@@ -2,14 +2,19 @@ package com.example.securityptpal.employee;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.securityptpal.R;
+import com.example.securityptpal.ShowQR;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -18,6 +23,7 @@ public class DetailPermissionActivity extends AppCompatActivity {
     private TextView base, name, nip, division, date, necessity, place, timeout, timeback, division_approve, center_approve, departmen, status;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ImageView qrEmployee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,16 @@ public class DetailPermissionActivity extends AppCompatActivity {
         timeback = findViewById(R.id.permit_timeback);
         division_approve = findViewById(R.id.division_approval_status);
         center_approve = findViewById(R.id.center_approval);
+        qrEmployee = findViewById(R.id.qrEmployee);
+
+        qrEmployee.setEnabled(false);
+
+        qrEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DetailPermissionActivity.this, ShowQR.class));
+            }
+        });
         departmen = findViewById(R.id.permit_depart);
         status = findViewById(R.id.permit_status);
 
@@ -165,6 +181,10 @@ public class DetailPermissionActivity extends AppCompatActivity {
                             .show();
                 }
             });
+        }
+
+        if (permissionEmployee.getDivision_approval().equals("Accepted") && permissionEmployee.getCenter_approval().equals("Accepted")){
+            qrEmployee.setEnabled(true);
         }
     }
 }

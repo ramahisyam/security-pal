@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Company\t\t\t\t\t:"
+                    android:text="Company\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
@@ -68,12 +68,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/nameEmSub"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/bt_add"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/compSub">
                 <TextView
@@ -81,33 +80,41 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Employee\t\t\t\t\t:"
+                    android:text="Employee\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/edit_text"
-                    android:layout_width="185dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
                     android:textColor="#000000"
                     android:layout_marginLeft="10dp"/>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/bt_add"
-                    android:src="@drawable/ic_addperson"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="5dp"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/bt_reset"
-                    android:src="@drawable/ic_refresh"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"/>
             </LinearLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/bt_add"
+                android:src="@drawable/ic_addperson"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/nameEmSub"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nameEmSub"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/bt_reset"
+                android:src="@drawable/ic_refresh"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/nameEmSub"
+                app:layout_constraintStart_toEndOf="@id/bt_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nameEmSub"/>
             <LinearLayout
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
@@ -122,7 +129,6 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:id="@+id/recycler_view"
                 android:layout_marginTop="8dp"
                 tools:listitem="@layout/list_row_main"/>
@@ -238,13 +244,12 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/startSub"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/calStartSubcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/departSub">
                 <TextView
@@ -258,19 +263,21 @@
 
                 <EditText
                     android:id="@+id/edtstartSubcon"
-                    android:layout_width="235dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
                     android:textColor="#000000"
                     android:layout_marginLeft="10dp"/>
-
-                <ImageView
-                    android:id="@+id/calStartSubcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/calendar"
-                    android:layout_marginTop="5dp"/>
             </LinearLayout>
+            <ImageView
+                android:id="@+id/calStartSubcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/calendar"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/startSub"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/startSub"/>
             <LinearLayout
                 android:id="@+id/finishSub"
                 android:layout_width="match_parent"
@@ -278,7 +285,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/calFinishSubcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/startSub">
                 <TextView
@@ -286,7 +293,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Finish\t\t\t\t\t\t\t\t:"
+                    android:text="Finish\t\t\t\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
@@ -297,14 +304,17 @@
                     android:backgroundTint="#000000"
                     android:textColor="#000000"
                     android:layout_marginLeft="10dp"/>
-
-                <ImageView
-                    android:id="@+id/calFinishSubcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/calendar"
-                    android:layout_marginTop="5dp"/>
             </LinearLayout>
+            <ImageView
+                android:id="@+id/calFinishSubcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/calendar"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/finishSub"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/finishSub"/>
             <LinearLayout
                 android:id="@+id/button"
                 android:layout_width="match_parent"

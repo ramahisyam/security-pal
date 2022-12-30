@@ -11,31 +11,18 @@
 
     <ImageView
         android:id="@+id/industri"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:src="@drawable/industri"
         android:foregroundGravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
         android:layout_marginTop="45dp"/>
 
-    <TextView
-        android:id="@+id/tvHello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello!"
-        android:textSize="30dp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/fredoka_one"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/industri"
-        android:layout_marginTop="70dp"
-        app:layout_constraintHorizontal_bias="0.16"/>
-
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="55dp"
         android:id="@+id/email_employee"
         android:hint="Email"
@@ -46,13 +33,14 @@
         android:background="@drawable/edittext_log"
         android:paddingLeft="10dp"
         android:drawablePadding="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHello"/>
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintTop_toBottomOf="@+id/industri"/>
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_marginTop="15dp"
         android:textColorHint="#858585"
@@ -66,6 +54,7 @@
         android:drawablePadding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintTop_toBottomOf="@+id/email_employee"/>
 
     <Switch
@@ -73,33 +62,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginLeft="157dp"
         android:text="Remember me"
-        android:textColor="@color/white"
+        android:textColor="#174887"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintTop_toBottomOf="@+id/password_employee" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="45dp"
         android:id="@+id/arrow"
-        android:src="@drawable/ic_arrow"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="270dp"
+        android:background="@drawable/gradasi4"
+        android:layout_marginTop="30dp"
+        android:text="LOGIN"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:fontFamily="@font/gabriela"
+        android:drawableRight="@drawable/ic_arrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintTop_toBottomOf="@+id/active">
-    </ImageView>
+    </Button>
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="340dp"
         android:layout_height="30dp"
         android:background="@drawable/bumn"
-        android:layout_marginTop="55dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imageView5"
+        app:layout_constraintVertical_bias="0.85"
         app:layout_constraintTop_toBottomOf="@+id/arrow"/>
 
     <ImageView
@@ -109,6 +104,8 @@
         android:background="@drawable/defend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,253 +3,101 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/button_loc.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/button_pict.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/gradasi3.xml" value="0.25092592592592594" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/gradasi4.xml" value="0.25092592592592594" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_exit.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_lock.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_menu.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_monitor.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_war.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ripple_effect2.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/camerapress.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/date.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/edittext_employ.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/edittext_log.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/edittext_monitoring.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/edittext_splash.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradasi.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradasi2.xml" value="0.14375" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradasi3.xml" value="0.25092592592592594" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradasi4.xml" value="0.25092592592592594" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/gradient.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_arrow.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_baseline_groups_24.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_baseline_playlist_add_check_circle_24.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_camera.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_checkcircle.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_clear.xml" value="0.11851851851851852" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_priority.xml" value="0.11851851851851852" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/ic_username.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/nip.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/orang.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable/user.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_about_us.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_akun_utama.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_barang.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_cometoo_late.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_employee.xml" value="0.2" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_faq.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_guest.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_login2.xml" value="0.176" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_main2.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_menu.xml" value="0.12107396149949341" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.2203125" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.234375" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.234375" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_subcontractor.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/dialog_update.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/item_drawer_main.xml" value="0.12708333333333333" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/item_drawer_main2.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_nav_drawer.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_nav_drawer2.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_toolbar.xml" value="0.13722826086956522" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_toolbar2.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/nested_item.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/slide_item_container.xml" value="0.1802536231884058" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable-v24/bg_round.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable-v24/edittext_setimage.xml" value="0.2037037037037037" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable-v24/et_search1.xml" value="0.12129629629629629" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable-v24/ic_close.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/add.xml" value="0.26205128205128203" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/barang.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/folder.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/ic_folder.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/linearqr.xml" value="0.26205128205128203" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/pdf.xml" value="0.26205128205128203" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/drawable/qrcode.xml" value="0.26205128205128203" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_akun_divisi.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_akun_utama.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_barang.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_check_up.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_cometoo_late.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_detail_exit.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_detail_exit_permission.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_detail_permission.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_division_late_permit.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_doc_subcon.xml" value="0.2" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_doc_subcon2.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_employee.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_employee_permit.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_exit_permission.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_guest.xml" value="0.21875" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_login.xml" value="0.12158054711246201" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_login2.xml" value="0.2" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_main.xml" value="0.20425724637681159" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_main2.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.1838768115942029" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_monitoring_visitor.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_show_qr.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_splash_screen.xml" value="0.12158054711246201" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_subcontractor.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_barang.xml" value="0.2359375" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_cometoolate.xml" value="0.264" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_barang.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_cometoolate.xml" value="0.18297101449275363" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_employee.xml" value="0.1" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_guest.xml" value="0.18297101449275363" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_data_visitor.xml" value="0.2359375" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_guest.xml" value="0.18297101449275363" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_subcon.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_utama_visitor.xml" value="0.2359375" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/activity_visitor.xml" value="0.2" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/progress_dialog.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/row_employee_permission.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/Videos/security-pal/app/src/main/res/layout/row_late_permission.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable-v24/bg_round.xml" value="0.322" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable-v24/button_loc.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable-v24/button_pict.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/arrow_down.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/arrow_up.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/barang.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/bg_round2.xml" value="0.322" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/camerapress.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/edittext_employ.xml" value="0.2985" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/edittext_log.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/edittext_monitoring.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/edittext_save.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/edittext_splash.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/et_white_rect_radious_shape_with_black_stroke.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/gradasi.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/gradasi2.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/gradasi3.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/gradasi4.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_aboutus.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_add.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_addperson.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_faq.xml" value="0.168" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_logout.xml" value="0.2985" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/qrcode.xml" value="0.322" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/font/fredoka_one.xml" value="0.1890625" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/font/gabriela.xml" value="0.1890625" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/font/racing_sans_one.xml" value="0.1890625" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout-v23/row_employee_permission.xml" value="0.146875" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_about_us.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_add_division.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_akun_divisi.xml" value="0.2909803921568627" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_akun_utama.xml" value="0.4136008918617614" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_barang.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_cometoo_late.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_barang.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_division.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_exit.xml" value="0.5" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_exit_permission.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_guest_permit.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_permission.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_division.xml" value="0.24954710144927536" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_division_late_permit.xml" value="0.14791666666666667" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_edit_division.xml" value="0.1671875" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_edit_exit_permit.xml" value="0.37422272470322215" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_edit_goods_permit.xml" value="0.44609164420485176" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_edit_guest_permit.xml" value="0.5" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_edit_late_permit.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_employee.xml" value="0.5" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_employee_permit.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_exit_permission.xml" value="0.15729166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_faq.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_goods_permit_recap.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_guest.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_guest_permission.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_login2.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_main.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_main2.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_main_division.xml" value="0.19322916666666667" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_visitor.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_show_qr.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_splash_screen.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_subcontractor.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_cometoolate.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_data_barang.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_data_cometoolate.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_data_employee.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_data_guest.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_employee.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_guest.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_visitor.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/add_division_dialog.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/dialog_filter.xml" value="0.67" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/dialog_update.xml" value="0.5" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/division_dropdown_item.xml" value="0.34375" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/each_item.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/editor_division_dialog.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/filter_dialog.xml" value="0.2708333333333333" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/fragment_employee_exit.xml" value="0.15729166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/fragment_employee_late.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/fragment_employee_permit.xml" value="0.25" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/grid_division.xml" value="0.1921875" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/grid_division_list.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/list_row_main.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/main_nav_drawer.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/main_toolbar.xml" value="0.21927083333333333" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/nested_item.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/progress_dialog.xml" value="0.1546875" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/progress_dialog1.xml" value="0.2390625" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_department_list.xml" value="0.22708333333333333" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_division_list.xml" value="0.5" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_employee_permission.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_goods_permission.xml" value="0.34375" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_goods_permit_recap.xml" value="0.4600416956219597" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_guest_list.xml" value="0.2" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_late_permission.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_employee_permission.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_goods_permission.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_guest_permission.xml" value="0.22" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_guest_permit.xml" value="0.2708333333333333" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_late_permit.xml" value="0.34375" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_monitoring_goods_permit.xml" value="0.34375" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/rown_main_guest_permit.xml" value="0.33" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/slide_item_container.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/top_menu_permission_employee.xml" value="0.34375" />
-        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.168" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_addperson.xml" value="0.2203125" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_delete.xml" value="0.18072916666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_edit.xml" value="0.18072916666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/drawable-v24/ic_refresh.xml" value="0.2203125" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_about_us.xml" value="0.1" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_cometoo_late.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_employee.xml" value="0.129981884057971" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_faq.xml" value="0.18" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_guest.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_login.xml" value="0.16" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.15" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.1" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.1" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.22" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_splash_screen.xml" value="0.1272644927536232" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/activity_subcontractor.xml" value="0.2" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/dialog_update.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/list_row_main.xml" value="0.16458333333333333" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecurityPTPAL/app/src/main/res/layout/main_nav_drawer.xml" value="0.129981884057971" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_akun_divisi.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_akun_utama.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_barang.xml" value="0.15896739130434784" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_check_up.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_checkup_permit.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_cometoo_late.xml" value="0.15443840579710144" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_barang.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_checkup.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_checkup2.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_checkup_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_division.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_exit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_exit_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_goods.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_guest.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_guest2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_guest_permit.xml" value="0.14990942028985507" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_visitor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_visitor2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_visitor_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_detail_visitor_permit.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_division_late_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_edit_checkup_permit.xml" value="0.2359375" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_edit_exit_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_edit_guest_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_edit_visitor_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_employee_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_exit_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_guest_permission.xml" value="0.16757246376811594" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_guest_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_login_key.xml" value="0.17798913043478262" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_login_key2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_main2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_main_division.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.15896739130434784" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_check_up.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.15760869565217392" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_employee.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_visitor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_barang.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_cometoolate.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_barang.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_checkup.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_cometoolate.xml" value="0.152" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_employee.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_guest.xml" value="0.15760869565217392" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_subcon.xml" value="0.15760869565217392" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_visitor.xml" value="0.17889492753623187" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_guest.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_visitor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_visitor.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_visitor_permit.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/edit_delete.xml" value="0.14990942028985507" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/filter_dialog.xml" value="0.15896739130434784" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/grid_division_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/progress_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/progress_dialog1.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/progress_dialog2.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_checkup_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_division_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_employee_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_goods_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_goods_permit_recap.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_guest_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_main_checkup_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_main_employee_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_main_visitor_permission.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_visitor_list.xml" value="0.25" />
+        <entry key="..\:/Users/Fursan Akzada/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.1234375" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable-v24/edittext_setimage.xml" value="0.21510416666666668" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/edittext_scan.xml" value="0.21510416666666668" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/ic_code.xml" value="0.2203125" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_barang.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_exit_permission.xml" value="0.25" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_permission.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_visitor.xml" value="0.13269927536231885" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_edit_goods_permit.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_employee.xml" value="0.11277173913043478" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_main2.xml" value="0.2" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_parking_subcontractor.xml" value="0.22" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_data_barang.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_data_checkup.xml" value="0.12545289855072464" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_data_parksub.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_data_subcon.xml" value="0.12545289855072464" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/main_nav_drawer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/progress_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/progress_dialog1.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/progress_dialog2.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

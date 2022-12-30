@@ -184,6 +184,31 @@
                 android:gravity="center_vertical"
                 android:background="@drawable/ripple_effect2"
                 android:layout_marginTop="16dp"
+                android:onClick="ClickParksub">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/fredoka_one"
+                    android:padding="12dp"
+                    android:text="Parking Subcontractor"
+                    android:textColor="#000000" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="48dp"
+                    android:src="@drawable/parksub"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/ripple_effect2"
+                android:layout_marginTop="16dp"
                 android:onClick="ClickGuest">
 
                 <TextView

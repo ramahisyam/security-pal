@@ -23,6 +23,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -69,6 +70,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class UtamaDataEmployee extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
 
     private RecyclerView recyclerView;
@@ -103,7 +106,6 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
 //        progressDialog.setTitle("Loading");
 //        progressDialog.setMessage("Getting data...");
         progressDialog = new ProgressDialog(UtamaDataEmployee.this);
-        imgSignOut = findViewById(R.id.sign_out_main_permit);
 
         userID = mAuth.getCurrentUser().getUid();
 
@@ -167,25 +169,45 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
             @Override
             public void onClick(int pos) {
                 final CharSequence[] dialogItem = {"Edit", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataEmployee.this);
-                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataEmployee.this);
+                View layout = getLayoutInflater().inflate(R.layout.edit_delete, null);
+                Button btnEdit = layout.findViewById(R.id.btn_edt);
+                Button btnDelete = layout.findViewById(R.id.btn_dlt);
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-//                                editData(list, pos);
-                                Intent intentEdit = new Intent(getApplicationContext(), EditExitPermitActivity.class);
-                                intentEdit.putExtra("MAIN_EDIT_EXIT_PERMIT", list.get(pos));
-                                startActivity(intentEdit);
-//                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
-                                break;
-                            case 1:
-                                deleteData(list.get(pos).getId());
-                                break;
-                        }
-                    }
+                btnEdit.setOnClickListener(view1 -> {
+                    Intent intentEdit = new Intent(getApplicationContext(), EditExitPermitActivity.class);
+                    intentEdit.putExtra("MAIN_EDIT_EXIT_PERMIT", list.get(pos));
+                    startActivity(intentEdit);
+                    dialog.dismiss();
                 });
+                btnDelete.setOnClickListener(view1 -> {
+                    new SweetAlertDialog(UtamaDataEmployee.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Warning!!!")
+                            .setContentText("Are you sure want to delete this data ?")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    try{
+                                        deleteData(list.get(pos).getId());
+                                        sDialog.dismissWithAnimation();
+                                        StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                    } catch (Exception e) {
+                                        Log.e("error",e.getMessage());
+                                    }
+                                }
+                            })
+                            .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                    dialog.dismiss();
+                });
+                builder.setView(layout);
+                dialog = builder.create();
                 dialog.show();
             }
         });
@@ -643,7 +665,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
     }
 
     public void ClickEdit(View view){
-        AkunUtama.redirectActivity(this, AkunUtama.class);
+        AkunUtama.redirectActivity(this, MainDivisionActivity.class);
     }
 
     public void ClickExit(View view){
