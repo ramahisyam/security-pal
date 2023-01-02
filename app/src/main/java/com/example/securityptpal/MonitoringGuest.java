@@ -168,6 +168,8 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
 
     @Override
     public void onGuestClick(int position) {
-
+        Intent intent = new Intent(MonitoringGuest.this, DetailGuestPermitActivity.class);
+        intent.putExtra("MAIN_GUEST_PERMIT", list.get(position));
+        startActivity(intent);
     }
 }

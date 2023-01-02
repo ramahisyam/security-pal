@@ -47,6 +47,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -307,48 +308,38 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
         progressDialog.getWindow().setBackgroundDrawableResource(
                 android.R.color.transparent
         );
-        db.collection("permission_employee")
-                .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                PermissionEmployee permissionEmployee = new PermissionEmployee(
-                                        document.getId(),
-                                        document.getString("base"),
-                                        document.getString("name"),
-                                        document.getString("nip"),
-                                        document.getString("division"),
-                                        document.getString("date"),
-                                        document.getString("necessity"),
-                                        document.getString("place"),
-                                        document.getString("timeout"),
-                                        document.getString("timeback"),
-                                        document.getString("division_approval"),
-                                        document.getString("center_approval"),
-                                        document.getString("employee_status"),
-                                        document.getString("department")
-                                );
-                                list.add(permissionEmployee);
-                            }
-                            mainEmployeePermitAdapter.notifyDataSetChanged();
-                        } else {
-                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                        }
-                        progressDialog.dismiss();
+        db.collection("permission_employee").orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                if (value != null) {
+                    for (QueryDocumentSnapshot  document : value) {
+                        PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                document.getId(),
+                                document.getString("base"),
+                                document.getString("name"),
+                                document.getString("nip"),
+                                document.getString("division"),
+                                document.getString("date"),
+                                document.getString("necessity"),
+                                document.getString("place"),
+                                document.getString("timeout"),
+                                document.getString("timeback"),
+                                document.getString("division_approval"),
+                                document.getString("center_approval"),
+                                document.getString("employee_status"),
+                                document.getString("department")
+                        );
+                        list.add(permissionEmployee);
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataEmployee.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
+                    mainEmployeePermitAdapter.notifyDataSetChanged();
+                } else {
+                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
     }
 
     private void showAllDataAsc() {
@@ -359,46 +350,38 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
         );
         db.collection("permission_employee")
                 .orderBy("date", Query.Direction.ASCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                PermissionEmployee permissionEmployee = new PermissionEmployee(
-                                        document.getId(),
-                                        document.getString("base"),
-                                        document.getString("name"),
-                                        document.getString("nip"),
-                                        document.getString("division"),
-                                        document.getString("date"),
-                                        document.getString("necessity"),
-                                        document.getString("place"),
-                                        document.getString("timeout"),
-                                        document.getString("timeback"),
-                                        document.getString("division_approval"),
-                                        document.getString("center_approval"),
-                                        document.getString("employee_status"),
-                                        document.getString("department")
-                                );
-                                list.add(permissionEmployee);
-                            }
-                            mainEmployeePermitAdapter.notifyDataSetChanged();
-                        } else {
-                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                        }
-                        progressDialog.dismiss();
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                if (value != null) {
+                    for (QueryDocumentSnapshot  document : value) {
+                        PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                document.getId(),
+                                document.getString("base"),
+                                document.getString("name"),
+                                document.getString("nip"),
+                                document.getString("division"),
+                                document.getString("date"),
+                                document.getString("necessity"),
+                                document.getString("place"),
+                                document.getString("timeout"),
+                                document.getString("timeback"),
+                                document.getString("division_approval"),
+                                document.getString("center_approval"),
+                                document.getString("employee_status"),
+                                document.getString("department")
+                        );
+                        list.add(permissionEmployee);
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataEmployee.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
+                    mainEmployeePermitAdapter.notifyDataSetChanged();
+                } else {
+                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
     }
 
     private void searchData(String nip) {
@@ -667,7 +650,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
     @Override
     protected void onResume() {
         super.onResume();
-        showAllDataDesc();
+        filter(filterCode);
     }
 
     @Override
