@@ -74,8 +74,11 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
         recyclerView = findViewById(R.id.rv_div_late_permit);
         searchView = findViewById(R.id.div_search_late_permission);
         progressDialog = new ProgressDialog(DivisionLatePermitActivity.this);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Getting data...");
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
 
         latePermissionAdapter = new LatePermissionAdapter(this, list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

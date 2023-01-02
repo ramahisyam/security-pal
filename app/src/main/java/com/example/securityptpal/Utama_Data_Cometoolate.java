@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -34,6 +35,7 @@ import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.EditLatePermitActivity;
+import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.example.securityptpal.model.PermissionLate;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,6 +48,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -58,6 +61,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
 
@@ -105,23 +110,45 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
             @Override
             public void onClick(int pos) {
                 final CharSequence[] dialogItem = {"Edit", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(Utama_Data_Cometoolate.this);
-                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Utama_Data_Cometoolate.this);
+                View layout = getLayoutInflater().inflate(R.layout.edit_delete, null);
+                Button btnEdit = layout.findViewById(R.id.btn_edt);
+                Button btnDelete = layout.findViewById(R.id.btn_dlt);
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-                                Intent intentEdit = new Intent(getApplicationContext(), EditLatePermitActivity.class);
-                                intentEdit.putExtra("MAIN_EDIT_LATE_PERMIT", list.get(pos));
-                                startActivity(intentEdit);
-                                break;
-                            case 1:
-                                deleteData(list.get(pos).getId(), list.get(pos).getImg());
-                                break;
-                        }
-                    }
+                btnEdit.setOnClickListener(view1 -> {
+                    Intent intentEdit = new Intent(getApplicationContext(), EditLatePermitActivity.class);
+                    intentEdit.putExtra("MAIN_EDIT_LATE_PERMIT", list.get(pos));
+                    startActivity(intentEdit);
+                    dialog.dismiss();
                 });
+                btnDelete.setOnClickListener(view1 -> {
+                    new SweetAlertDialog(Utama_Data_Cometoolate.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Warning!!!")
+                            .setContentText("Are you sure want to delete this data ?")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    try{
+                                        deleteData(list.get(pos).getId(), list.get(pos).getImg());
+                                        sDialog.dismissWithAnimation();
+                                        StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                    } catch (Exception e) {
+                                        Log.e("error",e.getMessage());
+                                    }
+                                }
+                            })
+                            .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                    dialog.dismiss();
+                });
+                builder.setView(layout);
+                dialog = builder.create();
                 dialog.show();
             }
         });
@@ -548,7 +575,7 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
     }
 
     public void ClickEdit(View view){
-        AkunUtama.redirectActivity(this, AkunUtama.class);
+        AkunUtama.redirectActivity(this, MainDivisionActivity.class);
     }
 
     public void ClickExit(View view){

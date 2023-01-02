@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="QRCode"
             android:fontFamily="@font/fredoka_one"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:textColor="@color/black"/>
     </LinearLayout>
     <LinearLayout
@@ -36,15 +36,16 @@
         android:background="@drawable/linearqr">
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"/>
+            android:layout_height="300dp"
+            android:layout_margin="30dp"
+            android:src="@drawable/qrhcm"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:text="Scan Me"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:fontFamily="@font/fredoka_one"
             android:textColor="@color/white"/>
     </LinearLayout>

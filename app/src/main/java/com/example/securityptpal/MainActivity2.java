@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    ImageView employee, subcon, guest, cometoolate, visitor, checkup;
+    ImageView employee, subcon, guest, cometoolate, visitor, checkup, parksub;
     private ViewPager2 viewPager2;
     private Handler sliderHandler = new Handler();
     TextView textView;
@@ -40,6 +40,7 @@ public class MainActivity2 extends AppCompatActivity {
         cometoolate = findViewById(R.id.cometoolate);
         visitor = findViewById(R.id.visitor);
         checkup = findViewById(R.id.checkup);
+        parksub = findViewById(R.id.parksub);
 
 
         employee.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +55,14 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity2.this, Login2.class);
+                startActivity(intent);
+            }
+        });
+
+        parksub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity2.this, ParkingSubcontractor.class);
                 startActivity(intent);
             }
         });
@@ -77,7 +86,7 @@ public class MainActivity2 extends AppCompatActivity {
         visitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, Visitor.class);
+                Intent intent = new Intent(MainActivity2.this, VisitorPermissionActivity.class);
                 startActivity(intent);
             }
         });
@@ -85,7 +94,7 @@ public class MainActivity2 extends AppCompatActivity {
         checkup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, CheckUp.class);
+                Intent intent = new Intent(MainActivity2.this, CheckUpPermissionActivity.class);
                 startActivity(intent);
             }
         });

@@ -112,7 +112,7 @@
                     android:textColor="#174887"
                     android:textSize="16sp" />
                 <TextView
-                    android:id="@+id/edtDivisionLate"
+                    android:id="@+id/edtpicGoods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -139,7 +139,34 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/editDivGoods"
+                    android:id="@+id/edtDivGoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#000000"
+                    android:textColor="#000000" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/input_departG_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_divG_layout">
+                <TextView
+                    android:id="@+id/departGoods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Department         :"
+                    android:textColor="#174887"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/edtDepartGoods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -155,7 +182,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_divG_layout">
+                app:layout_constraintTop_toBottomOf="@+id/input_departG_layout">
                 <TextView
                     android:id="@+id/itemGoods"
                     android:layout_width="wrap_content"

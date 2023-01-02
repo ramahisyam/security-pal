@@ -15,11 +15,13 @@ public class Guest implements Parcelable {
     private String date;
     private String timeIn;
     private String timeOut;
+    private String division_approval;
+    private String center_approval;
 
     public Guest() {
     }
 
-    public Guest(String id, String name, String company, String phone, String division, String department, String pic, String necessity, String date, String timeIn, String timeOut) {
+    public Guest(String id, String name, String company, String phone, String division, String department, String pic, String necessity, String date, String timeIn, String timeOut, String division_approval, String center_approval) {
         this.id = id;
         this.name = name;
         this.company = company;
@@ -31,6 +33,8 @@ public class Guest implements Parcelable {
         this.date = date;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
+        this.division_approval = division_approval;
+        this.center_approval = center_approval;
     }
 
     protected Guest(Parcel in) {
@@ -45,6 +49,8 @@ public class Guest implements Parcelable {
         date = in.readString();
         timeIn = in.readString();
         timeOut = in.readString();
+        division_approval = in.readString();
+        center_approval = in.readString();
     }
 
     public static final Creator<Guest> CREATOR = new Creator<Guest>() {
@@ -147,6 +153,22 @@ public class Guest implements Parcelable {
         this.timeOut = timeOut;
     }
 
+    public String getDivision_approval() {
+        return division_approval;
+    }
+
+    public void setDivision_approval(String division_approval) {
+        this.division_approval = division_approval;
+    }
+
+    public String getCenter_approval() {
+        return center_approval;
+    }
+
+    public void setCenter_approval(String center_approval) {
+        this.center_approval = center_approval;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -165,5 +187,7 @@ public class Guest implements Parcelable {
         parcel.writeString(date);
         parcel.writeString(timeIn);
         parcel.writeString(timeOut);
+        parcel.writeString(division_approval);
+        parcel.writeString(center_approval);
     }
 }

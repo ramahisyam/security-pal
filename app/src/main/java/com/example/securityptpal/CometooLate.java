@@ -115,7 +115,6 @@ public class CometooLate extends AppCompatActivity {
         statusList.add("PKWTT");
 
         ArrayList<String> statusList = new ArrayList<>();
-
         statusList.add("PKWT");
         statusList.add("PKWTT");
 
@@ -268,6 +267,10 @@ public class CometooLate extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        progressDialog = new ProgressDialog(CometooLate.this);
+        progressDialog.setTitle("Getting data");
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
@@ -281,8 +284,10 @@ public class CometooLate extends AppCompatActivity {
                         txtLatitude.setText(Html.fromHtml("<font color = '000000'></font>" + addresses.get(0).getLatitude()));
                         txtLongitude.setText(Html.fromHtml("<font color = '000000'></font>" + addresses.get(0).getLongitude()));
                         txtLocation.setText(Html.fromHtml("<font color = '000000'></font>" + addresses.get(0).getAddressLine(0)));
+                        progressDialog.dismiss();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        progressDialog.dismiss();
                     }
                 }
             }
@@ -336,7 +341,6 @@ public class CometooLate extends AppCompatActivity {
             String dateString = dateFormat.format(dateCurrent);
             txtDate.setText(dateString);
             txtDevice.setText(device);
-            getLocation();
             StyleableToast.makeText(getApplicationContext(), "Image has been Captured!", Toast.LENGTH_SHORT, R.style.result).show();
         }else {
             StyleableToast.makeText(getApplicationContext(), "No Image Captured!", Toast.LENGTH_SHORT, R.style.warning).show();
@@ -446,7 +450,7 @@ public class CometooLate extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        startActivity(new Intent(this, MainActivity2.class));
+        startActivity(new Intent(this, MainActivity2.class));
         finish();
     }
 }

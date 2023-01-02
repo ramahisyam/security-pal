@@ -49,12 +49,14 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchData(query);
+//                searchData(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                searchData(newText);
+
                 return false;
             }
         });
@@ -69,9 +71,11 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
     }
 
     private void searchData(String name) {
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_guest")
                 .whereEqualTo("name", name)
                 .orderBy("date", Query.Direction.DESCENDING)
@@ -94,7 +98,9 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
                                         document.getString("necessity"),
                                         document.getString("date"),
                                         document.getString("timeIn"),
-                                        document.getString("timeOut")
+                                        document.getString("timeOut"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
                                 );
                                 list.add(guest);
                             }
@@ -116,10 +122,13 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
     }
 
     private void showAllData(){
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("permission_guest")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -139,7 +148,9 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
                                         document.getString("necessity"),
                                         document.getString("date"),
                                         document.getString("timeIn"),
-                                        document.getString("timeOut")
+                                        document.getString("timeOut"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
                                 );
                                 list.add(guest);
                             }
