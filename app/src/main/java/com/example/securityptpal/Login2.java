@@ -14,12 +14,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.securityptpal.division.AkunDivisi;
+import com.example.securityptpal.employee.Employee;
+import com.example.securityptpal.main.AkunUtama;
+import com.example.securityptpal.main.UtamaDataEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
@@ -31,12 +41,17 @@ public class Login2 extends AppCompatActivity {
     Button login;
     String email, password;
     private FirebaseAuth mAuth;
+    FirebaseFirestore db;
+    String userID;
+    Switch active;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        active = findViewById(R.id.active_subcon);
         forget = findViewById(R.id.forgetpass);
         reg = findViewById(R.id.register);
         em = findViewById(R.id.username);
@@ -109,14 +124,38 @@ public class Login2 extends AppCompatActivity {
                         })
                         .show();
             }else{
+                FirebaseAuth.getInstance().signOut();
+                Preferences.clearData(Login2.this);
                 mAuth.signInWithEmailAndPassword(email,password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    userID = mAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = db.collection("users").document(userID);
+                                    documentReference.addSnapshotListener(Login2.this, new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                            if (active.isChecked()) {
+                                                if (value.getString("role").equals("subcon")) {
+                                                    Preferences.setDataLogin(Login2.this, true);
+                                                    Preferences.setDataRole(Login2.this, "subcon");
+                                                    StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_LONG,R.style.logsuccess).show();
+                                                    startActivity(new Intent(Login2.this,Subcontractor.class));
+                                                    finish();
+                                                }
+                                            }else {
+                                                if (value.getString("role").equals("subcon")) {
+                                                    Preferences.setDataLogin(Login2.this, false);
+                                                    StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_LONG,R.style.logsuccess).show();
+                                                    startActivity(new Intent(Login2.this,Subcontractor.class));
+                                                    finish();
+                                                }
+                                            }
+                                        }
+                                    });
                                     // Sign in success, update UI with the signed-in user's information
-                                    StyleableToast.makeText(getApplicationContext(),"Login Success", Toast.LENGTH_LONG,R.style.logsuccess).show();
-                                    startActivity(new Intent(Login2.this,Subcontractor.class));
+
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Alerter.create(Login2.this)
@@ -162,5 +201,16 @@ public class Login2 extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(this, MainActivity2.class));
         finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Preferences.getDataLogin(this)) {
+            if (Preferences.getDataRole(this).equals("subcon")) {
+                startActivity(new Intent(this, Subcontractor.class));
+                finish();
+            }
+        }
     }
 }

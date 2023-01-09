@@ -20,13 +20,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.securityptpal.main.AkunUtama;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Subcontractor extends AppCompatActivity {
-    ImageView calStart, calFinish, btAdd,btReset;
+    ImageView calStart, calFinish, btAdd,btReset, imgSignOut;
     EditText edtStart, edtFinish, editText;
     Button monitoring;
     DatePickerDialog.OnDateSetListener setListener;
@@ -57,6 +59,7 @@ public class Subcontractor extends AppCompatActivity {
         btReset = findViewById(R.id.bt_reset);
         recyclerView = findViewById(R.id.recycler_view);
         txtDepart = findViewById(R.id.txtdepartSubcon);
+        imgSignOut = findViewById(R.id.sign_out_subcon);
 
         database = RoomDB.getInstance(this);
         dataList = database.mainDao().getAll();
@@ -201,32 +204,10 @@ public class Subcontractor extends AppCompatActivity {
 
             }
         });
-    }
 
-    public static void logout(Activity activity){
-        new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("LOGOUT")
-                .setContentText("Are you sure want to logout ?")
-                .setConfirmText("OK")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        activity.startActivity(new Intent(activity,MainActivity2.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                        activity.finish();
-                    }
-                })
-                .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                    }
-                })
-                .show();
-    }
-
-    @Override
-    public void onBackPressed(){
-        logout(this);
+        imgSignOut.setOnClickListener(view -> {
+            LogoutAccount.logout(Subcontractor.this);
+        });
     }
 
     public void openMonitoringSubcontractor() {
