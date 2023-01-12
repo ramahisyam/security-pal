@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/sign_out_permission"
+                android:id="@+id/sign_out_subcon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginEnd="16dp"
@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@id/bt_add"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/compSub">
@@ -100,6 +101,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginEnd="50dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/nameEmSub"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/nameEmSub"/>
@@ -111,6 +113,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/nameEmSub"
                 app:layout_constraintStart_toEndOf="@id/bt_add"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/recycler_view"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 tools:listitem="@layout/list_row_main"/>
             </LinearLayout>
             <LinearLayout
@@ -208,7 +212,7 @@
                     android:textSize="16sp" />
 
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/spinner_division_subcon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintText="Select Division"
@@ -234,13 +238,12 @@
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/txtdepartSubcon"
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/spinner_department_subcon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#000000"
-                    android:textColor="#000000"
-                    android:layout_marginLeft="10dp"/>
+                    app:hintText="Select Department"
+                    android:layout_marginLeft="5dp"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/startSub"
