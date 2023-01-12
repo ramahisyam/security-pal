@@ -2,8 +2,11 @@ package com.example.securityptpal;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,14 +16,31 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.securityptpal.employee.Employee;
 import com.example.securityptpal.main.AkunUtama;
+import com.example.securityptpal.model.Division;
+import com.example.securityptpal.model.PermissionEmployee;
+import com.example.securityptpal.model.Subcon;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
+import com.tapadoo.alerter.Alerter;
+import com.tapadoo.alerter.OnHideAlertListener;
+import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +49,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Subcontractor extends AppCompatActivity {
     ImageView calStart, calFinish, btAdd,btReset, imgSignOut;
-    EditText edtStart, edtFinish, editText;
-    Button monitoring;
+    EditText edtStart, edtFinish, editText, edtCompany, edtPhone, edtNecessity;
+    Button monitoring, submit;
     DatePickerDialog.OnDateSetListener setListener;
     RecyclerView recyclerView;
     TextView txtDepart;
@@ -39,27 +59,42 @@ public class Subcontractor extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     RoomDB database;
     MainAdapter adapter;
+    private ProgressDialog progressDialog;
+    FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    ArrayList<String> divisionList, departmentList;
+    private List<Division> departments;
+    private ArrayAdapter divSpinnerAdapter, depSpinnerAdapter;
+    String company, phone, necessity, division, department, timeStart, timeFinish, userID;
 
-    Spinner spinner;
+    Spinner divSpinner, depSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subcontractor);
+        progressDialog = new ProgressDialog(Subcontractor.this);
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
 
         calStart = findViewById(R.id.calStartSubcon);
         calFinish = findViewById(R.id.calFinishSubcon);
         edtStart = findViewById(R.id.edtstartSubcon);
         edtFinish = findViewById(R.id.edtFinishSubcon);
-        spinner = findViewById(R.id.spinner);
+        edtCompany = findViewById(R.id.edtCompanySubcon);
+        edtPhone = findViewById(R.id.edtPhoneBosSubcon);
+        edtNecessity = findViewById(R.id.edtNecessitySubcon);
+        divSpinner = findViewById(R.id.spinner_division_subcon);
         monitoring = findViewById(R.id.gotoMonitoring);
 
         editText = findViewById(R.id.edit_text);
         btAdd = findViewById(R.id.bt_add);
         btReset = findViewById(R.id.bt_reset);
         recyclerView = findViewById(R.id.recycler_view);
-        txtDepart = findViewById(R.id.txtdepartSubcon);
+        depSpinner = findViewById(R.id.spinner_department_subcon);
         imgSignOut = findViewById(R.id.sign_out_subcon);
+        submit = findViewById(R.id.submitSubcon);
 
         database = RoomDB.getInstance(this);
         dataList = database.mainDao().getAll();
@@ -98,32 +133,6 @@ public class Subcontractor extends AppCompatActivity {
         final int year = calendar.get(java.util.Calendar.YEAR);
         final int month = calendar.get(java.util.Calendar.MONTH);
         final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-
-        ArrayList<String> numberList = new ArrayList<>();
-
-//        numberList.add("");
-        numberList.add("General Engineering");
-        numberList.add("Merchant Ship");
-        numberList.add("Warship");
-        numberList.add("Submarine");
-        numberList.add("Maintenance & Repair");
-        numberList.add("Production Management Office");
-        numberList.add("Ship Marketing & Sales");
-        numberList.add("Recumalable Sales");
-        numberList.add("Supply Chain");
-        numberList.add("Area & K3LH");
-        numberList.add("Company Strategic Planning");
-        numberList.add("Treasury");
-        numberList.add("Accountancy");
-        numberList.add("Human Capital Management");
-        numberList.add("Risk");
-        numberList.add("Office of The Board");
-        numberList.add("Legal");
-        numberList.add("Technology & Quality Assurance");
-        numberList.add("Company Secretary");
-        numberList.add("Internal Control Unit");
-        numberList.add("Information Technology");
-        numberList.add("Design");
 
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,39 +173,27 @@ public class Subcontractor extends AppCompatActivity {
             }
         });
 
-        spinner.setAdapter(new ArrayAdapter<>(Subcontractor.this,
-                android.R.layout.simple_spinner_dropdown_item, numberList));
+        imgSignOut.setOnClickListener(view -> {
+            LogoutAccount.logout(Subcontractor.this);
+        });
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        getDivision();
+        divisionList = new ArrayList<>();
+        departmentList = new ArrayList<>();
+        divSpinnerAdapter = new ArrayAdapter<>(Subcontractor.this,
+                android.R.layout.simple_spinner_dropdown_item, divisionList);
+        divSpinner.setAdapter(divSpinnerAdapter);
+        divSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (i == 0){
-//                    Toast.makeText(getApplicationContext(),
-//                            "Please Select Division",Toast.LENGTH_SHORT).show();
-//                    textView.setText("");
-//                }else{
-//                    String sNumber = adapterView.getItemAtPosition(i).toString();
-//                    textView.setText(sNumber);
-//                }
-                String sNumber = adapterView.getItemAtPosition(i).toString();
-//                textView.setText(sNumber);
-                if (i == 0 || i == 1 || i == 2|| i == 3|| i == 4|| i == 5){
-                    txtDepart.setText("Production Directorate");
-                }else if (i == 6 || i == 7 || i == 8 || i == 9){
-                    txtDepart.setText("Marketing Directorate");
+
+                departmentList.clear();
+                for (String mDepartment : departments.get(i).getDepartment()){
+                    departmentList.add(mDepartment);
                 }
-                else if (i == 10 || i == 11 || i == 12 || i == 13 || i == 14){
-                    txtDepart.setText("Directorate of Finance, Risk Management & HR");
-                }
-                else if (i == 15 || i == 16){
-                    txtDepart.setText("SEVP Transformation Management");
-                }
-                else if (i == 17){
-                    txtDepart.setText("SEVP Technology & Naval System");
-                }
-                else if (i == 18 || i == 19 || i == 20 || i == 21){
-                    txtDepart.setText("-");
-                }
+                depSpinnerAdapter = new ArrayAdapter<>(Subcontractor.this,
+                        android.R.layout.simple_spinner_dropdown_item, departmentList);
+                depSpinner.setAdapter(depSpinnerAdapter);
             }
 
             @Override
@@ -205,8 +202,130 @@ public class Subcontractor extends AppCompatActivity {
             }
         });
 
-        imgSignOut.setOnClickListener(view -> {
-            LogoutAccount.logout(Subcontractor.this);
+        submit.setOnClickListener(view -> {
+            try{
+                if (TextUtils.isEmpty(edtCompany.getText().toString()) || TextUtils.isEmpty(edtPhone.getText().toString()) || TextUtils.isEmpty(edtNecessity.getText().toString()) || TextUtils.isEmpty(edtStart.getText().toString()) || TextUtils.isEmpty(edtFinish.getText().toString())){
+//                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+                    Alerter.create(Subcontractor.this)
+                            .setTitle("Add Data Failed!")
+                            .setText("Please fill all the data")
+                            .setIcon(R.drawable.ic_close)
+                            .setBackgroundColorRes(android.R.color.holo_red_dark)
+                            .setDuration(2000)
+                            .enableSwipeToDismiss()
+                            .enableProgress(true)
+                            .setProgressColorRes(R.color.design_default_color_primary)
+                            .setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            })
+                            .setOnShowListener(new OnShowAlertListener() {
+                                @Override
+                                public void onShow() {
+
+                                }
+                            })
+                            .setOnHideListener(new OnHideAlertListener() {
+                                @Override
+                                public void onHide() {
+
+                                }
+                            })
+                            .show();
+                }else{
+                    company = edtCompany.getText().toString();
+                    phone = edtPhone.getText().toString();
+                    necessity = edtNecessity.getText().toString();
+                    division = divSpinner.getSelectedItem().toString();
+                    department = depSpinner.getSelectedItem().toString();
+                    timeStart = edtStart.getText().toString();
+                    timeFinish = edtFinish.getText().toString();
+
+                    progressDialog = new ProgressDialog(Subcontractor.this);
+                    progressDialog.show();
+                    progressDialog.setContentView(R.layout.progress_dialog);
+                    progressDialog.getWindow().setBackgroundDrawableResource(
+                            android.R.color.transparent
+                    );
+                    Thread timer = new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                sleep(2000);
+                                Intent intent = new Intent(getApplicationContext(),Subcontractor.class);
+                                startActivity(intent);
+                                progressDialog.dismiss();
+                                finish();
+                                super.run();
+                            }catch (InterruptedException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    timer.start();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //do something
+                            StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                        }
+                    }, 2000 );
+                    Subcon subcon = new Subcon(
+                            db.collection("subcontractor").document().getId(),
+                            company,
+                            phone,
+                            necessity,
+                            division,
+                            department,
+                            timeStart,
+                            timeFinish,
+                            userID
+                    );
+                    db.collection("subcontractor").add(subcon).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            //StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                            progressDialog.dismiss();
+                        }
+                    });
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void getDivision() {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Fetching division data...");
+        progressDialog.show();
+        db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                progressDialog.hide();
+                departments = queryDocumentSnapshots.toObjects(Division.class);
+                if (queryDocumentSnapshots.size()>0) {
+                    divisionList.clear();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        divisionList.add(doc.getString("name"));
+                    }
+                    divSpinnerAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.hide();
+                Toast.makeText(Subcontractor.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
