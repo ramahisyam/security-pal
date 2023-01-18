@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".DetailSubconActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailGuestAct"
             android:exported="false" />
         <activity
