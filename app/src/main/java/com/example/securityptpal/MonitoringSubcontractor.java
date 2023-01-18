@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.securityptpal.adapter.MonitoringGoodsPermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.adapter.SubconAdapter;
 import com.example.securityptpal.model.Barang;
 import com.example.securityptpal.model.PermissionEmployee;
@@ -31,7 +32,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonitoringSubcontractor extends AppCompatActivity implements OnPermitListener {
+public class MonitoringSubcontractor extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Subcon> list = new ArrayList<>();
@@ -51,7 +52,7 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getUid();
 
-        subconAdapter = new SubconAdapter(this, list, this);
+        subconAdapter = new SubconAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -105,6 +106,13 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
 
     @Override
     public void onPermitClick(int position) {
+        Intent intent = new Intent(MonitoringSubcontractor.this, DetailSubconActivity.class);
+        intent.putExtra("SUBCON_DETAIL", list.get(position));
+        startActivity(intent);
+    }
 
+    @Override
+    public void onLongCLickListener(int pos) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
     }
 }
