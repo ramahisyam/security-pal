@@ -281,7 +281,9 @@ public class Subcontractor extends AppCompatActivity {
                             department,
                             timeStart,
                             timeFinish,
-                            userID
+                            userID,
+                            "Pending",
+                            "Pending"
                     );
                     db.collection("subcontractor").add(subcon).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
