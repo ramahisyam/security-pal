@@ -84,7 +84,9 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                                 document.getString("department"),
                                 document.getString("startDate"),
                                 document.getString("finishDate"),
-                                document.getString("userID")
+                                document.getString("userID"),
+                                document.getString("division_approval"),
+                                document.getString("center_approval")
                         );
                         list.add(subcon);
                     }

@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".main.EditSubconPermitActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailSubconActivity"
             android:exported="false" />
         <activity

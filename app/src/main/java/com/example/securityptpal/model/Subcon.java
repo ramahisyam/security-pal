@@ -13,11 +13,13 @@ public class Subcon implements Parcelable {
     private String startDate;
     private String finishDate;
     private String userID;
+    private String division_approval;
+    private String center_approval;
 
     public Subcon() {
     }
 
-    public Subcon(String id, String company, String phone, String necessity, String division, String department, String startDate, String finishDate, String userID) {
+    public Subcon(String id, String company, String phone, String necessity, String division, String department, String startDate, String finishDate, String userID, String division_approval, String center_approval) {
         this.id = id;
         this.company = company;
         this.phone = phone;
@@ -27,6 +29,8 @@ public class Subcon implements Parcelable {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.userID = userID;
+        this.division_approval = division_approval;
+        this.center_approval = center_approval;
     }
 
     protected Subcon(Parcel in) {
@@ -39,6 +43,8 @@ public class Subcon implements Parcelable {
         startDate = in.readString();
         finishDate = in.readString();
         userID = in.readString();
+        division_approval = in.readString();
+        center_approval = in.readString();
     }
 
     public static final Creator<Subcon> CREATOR = new Creator<Subcon>() {
@@ -125,6 +131,22 @@ public class Subcon implements Parcelable {
         this.userID = userID;
     }
 
+    public String getDivision_approval() {
+        return division_approval;
+    }
+
+    public void setDivision_approval(String division_approval) {
+        this.division_approval = division_approval;
+    }
+
+    public String getCenter_approval() {
+        return center_approval;
+    }
+
+    public void setCenter_approval(String center_approval) {
+        this.center_approval = center_approval;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -141,5 +163,7 @@ public class Subcon implements Parcelable {
         parcel.writeString(startDate);
         parcel.writeString(finishDate);
         parcel.writeString(userID);
+        parcel.writeString(division_approval);
+        parcel.writeString(center_approval);
     }
 }
