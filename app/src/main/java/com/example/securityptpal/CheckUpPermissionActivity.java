@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.model.CheckUp;
 import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.Visitor;
@@ -39,6 +40,7 @@ import java.util.List;
 
 public class CheckUpPermissionActivity extends AppCompatActivity {
 
+    private ImageView imgSignOut;
     Spinner spinner, spinner1, spinner2, spinner3;
     Button submitCheckup, monitoring;
     TextView edtDepartCheckup;
@@ -67,11 +69,19 @@ public class CheckUpPermissionActivity extends AppCompatActivity {
         dateCheckup = findViewById(R.id.dateCheckup);
         monitoring = findViewById(R.id.gotoMonitoring);
         progressDialog = new ProgressDialog(CheckUpPermissionActivity.this);
+        imgSignOut = findViewById(R.id.sign_out_checkup_account);
 
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         final int year = calendar.get(java.util.Calendar.YEAR);
         final int month = calendar.get(java.util.Calendar.MONTH);
         final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+
+        imgSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogoutAccount.logout(CheckUpPermissionActivity.this);
+            }
+        });
 
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override

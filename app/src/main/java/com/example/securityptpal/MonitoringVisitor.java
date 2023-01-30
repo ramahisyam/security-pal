@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +52,13 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                searchData(query);
+                searchData(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchData(newText);
+//                searchData(newText);
                 return false;
             }
         });
@@ -65,7 +66,7 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showAllData();
+//                showAllData();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -76,7 +77,7 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(visitorAdapter);
-        showAllData();
+//        showAllData();
     }
 
     private void searchData(String name) {
@@ -131,55 +132,54 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
                 });
     }
 
-    private void showAllData(){
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog2);
-        progressDialog.getWindow().setBackgroundDrawableResource(
-                android.R.color.transparent
-        );
-        db.collection("permission_visitor")
-                .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Visitor visitor = new Visitor(
-                                        document.getId(),
-                                        document.getString("name"),
-                                        document.getString("company"),
-                                        document.getString("phone"),
-                                        document.getString("division"),
-                                        document.getString("department"),
-                                        document.getString("pic"),
-                                        document.getString("necessity"),
-                                        document.getString("date"),
-                                        document.getString("timein"),
-                                        document.getString("timeout"),
-                                        document.getString("division_approval"),
-                                        document.getString("center_approval")
-                                );
-                                list.add(visitor);
-                            }
-                            visitorAdapter.notifyDataSetChanged();
-                            progressDialog.dismiss();
-                        } else {
-                            Toast.makeText(MonitoringVisitor.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MonitoringVisitor.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
-    }
+//    private void showAllData(){
+//        progressDialog.show();
+//        progressDialog.setContentView(R.layout.progress_dialog2);
+//        progressDialog.getWindow().setBackgroundDrawableResource(
+//                android.R.color.transparent
+//        );
+//        db.collection("permission_visitor")
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Visitor visitor = new Visitor(
+//                                        document.getId(),
+//                                        document.getString("name"),
+//                                        document.getString("company"),
+//                                        document.getString("phone"),
+//                                        document.getString("division"),
+//                                        document.getString("department"),
+//                                        document.getString("pic"),
+//                                        document.getString("necessity"),
+//                                        document.getString("date"),
+//                                        document.getString("timein"),
+//                                        document.getString("timeout"),
+//                                        document.getString("division_approval"),
+//                                        document.getString("center_approval")
+//                                );
+//                                list.add(visitor);
+//                            }
+//                            visitorAdapter.notifyDataSetChanged();
+//                            progressDialog.dismiss();
+//                        } else {
+//                            StyleableToast.makeText(getApplicationContext(), "Data Failed to Load", Toast.LENGTH_SHORT, R.style.result).show();
+//                            progressDialog.hide();
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        StyleableToast.makeText(getApplicationContext(), "Data Not Found!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+//                    }
+//                });
+//    }
 
     @Override
     public void onBackPressed() {
@@ -198,6 +198,6 @@ public class MonitoringVisitor extends AppCompatActivity implements VisitorAdapt
     @Override
     protected void onResume() {
         super.onResume();
-        showAllData();
+//        showAllData();
     }
 }

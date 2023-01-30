@@ -1,31 +1,244 @@
 package com.example.securityptpal;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.securityptpal.model.Guest;
+import com.example.securityptpal.model.Visitor;
+
+import org.w3c.dom.Text;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class DetailGuestAct extends AppCompatActivity {
-    private TextView name, company, phone, division, department, pic, necessity, date, timeIn, timeOut, division_approve, center_approve;
-    ImageView qrGuest;
+    private TextView name, company, phone, division, department, pic, necessity, date, timeIn, timeOut, division_approve, center_approve, textqr, textpdf;
+    ImageView qrGuest, printpdf;
+    public static final int REQUEST_STORAGE=101;
+    String storagePermission[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_guest);
 
-        name = findViewById(R.id.detail_name_guest);
-        company = findViewById(R.id.detail_company_guest);
-        phone = findViewById(R.id.detail_phone_guest);
-        division = findViewById(R.id.detail_division_guest);
-        department = findViewById(R.id.detail_department_guest);
-        pic = findViewById(R.id.detail_pic_guest);
-        necessity = findViewById(R.id.detail_necessity_guest);
-        date = findViewById(R.id.detail_date_guest);
-        timeIn = findViewById(R.id.detail_timein_guest);
-        timeOut = findViewById(R.id.detail_timeout_guest);
-        division_approve = findViewById(R.id.main_division_approval_status);
-        center_approve = findViewById(R.id.main_center_approval);
+        findId();
+        storagePermission=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        displayData();
+
+        name = findViewById(R.id.name_guest);
+        company = findViewById(R.id.company_guest);
+        phone = findViewById(R.id.phone_guest);
+        division = findViewById(R.id.division_guest);
+        department = findViewById(R.id.department_guest);
+        pic = findViewById(R.id.pic_guest);
+        necessity = findViewById(R.id.necessity_guest);
+        date = findViewById(R.id.date_guest);
+        timeIn = findViewById(R.id.timein_guest);
+        timeOut = findViewById(R.id.timeout_guest);
+        division_approve = findViewById(R.id.division_approval_status);
+        center_approve = findViewById(R.id.center_approval);
+        textpdf = findViewById(R.id.textpdf);
+        textqr = findViewById(R.id.textqr);
+
+        qrGuest = findViewById(R.id.qrGuest);
+
+        qrGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DetailGuestAct.this, ShowQR.class));
+            }
+        });
+
+        Guest guest = getIntent().getParcelableExtra("permission_gue");
+        name.setText(guest.getName());
+        company.setText(guest.getCompany());
+        phone.setText(guest.getPhone());
+        division.setText(guest.getDivision());
+        department.setText(guest.getDepartment());
+        pic.setText(guest.getPic());
+        necessity.setText(guest.getNecessity());
+        date.setText(guest.getDate());
+        timeIn.setText(guest.getTimeIn());
+        timeOut.setText(guest.getTimeOut());
+
+        if (guest.getDivision_approval().equals("Pending")){
+            division_approve.setText(guest.getDivision_approval());
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_orange_color));
+            division_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailGuestAct.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("PENDING")
+                            .setContentText("Please wait the permission status")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
+        } else if (guest.getDivision_approval().equals("Accepted")){
+            division_approve.setText(guest.getDivision_approval());
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.main_green_color));
+            division_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailGuestAct.this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("ACCEPTED")
+                            .setContentText("Please continue to security permission")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
+        } else {
+            division_approve.setText(guest.getDivision_approval());
+            division_approve.setTextColor(division_approve.getResources().getColor(R.color.cardColorRed));
+            division_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailGuestAct.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("REJECTED")
+                            .setContentText("Sorry you can't continue to security permission")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
+        }
+
+        if (guest.getCenter_approval().equals("Pending")){
+            center_approve.setText(guest.getCenter_approval());
+            center_approve.setTextColor(center_approve.getResources().getColor(R.color.main_orange_color));
+            center_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailGuestAct.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("PENDING")
+                            .setContentText("Please wait")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
+        } else if (guest.getCenter_approval().equals("Accepted")){
+            center_approve.setText(guest.getCenter_approval());
+            center_approve.setTextColor(center_approve.getResources().getColor(R.color.main_green_color));
+            center_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailGuestAct.this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("ACCEPTED")
+                            .setContentText("Congratulations")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
+        } else {
+            center_approve.setText(guest.getCenter_approval());
+            center_approve.setTextColor(center_approve.getResources().getColor(R.color.cardColorRed));
+            center_approve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(DetailGuestAct.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("REJECTED")
+                            .setContentText("Contact your department")
+                            .setConfirmText("Close")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }
+            });
+        }
+
+        if (guest.getDivision_approval().equals("Accepted") && guest.getCenter_approval().equals("Accepted")){
+            printpdf.setVisibility(View.VISIBLE);
+            qrGuest.setVisibility(View.VISIBLE);
+            textqr.setVisibility(View.VISIBLE);
+            textpdf.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void displayData() {
+        printpdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(DetailGuestAct.this, IdcardDetailGuest.class);
+                    intent.putExtra("docgu_name", name.getText().toString());
+                    intent.putExtra("docgu_comp", company.getText().toString());
+                    intent.putExtra("docgu_phone", phone.getText().toString());
+                    intent.putExtra("docgu_div", division.getText().toString());
+                    intent.putExtra("docgu_dep", department.getText().toString());
+                    intent.putExtra("docgu_pic", pic.getText().toString());
+                    intent.putExtra("docgu_nec", necessity.getText().toString());
+                    intent.putExtra("docgu_date", date.getText().toString());
+                    intent.putExtra("docgu_in", timeIn.getText().toString());
+                    intent.putExtra("docgu_out", timeOut.getText().toString());
+                    startActivity(intent);
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestStoragePermission() {
+        requestPermissions(storagePermission,REQUEST_STORAGE);
+    }
+
+    private boolean checkStoragePermission() {
+        boolean result= ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);
+        return result;
+    }
+
+    private void findId() {
+        printpdf=(ImageView) findViewById(R.id.printpdf);
+        name = (TextView) findViewById(R.id.name_guest);
+        company = (TextView) findViewById(R.id.company_guest);
+        phone = (TextView) findViewById(R.id.phone_guest);
+        division = (TextView) findViewById(R.id.division_guest);
+        department = (TextView) findViewById(R.id.department_guest);
+        pic = (TextView) findViewById(R.id.pic_guest);
+        necessity = (TextView) findViewById(R.id.necessity_guest);
+        date = (TextView) findViewById(R.id.date_guest);
+        timeIn = (TextView) findViewById(R.id.timein_guest);
+        timeOut = (TextView) findViewById(R.id.timeout_guest);
+
     }
 }

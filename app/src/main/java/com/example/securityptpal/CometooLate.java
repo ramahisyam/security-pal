@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.securityptpal.employee.Employee;
+import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.PermissionLate;
@@ -65,6 +67,7 @@ import java.util.Locale;
 
 public class CometooLate extends AppCompatActivity {
 
+    private ImageView imgSignOut;
     private String[] PERMISSIONS;
     Button monitoring, btnPicture, btnSubmit;
     EditText edtName, edtNip, edtReason;
@@ -101,6 +104,7 @@ public class CometooLate extends AppCompatActivity {
         txtLongitude = (TextView) findViewById(R.id.late_longitude);
         txtLocation = (TextView) findViewById(R.id.late_location);
         depSpinner = findViewById(R.id.spinner_department_late);
+        imgSignOut = findViewById(R.id.sign_out_late_account);
 
         PERMISSIONS = new String[]{
                 Manifest.permission.CAMERA,
@@ -117,6 +121,13 @@ public class CometooLate extends AppCompatActivity {
         ArrayList<String> statusList = new ArrayList<>();
         statusList.add("PKWT");
         statusList.add("PKWTT");
+
+        imgSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogoutAccount.logout(CometooLate.this);
+            }
+        });
 
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -313,13 +324,13 @@ public class CometooLate extends AppCompatActivity {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 1);
             }else {
-                Toast.makeText(this, "You don't have permission to access camera!", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(this, "You don't have permission to access camera!", Toast.LENGTH_SHORT,R.style.warning).show();
             }
             if (grantResults[1] == PackageManager.PERMISSION_GRANTED){
 //                Toast.makeText(this, "SMS Permissions is granted", Toast.LENGTH_SHORT).show();
                 getLocation();
             }else {
-                Toast.makeText(this, "You don't have permission to access location!", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(this, "You don't have permission to access location!", Toast.LENGTH_SHORT,R.style.warning).show();
             }
         }
     }

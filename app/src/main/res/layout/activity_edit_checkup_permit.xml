@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Name\t\t\t\t\t\t\t\t\t\t\t:"
+                    android:text="Name\t\t\t\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="NIP\t\t\t\t\t\t\t\t\t\t\t\t\t:"
+                    android:text="NIP\t\t\t\t\t\t\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
@@ -112,6 +112,7 @@
                     android:id="@+id/edit_division_checkup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="18dp"
                     android:layout_marginStart="10dp"
                     android:backgroundTint="#000000"
                     android:textColor="#000000"
@@ -146,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Department\t\t:"
+                    android:text="Department\t:"
                     android:textColor="#174887"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -156,6 +157,7 @@
                     android:id="@+id/edit_department_checkup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="18dp"
                     android:layout_marginStart="10dp"
                     android:backgroundTint="#000000"
                     android:textColor="#000000"
@@ -200,6 +202,7 @@
                     android:id="@+id/edit_stts_checkup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="18dp"
                     android:layout_marginStart="10dp"
                     android:backgroundTint="#000000"
                     android:textColor="#000000"
@@ -233,7 +236,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Date\t\t\t\t\t\t\t\t\t\t\t\t:"
+                    android:text="Date\t\t\t\t\t\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
@@ -283,6 +286,7 @@
                     android:id="@+id/edit_type_checkup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="18dp"
                     android:layout_marginStart="10dp"
                     android:backgroundTint="#000000"
                     android:textColor="#000000"
@@ -296,7 +300,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="8dp"
-                    app:hintText="Change Status"
+                    app:hintText="Change Type"
                     app:layout_constraintStart_toEndOf="@+id/typecu"
                     app:layout_constraintTop_toBottomOf="@+id/edit_type_checkup" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -318,7 +322,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Others\t\t\t\t\t\t\t\t\t\t:"
+                    android:text="Others\t\t\t\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 

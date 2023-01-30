@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.De
                             @SuppressLint("NotifyDataSetChanged")
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(itemView.getContext(), "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                StyleableToast.makeText(itemView.getContext(), "Delete Succesfully !!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                                 department.remove(getAdapterPosition());
                                 notifyDataSetChanged();
                             }

@@ -36,6 +36,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_monitoring_late"
+        android:background="@drawable/et_search1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

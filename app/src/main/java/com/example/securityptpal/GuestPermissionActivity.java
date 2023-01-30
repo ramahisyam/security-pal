@@ -171,9 +171,11 @@ public class GuestPermissionActivity extends AppCompatActivity {
     }
 
     private void getDivision() {
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -239,9 +241,6 @@ public class GuestPermissionActivity extends AppCompatActivity {
                 division = divSpinner.getSelectedItem().toString();
                 department = depSpinner.getSelectedItem().toString();
 
-                progressDialog.setTitle("Loading");
-                progressDialog.setMessage("Saving Data...");
-                progressDialog.show();
                 progressDialog.setContentView(R.layout.progress_dialog);
                 progressDialog.getWindow().setBackgroundDrawableResource(
                         android.R.color.transparent

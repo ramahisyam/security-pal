@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,13 +170,13 @@ public class EditGuestPermitActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(EditGuestPermitActivity.this, "Berhasil mengubah data", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(),"Data Edited Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditGuestPermitActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(),"Data Failed to Edit!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                     }
                 });
         finish();
@@ -216,9 +217,11 @@ public class EditGuestPermitActivity extends AppCompatActivity {
     }
 
     private void getDivision() {
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

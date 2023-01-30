@@ -312,7 +312,7 @@ public class BarangActivity extends AppCompatActivity {
         db.collection("goods_permit").add(barang).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(BarangActivity.this, "Berhasil submit", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(BarangActivity.this, "Data Send Succesfully", Toast.LENGTH_SHORT,R.style.logsuccess).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -339,7 +339,7 @@ public class BarangActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(BarangActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(BarangActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT,R.style.resultfailed).show();
             }
         });
     }
@@ -406,13 +406,13 @@ public class BarangActivity extends AppCompatActivity {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 2);
             }else {
-                Toast.makeText(this, "You don't have permission to access camera!", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(this, "You don't have permission to access camera!", Toast.LENGTH_SHORT,R.style.warning).show();
             }
             if (grantResults[1] == PackageManager.PERMISSION_GRANTED){
 //                Toast.makeText(this, "SMS Permissions is granted", Toast.LENGTH_SHORT).show();
                 getLocation();
             }else {
-                Toast.makeText(this, "You don't have permission to access location!", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(this, "You don't have permission to access location!", Toast.LENGTH_SHORT,R.style.warning).show();
             }
         }
     }

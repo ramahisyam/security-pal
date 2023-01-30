@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,6 +20,8 @@ import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.OnPermitListener;
@@ -26,6 +29,7 @@ import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.adapter.VisitorAdapter;
 import com.example.securityptpal.division.DetailExitActivity;
 import com.example.securityptpal.division.ExitPermissionActivity;
+import com.example.securityptpal.model.CheckUp;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,7 +68,9 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
     private ProgressDialog progressDialog;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
-
+    ImageView btnFilter;
+    int filterCode = 0;
+    AlertDialog dialog;
     boolean isOpen = false;
 
     @Override
@@ -73,6 +79,7 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
         setContentView(R.layout.activity_visitor_permit);
         recyclerView = findViewById(R.id.rv_visitor_permission);
         searchView = findViewById(R.id.search_visitor_permit);
+        btnFilter = findViewById(R.id.div_filter_vis);
         progressDialog = new ProgressDialog(VisitorPermitActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -150,6 +157,85 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
                 startActivity(intent);
             }
         });
+
+        filter(filterCode);
+
+        btnFilter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(VisitorPermitActivity.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+    }
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc("division");
+        } else if (code == 1) {
+            showAllDataAsc();
+        }
+    }
+
+    private void showAllDataDesc(String division) {
+
+    }
+
+    private void showAllDataAsc() {
+        db.collection("permission_visitor")
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Visitor visitor = new Visitor(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
+                                        document.getString("necessity"),
+                                        document.getString("date"),
+                                        document.getString("timein"),
+                                        document.getString("timeout"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(visitor);
+                            }
+                            visitorAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(VisitorPermitActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(VisitorPermitActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
     }
 
     private void animateFab(){

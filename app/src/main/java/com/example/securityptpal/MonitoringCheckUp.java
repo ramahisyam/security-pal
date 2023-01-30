@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,20 +52,20 @@ public class MonitoringCheckUp extends AppCompatActivity implements CheckupAdapt
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                searchData(query);
+                searchData(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchData(newText);
+//                searchData(newText);
                 return false;
             }
         });
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showAllData();
+//                showAllData();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -75,7 +76,7 @@ public class MonitoringCheckUp extends AppCompatActivity implements CheckupAdapt
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(checkupAdapter);
-        showAllData();
+//        showAllData();
     }
 
     private void searchData(String nip) {
@@ -114,7 +115,7 @@ public class MonitoringCheckUp extends AppCompatActivity implements CheckupAdapt
                             checkupAdapter.notifyDataSetChanged();
                             progressDialog.hide();
                         } else {
-                            Toast.makeText(MonitoringCheckUp.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(), "Data Failed to Load", Toast.LENGTH_SHORT, R.style.result).show();
                             progressDialog.hide();
                         }
                     }
@@ -122,59 +123,58 @@ public class MonitoringCheckUp extends AppCompatActivity implements CheckupAdapt
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MonitoringCheckUp.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.hide();
+                        StyleableToast.makeText(getApplicationContext(), "Data Not Found!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                     }
                 });
     }
 
-    private void showAllData(){
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog2);
-        progressDialog.getWindow().setBackgroundDrawableResource(
-                android.R.color.transparent
-        );
-        db.collection("permission_checkup")
-                .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                CheckUp checkup = new CheckUp(
-                                        document.getId(),
-                                        document.getString("name"),
-                                        document.getString("nip"),
-                                        document.getString("division"),
-                                        document.getString("department"),
-                                        document.getString("status"),
-                                        document.getString("date"),
-                                        document.getString("type"),
-                                        document.getString("others"),
-                                        document.getString("division_approval"),
-                                        document.getString("center_approval")
-                                );
-                                list.add(checkup);
-                            }
-                            checkupAdapter.notifyDataSetChanged();
-                            progressDialog.dismiss();
-                        } else {
-                            Toast.makeText(MonitoringCheckUp.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MonitoringCheckUp.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
-    }
+//    private void showAllData(){
+//        progressDialog.show();
+//        progressDialog.setContentView(R.layout.progress_dialog2);
+//        progressDialog.getWindow().setBackgroundDrawableResource(
+//                android.R.color.transparent
+//        );
+//        db.collection("permission_checkup")
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                CheckUp checkup = new CheckUp(
+//                                        document.getId(),
+//                                        document.getString("name"),
+//                                        document.getString("nip"),
+//                                        document.getString("division"),
+//                                        document.getString("department"),
+//                                        document.getString("status"),
+//                                        document.getString("date"),
+//                                        document.getString("type"),
+//                                        document.getString("others"),
+//                                        document.getString("division_approval"),
+//                                        document.getString("center_approval")
+//                                );
+//                                list.add(checkup);
+//                            }
+//                            checkupAdapter.notifyDataSetChanged();
+//                            progressDialog.dismiss();
+//                        } else {
+//                            Toast.makeText(MonitoringCheckUp.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+//                            progressDialog.dismiss();
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(MonitoringCheckUp.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
+//    }
 
     @Override
     public void onBackPressed() {
@@ -192,6 +192,6 @@ public class MonitoringCheckUp extends AppCompatActivity implements CheckupAdapt
     @Override
     protected void onResume() {
         super.onResume();
-        showAllData();
+//        showAllData();
     }
 }

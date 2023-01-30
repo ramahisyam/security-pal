@@ -20,6 +20,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".Login4"
+            android:exported="false" />
+        <activity
+            android:name=".Login3"
+            android:exported="false" />
+        <activity
+            android:name=".IdcardDetailVisitor"
+            android:exported="false" />
+        <activity
+            android:name=".IdcardDetailGuest"
+            android:exported="false" />
+        <activity
             android:name=".DetailGuestAct"
             android:exported="false" />
         <activity

@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +50,13 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                searchData(query);
+                searchData(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchData(newText);
+                //searchData(newText);
 
                 return false;
             }
@@ -67,7 +68,7 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(guestAdapter);
-        showAllData();
+//        showAllData();
     }
 
     private void searchData(String name) {
@@ -107,7 +108,7 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
                             guestAdapter.notifyDataSetChanged();
                             progressDialog.hide();
                         } else {
-                            Toast.makeText(MonitoringGuest.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(), "Data Failed to Load", Toast.LENGTH_SHORT, R.style.result).show();
                             progressDialog.hide();
                         }
                     }
@@ -115,61 +116,60 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MonitoringGuest.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.hide();
+                        StyleableToast.makeText(getApplicationContext(), "Data Not Found!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                     }
                 });
     }
 
-    private void showAllData(){
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog2);
-        progressDialog.getWindow().setBackgroundDrawableResource(
-                android.R.color.transparent
-        );
-        db.collection("permission_guest")
-                .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Guest guest = new Guest(
-                                        document.getId(),
-                                        document.getString("name"),
-                                        document.getString("company"),
-                                        document.getString("phone"),
-                                        document.getString("division"),
-                                        document.getString("department"),
-                                        document.getString("pic"),
-                                        document.getString("necessity"),
-                                        document.getString("date"),
-                                        document.getString("timeIn"),
-                                        document.getString("timeOut"),
-                                        document.getString("division_approval"),
-                                        document.getString("center_approval")
-                                );
-                                list.add(guest);
-                            }
-                            guestAdapter.notifyDataSetChanged();
-                            progressDialog.dismiss();
-                        } else {
-                            Toast.makeText(MonitoringGuest.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MonitoringGuest.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
-    }
+//    private void showAllData(){
+//        progressDialog.show();
+//        progressDialog.setContentView(R.layout.progress_dialog2);
+//        progressDialog.getWindow().setBackgroundDrawableResource(
+//                android.R.color.transparent
+//        );
+//        db.collection("permission_guest")
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Guest guest = new Guest(
+//                                        document.getId(),
+//                                        document.getString("name"),
+//                                        document.getString("company"),
+//                                        document.getString("phone"),
+//                                        document.getString("division"),
+//                                        document.getString("department"),
+//                                        document.getString("pic"),
+//                                        document.getString("necessity"),
+//                                        document.getString("date"),
+//                                        document.getString("timeIn"),
+//                                        document.getString("timeOut"),
+//                                        document.getString("division_approval"),
+//                                        document.getString("center_approval")
+//                                );
+//                                list.add(guest);
+//                            }
+//                            guestAdapter.notifyDataSetChanged();
+//                            progressDialog.dismiss();
+//                        } else {
+//                            Toast.makeText(MonitoringGuest.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+//                            progressDialog.dismiss();
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(MonitoringGuest.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
+//    }
 
     @Override
     public void onBackPressed() {
@@ -179,6 +179,8 @@ public class MonitoringGuest extends AppCompatActivity implements GuestAdapter.O
 
     @Override
     public void onGuestClick(int position) {
-
+        intent = new Intent(MonitoringGuest.this, DetailGuestAct.class);
+        intent.putExtra("permission_gue", list.get(position));
+        startActivity(intent);
     }
 }
