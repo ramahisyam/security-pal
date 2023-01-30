@@ -1,5 +1,6 @@
 package com.example.securityptpal;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,8 @@ import com.example.securityptpal.main.EditSubconPermitActivity;
 import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.example.securityptpal.model.Subcon;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -160,6 +163,26 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
         });
     }
 
+    private void deleteData(String id) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Deleting data...");
+        progressDialog.show();
+        db.collection("subcontractor").document(id)
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Data berhasil di hapus!", Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
+                        showAllData();
+                    }
+                });
+    }
+
     private void animateFab(){
         if (isOpen){
             fab.startAnimation(rotateBackward);
@@ -244,7 +267,9 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
 
     @Override
     public void onPermitClick(int position) {
-
+        Intent intent = new Intent(UtamaDataSubcon.this, DetailSubconActivity.class);
+        intent.putExtra("SUBCON_DETAIL", list.get(position));
+        startActivity(intent);
     }
 
     @Override
@@ -264,7 +289,7 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
 //                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-//                        deleteData(list.get(pos).getId());
+                        deleteData(list.get(pos).getId());
                         break;
                 }
             }

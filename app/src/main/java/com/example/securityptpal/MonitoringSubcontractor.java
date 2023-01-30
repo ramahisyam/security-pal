@@ -1,6 +1,8 @@
 package com.example.securityptpal;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -17,9 +20,12 @@ import com.example.securityptpal.adapter.MonitoringGoodsPermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.adapter.SubconAdapter;
+import com.example.securityptpal.main.EditSubconPermitActivity;
 import com.example.securityptpal.model.Barang;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.Subcon;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,7 +38,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonitoringSubcontractor extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
+public class MonitoringSubcontractor extends AppCompatActivity implements OnPermitListener, OnPermitLongClick{
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Subcon> list = new ArrayList<>();
@@ -99,6 +105,26 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
         });
     }
 
+    private void deleteData(String id) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Deleting data...");
+        progressDialog.show();
+        db.collection("subcontractor").document(id)
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Data berhasil di hapus!", Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
+                        showAllDataDesc();
+                    }
+                });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -115,6 +141,25 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
 
     @Override
     public void onLongCLickListener(int pos) {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MonitoringSubcontractor.this);
+        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+//                                editData(list, pos);
+                        Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
+                        intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
+                        startActivity(intentEdit);
+                        break;
+                    case 1:
+                        deleteData(list.get(pos).getId());
+                        break;
+                }
+            }
+        });
+        dialog.show();
     }
 }
