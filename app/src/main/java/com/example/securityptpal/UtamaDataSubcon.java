@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -57,6 +59,7 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
     private List<Subcon> list = new ArrayList<>();
     private MainSubconAdapter mainSubconAdapter;
     private ProgressDialog progressDialog;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +186,21 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
                 });
     }
 
+    private void addEmployee(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataSubcon.this);
+        builder.setTitle("Add Employee");
+        View view = getLayoutInflater().inflate(R.layout.add_employee_subcon, null);
+
+        EditText edtName = view.findViewById(R.id.name_employee);
+        EditText edtAge = view.findViewById(R.id.age_employee);
+        Button btnSubmit = view.findViewById(R.id.btn_add_employee);
+
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+    }
+
+
     private void animateFab(){
         if (isOpen){
             fab.startAnimation(rotateBackward);
@@ -274,7 +292,7 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
 
     @Override
     public void onLongCLickListener(int pos) {
-        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        final CharSequence[] dialogItem = {"Add Employee","Edit", "Delete"};
         AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataSubcon.this);
         dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
 
@@ -282,13 +300,16 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (i) {
                     case 0:
+                        addEmployee();
+                        break;
+                    case 1:
 //                                editData(list, pos);
                         Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
                         intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
                         startActivity(intentEdit);
 //                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
                         break;
-                    case 1:
+                    case 2:
                         deleteData(list.get(pos).getId());
                         break;
                 }

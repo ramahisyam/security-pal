@@ -14,6 +14,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.MonitoringGoodsPermitAdapter;
@@ -21,6 +24,7 @@ import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.adapter.SubconAdapter;
 import com.example.securityptpal.main.EditSubconPermitActivity;
+import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.model.Barang;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.Subcon;
@@ -47,6 +51,7 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
 //    private SearchView searchView;
     String userID;
     FirebaseAuth mAuth;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +130,20 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                 });
     }
 
+    private void addEmployee(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MonitoringSubcontractor.this);
+        builder.setTitle("Add Employee");
+        View view = getLayoutInflater().inflate(R.layout.add_employee_subcon, null);
+
+        EditText edtName = view.findViewById(R.id.name_employee);
+        EditText edtAge = view.findViewById(R.id.age_employee);
+        Button btnSubmit = view.findViewById(R.id.btn_add_employee);
+
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -141,7 +160,7 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
 
     @Override
     public void onLongCLickListener(int pos) {
-        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        final CharSequence[] dialogItem = {"Add Employee","Edit", "Delete"};
         AlertDialog.Builder dialog = new AlertDialog.Builder(MonitoringSubcontractor.this);
         dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
 
@@ -149,12 +168,14 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (i) {
                     case 0:
-//                                editData(list, pos);
+                        addEmployee();
+                        break;
+                    case 1:
                         Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
                         intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
                         startActivity(intentEdit);
                         break;
-                    case 1:
+                    case 2:
                         deleteData(list.get(pos).getId());
                         break;
                 }
