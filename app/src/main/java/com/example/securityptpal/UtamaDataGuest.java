@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -38,7 +39,9 @@ import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -237,14 +240,13 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
     private void showAllDataAsc() {
         db.collection("permission_guest")
                 .orderBy("date", Query.Direction.ASCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (value != null) {
+                            for (QueryDocumentSnapshot  document : value) {
                                 Guest guest = new Guest(
                                         document.getId(),
                                         document.getString("name"),
@@ -263,18 +265,10 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
                                 list.add(guest);
                             }
                             mainGuestAdapter.notifyDataSetChanged();
-                            progressDialog.hide();
                         } else {
-                            Toast.makeText(UtamaDataGuest.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
-                            progressDialog.hide();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataGuest.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.hide();
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -304,14 +298,13 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
         );
         db.collection("permission_guest")
                 .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (value != null) {
+                            for (QueryDocumentSnapshot  document : value) {
                                 Guest guest = new Guest(
                                         document.getId(),
                                         document.getString("name"),
@@ -330,17 +323,9 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
                                 list.add(guest);
                             }
                             mainGuestAdapter.notifyDataSetChanged();
-                            progressDialog.dismiss();
                         } else {
-                            Toast.makeText(UtamaDataGuest.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataGuest.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 });

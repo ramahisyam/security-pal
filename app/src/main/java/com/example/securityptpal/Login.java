@@ -86,7 +86,8 @@ public class Login extends AppCompatActivity {
                                                      .show();
                                          }
                                          else {
-
+                                             FirebaseAuth.getInstance().signOut();
+                                             Preferences.clearData(Login.this);
                                              mAuth.signInWithEmailAndPassword(edtEmail.getText().toString(), edtPassword.getText().toString())
                                                      .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                                                          @Override

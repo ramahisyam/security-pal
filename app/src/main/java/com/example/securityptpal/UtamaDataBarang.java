@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -42,6 +43,8 @@ import com.example.securityptpal.main.EditGoodsPermitActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
 import com.example.securityptpal.model.PermissionLate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -340,155 +343,6 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
         }
     }
 
-//    private void importData(){
-//        if(list.size()>0){
-//            createXlFile();
-//        } else {
-//            Toast.makeText(this, "list are empty", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-//    private void createXlFile() {
-//        Workbook wb = new HSSFWorkbook();
-//        Cell cell = null;
-//
-//        Sheet sheet = null;
-//        sheet = wb.createSheet("Demo Excel Sheet");
-//
-//        Row row = sheet.createRow(0);
-//
-//        cell = row.createCell(0);
-//        cell.setCellValue("Id");
-//
-//        cell = row.createCell(1);
-//        cell.setCellValue("Name");
-//
-//        cell = row.createCell(2);
-//        cell.setCellValue("Phone");
-//
-//        cell = row.createCell(3);
-//        cell.setCellValue("PIC");
-//
-//        cell = row.createCell(4);
-//        cell.setCellValue("Division");
-//
-//        cell = row.createCell(5);
-//        cell.setCellValue("Department");
-//
-//        cell = row.createCell(6);
-//        cell.setCellValue("Goods Name");
-//
-//        cell = row.createCell(7);
-//        cell.setCellValue("Types Goods");
-//
-//        cell = row.createCell(8);
-//        cell.setCellValue("Image Url");
-//
-//        cell = row.createCell(9);
-//        cell.setCellValue("Date");
-//
-//        cell = row.createCell(10);
-//        cell.setCellValue("Phone");
-//
-//        cell = row.createCell(11);
-//        cell.setCellValue("Latitude");
-//
-//        cell = row.createCell(12);
-//        cell.setCellValue("Longitude");
-//
-//        cell = row.createCell(13);
-//        cell.setCellValue("Location");
-//
-//        sheet.setColumnWidth(0, (30 * 200));
-//        sheet.setColumnWidth(1, (30 * 200));
-//        sheet.setColumnWidth(2, (30 * 200));
-//        sheet.setColumnWidth(3, (30 * 200));
-//        sheet.setColumnWidth(4, (30 * 200));
-//        sheet.setColumnWidth(5, (30 * 200));
-//        sheet.setColumnWidth(6, (30 * 200));
-//        sheet.setColumnWidth(7, (30 * 200));
-//        sheet.setColumnWidth(8, (30 * 200));
-//        sheet.setColumnWidth(9, (30 * 200));
-//        sheet.setColumnWidth(10, (30 * 200));
-//        sheet.setColumnWidth(11, (30 * 200));
-//        sheet.setColumnWidth(12, (30 * 200));
-//        sheet.setColumnWidth(13, (30 * 200));
-//
-//        for (int i = 0; i < list.size(); i++) {
-//            Row row1 = sheet.createRow(i + 1);
-//
-//            cell = row1.createCell(0);
-//            cell.setCellValue(list.get(i).getId());
-//
-//            cell = row1.createCell(1);
-//            cell.setCellValue((list.get(i).getName()));
-//
-//            cell = row1.createCell(2);
-//            cell.setCellValue(list.get(i).getPhone());
-//
-//            cell = row1.createCell(3);
-//            cell.setCellValue(list.get(i).getPIC());
-//
-//            cell = row1.createCell(4);
-//            cell.setCellValue(list.get(i).getReason());
-//
-//            cell = row1.createCell(5);
-//            cell.setCellValue(list.get(i).getImg());
-//
-//            cell = row1.createCell(6);
-//            cell.setCellValue(list.get(i).getDate());
-//
-//            cell = row1.createCell(7);
-//            cell.setCellValue(list.get(i).getDevice());
-//
-//            cell = row1.createCell(8);
-//            cell.setCellValue(list.get(i).getLatitude());
-//
-//            cell = row1.createCell(9);
-//            cell.setCellValue(list.get(i).getLongitude());
-//
-//            cell = row1.createCell(10);
-//            cell.setCellValue(list.get(i).getLocation());
-//
-//            cell = row1.createCell(11);
-//            cell.setCellValue(list.get(i).getLocation());
-//
-//            cell = row1.createCell(12);
-//            cell.setCellValue(list.get(i).getLocation());
-//
-//            cell = row1.createCell(13);
-//            cell.setCellValue(list.get(i).getLocation());
-//        }
-//
-//        String folderName = "Import Excel";
-//        String fileName = "Goods Permission_" + System.currentTimeMillis() + ".xls";
-//        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + folderName + File.separator + fileName;
-//
-//        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + folderName);
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-//
-//        FileOutputStream outputStream = null;
-//
-//        try {
-//            outputStream = new FileOutputStream(path);
-//            wb.write(outputStream);
-//            // ShareViaEmail(file.getParentFile().getName(),file.getName());
-//            StyleableToast.makeText(getApplicationContext(), "Excel Created in " + path, Toast.LENGTH_SHORT, R.style.logsuccess).show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//
-//            StyleableToast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG, R.style.warning).show();
-//            try {
-//                outputStream.close();
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//
-//            }
-//        }
-//    }
-
     private void deleteData(String id) {
 
     }
@@ -692,14 +546,13 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
         );
         db.collection("goods_permit")
                 .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (value != null) {
+                            for (QueryDocumentSnapshot  document : value) {
                                 Barang barang = new Barang(
                                         document.getId(),
                                         document.getString("name"),
@@ -723,13 +576,6 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                         } else {
                             StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
-                        progressDialog.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataBarang.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 });
@@ -743,14 +589,13 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
         );
         db.collection("goods_permit")
                 .orderBy("date", Query.Direction.ASCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (value != null) {
+                            for (QueryDocumentSnapshot  document : value) {
                                 Barang barang = new Barang(
                                         document.getId(),
                                         document.getString("name"),
@@ -774,13 +619,6 @@ public class UtamaDataBarang extends AppCompatActivity implements OnPermitListen
                         } else {
                             StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
-                        progressDialog.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataBarang.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 });

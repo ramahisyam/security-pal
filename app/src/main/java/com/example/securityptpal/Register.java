@@ -14,10 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.securityptpal.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
@@ -29,12 +31,14 @@ public class Register extends AppCompatActivity {
     String inputemail,password1,password2;
     Button Regis;
     FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         log = findViewById(R.id.TVLogin);
         log.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +103,12 @@ public class Register extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        User user = new User(
+                                                inputemail,
+                                                password2,
+                                                "subcon"
+                                        );
+                                        db.collection("users").document(mAuth.getUid()).set(user);
                                         // Sign in success, update UI with the signed-in user's information
                                         StyleableToast.makeText(getApplicationContext(),"Registration Success", Toast.LENGTH_LONG,R.style.logsuccess).show();
                                         startActivity(new Intent(Register.this,Login2.class));

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -8,12 +9,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/guest_name"
+        android:id="@+id/company_subcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Rama"
+        android:text="Fursan"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -21,28 +22,51 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/guest_company"
+        android:id="@+id/visitor_company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="PENS"
+        android:text="Start at : "
         android:textStyle="bold"
         android:textColor="@color/main_blue_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guest_name" />
+        app:layout_constraintTop_toBottomOf="@+id/company_subcon" />
 
     <TextView
-        android:id="@+id/guest_date"
+        android:id="@+id/start_subcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="11-2-2021"
+        android:textColor="@color/main_blue_color"
+        app:layout_constraintStart_toEndOf="@+id/visitor_company"
+        app:layout_constraintTop_toBottomOf="@+id/company_subcon" />
+
+    <TextView
+        android:id="@+id/visitor_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="date"
+        android:text="End at : "
         android:textColor="@color/main_orange_color"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guest_company" />
+        app:layout_constraintTop_toBottomOf="@+id/visitor_company" />
+
+    <TextView
+        android:id="@+id/end_subcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="11-2-2021"
+        android:textColor="@color/main_orange_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/visitor_date"
+        app:layout_constraintTop_toBottomOf="@+id/visitor_company" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

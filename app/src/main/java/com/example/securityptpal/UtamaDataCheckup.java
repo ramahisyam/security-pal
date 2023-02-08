@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -44,7 +45,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -259,14 +262,13 @@ public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListe
     private void showAllDataDesc() {
         db.collection("permission_checkup")
                 .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (value != null) {
+                            for (QueryDocumentSnapshot  document : value) {
                                 CheckUp checkUp = new CheckUp(
                                         document.getId(),
                                         document.getString("name"),
@@ -283,18 +285,10 @@ public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListe
                                 list.add(checkUp);
                             }
                             mainCheckupPermitAdapter.notifyDataSetChanged();
-                            progressDialog.hide();
                         } else {
-                            Toast.makeText(UtamaDataCheckup.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
-                            progressDialog.hide();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataCheckup.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.hide();
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -302,14 +296,13 @@ public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListe
     private void showAllDataAsc() {
         db.collection("permission_checkup")
                 .orderBy("date", Query.Direction.ASCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (value != null) {
+                            for (QueryDocumentSnapshot  document : value) {
                                 CheckUp checkUp = new CheckUp(
                                         document.getId(),
                                         document.getString("name"),
@@ -326,18 +319,10 @@ public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListe
                                 list.add(checkUp);
                             }
                             mainCheckupPermitAdapter.notifyDataSetChanged();
-                            progressDialog.hide();
                         } else {
-                            Toast.makeText(UtamaDataCheckup.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
-                            progressDialog.hide();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UtamaDataCheckup.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.hide();
+                        progressDialog.dismiss();
                     }
                 });
     }

@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -37,13 +38,16 @@ import com.example.securityptpal.main.AkunUtama;
 import com.example.securityptpal.main.EditLatePermitActivity;
 import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
+import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.PermissionLate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -298,14 +302,13 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
     private void showAllDataDesc() {
         db.collection("permission_late")
                 .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (value != null) {
+                            for (QueryDocumentSnapshot  document : value) {
                                 PermissionLate permissionLate = new PermissionLate(
                                         document.getId(),
                                         document.getString("name"),
@@ -325,31 +328,65 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
                             }
                             latePermissionAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(Utama_Data_Cometoolate.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                         progressDialog.dismiss();
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Utama_Data_Cometoolate.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
+        });
+
+//        db.collection("permission_late")
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                PermissionLate permissionLate = new PermissionLate(
+//                                        document.getId(),
+//                                        document.getString("name"),
+//                                        document.getString("nip"),
+//                                        document.getString("division"),
+//                                        document.getString("reason"),
+//                                        document.getString("img"),
+//                                        document.getString("date"),
+//                                        document.getString("device"),
+//                                        document.getString("latitude"),
+//                                        document.getString("longitude"),
+//                                        document.getString("location"),
+//                                        document.getString("employee_status"),
+//                                        document.getString("department")
+//                                );
+//                                list.add(permissionLate);
+//                            }
+//                            latePermissionAdapter.notifyDataSetChanged();
+//                        } else {
+//                            Toast.makeText(Utama_Data_Cometoolate.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+//                        }
+//                        progressDialog.dismiss();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(Utama_Data_Cometoolate.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
     }
 
     private void showAllDataAsc() {
         db.collection("permission_late")
                 .orderBy("date", Query.Direction.ASCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (value != null) {
+                            for (QueryDocumentSnapshot  document : value) {
                                 PermissionLate permissionLate = new PermissionLate(
                                         document.getId(),
                                         document.getString("name"),
@@ -369,15 +406,8 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
                             }
                             latePermissionAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(Utama_Data_Cometoolate.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
-                        progressDialog.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Utama_Data_Cometoolate.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 });
