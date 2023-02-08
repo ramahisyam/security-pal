@@ -65,7 +65,7 @@ public class MainSubconAdapter extends RecyclerView.Adapter<MainSubconAdapter.Ma
 
         @Override
         public void onClick(View view) {
-
+            onPermitListener.onPermitClick(getAdapterPosition());
         }
 
         @Override
