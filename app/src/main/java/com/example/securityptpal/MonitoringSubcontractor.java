@@ -96,7 +96,7 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(subconAdapter);
 
-        //showAllDataDesc();
+        showAllDataDesc();
     }
 
     private void searchData(String company) {
@@ -147,42 +147,42 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                 });
     }
 
-//    private void showAllDataDesc() {
-//        progressDialog.show();
-//        progressDialog.setContentView(R.layout.progress_dialog1);
-//        progressDialog.getWindow().setBackgroundDrawableResource(
-//                android.R.color.transparent
-//        );
-//        db.collection("subcontractor").whereEqualTo("userID", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                list.clear();
-//                if (value != null) {
-//                    for (QueryDocumentSnapshot document : value) {
-//                        Subcon subcon = new Subcon(
-//                                document.getId(),
-//                                document.getString("company"),
-//                                document.getString("phone"),
-//                                document.getString("necessity"),
-//                                document.getString("division"),
-//                                document.getString("department"),
-//                                document.getString("startDate"),
-//                                document.getString("finishDate"),
-//                                document.getString("userID"),
-//                                document.getString("division_approval"),
-//                                document.getString("center_approval")
-//                        );
-//                        list.add(subcon);
-//                    }
-//                    subconAdapter.notifyDataSetChanged();
-//                } else {
-//                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-//                }
-//                progressDialog.dismiss();
-//            }
-//        });
-//    }
+    private void showAllDataDesc() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("subcontractor").whereEqualTo("userID", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                if (value != null) {
+                    for (QueryDocumentSnapshot document : value) {
+                        Subcon subcon = new Subcon(
+                                document.getId(),
+                                document.getString("company"),
+                                document.getString("phone"),
+                                document.getString("necessity"),
+                                document.getString("division"),
+                                document.getString("department"),
+                                document.getString("startDate"),
+                                document.getString("finishDate"),
+                                document.getString("userID"),
+                                document.getString("division_approval"),
+                                document.getString("center_approval")
+                        );
+                        list.add(subcon);
+                    }
+                    subconAdapter.notifyDataSetChanged();
+                } else {
+                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
+    }
 
     private void deleteData(String id) {
         progressDialog.setTitle("Loading");
@@ -199,7 +199,7 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                             Toast.makeText(getApplicationContext(), "Data berhasil di hapus!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
-                        //showAllDataDesc();
+                        showAllDataDesc();
                     }
                 });
     }
