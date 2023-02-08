@@ -172,7 +172,6 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
             @Override
             public boolean onQueryTextChange(String newText) {
                 //searchData(newText);
-
                 return false;
             }
         });
@@ -382,12 +381,9 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
         builder.setTitle("Add Employee");
         View view = getLayoutInflater().inflate(R.layout.add_employee_subcon, null);
 
-
         EditText edtName = (EditText) view.findViewById(R.id.name_employee);
         EditText edtAge = (EditText) view.findViewById(R.id.age_employee);
         Button btnSubmit = view.findViewById(R.id.btn_add_employee);
-
-
 
         btnSubmit.setOnClickListener(view1 -> {
             if (TextUtils.isEmpty(edtName.getText().toString()) || TextUtils.isEmpty(edtAge.getText().toString())){
