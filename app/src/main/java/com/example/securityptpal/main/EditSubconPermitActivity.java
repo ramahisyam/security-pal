@@ -1,6 +1,7 @@
 package com.example.securityptpal.main;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -23,13 +24,18 @@ import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.Subcon;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EditSubconPermitActivity extends AppCompatActivity {
 
@@ -46,11 +52,14 @@ public class EditSubconPermitActivity extends AppCompatActivity {
     private ArrayAdapter<String> centerSpinnerAdapter, divSpinnerAdapter, divisionAdapter, departmentAdapter;
     private List<Division> departments;
     ImageView imgCalStart, imgCalFinish;
+    FirebaseAuth mAuth;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_subcon_permit);
+        mAuth = FirebaseAuth.getInstance();
 
         progressDialog = new ProgressDialog(EditSubconPermitActivity.this);
         company = findViewById(R.id.main_edit_subcon_permit_company);
@@ -70,63 +79,79 @@ public class EditSubconPermitActivity extends AppCompatActivity {
         divApprvSpinner = findViewById(R.id.main_edit_subcon_permit_status_div);
         save = findViewById(R.id.submit_edit_subcon);
 
-        centerStatus = new ArrayList<>();
-        centerStatus.add("Accepted");
-        centerStatus.add("Pending");
-        centerStatus.add("Rejected");
-
-        centerSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, centerStatus);
-        centerSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        centerApprvSpinner.setAdapter(centerSpinnerAdapter);
-        centerApprvSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                centerApprvItem = centerApprvSpinner.getSelectedItem().toString();
-                centerApproval.setText(centerApprvItem);
-                if (centerApprvItem.equals("Pending")){
-                    centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.main_orange_color));
-                } else if (centerApprvItem.equals("Accepted")){
-                    centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.main_green_color));
-                } else {
-                    centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.cardColorRed));
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        divStatus = new ArrayList<>();
-        divStatus.add("Accepted");
-        divStatus.add("Pending");
-        divStatus.add("Rejected");
-
-        divSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, divStatus);
-        divSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        divApprvSpinner.setAdapter(divSpinnerAdapter);
-        divApprvSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                divApprvItem = divApprvSpinner.getSelectedItem().toString();
-                divApproval.setText(divApprvItem);
-                if (divApprvItem.equals("Pending")){
-                    divApproval.setTextColor(divApproval.getResources().getColor(R.color.main_orange_color));
-                } else if (divApprvItem.equals("Accepted")){
-                    divApproval.setTextColor(divApproval.getResources().getColor(R.color.main_green_color));
-                } else {
-                    divApproval.setTextColor(divApproval.getResources().getColor(R.color.cardColorRed));
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         subcon = getIntent().getParcelableExtra("MAIN_EDIT_SUBCON_PERMIT");
+
+        userID = mAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("users").document(userID);
+        documentReference.addSnapshotListener(EditSubconPermitActivity.this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (Objects.equals(value.getString("role"), "main") || Objects.equals(value.getString("role"), "division") || Objects.equals(value.getString("role"), "security")) {
+                    centerApprvSpinner.setVisibility(View.VISIBLE);
+                    divApprvSpinner.setVisibility(View.VISIBLE);
+
+                    centerStatus = new ArrayList<>();
+                    centerStatus.add("Accepted");
+                    centerStatus.add("Pending");
+                    centerStatus.add("Rejected");
+
+                    centerSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, centerStatus);
+                    centerSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    centerApprvSpinner.setAdapter(centerSpinnerAdapter);
+                    centerApprvSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            centerApprvItem = centerApprvSpinner.getSelectedItem().toString();
+                            centerApproval.setText(centerApprvItem);
+                            if (centerApprvItem.equals("Pending")){
+                                centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.main_orange_color));
+                            } else if (centerApprvItem.equals("Accepted")){
+                                centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.main_green_color));
+                            } else {
+                                centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.cardColorRed));
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+                    divStatus = new ArrayList<>();
+                    divStatus.add("Accepted");
+                    divStatus.add("Pending");
+                    divStatus.add("Rejected");
+
+                    divSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, divStatus);
+                    divSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    divApprvSpinner.setAdapter(divSpinnerAdapter);
+                    divApprvSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            divApprvItem = divApprvSpinner.getSelectedItem().toString();
+                            divApproval.setText(divApprvItem);
+                            if (divApprvItem.equals("Pending")){
+                                divApproval.setTextColor(divApproval.getResources().getColor(R.color.main_orange_color));
+                            } else if (divApprvItem.equals("Accepted")){
+                                divApproval.setTextColor(divApproval.getResources().getColor(R.color.main_green_color));
+                            } else {
+                                divApproval.setTextColor(divApproval.getResources().getColor(R.color.cardColorRed));
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+                } else {
+                    centerApprvSpinner.setVisibility(View.GONE);
+                    divApprvSpinner.setVisibility(View.GONE);
+                }
+            }
+        });
 
         getDivision();
         divisionList = new ArrayList<>();
