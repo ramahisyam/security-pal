@@ -149,7 +149,7 @@ public class Subcontractor extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month + 1;
-                        String date = day+"-"+month+"-"+year;
+                        String date = year+"/"+month+"/"+day;
                         edtStart.setText(date);
                     }
                 },year,month,day);
@@ -165,7 +165,7 @@ public class Subcontractor extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month + 1;
-                        String date = day+"-"+month+"-"+year;
+                        String date = year+"/"+month+"/"+day;
                         edtFinish.setText(date);
                     }
                 },year,month,day);
@@ -306,9 +306,11 @@ public class Subcontractor extends AppCompatActivity {
     }
 
     private void getDivision() {
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Fetching division data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -334,5 +336,12 @@ public class Subcontractor extends AppCompatActivity {
     public void openMonitoringSubcontractor() {
         Intent intent = new Intent(this, MonitoringSubcontractor.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity2.class));
+        finish();
     }
 }

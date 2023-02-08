@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,6 +20,8 @@ import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.CheckupAdapter;
@@ -61,6 +64,9 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
         private ProgressDialog progressDialog;
         FloatingActionButton fab, fab1, fab2;
         Animation fabOpen, fabClose, rotateForward, rotateBackward;
+        ImageView btnFilter;
+        int filterCode = 0;
+        AlertDialog dialog;
 
         boolean isOpen = false;
 
@@ -70,6 +76,7 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
             setContentView(R.layout.activity_checkup_permit);
             recyclerView = findViewById(R.id.rv_checkup_permission);
             searchView = findViewById(R.id.search_checkup_permit);
+            btnFilter = findViewById(R.id.div_filter_checkup);
             progressDialog = new ProgressDialog(CheckupPermitActivity.this);
             progressDialog.show();
             progressDialog.setContentView(R.layout.progress_dialog1);
@@ -147,7 +154,124 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
                     startActivity(intent);
                 }
             });
+
+            filter(filterCode);
+
+            btnFilter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(CheckupPermitActivity.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+    }
+
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc();
+        } else if (code == 1) {
+            showAllDataAsc();
         }
+    }
+
+    private void showAllDataDesc() {
+        db.collection("permission_checkup")
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                CheckUp checkUp = new CheckUp(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("nip"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("status"),
+                                        document.getString("date"),
+                                        document.getString("type"),
+                                        document.getString("others"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(checkUp);
+                            }
+                            checkupAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(CheckupPermitActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(CheckupPermitActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
+    }
+
+    private void showAllDataAsc() {
+        db.collection("permission_checkup")
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                CheckUp checkUp = new CheckUp(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("nip"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("status"),
+                                        document.getString("date"),
+                                        document.getString("type"),
+                                        document.getString("others"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(checkUp);
+                            }
+                            checkupAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(CheckupPermitActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(CheckupPermitActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
+    }
 
         private void animateFab(){
             if (isOpen){

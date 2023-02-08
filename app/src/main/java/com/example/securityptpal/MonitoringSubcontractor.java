@@ -28,6 +28,7 @@ import com.example.securityptpal.employee.Employee;
 import com.example.securityptpal.main.EditSubconPermitActivity;
 import com.example.securityptpal.main.MainDivisionActivity;
 import com.example.securityptpal.model.Barang;
+import com.example.securityptpal.model.Guest;
 import com.example.securityptpal.model.Division;
 import com.example.securityptpal.model.EmployeeSubcon;
 import com.example.securityptpal.model.PermissionEmployee;
@@ -58,7 +59,7 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
     private List<Subcon> list = new ArrayList<>();
     private SubconAdapter subconAdapter;
     private ProgressDialog progressDialog;
-//    private SearchView searchView;
+    private SearchView searchView;
     String userID;
     FirebaseAuth mAuth;
     AlertDialog dialog;
@@ -68,7 +69,22 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoring_subcontractor);
         recyclerView = findViewById(R.id.rv_monitoring_subcon);
-//        searchView = findViewById(R.id.search_goods);
+        searchView = findViewById(R.id.search_subcon);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //searchData(newText);
+
+                return false;
+            }
+        });
         progressDialog = new ProgressDialog(MonitoringSubcontractor.this);
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getUid();
@@ -80,45 +96,93 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
         recyclerView.addItemDecoration(decoration);
         recyclerView.setAdapter(subconAdapter);
 
-        showAllDataDesc();
+        //showAllDataDesc();
     }
 
-    private void showAllDataDesc() {
+    private void searchData(String company) {
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
         progressDialog.getWindow().setBackgroundDrawableResource(
                 android.R.color.transparent
         );
-        db.collection("subcontractor").whereEqualTo("userID", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                list.clear();
-                if (value != null) {
-                    for (QueryDocumentSnapshot document : value) {
-                        Subcon subcon = new Subcon(
-                                document.getId(),
-                                document.getString("company"),
-                                document.getString("phone"),
-                                document.getString("necessity"),
-                                document.getString("division"),
-                                document.getString("department"),
-                                document.getString("startDate"),
-                                document.getString("finishDate"),
-                                document.getString("userID"),
-                                document.getString("division_approval"),
-                                document.getString("center_approval")
-                        );
-                        list.add(subcon);
+        db.collection("subcontractor")
+                .whereEqualTo("company", company)
+                .orderBy("startDate", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Subcon subcon = new Subcon(
+                                        document.getId(),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("necessity"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("startDate"),
+                                        document.getString("finishDate"),
+                                        document.getString("userID"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(subcon);
+                            }
+                            subconAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            StyleableToast.makeText(getApplicationContext(), "Data Failed to Load", Toast.LENGTH_SHORT, R.style.warning).show();
+                            progressDialog.hide();
+                        }
                     }
-                    subconAdapter.notifyDataSetChanged();
-                } else {
-                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                }
-                progressDialog.dismiss();
-            }
-        });
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        StyleableToast.makeText(getApplicationContext(), "Data Not Found!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+                    }
+                });
     }
+
+//    private void showAllDataDesc() {
+//        progressDialog.show();
+//        progressDialog.setContentView(R.layout.progress_dialog1);
+//        progressDialog.getWindow().setBackgroundDrawableResource(
+//                android.R.color.transparent
+//        );
+//        db.collection("subcontractor").whereEqualTo("userID", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @SuppressLint("NotifyDataSetChanged")
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                list.clear();
+//                if (value != null) {
+//                    for (QueryDocumentSnapshot document : value) {
+//                        Subcon subcon = new Subcon(
+//                                document.getId(),
+//                                document.getString("company"),
+//                                document.getString("phone"),
+//                                document.getString("necessity"),
+//                                document.getString("division"),
+//                                document.getString("department"),
+//                                document.getString("startDate"),
+//                                document.getString("finishDate"),
+//                                document.getString("userID"),
+//                                document.getString("division_approval"),
+//                                document.getString("center_approval")
+//                        );
+//                        list.add(subcon);
+//                    }
+//                    subconAdapter.notifyDataSetChanged();
+//                } else {
+//                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+//                }
+//                progressDialog.dismiss();
+//            }
+//        });
+//    }
 
     private void deleteData(String id) {
         progressDialog.setTitle("Loading");
@@ -135,7 +199,7 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                             Toast.makeText(getApplicationContext(), "Data berhasil di hapus!", Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
-                        showAllDataDesc();
+                        //showAllDataDesc();
                     }
                 });
     }
@@ -218,7 +282,6 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(this, Subcontractor.class));
         finish();
     }
 

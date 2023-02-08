@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,13 +51,13 @@ public class MonitoringComeTooLate extends AppCompatActivity implements LatePerm
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                searchData(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchData(newText);
+//                searchData(newText);
                 return false;
             }
         });
@@ -105,15 +106,17 @@ public class MonitoringComeTooLate extends AppCompatActivity implements LatePerm
                                 list.add(permissionLate);
                             }
                             latePermissionAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
                         } else {
-                            Toast.makeText(MonitoringComeTooLate.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(), "Data Failed to Load", Toast.LENGTH_SHORT, R.style.result).show();
+                            progressDialog.hide();
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MonitoringComeTooLate.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(), "Data Not Found!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                     }
                 });
     }

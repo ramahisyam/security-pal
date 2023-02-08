@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailGuestActivity">
+    tools:context=".DetailGuestActivity"
+    android:background="@drawable/menuall">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -43,12 +44,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Name\t\t\t\t\t\t\t\t:"
+                    android:text="Name\t\t\t\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_name_guest"
+                    android:id="@+id/name_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -76,7 +77,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_company_guest"
+                    android:id="@+id/company_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -104,7 +105,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_phone_guest"
+                    android:id="@+id/phone_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -133,7 +134,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_division_guest"
+                    android:id="@+id/division_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -156,12 +157,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Department\t\t:"
+                    android:text="Department\t:"
                     android:textColor="#174887"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_department_guest"
+                    android:id="@+id/department_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -189,7 +190,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_pic_guest"
+                    android:id="@+id/pic_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -217,7 +218,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_necessity_guest"
+                    android:id="@+id/necessity_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#000000"
@@ -247,7 +248,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_date_guest"
+                    android:id="@+id/date_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -277,7 +278,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_timein_guest"
+                    android:id="@+id/timein_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -307,7 +308,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_timeout_guest"
+                    android:id="@+id/timeout_guest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -331,7 +332,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Approver\t\t\t\t\t\t\t:"
+                    android:text="Approver\t\t\t\t:"
                     android:textColor="#174887"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -394,22 +395,56 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/input_status_layout">
-                <ImageView
-                    android:id="@+id/qrGuest"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/qrcode"
-                    android:layout_gravity="center"/>
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Show QRCode"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/fredoka_one"/>
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/qrGuest"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/qrcode"
+                        android:visibility="gone"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/textqr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show QRCode"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fredoka_one"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="30dp">
+                        <ImageView
+                            android:id="@+id/printpdf"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/pdf2"
+                            android:visibility="gone"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/textpdf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Print ID CARD"
+                            android:visibility="gone"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/fredoka_one"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

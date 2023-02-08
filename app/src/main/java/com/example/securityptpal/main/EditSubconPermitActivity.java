@@ -31,6 +31,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -206,11 +207,9 @@ public class EditSubconPermitActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         calendar.set(year, month, day);
-
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-
-                        String dateString = dateFormat.format(calendar.getTime());
-                        startDate.setText(dateString);
+                        month = month + 1;
+                        String date = year+"/"+month+"/"+day;
+                        startDate.setText(date);
                     }
                 },year,month,day);
                 datePickerDialog.show();
@@ -225,11 +224,9 @@ public class EditSubconPermitActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         calendar.set(year, month, day);
-
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-
-                        String dateString = dateFormat.format(calendar.getTime());
-                        finishDate.setText(dateString);
+                        month = month + 1;
+                        String date = year+"/"+month+"/"+day;
+                        finishDate.setText(date);
                     }
                 },year,month,day);
                 datePickerDialog.show();
@@ -282,13 +279,13 @@ public class EditSubconPermitActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(EditSubconPermitActivity.this, "Berhasil mengubah data", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(EditSubconPermitActivity.this, "Edit Data Successfully !!", Toast.LENGTH_SHORT,R.style.result).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(EditSubconPermitActivity.this, "Gagal mengubah data" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(EditSubconPermitActivity.this, "Edit Data Failed !!" + e.getLocalizedMessage(), Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                     });
             finish();
@@ -296,9 +293,11 @@ public class EditSubconPermitActivity extends AppCompatActivity {
     }
 
     private void getDivision() {
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Menyimpan...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

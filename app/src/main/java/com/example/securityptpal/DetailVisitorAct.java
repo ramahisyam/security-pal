@@ -1,8 +1,13 @@
 package com.example.securityptpal;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,16 +17,25 @@ import com.example.securityptpal.employee.DetailPermissionActivity;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.example.securityptpal.model.Visitor;
 
+import org.apache.xmlbeans.impl.soap.Detail;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetailVisitorAct extends AppCompatActivity {
-    private TextView name, company, phone, division, department, pic, necessity, date, timein, timeout, division_approve, center_approve;
-    ImageView qrVisitor;
+    private TextView name, company, phone, division, department, pic, necessity, date, timein, timeout, division_approve, center_approve, textqr, textpdf;
+    ImageView qrVisitor, printpdf;
+
+    public static final int REQUEST_STORAGE=101;
+    String storagePermission[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_visitor);
+
+        findId();
+        storagePermission=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        displayData();
 
         name = findViewById(R.id.name);
         company = findViewById(R.id.company);
@@ -35,9 +49,10 @@ public class DetailVisitorAct extends AppCompatActivity {
         timeout = findViewById(R.id.timeout);
         division_approve = findViewById(R.id.division_approval_status);
         center_approve = findViewById(R.id.center_approval);
+        textpdf = findViewById(R.id.textpdf);
+        textqr = findViewById(R.id.textqr);
+        printpdf = findViewById(R.id.printpdf);
         qrVisitor = findViewById(R.id.qrVisitor);
-
-        qrVisitor.setEnabled(false);
 
         qrVisitor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +192,54 @@ public class DetailVisitorAct extends AppCompatActivity {
         }
 
         if (visitor.getDivision_approval().equals("Accepted") && visitor.getCenter_approval().equals("Accepted")){
-            qrVisitor.setEnabled(true);
+            qrVisitor.setVisibility(View.VISIBLE);
+            printpdf.setVisibility(View.VISIBLE);
+            textpdf.setVisibility(View.VISIBLE);
+            textqr.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void displayData() {
+        printpdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DetailVisitorAct.this,IdcardDetailVisitor.class);
+                intent.putExtra("name",name.getText().toString());
+                intent.putExtra("company",company.getText().toString());
+                intent.putExtra("phone",phone.getText().toString());
+                intent.putExtra("division",division.getText().toString());
+                intent.putExtra("department",department.getText().toString());
+                intent.putExtra("pic",pic.getText().toString());
+                intent.putExtra("necessity",necessity.getText().toString());
+                intent.putExtra("date",date.getText().toString());
+                intent.putExtra("timein",timein.getText().toString());
+                intent.putExtra("timeout",timeout.getText().toString());
+                startActivity(intent);
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestStoragePermission() {
+        requestPermissions(storagePermission,REQUEST_STORAGE);
+    }
+
+    private boolean checkStoragePermission() {
+        boolean result= ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)==(PackageManager.PERMISSION_GRANTED);
+        return result;
+    }
+
+    private void findId() {
+        printpdf=(ImageView)findViewById(R.id.printpdf);
+        name = (TextView) findViewById(R.id.name);
+        company = (TextView) findViewById(R.id.company);
+        phone = (TextView) findViewById(R.id.phone);
+        division = (TextView) findViewById(R.id.division);
+        department = (TextView) findViewById(R.id.department);
+        pic = (TextView) findViewById(R.id.pic);
+        necessity = (TextView) findViewById(R.id.necessity);
+        date = (TextView) findViewById(R.id.date);
+        timein = (TextView) findViewById(R.id.timein);
+        timeout = (TextView) findViewById(R.id.timeout);
     }
 }

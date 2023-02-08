@@ -16,12 +16,15 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.securityptpal.EditCheckupPermitActivity;
 import com.example.securityptpal.R;
 import com.example.securityptpal.UtamaDataBarang;
 import com.example.securityptpal.UtamaDataCheckup;
@@ -30,8 +33,10 @@ import com.example.securityptpal.UtamaDataParksub;
 import com.example.securityptpal.UtamaDataSubcon;
 import com.example.securityptpal.UtamaDataVisitor;
 import com.example.securityptpal.Utama_Data_Cometoolate;
+import com.example.securityptpal.VisitorPermissionActivity;
 import com.example.securityptpal.adapter.DivisionAdapter;
 import com.example.securityptpal.model.Division;
+import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,9 +48,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
+import com.tapadoo.alerter.Alerter;
+import com.tapadoo.alerter.OnHideAlertListener;
+import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainDivisionActivity extends AppCompatActivity implements DivisionAdapter.OnDivisionListener {
 
@@ -94,33 +105,57 @@ public class MainDivisionActivity extends AppCompatActivity implements DivisionA
             @Override
             public void onClick(int pos) {
                 final CharSequence[] dialogItem = {"Add Department", "Edit", "Delete"};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainDivisionActivity.this);
-                dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainDivisionActivity.this);
+                View layout = getLayoutInflater().inflate(R.layout.edit_divisi, null);
+                Button btnEdit = layout.findViewById(R.id.btn_edt);
+                Button btnDelete = layout.findViewById(R.id.btn_dlt);
+                Button btnAdd = layout.findViewById(R.id.btn_add);
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-                                addDepartment(list.get(pos).getId());
-                                break;
-                            case 1:
-                                editData(list, pos);
-                                break;
-                            case 2:
-                                deleteData(list.get(pos).getId());
-                                break;
-                        }
-                    }
+                btnEdit.setOnClickListener(view1 -> {
+                    editData(list, pos);
                 });
+                btnDelete.setOnClickListener(view1 -> {
+                    new SweetAlertDialog(MainDivisionActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Warning!!!")
+                            .setContentText("Are you sure want to delete this data ?")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    try {
+                                        deleteData(list.get(pos).getId());
+                                        sDialog.dismissWithAnimation();
+                                        StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                                    } catch (Exception e) {
+                                        Log.e("error", e.getMessage());
+                                    }
+                                }
+                            })
+                            .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                    dialog.dismiss();
+                });
+                btnAdd.setOnClickListener(view -> {
+                    addDepartment(list.get(pos).getId());
+                });
+                builder.setView(layout);
+                dialog = builder.create();
                 dialog.show();
             }
         });
     }
 
     private void showAllData() {
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Getting data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("division")
                 .orderBy("name", Query.Direction.ASCENDING)
                 .get()
@@ -146,23 +181,20 @@ public class MainDivisionActivity extends AppCompatActivity implements DivisionA
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         progressDialog.dismiss();
                     }
                 });
     }
 
     private void deleteData(String id){
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Deleting data...");
-        progressDialog.show();
         db.collection("division").document(id)
                 .delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(), "Delete Data is Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                         progressDialog.dismiss();
                         onStart();
@@ -181,22 +213,24 @@ public class MainDivisionActivity extends AppCompatActivity implements DivisionA
         edtName.setText(divisions.get(pos).getName());
 
         btnSubmit.setOnClickListener(view1 -> {
-            progressDialog.setTitle("Loading");
-            progressDialog.setMessage("Sending data...");
             progressDialog.show();
+            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.getWindow().setBackgroundDrawableResource(
+                    android.R.color.transparent
+            );
             db.collection("division").document(divisions.get(pos).getId())
                     .update("name", edtName.getText().toString())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(MainDivisionActivity.this, "Berhasil mengubah data", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Data Edited Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                             onStart();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MainDivisionActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(),"Data Failed to Edit!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                     });
             dialog.dismiss();
@@ -216,28 +250,33 @@ public class MainDivisionActivity extends AppCompatActivity implements DivisionA
         Button btnSubmit = view.findViewById(R.id.btn_add_division);
 
         btnSubmit.setOnClickListener(view1 -> {
-            progressDialog.setTitle("Loading");
-            progressDialog.setMessage("Sending data...");
-            progressDialog.show();
-
-            db.collection("division").document(id)
-                    .update("department", FieldValue.arrayUnion(edtName.getText().toString()))
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(MainDivisionActivity.this, "Data berhasil dikirim", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        }
-                    });
-            dialog.dismiss();
-            onStart();
+            try{
+                if (TextUtils.isEmpty(edtName.getText().toString())){
+                    edtName.setError("Fill the name!");
+                }else{
+                    db.collection("division").document(id)
+                            .update("department", FieldValue.arrayUnion(edtName.getText().toString()))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    StyleableToast.makeText(getApplicationContext(),"Data Send Sucessfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                                    progressDialog.dismiss();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    StyleableToast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                                    progressDialog.dismiss();
+                                }
+                            });
+                    dialog.dismiss();
+                    onStart();
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         });
 
         builder.setView(view);
@@ -254,12 +293,21 @@ public class MainDivisionActivity extends AppCompatActivity implements DivisionA
         Button btnSubmit = view.findViewById(R.id.btn_add_division);
 
         btnSubmit.setOnClickListener(view1 -> {
-            saveData(
-                    db.collection("division").document().getId(),
-                    edtName.getText().toString()
-            );
-            dialog.dismiss();
-            onStart();
+            try{
+                if (TextUtils.isEmpty(edtName.getText().toString())){
+                    edtName.setError("Fill the name!");
+                }else{
+                    saveData(
+                            db.collection("division").document().getId(),
+                            edtName.getText().toString()
+                    );
+                    dialog.dismiss();
+                    onStart();
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         });
 
         builder.setView(view);
@@ -268,9 +316,11 @@ public class MainDivisionActivity extends AppCompatActivity implements DivisionA
     }
 
     private void saveData(String id, String name) {
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Sending data...");
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
 
         List<String> department = new ArrayList<>();
 
@@ -284,14 +334,14 @@ public class MainDivisionActivity extends AppCompatActivity implements DivisionA
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(MainDivisionActivity.this, "Data berhasil dikirim", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(),"Data Send Sucessfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
                         progressDialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(MainDivisionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         progressDialog.dismiss();
                     }
                 });

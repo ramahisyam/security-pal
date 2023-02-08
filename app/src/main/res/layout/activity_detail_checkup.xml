@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Name\t\t\t\t\t\t\t\t\t\t\t:"
+            android:text="Name\t\t\t\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Department\t\t\t\t\t:"
+            android:text="Department\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -335,12 +335,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_status_layout">
         <ImageView
+            android:visibility="gone"
             android:id="@+id/qrCheckup"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/qrcode"
             android:layout_gravity="center"/>
         <TextView
+            android:visibility="gone"
+            android:id="@+id/txtqr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Show QRCode"

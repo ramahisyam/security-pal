@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/fredoka_one"
-            android:text="Employee Permission"
+            android:text="Subcontractor Permission"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="Company\t\t\t\t:"
+                android:text="Company\t\t\t\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="Phone\t\t\t\t\t\t\t:"
+                android:text="Phone\t\t\t\t\t\t\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
 
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="Necessity\t\t\t\t:"
+                android:text="Necessity\t\t\t\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
 
@@ -145,6 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:textSize="16sp"
                 android:backgroundTint="#000000"
                 android:text="Design"
                 android:textColor="#000000"
@@ -190,6 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:textSize="16sp"
                 android:backgroundTint="#000000"
                 android:text="Kesehatan"
                 android:textColor="#000000"
@@ -259,7 +261,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="Finish\t\t\t\t\t\t\t:"
+                android:text="Finish\t\t\t\t\t\t\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
 

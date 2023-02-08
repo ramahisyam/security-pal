@@ -73,7 +73,7 @@ public class MonitoringBarang extends AppCompatActivity implements OnPermitListe
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showAllDataDesc();
+//                showAllDataDesc();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -113,73 +113,73 @@ public class MonitoringBarang extends AppCompatActivity implements OnPermitListe
                                         document.getString("status")
                                 );
                                 list.add(barang);
+                                progressDialog.dismiss();
                             }
                             monitoringGoodsPermitAdapter.notifyDataSetChanged();
                         } else {
-                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                            StyleableToast.makeText(getApplicationContext(), "Data Failed to Load", Toast.LENGTH_SHORT, R.style.result).show();
+                            progressDialog.dismiss();
                         }
-                        progressDialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                        progressDialog.dismiss();
+                        StyleableToast.makeText(getApplicationContext(), "Data Not Found!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                     }
                 });
     }
 
-    private void showAllDataDesc() {
-        progressDialog.show();
-        progressDialog.setContentView(R.layout.progress_dialog1);
-        progressDialog.getWindow().setBackgroundDrawableResource(
-                android.R.color.transparent
-        );
-        db.collection("goods_permit")
-                .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Barang barang = new Barang(
-                                        document.getId(),
-                                        document.getString("name"),
-                                        document.getString("phone"),
-                                        document.getString("pic"),
-                                        document.getString("division"),
-                                        document.getString("department"),
-                                        document.getString("goods_name"),
-                                        document.getString("type"),
-                                        document.getString("img"),
-                                        document.getString("date"),
-                                        document.getString("device"),
-                                        document.getString("latitude"),
-                                        document.getString("longitude"),
-                                        document.getString("location"),
-                                        document.getString("status")
-                                );
-                                list.add(barang);
-                            }
-                            monitoringGoodsPermitAdapter.notifyDataSetChanged();
-                        } else {
-                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                        }
-                        progressDialog.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MonitoringBarang.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
-    }
+//    private void showAllDataDesc() {
+//        progressDialog.show();
+//        progressDialog.setContentView(R.layout.progress_dialog1);
+//        progressDialog.getWindow().setBackgroundDrawableResource(
+//                android.R.color.transparent
+//        );
+//        db.collection("goods_permit")
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Barang barang = new Barang(
+//                                        document.getId(),
+//                                        document.getString("name"),
+//                                        document.getString("phone"),
+//                                        document.getString("pic"),
+//                                        document.getString("division"),
+//                                        document.getString("department"),
+//                                        document.getString("goods_name"),
+//                                        document.getString("type"),
+//                                        document.getString("img"),
+//                                        document.getString("date"),
+//                                        document.getString("device"),
+//                                        document.getString("latitude"),
+//                                        document.getString("longitude"),
+//                                        document.getString("location"),
+//                                        document.getString("status")
+//                                );
+//                                list.add(barang);
+//                            }
+//                            monitoringGoodsPermitAdapter.notifyDataSetChanged();
+//                        } else {
+//                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+//                        }
+//                        progressDialog.dismiss();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(MonitoringBarang.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
+//    }
 
     @Override
     public void onBackPressed() {
@@ -197,6 +197,6 @@ public class MonitoringBarang extends AppCompatActivity implements OnPermitListe
     @Override
     protected void onResume() {
         super.onResume();
-        showAllDataDesc();
+//        showAllDataDesc();
     }
 }

@@ -15,7 +15,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetailCheckupAct extends AppCompatActivity {
 
-    private TextView name, nip,division, department, status, date, type, others,division_approve, center_approve;
+    private TextView name, nip,division, department, status, date, type, others,division_approve, center_approve, textqr;
     ImageView qrCheckup;
 
     @Override
@@ -33,6 +33,7 @@ public class DetailCheckupAct extends AppCompatActivity {
         others = findViewById(R.id.others_cu);
         division_approve = findViewById(R.id.division_approval_status);
         center_approve = findViewById(R.id.center_approval);
+        textqr = findViewById(R.id.txtqr);
         qrCheckup = findViewById(R.id.qrCheckup);
 
         qrCheckup.setEnabled(false);
@@ -173,7 +174,8 @@ public class DetailCheckupAct extends AppCompatActivity {
         }
 
         if (checkUp.getDivision_approval().equals("Accepted") && checkUp.getCenter_approval().equals("Accepted")){
-            qrCheckup.setEnabled(true);
+            qrCheckup.setVisibility(View.VISIBLE);
+            textqr.setVisibility(View.VISIBLE);
         }
     }
 }

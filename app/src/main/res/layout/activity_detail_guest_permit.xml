@@ -341,8 +341,8 @@
 
                 <TextView
                     android:id="@+id/textView4"
-                    android:layout_width="53dp"
-                    android:layout_height="31dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
                     android:text="Division"
                     android:textColor="#174887"

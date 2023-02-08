@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Name\t\t\t\t\t\t\t\t:"
+            android:text="Name\t\t\t\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -152,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Department\t\t:"
+            android:text="Department\t:"
             android:textColor="#174887"
             android:textSize="16sp" />
 
@@ -326,7 +326,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Approver\t\t\t\t\t\t\t:"
+            android:text="Approver\t\t\t\t:"
             android:textColor="#174887"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -389,22 +389,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_status_layout">
-        <ImageView
-            android:id="@+id/qrVisitor"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/qrcode"
-            android:layout_gravity="center"/>
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show QRCode"
-            android:textColor="@color/black"
-            android:fontFamily="@font/fredoka_one"/>
+            android:orientation="vertical">
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/qrVisitor"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/qrcode"
+                android:layout_gravity="center"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textqr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show QRCode"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fredoka_one"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="30dp">
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/printpdf"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/pdf2"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/textpdf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Print ID CARD"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/fredoka_one"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

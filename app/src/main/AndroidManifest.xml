@@ -20,6 +20,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".Login4"
+            android:exported="false" />
+        <activity
+            android:name=".Login3"
+            android:exported="false" />
+        <activity
+            android:name=".IdcardDetailVisitor"
+            android:exported="false" />
+        <activity
+            android:name=".IdcardDetailGuest"
+            android:exported="false" />
+        <activity
             android:name=".main.EditSubconPermitActivity"
             android:exported="false" />
         <activity
@@ -203,7 +215,7 @@
             android:exported="false" />
         <activity
             android:name=".MonitoringSubcontractor"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".AboutUs"
             android:exported="false" />
@@ -215,7 +227,7 @@
             android:exported="true" />
         <activity
             android:name=".Subcontractor"
-            android:exported="true" />
+            android:exported="true"/>
         <activity
             android:name=".CometooLate"
             android:exported="true" />

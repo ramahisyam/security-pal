@@ -56,9 +56,10 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/gradasi"
-                        app:queryHint="Input name for search data" />
+                        app:queryHint="Input company name" />
 
                     <ImageView
+                        android:id="@+id/filtersub"
                         android:layout_width="50dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"

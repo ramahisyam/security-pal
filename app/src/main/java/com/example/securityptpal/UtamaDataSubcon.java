@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -16,6 +17,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -45,6 +47,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.muddzdev.styleabletoast.StyleableToast;
@@ -55,9 +58,11 @@ import com.tapadoo.alerter.OnShowAlertListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
     DrawerLayout drawerLayout;
-    ImageView btMenu;
+    ImageView btMenu, btnFilter;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     boolean isOpen = false;
@@ -67,6 +72,9 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
     private List<Subcon> list = new ArrayList<>();
     private MainSubconAdapter mainSubconAdapter;
     private ProgressDialog progressDialog;
+    private SearchView searchView;
+    int filterCode = 0;
+
     AlertDialog dialog;
 
     @Override
@@ -78,6 +86,7 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
 
         drawerLayout = findViewById(R.id.drawer_layout);
         btMenu = findViewById(R.id.bt_menu);
+        btnFilter = findViewById(R.id.filtersub);
 
         btMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +136,47 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
             }
         });
 
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataSubcon.this);
+                View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+                Button btnAscending = layout.findViewById(R.id.btn_asc);
+                Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+                btnDescending.setOnClickListener(view1 -> {
+                    filterCode = 1;
+                    filter(filterCode);
+                    dialog.dismiss();
+                });
+                btnAscending.setOnClickListener(view1 -> {
+                    filterCode = 0;
+                    filter(filterCode);
+                    dialog.dismiss();
+                });
+                builder.setView(layout);
+                dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+        searchView = findViewById(R.id.main_search_permission);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //searchData(newText);
+
+                return false;
+            }
+        });
+
         mainSubconAdapter = new MainSubconAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -135,6 +185,63 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
         recyclerView.setAdapter(mainSubconAdapter);
 
         showAllData();
+        filter(filterCode);
+    }
+
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc();
+        } else if (code == 1) {
+            showAllDataAsc();
+        }
+    }
+
+    private void searchData(String company) {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("subcontractor")
+                .whereEqualTo("company", company)
+                .orderBy("startDate", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Subcon subcon = new Subcon(
+                                        document.getId(),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("necessity"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("startDate"),
+                                        document.getString("finishDate"),
+                                        document.getString("userID"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(subcon);
+                            }
+                            mainSubconAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            StyleableToast.makeText(getApplicationContext(), "Data Failed to Load", Toast.LENGTH_SHORT, R.style.warning).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        StyleableToast.makeText(getApplicationContext(), "Data Not Found!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+                    }
+                });
     }
 
     private void showAllData() {
@@ -144,6 +251,82 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
                 android.R.color.transparent
         );
         db.collection("subcontractor").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                if (value != null) {
+                    for (QueryDocumentSnapshot document : value) {
+                        Subcon subcon = new Subcon(
+                                document.getId(),
+                                document.getString("company"),
+                                document.getString("phone"),
+                                document.getString("necessity"),
+                                document.getString("division"),
+                                document.getString("department"),
+                                document.getString("startDate"),
+                                document.getString("finishDate"),
+                                document.getString("userID"),
+                                document.getString("division_approval"),
+                                document.getString("center_approval")
+                        );
+                        list.add(subcon);
+                    }
+                    mainSubconAdapter.notifyDataSetChanged();
+                } else {
+                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void showAllDataAsc() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("subcontractor").orderBy("startDate", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                if (value != null) {
+                    for (QueryDocumentSnapshot document : value) {
+                        Subcon subcon = new Subcon(
+                                document.getId(),
+                                document.getString("company"),
+                                document.getString("phone"),
+                                document.getString("necessity"),
+                                document.getString("division"),
+                                document.getString("department"),
+                                document.getString("startDate"),
+                                document.getString("finishDate"),
+                                document.getString("userID"),
+                                document.getString("division_approval"),
+                                document.getString("center_approval")
+                        );
+                        list.add(subcon);
+                    }
+                    mainSubconAdapter.notifyDataSetChanged();
+                } else {
+                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void showAllDataDesc() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("subcontractor").
+                orderBy("startDate", Query.Direction.DESCENDING).
+                addSnapshotListener(new EventListener<QuerySnapshot>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -272,7 +455,6 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
         dialog.show();
     }
 
-
     private void animateFab(){
         if (isOpen){
             fab.startAnimation(rotateBackward);
@@ -386,6 +568,34 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
                 }
             }
         });
+        /*btnDelete.setOnClickListener(view1 -> {
+            new SweetAlertDialog(UtamaDataSubcon.this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Warning!!!")
+                    .setContentText("Are you sure want to delete this data ?")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            try{
+                                deleteData(list.get(pos).getId());
+                                sDialog.dismissWithAnimation();
+                                StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                            } catch (Exception e) {
+                                Log.e("error",e.getMessage());
+                            }
+                        }
+                    })
+                    .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                        }
+                    })
+                    .show();
+            dialog.dismiss();
+        });
+        builder.setView(layout);
+        dialog = builder.create();*/
         dialog.show();
     }
 }
