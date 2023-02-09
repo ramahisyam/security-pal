@@ -1,6 +1,7 @@
 package com.example.securityptpal.division;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,14 +20,17 @@ import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.securityptpal.R;
 import com.example.securityptpal.UtamaCometoolate;
 import com.example.securityptpal.Utama_Data_Cometoolate;
+import com.example.securityptpal.VisitorPermitActivity;
 import com.example.securityptpal.adapter.LatePermissionAdapter;
 import com.example.securityptpal.model.PermissionLate;
+import com.example.securityptpal.model.Visitor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -64,7 +68,9 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
     private String EXTRA;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
-
+    ImageView btnFilter;
+    int filterCode = 0;
+    AlertDialog dialog;
     boolean isOpen = false;
 
     @Override
@@ -73,6 +79,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
         setContentView(R.layout.activity_division_late_permit);
         recyclerView = findViewById(R.id.rv_div_late_permit);
         searchView = findViewById(R.id.div_search_late_permission);
+        btnFilter = findViewById(R.id.div_filter_late);
         progressDialog = new ProgressDialog(DivisionLatePermitActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -99,6 +106,21 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
 
         rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
+
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query, EXTRA);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                showDataDivision(EXTRA);
+                return false;
+            }
+        });
 
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
@@ -135,6 +157,127 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
                 startActivity(intent);
             }
         });
+        filter(filterCode);
+
+        btnFilter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(DivisionLatePermitActivity.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+    }
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc(EXTRA);
+        } else if (code == 1) {
+            showAllDataAsc(EXTRA);
+        }
+    }
+
+    private void showAllDataDesc(String division) {
+        db.collection("permission_late")
+                .whereEqualTo("division", division)
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PermissionLate permissionLate = new PermissionLate(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("nip"),
+                                        document.getString("division"),
+                                        document.getString("reason"),
+                                        document.getString("img"),
+                                        document.getString("date"),
+                                        document.getString("device"),
+                                        document.getString("latitude"),
+                                        document.getString("longitude"),
+                                        document.getString("location"),
+                                        document.getString("status"),
+                                        document.getString("department")
+                                );
+                                list.add(permissionLate);
+                            }
+                            latePermissionAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(DivisionLatePermitActivity.this, "data gagal dimuat"+task.getException(), Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(DivisionLatePermitActivity.this, "data tidak ditemukan"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
+    }
+
+    private void showAllDataAsc(String division) {
+        db.collection("permission_late")
+                .whereEqualTo("division", division)
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PermissionLate permissionLate = new PermissionLate(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("nip"),
+                                        document.getString("division"),
+                                        document.getString("reason"),
+                                        document.getString("img"),
+                                        document.getString("date"),
+                                        document.getString("device"),
+                                        document.getString("latitude"),
+                                        document.getString("longitude"),
+                                        document.getString("location"),
+                                        document.getString("status"),
+                                        document.getString("department")
+                                );
+                                list.add(permissionLate);
+                            }
+                            latePermissionAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(DivisionLatePermitActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(DivisionLatePermitActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
     }
 
     private void animateFab(){
@@ -156,9 +299,55 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
         }
     }
 
-    private void showDataDivision(String division) {
-        progressDialog.show();
+//    private void showDataDivision(String division) {
+//        progressDialog.show();
+//        db.collection("permission_late")
+//                .whereEqualTo("division", division)
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                PermissionLate permissionLate = new PermissionLate(
+//                                        document.getId(),
+//                                        document.getString("name"),
+//                                        document.getString("nip"),
+//                                        document.getString("division"),
+//                                        document.getString("reason"),
+//                                        document.getString("img"),
+//                                        document.getString("date"),
+//                                        document.getString("device"),
+//                                        document.getString("latitude"),
+//                                        document.getString("longitude"),
+//                                        document.getString("location"),
+//                                        document.getString("status"),
+//                                        document.getString("department")
+//                                );
+//                                list.add(permissionLate);
+//                            }
+//                            latePermissionAdapter.notifyDataSetChanged();
+//                        } else {
+//                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+//                        }
+//                        progressDialog.dismiss();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
+//    }
+
+    private void searchData(String nip, String division) {
         db.collection("permission_late")
+                .whereEqualTo("nip", nip)
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
                 .get()
@@ -190,14 +379,12 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
                         } else {
                             StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
-                        progressDialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                        progressDialog.dismiss();
                     }
                 });
     }
@@ -334,8 +521,8 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
     @Override
     protected void onStart() {
         super.onStart();
-        progressDialog.show();
-        showDataDivision(EXTRA);
+//        progressDialog.show();
+//        showDataDivision(EXTRA);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,6 +20,8 @@ import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.GuestAdapter;
@@ -61,14 +64,18 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
     private ProgressDialog progressDialog;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
-
+    ImageView btnFilter;
+    int filterCode = 0;
+    AlertDialog dialog;
     boolean isOpen = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_permit);
         recyclerView = findViewById(R.id.rv_guest_permission);
         searchView = findViewById(R.id.search_guest_permit);
+        btnFilter = findViewById(R.id.div_filter_gu);
         progressDialog = new ProgressDialog(GuestPermitActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -96,7 +103,7 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                showDataDivision(EXTRA);
+//                showDataDivision(EXTRA);
                 return false;
             }
         });
@@ -145,28 +152,38 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
                 startActivity(intent);
             }
         });
+        filter(filterCode);
+
+        btnFilter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(GuestPermitActivity.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+    }
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc(EXTRA);
+        } else if (code == 1) {
+            showAllDataAsc(EXTRA);
+        }
     }
 
-    private void animateFab(){
-        if (isOpen){
-            fab.startAnimation(rotateBackward);
-            fab1.startAnimation(fabClose);
-            fab2.startAnimation(fabClose);
-            fab1.setClickable(false);
-            fab2.setClickable(false);
-            isOpen=false;
-        }
-        else{
-            fab.startAnimation(rotateForward);
-            fab1.startAnimation(fabOpen);
-            fab2.startAnimation(fabOpen);
-            fab1.setClickable(true);
-            fab2.setClickable(true);
-            isOpen=true;
-        }
-    }
-    private void showDataDivision(String division) {
-        progressDialog.show();
+    private void showAllDataDesc(String division) {
         db.collection("permission_guest")
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
@@ -196,20 +213,131 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
                                 list.add(guest);
                             }
                             guestAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
                         } else {
-                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                            Toast.makeText(GuestPermitActivity.this, "data gagal dimuat"+task.getException(), Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
                         }
-                        progressDialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(GuestPermitActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        Toast.makeText(GuestPermitActivity.this, "data tidak ditemukan"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
                     }
                 });
     }
+
+    private void showAllDataAsc(String division) {
+        db.collection("permission_guest")
+                .whereEqualTo("division", division)
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Guest guest = new Guest(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
+                                        document.getString("necessity"),
+                                        document.getString("date"),
+                                        document.getString("timeIn"),
+                                        document.getString("timeOut"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(guest);
+                            }
+                            guestAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(GuestPermitActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(GuestPermitActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
+    }
+
+    private void animateFab(){
+        if (isOpen){
+            fab.startAnimation(rotateBackward);
+            fab1.startAnimation(fabClose);
+            fab2.startAnimation(fabClose);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isOpen=false;
+        }
+        else{
+            fab.startAnimation(rotateForward);
+            fab1.startAnimation(fabOpen);
+            fab2.startAnimation(fabOpen);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isOpen=true;
+        }
+    }
+//    private void showDataDivision(String division) {
+//        progressDialog.show();
+//        db.collection("permission_guest")
+//                .whereEqualTo("division", division)
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Guest guest = new Guest(
+//                                        document.getId(),
+//                                        document.getString("name"),
+//                                        document.getString("company"),
+//                                        document.getString("phone"),
+//                                        document.getString("division"),
+//                                        document.getString("department"),
+//                                        document.getString("pic"),
+//                                        document.getString("necessity"),
+//                                        document.getString("date"),
+//                                        document.getString("timeIn"),
+//                                        document.getString("timeOut"),
+//                                        document.getString("division_approval"),
+//                                        document.getString("center_approval")
+//                                );
+//                                list.add(guest);
+//                            }
+//                            guestAdapter.notifyDataSetChanged();
+//                        } else {
+//                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+//                        }
+//                        progressDialog.dismiss();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(GuestPermitActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
+//    }
     private void searchData(String name, String division) {
         db.collection("permission_guest")
                 .whereEqualTo("name", name)
@@ -400,8 +528,8 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
     @Override
     protected void onStart() {
         super.onStart();
-        progressDialog.show();
-        showDataDivision(EXTRA);
+//        progressDialog.show();
+//        showDataDivision(EXTRA);
     }
 
     @Override

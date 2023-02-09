@@ -104,7 +104,7 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    showDataDivision(EXTRA);
+//                    showDataDivision(EXTRA);
                     return false;
                 }
             });
@@ -177,18 +177,20 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
             dialog = builder.create();
             dialog.show();
         });
+
     }
 
     private void filter(int code) {
         if (code == 0) {
-            showAllDataDesc();
+            showAllDataDesc(EXTRA);
         } else if (code == 1) {
-            showAllDataAsc();
+            showAllDataAsc(EXTRA);
         }
     }
 
-    private void showAllDataDesc() {
+    private void showAllDataDesc(String division) {
         db.collection("permission_checkup")
+                .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -216,7 +218,7 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
                             checkupAdapter.notifyDataSetChanged();
                             progressDialog.hide();
                         } else {
-                            Toast.makeText(CheckupPermitActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CheckupPermitActivity.this, "data gagal dimuat"+task.getException(), Toast.LENGTH_SHORT).show();
                             progressDialog.hide();
                         }
                     }
@@ -224,14 +226,15 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CheckupPermitActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CheckupPermitActivity.this, "data tidak ditemukan"+e.getMessage(), Toast.LENGTH_SHORT).show();
                         progressDialog.hide();
                     }
                 });
     }
 
-    private void showAllDataAsc() {
+    private void showAllDataAsc(String division) {
         db.collection("permission_checkup")
+                .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -507,8 +510,6 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
         @Override
         protected void onStart() {
             super.onStart();
-            progressDialog.show();
-            showDataDivision(EXTRA);
         }
 
         @Override
@@ -527,4 +528,16 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
             intent.putExtra("MAIN_CHECKUP_PERMIT", list.get(position));
             startActivity(intent);
         }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        list.clear();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

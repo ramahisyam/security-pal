@@ -509,7 +509,7 @@ public class UtamaDataCheckup extends AppCompatActivity implements OnPermitListe
                             mainCheckupPermitAdapter.notifyDataSetChanged();
                             progressDialog.hide();
                         } else {
-                            Toast.makeText(UtamaDataCheckup.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(UtamaDataCheckup.this, "Load Data Failed!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                             progressDialog.hide();
                         }
                     }
