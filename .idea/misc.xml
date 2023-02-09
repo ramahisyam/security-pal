@@ -45,7 +45,6 @@
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_monitoring_visitor.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_subcontractor.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_barang.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_cometoolate.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_data_barang.xml" value="0.25" />
@@ -59,8 +58,6 @@
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_utama_visitor.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_visitor.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/activity_visitor_permit.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/add_data_parksub.xml" value="0.25" />
-        <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/add_employee_subcon.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/edit_delete.xml" value="0.14990942028985507" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/filter_dialog.xml" value="0.15896739130434784" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/grid_division_list.xml" value="0.25" />
@@ -88,91 +85,36 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_login2.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.2826086956521739" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.16197916666666667" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_parking_subcontractor.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_register.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_subcontractor.xml" value="0.2740036231884058" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_data_employee.xml" value="0.2740036231884058" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_data_subcon.xml" value="0.33" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/add_employee_subcon.xml" value="0.34375" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/editor_division_dialog.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_visitor_permission.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_monitoring_goods_permit.xml" value="0.2826086956521739" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_subcon_list.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_visitor_list.xml" value="0.16197916666666667" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable-v24/edittext_setimage.xml" value="0.21510416666666668" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable-v24/pdf2.xml" value="0.2203125" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/arrow_up.xml" value="0.2" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/edittext_scan.xml" value="0.21510416666666668" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/ic_arrow.xml" value="0.2" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/ic_arrow2.xml" value="0.2" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable/ic_code.xml" value="0.2203125" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_akun_divisi.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_akun_utama.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_barang.xml" value="0.18" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_check_up.xml" value="0.1" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_checkup_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_cometoo_late.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_barang.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_checkup.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_division.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_exit.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_exit_permission.xml" value="0.25" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_guest.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_guest2.xml" value="0.21" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_guest_permit.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_permission.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_subcon.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_visitor.xml" value="0.13269927536231885" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_detail_visitor2.xml" value="0.13722826086956522" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_division_late_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_edit_checkup_permit.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_edit_goods_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_edit_guest_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_edit_late_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_edit_subcon_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_edit_visitor_permit.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_employee.xml" value="0.11277173913043478" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_employee_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_exit_permission.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_filter_page.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_guest_permission.xml" value="0.15" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_guest_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_idcard_detail_guest.xml" value="0.15353260869565216" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_idcard_detail_visitor.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_login.xml" value="0.18" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_login2.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_login3.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_login4.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_main2.xml" value="0.2" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_monitoring_barang.xml" value="0.1" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_monitoring_check_up.xml" value="0.18" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_monitoring_come_too_late.xml" value="0.18" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_monitoring_guest.xml" value="0.25" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_monitoring_subcontractor.xml" value="0.25" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_monitoring_visitor.xml" value="0.1" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_parking_subcontractor.xml" value="0.22" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_subcontractor.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_cometoolate.xml" value="0.25" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_data_barang.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_data_checkup.xml" value="0.12545289855072464" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_data_parksub.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_utama_data_subcon.xml" value="0.12545289855072464" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_visitor.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/activity_visitor_permit.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/dialog_update.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/edit_delete.xml" value="0.14492753623188406" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/edit_divisi.xml" value="0.25" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/main_nav_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/progress_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/progress_dialog1.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/progress_dialog2.xml" value="0.25" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_checkup_list.xml" value="0.1" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_department_list.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_goods_list.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_guest_list.xml" value="0.1" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_late_permission.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_main_checkup_permission.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_main_employee_permission.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_subcon_list.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/row_visitor_list.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/slide_item_container.xml" value="0.13722826086956522" />
+        <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/layout/progress_dialog2.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

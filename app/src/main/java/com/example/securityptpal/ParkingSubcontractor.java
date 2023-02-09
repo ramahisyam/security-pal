@@ -27,6 +27,11 @@ import com.example.securityptpal.model.ParkSub;
 import com.example.securityptpal.model.Subcon;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -54,10 +59,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class ParkingSubcontractor extends AppCompatActivity {
 
     Button scanParksub;
-    TextView inputMasuk, inputKeluar;
+    TextView inputMasuk, inputKeluar, tvMasuk, tvKeluar;
     private int counter1, counter2;
     String masuk, keluar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference dbRef;
     AlertDialog dialog;
 
     private ProgressDialog progressDialog;
@@ -67,9 +74,13 @@ public class ParkingSubcontractor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_subcontractor);
         progressDialog = new ProgressDialog(ParkingSubcontractor.this);
+        mDatabase = FirebaseDatabase.getInstance("https://project-kp-ff0b3-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        dbRef = mDatabase.getReference().child("permission_parksub");
 
-        inputMasuk = findViewById(R.id.masuk);
-        inputKeluar = findViewById(R.id.keluar);
+        inputMasuk = (TextView) findViewById(R.id.masuk);
+        inputKeluar = (TextView) findViewById(R.id.keluar);
+        tvMasuk = (TextView) findViewById(R.id.tvmasuk);
+        tvKeluar = (TextView) findViewById(R.id.tvkeluar);
         scanParksub = findViewById(R.id.scanParksub);
 //        resetParkSub = findViewById(R.id.resetParkSub);
 
@@ -90,6 +101,18 @@ public class ParkingSubcontractor extends AppCompatActivity {
 
         masuk = inputMasuk.getText().toString();
         keluar = inputKeluar.getText().toString();
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                inputMasuk.setText(snapshot.child("masuk").getValue().toString());
+                inputKeluar.setText(snapshot.child("keluar").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 //        ParkSub parkSub = new ParkSub(
 //                db.collection("permission_parksub").document().getId(),
@@ -144,9 +167,7 @@ public class ParkingSubcontractor extends AppCompatActivity {
 //                        .show();
 //            }
 //        });
-//        showData();
     }
-
 
     private void addData(int counter1){
         AlertDialog.Builder builder = new AlertDialog.Builder(ParkingSubcontractor.this);
@@ -243,6 +264,7 @@ public class ParkingSubcontractor extends AppCompatActivity {
                         //                StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                     }
                 });
+
             }
         });
 
