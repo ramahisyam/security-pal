@@ -78,9 +78,11 @@
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_main_visitor_permission.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AndroidStudioProjects/security-pal/app/src/main/res/layout/row_visitor_list.xml" value="0.25" />
         <entry key="..\:/Users/Fursan Akzada/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.1234375" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/drawable/ic_baseline_cloud_download_24.xml" value="0.335" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_barang.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_detail_subcon.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_doc_subcon.xml" value="0.34479166666666666" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_doc_subcon2.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_edit_exit_permit.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_edit_subcon_permit.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_employee.xml" value="0.34479166666666666" />
@@ -95,8 +97,10 @@
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/activity_utama_data_subcon.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/add_employee_subcon.xml" value="0.34375" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/editor_division_dialog.xml" value="0.34479166666666666" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_employee_permission.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_main_visitor_permission.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_monitoring_goods_permit.xml" value="0.2826086956521739" />
+        <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_subcon_employee.xml" value="0.34375" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_subcon_list.xml" value="0.33" />
         <entry key="..\:/Users/Ku-Rama/Downloads/SecurityPTPAL/app/src/main/res/layout/row_visitor_list.xml" value="0.16197916666666667" />
         <entry key="..\:/Users/User/Music/Anstud/security-pal/app/src/main/res/drawable-v24/edittext_setimage.xml" value="0.21510416666666668" />

@@ -383,6 +383,9 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
 
         EditText edtName = (EditText) view.findViewById(R.id.name_employee);
         EditText edtAge = (EditText) view.findViewById(R.id.age_employee);
+        EditText edtPhone = (EditText) view.findViewById(R.id.phone_employee);
+        EditText edtNip = (EditText) view.findViewById(R.id.nip_employee);
+        EditText edtAddress = (EditText) view.findViewById(R.id.address_employee);
         Button btnSubmit = view.findViewById(R.id.btn_add_employee);
 
         btnSubmit.setOnClickListener(view1 -> {
@@ -420,7 +423,11 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
                 EmployeeSubcon employeeSubcon = new EmployeeSubcon(
                         db.collection("subcontractor").document(subcons.get(pos).getId()).collection("employee").document().getId(),
                         edtName.getText().toString(),
-                        edtAge.getText().toString()
+                        edtAge.getText().toString(),
+                        edtPhone.getText().toString(),
+                        edtNip.getText().toString(),
+                        edtAddress.getText().toString(),
+                        ""
                 );
                 progressDialog.setTitle("Loading");
                 progressDialog.setMessage("Sending data...");
