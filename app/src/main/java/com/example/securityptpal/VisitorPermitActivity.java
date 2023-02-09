@@ -107,7 +107,7 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                showDataDivision(EXTRA);
+//                showDataDivision(EXTRA);
                 return false;
             }
         });
@@ -183,18 +183,61 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
     }
     private void filter(int code) {
         if (code == 0) {
-            showAllDataDesc("division");
+            showAllDataDesc(EXTRA);
         } else if (code == 1) {
-            showAllDataAsc();
+            showAllDataAsc(EXTRA);
         }
     }
 
     private void showAllDataDesc(String division) {
-
+        db.collection("permission_visitor")
+                .whereEqualTo("division", division)
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Visitor visitor = new Visitor(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("company"),
+                                        document.getString("phone"),
+                                        document.getString("division"),
+                                        document.getString("department"),
+                                        document.getString("pic"),
+                                        document.getString("necessity"),
+                                        document.getString("date"),
+                                        document.getString("timein"),
+                                        document.getString("timeout"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval")
+                                );
+                                list.add(visitor);
+                            }
+                            visitorAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(VisitorPermitActivity.this, "data gagal dimuat"+task.getException(), Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(VisitorPermitActivity.this, "data tidak ditemukan"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
     }
 
-    private void showAllDataAsc() {
+    private void showAllDataAsc(String division) {
         db.collection("permission_visitor")
+                .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -257,51 +300,51 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
         }
     }
 
-    private void showDataDivision(String division) {
-        progressDialog.show();
-        db.collection("permission_visitor")
-                .whereEqualTo("division", division)
-                .orderBy("date", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list.clear();
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Visitor visitor = new Visitor(
-                                        document.getId(),
-                                        document.getString("name"),
-                                        document.getString("company"),
-                                        document.getString("phone"),
-                                        document.getString("division"),
-                                        document.getString("department"),
-                                        document.getString("pic"),
-                                        document.getString("necessity"),
-                                        document.getString("date"),
-                                        document.getString("timein"),
-                                        document.getString("timeout"),
-                                        document.getString("division_approval"),
-                                        document.getString("center_approval")
-                                );
-                                list.add(visitor);
-                            }
-                            visitorAdapter.notifyDataSetChanged();
-                        } else {
-                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                        }
-                        progressDialog.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(VisitorPermitActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
-    }
+//    private void showDataDivision(String division) {
+//        progressDialog.show();
+//        db.collection("permission_visitor")
+//                .whereEqualTo("division", division)
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Visitor visitor = new Visitor(
+//                                        document.getId(),
+//                                        document.getString("name"),
+//                                        document.getString("company"),
+//                                        document.getString("phone"),
+//                                        document.getString("division"),
+//                                        document.getString("department"),
+//                                        document.getString("pic"),
+//                                        document.getString("necessity"),
+//                                        document.getString("date"),
+//                                        document.getString("timein"),
+//                                        document.getString("timeout"),
+//                                        document.getString("division_approval"),
+//                                        document.getString("center_approval")
+//                                );
+//                                list.add(visitor);
+//                            }
+//                            visitorAdapter.notifyDataSetChanged();
+//                        } else {
+//                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+//                        }
+//                        progressDialog.dismiss();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(VisitorPermitActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
+//    }
     private void searchData(String name, String division) {
         db.collection("permission_visitor")
                 .whereEqualTo("name", name)
@@ -492,8 +535,8 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
     @Override
     protected void onStart() {
         super.onStart();
-        progressDialog.show();
-        showDataDivision(EXTRA);
+//        progressDialog.show();
+//        showDataDivision(EXTRA);
     }
 
     @Override

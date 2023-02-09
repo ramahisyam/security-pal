@@ -2,6 +2,7 @@ package com.example.securityptpal.division;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -21,13 +22,16 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.securityptpal.CheckupPermitActivity;
 import com.example.securityptpal.R;
 import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.PermissionEmployeeAdapter;
 import com.example.securityptpal.employee.DetailPermissionActivity;
 import com.example.securityptpal.main.UtamaDataEmployee;
+import com.example.securityptpal.model.CheckUp;
 import com.example.securityptpal.model.PermissionEmployee;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -71,7 +75,9 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
     private ProgressDialog progressDialog;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
-
+    ImageView btnFilter;
+    int filterCode = 0;
+    AlertDialog dialog;
     boolean isOpen = false;
 
     @Override
@@ -79,7 +85,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exit_permission);
         recyclerView = findViewById(R.id.rv_exit_permission);
-        searchView = findViewById(R.id.search_employee_permit);
+        searchView = findViewById(R.id.search_exit_permit);
         progressDialog = new ProgressDialog(ExitPermissionActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -107,7 +113,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                showDataDivision(EXTRA);
+//                    showDataDivision(EXTRA);
                 return false;
             }
         });
@@ -157,29 +163,40 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
                 startActivity(intent);
             }
         });
+        filter(filterCode);
+
+        btnFilter.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ExitPermissionActivity.this);
+            View layout = getLayoutInflater().inflate(R.layout.filter_dialog, null);
+            Button btnAscending = layout.findViewById(R.id.btn_asc);
+            Button btnDescending = layout.findViewById(R.id.btn_desc);
+
+            btnDescending.setOnClickListener(view1 -> {
+                filterCode = 1;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            btnAscending.setOnClickListener(view1 -> {
+                filterCode = 0;
+                filter(filterCode);
+                dialog.dismiss();
+            });
+            builder.setView(layout);
+            dialog = builder.create();
+            dialog.show();
+        });
+
     }
 
-    private void animateFab(){
-        if (isOpen){
-            fab.startAnimation(rotateBackward);
-            fab1.startAnimation(fabClose);
-            fab2.startAnimation(fabClose);
-            fab1.setClickable(false);
-            fab2.setClickable(false);
-            isOpen=false;
-        }
-        else{
-            fab.startAnimation(rotateForward);
-            fab1.startAnimation(fabOpen);
-            fab2.startAnimation(fabOpen);
-            fab1.setClickable(true);
-            fab2.setClickable(true);
-            isOpen=true;
+    private void filter(int code) {
+        if (code == 0) {
+            showAllDataDesc(EXTRA);
+        } else if (code == 1) {
+            showAllDataAsc(EXTRA);
         }
     }
 
-    private void showDataDivision(String division) {
-        progressDialog.show();
+    private void showAllDataDesc(String division) {
         db.collection("permission_employee")
                 .whereEqualTo("division", division)
                 .orderBy("date", Query.Direction.DESCENDING)
@@ -210,20 +227,135 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
                                 list.add(permissionEmployee);
                             }
                             permissionEmployeeAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
                         } else {
-                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                            Toast.makeText(ExitPermissionActivity.this, "data gagal dimuat"+task.getException(), Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
                         }
-                        progressDialog.dismiss();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ExitPermissionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        Toast.makeText(ExitPermissionActivity.this, "data tidak ditemukan"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
                     }
                 });
     }
+
+    private void showAllDataAsc(String division) {
+        db.collection("permission_employee")
+                .whereEqualTo("division", division)
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PermissionEmployee permissionEmployee = new PermissionEmployee(
+                                        document.getId(),
+                                        document.getString("base"),
+                                        document.getString("name"),
+                                        document.getString("nip"),
+                                        document.getString("division"),
+                                        document.getString("date"),
+                                        document.getString("necessity"),
+                                        document.getString("place"),
+                                        document.getString("timeout"),
+                                        document.getString("timeback"),
+                                        document.getString("division_approval"),
+                                        document.getString("center_approval"),
+                                        document.getString("status"),
+                                        document.getString("department")
+                                );
+                                list.add(permissionEmployee);
+                            }
+                            permissionEmployeeAdapter.notifyDataSetChanged();
+                            progressDialog.hide();
+                        } else {
+                            Toast.makeText(ExitPermissionActivity.this, "data gagal dimuat", Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ExitPermissionActivity.this, "data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                    }
+                });
+    }
+
+    private void animateFab(){
+        if (isOpen){
+            fab.startAnimation(rotateBackward);
+            fab1.startAnimation(fabClose);
+            fab2.startAnimation(fabClose);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isOpen=false;
+        }
+        else{
+            fab.startAnimation(rotateForward);
+            fab1.startAnimation(fabOpen);
+            fab2.startAnimation(fabOpen);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isOpen=true;
+        }
+    }
+
+//    private void showDataDivision(String division) {
+//        progressDialog.show();
+//        db.collection("permission_employee")
+//                .whereEqualTo("division", division)
+//                .orderBy("date", Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @SuppressLint("NotifyDataSetChanged")
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        list.clear();
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                PermissionEmployee permissionEmployee = new PermissionEmployee(
+//                                        document.getId(),
+//                                        document.getString("base"),
+//                                        document.getString("name"),
+//                                        document.getString("nip"),
+//                                        document.getString("division"),
+//                                        document.getString("date"),
+//                                        document.getString("necessity"),
+//                                        document.getString("place"),
+//                                        document.getString("timeout"),
+//                                        document.getString("timeback"),
+//                                        document.getString("division_approval"),
+//                                        document.getString("center_approval"),
+//                                        document.getString("status"),
+//                                        document.getString("department")
+//                                );
+//                                list.add(permissionEmployee);
+//                            }
+//                            permissionEmployeeAdapter.notifyDataSetChanged();
+//                        } else {
+//                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+//                        }
+//                        progressDialog.dismiss();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(ExitPermissionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    }
+//                });
+//    }
+
     private void searchData(String nip, String division) {
         db.collection("permission_employee")
                 .whereEqualTo("nip", nip)
@@ -414,8 +546,8 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
     @Override
     protected void onStart() {
         super.onStart();
-        progressDialog.show();
-        showDataDivision(EXTRA);
+//        progressDialog.show();
+//        showDataDivision(EXTRA);
     }
 
     @Override
@@ -426,5 +558,17 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         } else {
             StyleableToast.makeText(getApplicationContext(),"Permission Denied!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        list.clear();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

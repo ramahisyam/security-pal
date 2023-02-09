@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.securityptpal.CheckUpPermissionActivity;
 import com.example.securityptpal.LogoutAccount;
 import com.example.securityptpal.R;
 import com.example.securityptpal.model.Division;
@@ -129,12 +130,9 @@ public class Employee extends AppCompatActivity {
                         Employee.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        calendar.set(year, month, day);
-
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-
-                        String dateString = dateFormat.format(calendar.getTime());
-                        edtDate.setText(dateString);
+                        month = month + 1;
+                        String date = year+"/"+month+"/"+day;
+                        edtDate.setText(date);
                     }
                 },year,month,day);
                 datePickerDialog.show();
@@ -303,7 +301,12 @@ public class Employee extends AppCompatActivity {
     }
 
     private void getDivision() {
+        progressDialog = new ProgressDialog(Employee.this);
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog2);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("division").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

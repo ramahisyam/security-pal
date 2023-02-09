@@ -167,6 +167,20 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
         rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         drawerLayout = findViewById(R.id.drawer_layout);
         btMenu = findViewById(R.id.bt_menu);
         btnFilter = findViewById(R.id.main_filter_late);
@@ -409,6 +423,49 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
                             StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                         }
                         progressDialog.dismiss();
+                    }
+                });
+    }
+
+    private void searchData(String nip) {
+        db.collection("permission_late")
+                .whereEqualTo("nip", nip)
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        list.clear();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PermissionLate permissionLate = new PermissionLate(
+                                        document.getId(),
+                                        document.getString("name"),
+                                        document.getString("nip"),
+                                        document.getString("division"),
+                                        document.getString("reason"),
+                                        document.getString("img"),
+                                        document.getString("date"),
+                                        document.getString("device"),
+                                        document.getString("latitude"),
+                                        document.getString("longitude"),
+                                        document.getString("location"),
+                                        document.getString("status"),
+                                        document.getString("department")
+                                );
+                                list.add(permissionLate);
+                            }
+                            latePermissionAdapter.notifyDataSetChanged();
+                        } else {
+                            StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        StyleableToast.makeText(getApplicationContext(),"Data Not Found!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                     }
                 });
     }
