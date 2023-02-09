@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.securityptpal.model.Barang;
 import com.example.securityptpal.model.EmployeeSubcon;
 import com.example.securityptpal.model.Guest;
+import com.example.securityptpal.model.KeluarPS;
 import com.example.securityptpal.model.MasukPS;
 import com.example.securityptpal.model.ParkSub;
 import com.example.securityptpal.model.Subcon;
@@ -214,7 +215,7 @@ public class ParkingSubcontractor extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(ParkingSubcontractor.this, "Success adding employee", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ParkingSubcontractor.this, "Success adding data", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -231,6 +232,109 @@ public class ParkingSubcontractor extends AppCompatActivity {
                         .update(
                                 "masuk", String.valueOf(counter1),
                                 "keluar", "1"
+                        )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getApplicationContext(), "Success update", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //                StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                    }
+                });
+            }
+        });
+
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    private void addData2(int counter2){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ParkingSubcontractor.this);
+        builder.setTitle("Add Data");
+        View view = getLayoutInflater().inflate(R.layout.add_data_parksub2, null);
+
+        Date dateCurrent = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+        String dateString = dateFormat.format(dateCurrent);
+
+        EditText edtName2 = (EditText) view.findViewById(R.id.name_parksub);
+        EditText edtNopol2 = (EditText) view.findViewById(R.id.nopol_parksub);
+        TextView edtDate2 = (TextView) view.findViewById(R.id.tanggal_parksub);
+        TextView edtQueue2 = (TextView) view.findViewById(R.id.urutan_parksub);
+
+        edtDate2.setText(dateString);
+        edtQueue2.setText(String.valueOf(counter2));
+
+        Button btnSubmit = view.findViewById(R.id.btn_add_parksub);
+
+        btnSubmit.setOnClickListener(view1 -> {
+            if (TextUtils.isEmpty(edtName2.getText().toString()) || TextUtils.isEmpty(edtNopol2.getText().toString()) || TextUtils.isEmpty(edtDate2.getText().toString()) || TextUtils.isEmpty(edtQueue2.getText().toString())){
+//                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+                Alerter.create(ParkingSubcontractor.this)
+                        .setTitle("Add Data Failed!")
+                        .setText("Please fill all the data")
+                        .setIcon(R.drawable.ic_close)
+                        .setBackgroundColorRes(android.R.color.holo_red_dark)
+                        .setDuration(2000)
+                        .enableSwipeToDismiss()
+                        .enableProgress(true)
+                        .setProgressColorRes(R.color.design_default_color_primary)
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        })
+                        .setOnShowListener(new OnShowAlertListener() {
+                            @Override
+                            public void onShow() {
+
+                            }
+                        })
+                        .setOnHideListener(new OnHideAlertListener() {
+                            @Override
+                            public void onHide() {
+
+                            }
+                        })
+                        .show();
+            } else {
+                KeluarPS keluarPS = new KeluarPS(
+                        db.collection("keluar_parksub").document().getId(),
+                        edtName2.getText().toString(),
+                        edtNopol2.getText().toString(),
+                        edtDate2.getText().toString(),
+                        String.valueOf(counter2)
+                );
+                progressDialog.setTitle("Loading");
+                progressDialog.setMessage("Sending data...");
+                progressDialog.show();
+                db.collection("keluar_parksub")
+                        .add(keluarPS)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(ParkingSubcontractor.this, "Success adding data", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ParkingSubcontractor.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                dialog.dismiss();
+                progressDialog.dismiss();
+                inputKeluar.setText(counter2 + "");
+
+                db.collection("permission_parksub").document("20220208")
+                        .update(
+                                "masuk", "1",
+                                "keluar", String.valueOf(counter2)
                         )
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -271,70 +375,76 @@ public class ParkingSubcontractor extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             if (result.getContents() != null) {
-                new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                        .setTitleText("SCANNING RESULT")
-                        .setContentText(result.getContents())
-                        .setCustomImage(R.drawable.ic_code)
-                        .setConfirmText("K")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                counter2++;
-                                inputKeluar.setText(counter2 + "");
-                                sDialog.dismissWithAnimation();
-
-                                masuk = inputMasuk.getText().toString();
-                                keluar = inputKeluar.getText().toString();
-
-                                ParkSub parkSub = new ParkSub(
-                                        db.collection("permission_parksub").document().getId(),
-                                        masuk,
-                                        keluar
-                                );
-                                db.collection("permission_parksub").add(parkSub).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                                    }
-                                });
-                            }
-                        })
-                        .setCancelButton("M", new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                counter1++;
-//                                inputMasuk.setText(counter1 + "");
-//                                sDialog.dismissWithAnimation();
+                if (result.getContents().equals("FursanRamaMeisin")) {
+                    new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                            .setTitleText("QRCODE IS VALID")
+                            .setContentText("Choose Your Option Below!")
+                            .setCustomImage(R.drawable.ic_code)
+                            .setConfirmText("In")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    counter1++;
+                                    //                                inputMasuk.setText(counter1 + "");
+                                    //                                sDialog.dismissWithAnimation();
+                                    //
+                                    //                                masuk = inputMasuk.getText().toString();
+                                    //                                keluar = inputKeluar.getText().toString();
+                                    //
+                                    //                                ParkSub parkSub = new ParkSub(
+                                    //                                        db.collection("permission_parksub").document().getId(),
+                                    //                                        masuk,
+                                    //                                        keluar
+                                    //                                );
+                                    //                                db.collection("permission_parksub").add(parkSub).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    //                                    @Override
+                                    //                                    public void onSuccess(DocumentReference documentReference) {
+                                    //                                        StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
+                                    //                                    }
+                                    //                                }).addOnFailureListener(new OnFailureListener() {
+                                    //                                    @Override
+                                    //                                    public void onFailure(@NonNull Exception e) {
+                                    //                                        StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                                    //                                    }
+                                    //                                });
+                                    addData(counter1);
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .setCancelButton("Out", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    counter2++;
+//                                    inputKeluar.setText(counter2 + "");
+//                                    sDialog.dismissWithAnimation();
 //
-//                                masuk = inputMasuk.getText().toString();
-//                                keluar = inputKeluar.getText().toString();
+//                                    masuk = inputMasuk.getText().toString();
+//                                    keluar = inputKeluar.getText().toString();
 //
-//                                ParkSub parkSub = new ParkSub(
-//                                        db.collection("permission_parksub").document().getId(),
-//                                        masuk,
-//                                        keluar
-//                                );
-//                                db.collection("permission_parksub").add(parkSub).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                    @Override
-//                                    public void onSuccess(DocumentReference documentReference) {
-//                                        StyleableToast.makeText(getApplicationContext(),"Data Send Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-//                                    }
-//                                });
-                                addData(counter1);
-                                sDialog.dismissWithAnimation();
-                            }
-                        })
-                        .show();
+//                                    ParkSub parkSub = new ParkSub(
+//                                            db.collection("permission_parksub").document().getId(),
+//                                            masuk,
+//                                            keluar
+//                                    );
+//                                    db.collection("permission_parksub").add(parkSub).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                        @Override
+//                                        public void onSuccess(DocumentReference documentReference) {
+//                                            StyleableToast.makeText(getApplicationContext(), "Data Send Successfully!", Toast.LENGTH_SHORT, R.style.logsuccess).show();
+//                                        }
+//                                    }).addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                            StyleableToast.makeText(getApplicationContext(), "Data Send Failed!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+//                                        }
+//                                    });
+                                    addData2(counter2);
+                                    sDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                }else {
+                    StyleableToast.makeText(getApplicationContext(), "QRCode is Invalid!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
+                }
             } else {
                 StyleableToast.makeText(getApplicationContext(), "No Scan Results!", Toast.LENGTH_SHORT, R.style.warning).show();
             }
