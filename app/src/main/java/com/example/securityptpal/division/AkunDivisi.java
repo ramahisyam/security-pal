@@ -51,8 +51,6 @@ public class AkunDivisi extends AppCompatActivity implements DivisionGridAdapter
         imgSignOut = findViewById(R.id.sign_out_division_account);
         recyclerView = findViewById(R.id.rv_div);
         progressDialog = new ProgressDialog(AkunDivisi.this);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Getting data...");
 
         divisionAdapter = new DivisionGridAdapter(this, list, this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
@@ -71,6 +69,10 @@ public class AkunDivisi extends AppCompatActivity implements DivisionGridAdapter
 
     private void showAllData() {
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
         db.collection("division")
                 .orderBy("name", Query.Direction.ASCENDING)
                 .get()

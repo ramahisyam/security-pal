@@ -30,7 +30,7 @@ public class DetailGuestActivity extends AppCompatActivity implements AdapterVie
     String item;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ArrayList<String> centerStatus;
+    private ArrayList<String> divStatus;
     ImageView permit_ttd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +53,12 @@ public class DetailGuestActivity extends AppCompatActivity implements AdapterVie
         save = findViewById(R.id.save_center_status);
         permit_ttd = findViewById(R.id.permit_ttd);
 
-        centerStatus = new ArrayList<>();
-        centerStatus.add("Accepted");
-        centerStatus.add("Pending");
-        centerStatus.add("Rejected");
+        divStatus = new ArrayList<>();
+        divStatus.add("Accepted");
+        divStatus.add("Pending");
+        divStatus.add("Rejected");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, centerStatus);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, divStatus);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);

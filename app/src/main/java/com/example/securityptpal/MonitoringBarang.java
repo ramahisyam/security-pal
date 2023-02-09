@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.securityptpal.adapter.GoodsAdapter;
 import com.example.securityptpal.adapter.MainGoodsPermitAdapter;
 import com.example.securityptpal.adapter.MonitoringGoodsPermitAdapter;
 import com.example.securityptpal.adapter.OnPermitListener;
@@ -30,12 +31,12 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonitoringBarang extends AppCompatActivity implements OnPermitListener {
+public class MonitoringBarang extends AppCompatActivity implements GoodsAdapter.OnGoodsListener {
 
     private RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Barang> list = new ArrayList<>();
-    private MonitoringGoodsPermitAdapter monitoringGoodsPermitAdapter;
+    private GoodsAdapter goodsAdapter;
     private ProgressDialog progressDialog;
     private SearchView searchView;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -49,12 +50,12 @@ public class MonitoringBarang extends AppCompatActivity implements OnPermitListe
         progressDialog = new ProgressDialog(MonitoringBarang.this);
         mSwipeRefreshLayout = findViewById(R.id.refresh_monitoring_goods_permit);
 
-        monitoringGoodsPermitAdapter = new MonitoringGoodsPermitAdapter(this, list, this);
+        goodsAdapter = new GoodsAdapter(this, list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
-        recyclerView.setAdapter(monitoringGoodsPermitAdapter);
+        recyclerView.setAdapter(goodsAdapter);
 
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -115,7 +116,7 @@ public class MonitoringBarang extends AppCompatActivity implements OnPermitListe
                                 list.add(barang);
                                 progressDialog.dismiss();
                             }
-                            monitoringGoodsPermitAdapter.notifyDataSetChanged();
+                            goodsAdapter.notifyDataSetChanged();
                         } else {
                             StyleableToast.makeText(getApplicationContext(), "Data Failed to Load", Toast.LENGTH_SHORT, R.style.result).show();
                             progressDialog.dismiss();
@@ -188,15 +189,15 @@ public class MonitoringBarang extends AppCompatActivity implements OnPermitListe
     }
 
     @Override
-    public void onPermitClick(int position) {
-        Intent intent = new Intent(MonitoringBarang.this, DetailBarangActivity.class);
-        intent.putExtra("MAIN_GOODS_PERMIT", list.get(position));
-        startActivity(intent);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 //        showAllDataDesc();
+    }
+
+    @Override
+    public void onGoodsClick(int position) {
+        Intent intent = new Intent(MonitoringBarang.this, DetailBarangActivity.class);
+        intent.putExtra("MAIN_GOODS_PERMIT", list.get(position));
+        startActivity(intent);
     }
 }
