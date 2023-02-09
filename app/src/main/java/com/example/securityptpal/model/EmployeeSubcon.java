@@ -7,20 +7,32 @@ public class EmployeeSubcon implements Parcelable {
     private String id;
     private String name;
     private String age;
+    private String phone;
+    private String nip;
+    private String address;
+    private String img;
 
     public EmployeeSubcon() {
     }
 
-    public EmployeeSubcon(String id, String name, String age) {
+    public EmployeeSubcon(String id, String name, String age, String phone, String nip, String address, String img) {
         this.id = id;
         this.name = name;
         this.age = age;
+        this.phone = phone;
+        this.nip = nip;
+        this.address = address;
+        this.img = img;
     }
 
     protected EmployeeSubcon(Parcel in) {
         id = in.readString();
         name = in.readString();
         age = in.readString();
+        phone = in.readString();
+        nip = in.readString();
+        address = in.readString();
+        img = in.readString();
     }
 
     public static final Creator<EmployeeSubcon> CREATOR = new Creator<EmployeeSubcon>() {
@@ -59,6 +71,38 @@ public class EmployeeSubcon implements Parcelable {
         this.age = age;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -69,5 +113,9 @@ public class EmployeeSubcon implements Parcelable {
         parcel.writeString(id);
         parcel.writeString(name);
         parcel.writeString(age);
+        parcel.writeString(phone);
+        parcel.writeString(nip);
+        parcel.writeString(address);
+        parcel.writeString(img);
     }
 }
