@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,11 @@ import com.example.securityptpal.model.ParkSub;
 import com.example.securityptpal.model.Subcon;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -45,6 +51,7 @@ import com.tapadoo.alerter.OnShowAlertListener;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -55,10 +62,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class ParkingSubcontractor extends AppCompatActivity {
 
     Button scanParksub;
-    TextView inputMasuk, inputKeluar;
+    TextView inputMasuk, inputKeluar, tvMasuk, tvKeluar;
     private int counter1, counter2;
     String masuk, keluar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference dbRef;
     AlertDialog dialog;
 
     private ProgressDialog progressDialog;
@@ -68,9 +77,13 @@ public class ParkingSubcontractor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_subcontractor);
         progressDialog = new ProgressDialog(ParkingSubcontractor.this);
+        mDatabase = FirebaseDatabase.getInstance("https://project-kp-ff0b3-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        dbRef = mDatabase.getReference().child("permission_parksub");
 
-        inputMasuk = findViewById(R.id.masuk);
-        inputKeluar = findViewById(R.id.keluar);
+        inputMasuk = (TextView) findViewById(R.id.masuk);
+        inputKeluar = (TextView) findViewById(R.id.keluar);
+        tvMasuk = (TextView) findViewById(R.id.tvmasuk);
+        tvKeluar = (TextView) findViewById(R.id.tvkeluar);
         scanParksub = findViewById(R.id.scanParksub);
 //        resetParkSub = findViewById(R.id.resetParkSub);
 
@@ -85,12 +98,37 @@ public class ParkingSubcontractor extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+        Calendar calendar1 = Calendar.getInstance();
+        SimpleDateFormat formatter1 = new SimpleDateFormat("hh:mm aa");
+        String currentTime = formatter1.format(calendar1.getTime());
+        Log.d("TAG", "onCreate: " + currentTime);
+        String availableTime = "08:00 PM";
+        if (currentTime.compareTo(availableTime)>=0){
+            dbRef.child("keluar").setValue(0);
+            dbRef.child("masuk").setValue(0);
+            Log.d("TAG", "onCreate: higher");
+        } else {
+            Log.d("TAG", "onCreate: lower");
+        }
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
+//        SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mm aa");
+//        try {
+//            Date date = dateFormat.parse(time);
+//
+//            String out = dateFormat2.format(date);
+//            Log.d("TAG", "current Time : "+currentDate);
+////            Log.d("TAG", "Time : "+currentDate);
+//            if (currentDate.compareTo(out)>=0){
+////                dbRef.child("keluar").setValue(0);
+//                Log.d("TAG", "onCreate: " + "true");
+//            } else {
+//                Log.d("TAG", "onCreate: " + "false");
+//            }
+//        }catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
-        initCounter1();
-        initCounter2();
-
-        masuk = inputMasuk.getText().toString();
-        keluar = inputKeluar.getText().toString();
+        getData();
 
 //        ParkSub parkSub = new ParkSub(
 //                db.collection("permission_parksub").document().getId(),
@@ -145,11 +183,30 @@ public class ParkingSubcontractor extends AppCompatActivity {
 //                        .show();
 //            }
 //        });
-//        showData();
     }
 
+    private void getData() {
+        progressDialog.setTitle("Fetching Data");
+        progressDialog.show();
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                inputMasuk.setText(snapshot.child("masuk").getValue().toString());
+                inputKeluar.setText(snapshot.child("keluar").getValue().toString());
+                masuk = inputMasuk.getText().toString();
+                keluar = inputKeluar.getText().toString();
+                progressDialog.dismiss();
+            }
 
-    private void addData(int counter1){
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ParkingSubcontractor.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void addData(){
         AlertDialog.Builder builder = new AlertDialog.Builder(ParkingSubcontractor.this);
         builder.setTitle("Add Data");
         View view = getLayoutInflater().inflate(R.layout.add_data_parksub, null);
@@ -164,7 +221,8 @@ public class ParkingSubcontractor extends AppCompatActivity {
         TextView edtQueue = (TextView) view.findViewById(R.id.urutan_parksub);
 
         edtDate.setText(dateString);
-        edtQueue.setText(String.valueOf(counter1));
+        int countMasuk = Integer.parseInt(masuk)+1;
+        edtQueue.setText(String.valueOf(countMasuk));
 
         Button btnSubmit = view.findViewById(R.id.btn_add_parksub);
 
@@ -205,7 +263,7 @@ public class ParkingSubcontractor extends AppCompatActivity {
                   edtName.getText().toString(),
                   edtNopol.getText().toString(),
                         edtDate.getText().toString(),
-                        String.valueOf(counter1)
+                        String.valueOf(countMasuk)
                 );
                 progressDialog.setTitle("Loading");
                 progressDialog.setMessage("Sending data...");
@@ -215,7 +273,9 @@ public class ParkingSubcontractor extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
+                                dbRef.child("masuk").setValue(countMasuk);
                                 Toast.makeText(ParkingSubcontractor.this, "Success adding data", Toast.LENGTH_SHORT).show();
+                                inputMasuk.setText(String.valueOf(countMasuk));
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -226,24 +286,6 @@ public class ParkingSubcontractor extends AppCompatActivity {
                 });
                 dialog.dismiss();
                 progressDialog.dismiss();
-                inputMasuk.setText(counter1 + "");
-
-                db.collection("permission_parksub").document("20220208")
-                        .update(
-                                "masuk", String.valueOf(counter1),
-                                "keluar", "1"
-                        )
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(getApplicationContext(), "Success update", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        //                StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                    }
-                });
             }
         });
 
@@ -252,7 +294,7 @@ public class ParkingSubcontractor extends AppCompatActivity {
         dialog.show();
     }
 
-    private void addData2(int counter2){
+    private void addData2(){
         AlertDialog.Builder builder = new AlertDialog.Builder(ParkingSubcontractor.this);
         builder.setTitle("Add Data");
         View view = getLayoutInflater().inflate(R.layout.add_data_parksub2, null);
@@ -266,8 +308,9 @@ public class ParkingSubcontractor extends AppCompatActivity {
         TextView edtDate2 = (TextView) view.findViewById(R.id.tanggal_parksub);
         TextView edtQueue2 = (TextView) view.findViewById(R.id.urutan_parksub);
 
+        int countKeluar = Integer.parseInt(keluar)+1;
         edtDate2.setText(dateString);
-        edtQueue2.setText(String.valueOf(counter2));
+        edtQueue2.setText(String.valueOf(countKeluar));
 
         Button btnSubmit = view.findViewById(R.id.btn_add_parksub);
 
@@ -308,7 +351,7 @@ public class ParkingSubcontractor extends AppCompatActivity {
                         edtName2.getText().toString(),
                         edtNopol2.getText().toString(),
                         edtDate2.getText().toString(),
-                        String.valueOf(counter2)
+                        String.valueOf(countKeluar)
                 );
                 progressDialog.setTitle("Loading");
                 progressDialog.setMessage("Sending data...");
@@ -318,35 +361,19 @@ public class ParkingSubcontractor extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
+                                dbRef.child("keluar").setValue(countKeluar);
                                 Toast.makeText(ParkingSubcontractor.this, "Success adding data", Toast.LENGTH_SHORT).show();
+                                inputKeluar.setText(String.valueOf(countKeluar));
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ParkingSubcontractor.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
                     }
                 });
                 dialog.dismiss();
                 progressDialog.dismiss();
-                inputKeluar.setText(counter2 + "");
 
-                db.collection("permission_parksub").document("20220208")
-                        .update(
-                                "masuk", "1",
-                                "keluar", String.valueOf(counter2)
-                        )
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(getApplicationContext(), "Success update", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        //                StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-                    }
-                });
             }
         });
 
@@ -407,7 +434,7 @@ public class ParkingSubcontractor extends AppCompatActivity {
                                     //                                        StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
                                     //                                    }
                                     //                                });
-                                    addData(counter1);
+                                    addData();
                                     sDialog.dismissWithAnimation();
                                 }
                             })
@@ -437,7 +464,7 @@ public class ParkingSubcontractor extends AppCompatActivity {
 //                                            StyleableToast.makeText(getApplicationContext(), "Data Send Failed!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
 //                                        }
 //                                    });
-                                    addData2(counter2);
+                                    addData2();
                                     sDialog.dismissWithAnimation();
                                 }
                             })
