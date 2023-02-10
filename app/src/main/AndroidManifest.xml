@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".DetailSubconEmployeeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Login4"
             android:exported="false" />
         <activity
@@ -227,7 +230,7 @@
             android:exported="true" />
         <activity
             android:name=".Subcontractor"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".CometooLate"
             android:exported="true" />
