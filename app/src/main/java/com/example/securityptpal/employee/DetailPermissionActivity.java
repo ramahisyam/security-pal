@@ -20,7 +20,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetailPermissionActivity extends AppCompatActivity {
 
-    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, division_approve, center_approve, departmen, status;
+    private TextView base, name, nip, division, date, necessity, place, timeout, timeback, division_approve, center_approve, departmen, status, txtEmployee;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ImageView qrEmployee;
@@ -41,8 +41,7 @@ public class DetailPermissionActivity extends AppCompatActivity {
         division_approve = findViewById(R.id.division_approval_status);
         center_approve = findViewById(R.id.center_approval);
         qrEmployee = findViewById(R.id.qrEmployee);
-
-        qrEmployee.setEnabled(false);
+        txtEmployee = findViewById(R.id.txtEmployee);
 
         qrEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +183,8 @@ public class DetailPermissionActivity extends AppCompatActivity {
         }
 
         if (permissionEmployee.getDivision_approval().equals("Accepted") && permissionEmployee.getCenter_approval().equals("Accepted")){
-            qrEmployee.setEnabled(true);
+            qrEmployee.setVisibility(View.VISIBLE);
+            txtEmployee.setVisibility(View.VISIBLE);
         }
     }
 }

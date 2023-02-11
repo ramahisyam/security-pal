@@ -175,6 +175,7 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
             dialog.show();
         });
     }
+
     private void filter(int code) {
         if (code == 0) {
             showAllDataDesc(EXTRA);

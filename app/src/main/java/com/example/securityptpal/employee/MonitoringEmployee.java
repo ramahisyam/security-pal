@@ -47,13 +47,12 @@ public class MonitoringEmployee extends AppCompatActivity implements OnPermitLis
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                searchData(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchData(newText);
                 return false;
             }
         });

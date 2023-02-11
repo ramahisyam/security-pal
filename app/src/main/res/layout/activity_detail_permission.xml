@@ -430,12 +430,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_status_layout">
         <ImageView
+            android:visibility="gone"
             android:id="@+id/qrEmployee"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/qrcode"
             android:layout_gravity="center"/>
         <TextView
+            android:visibility="gone"
+            android:id="@+id/txtEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Show QRCode"

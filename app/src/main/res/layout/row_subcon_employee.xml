@@ -33,7 +33,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subcon_employee_name" />
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/subcon_employee_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="2210191031"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/main_blue_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subcon_employee_nip" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/subcon_employee_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="2210191031"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/main_blue_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subcon_employee_age" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/subcon_employee_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="2210191031"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/main_blue_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subcon_employee_age" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/downloadidcard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

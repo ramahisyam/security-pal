@@ -40,6 +40,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_monitoring_employee"
         android:layout_width="match_parent"
+        android:background="@drawable/et_search1"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"

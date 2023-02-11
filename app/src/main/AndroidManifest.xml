@@ -19,8 +19,11 @@
         android:roundIcon="@drawable/logopal"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
+            <activity
+                android:name=".DetailSubconEmployeeActivity"
+                android:exported="false" />
         <activity
-            android:name=".DetailSubconEmployeeActivity"
+            android:name=".IdcardDetailSubcon"
             android:exported="false" />
         <activity
             android:name=".Login4"
