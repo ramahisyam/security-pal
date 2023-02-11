@@ -26,7 +26,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.securityptpal.model.EmployeeSubcon;
+import com.example.securityptpal.model.Subcon;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
@@ -36,10 +38,11 @@ import java.util.function.BiFunction;
 
 public class IdcardDetailSubcon extends AppCompatActivity {
     ImageView avatarview;
-    TextView namedocsub,agedocsub,divdocsub,depdocsub,nipdocsub,phonedocsub,adddocsub,startdocsub,finishdocsub;
+    TextView namedocsub,comdocsub,agedocsub,divdocsub,depdocsub,nipdocsub,phonedocsub,adddocsub,startdocsub,finishdocsub;
     LinearLayout linearLayout, linearLayout2;
     ImageButton save;
     EmployeeSubcon employeeSubcon;
+    Subcon subcon;
     Bitmap bitmap, bitmap2, scaledbmp;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
@@ -204,7 +207,8 @@ public class IdcardDetailSubcon extends AppCompatActivity {
 //    }
 
     private void viewData() {
-        employeeSubcon = getIntent().getParcelableExtra("SUBCON_IDCARD");
+        employeeSubcon = getIntent().getParcelableExtra("IDCARD1");
+        subcon = getIntent().getParcelableExtra("IDCARD2");
 //        Intent intent=getIntent();
 //        byte[]bytes=intent.getByteArrayExtra("imageViewDocSubcon2");
 //        Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
@@ -225,14 +229,21 @@ public class IdcardDetailSubcon extends AppCompatActivity {
         nipdocsub.setText(": "+employeeSubcon.getNip());
         phonedocsub.setText(": "+employeeSubcon.getPhone());
         adddocsub.setText(": "+employeeSubcon.getAddress());
+        comdocsub.setText(": "+subcon.getCompany());
+        startdocsub.setText(": "+subcon.getStartDate());
+        finishdocsub.setText(": "+subcon.getFinishDate());
+        Glide.with(this).load(employeeSubcon.getImg()).placeholder(R.drawable.pict).into(avatarview);
     }
 
     private void findId() {
         avatarview=(ImageView)findViewById(R.id.avatarview);
         namedocsub=(TextView)findViewById(R.id.namedocsub);
+        comdocsub=(TextView)findViewById(R.id.comdocsub);
         agedocsub=(TextView)findViewById(R.id.agedocsub);
         nipdocsub=(TextView)findViewById(R.id.nipdocsub);
         phonedocsub=(TextView)findViewById(R.id.phonedocsub);
+        startdocsub=(TextView)findViewById(R.id.startdocsub);
+        finishdocsub=(TextView)findViewById(R.id.finishdocsub);
         adddocsub=(TextView)findViewById(R.id.adddocsub);
         linearLayout=findViewById(R.id.lld);
         bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.idcard);

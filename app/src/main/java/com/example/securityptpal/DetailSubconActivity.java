@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.securityptpal.adapter.OnPermitListener;
 import com.example.securityptpal.adapter.SubconAdapter;
 import com.example.securityptpal.adapter.SubconEmployeeAdapter;
 import com.example.securityptpal.model.Barang;
@@ -28,7 +30,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailSubconActivity extends AppCompatActivity {
+public class DetailSubconActivity extends AppCompatActivity implements OnPermitListener {
     TextView company, phone, necessity, division, department, startDate, finishDate;
     ProgressDialog progressDialog;
     Subcon subcon;
@@ -62,7 +64,7 @@ public class DetailSubconActivity extends AppCompatActivity {
         startDate.setText(subcon.getStartDate());
         finishDate.setText(subcon.getFinishDate());
 
-        subconEmployeeAdapter = new SubconEmployeeAdapter(this, list);
+        subconEmployeeAdapter = new SubconEmployeeAdapter(this, list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -102,5 +104,13 @@ public class DetailSubconActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onPermitClick(int position) {
+        Intent intent = new Intent(DetailSubconActivity.this, DetailSubconEmployeeActivity.class);
+        intent.putExtra("SUBCON_EMPLOYEE_DETAIL", list.get(position));
+        intent.putExtra("SUBCON_DATA", subcon);
+        startActivity(intent);
     }
 }
