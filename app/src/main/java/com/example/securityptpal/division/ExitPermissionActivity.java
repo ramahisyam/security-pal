@@ -86,6 +86,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         setContentView(R.layout.activity_exit_permission);
         recyclerView = findViewById(R.id.rv_exit_permission);
         searchView = findViewById(R.id.search_exit_permit);
+        btnFilter = findViewById(R.id.div_filter_exit);
         progressDialog = new ProgressDialog(ExitPermissionActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -190,9 +191,9 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
 
     private void filter(int code) {
         if (code == 0) {
-            showAllDataDesc(EXTRA);
-        } else if (code == 1) {
             showAllDataAsc(EXTRA);
+        } else if (code == 1) {
+            showAllDataDesc(EXTRA);
         }
     }
 

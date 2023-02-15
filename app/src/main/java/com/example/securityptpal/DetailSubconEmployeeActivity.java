@@ -1,9 +1,12 @@
 package com.example.securityptpal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +20,7 @@ public class DetailSubconEmployeeActivity extends AppCompatActivity {
     TextView name, phone, nip, age, address, startDate, finishDate, company;
     ZoomInImageView photo;
     Subcon subcon;
+    ConstraintLayout download;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class DetailSubconEmployeeActivity extends AppCompatActivity {
         startDate = findViewById(R.id.detail_start_date_employee_subcon);
         finishDate = findViewById(R.id.detail_finish_date_employee_subcon);
         photo = findViewById(R.id.img_employee_subcon);
+        download = findViewById(R.id.downloadidcard);
 
         employeeSubcon = getIntent().getParcelableExtra("SUBCON_EMPLOYEE_DETAIL");
         subcon = getIntent().getParcelableExtra("SUBCON_DATA");
@@ -44,5 +49,15 @@ public class DetailSubconEmployeeActivity extends AppCompatActivity {
         startDate.setText(subcon.getStartDate());
         finishDate.setText(subcon.getFinishDate());
         Glide.with(this).load(employeeSubcon.getImg()).placeholder(R.drawable.pict).into(photo);
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailSubconEmployeeActivity.this, IdcardDetailSubcon.class);
+                intent.putExtra("IDCARD1", employeeSubcon);
+                intent.putExtra("IDCARD2", subcon);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -28,6 +28,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="2210191031"
+        android:textStyle="bold"
         android:textColor="@color/main_blue_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/late_employee_name" />
