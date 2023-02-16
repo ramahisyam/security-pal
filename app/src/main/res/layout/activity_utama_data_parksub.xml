@@ -8,100 +8,66 @@
     android:id="@+id/drawer_layout"
     android:background="@drawable/bgutama1">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <include
-        android:id="@+id/include"
-        layout="@layout/main_toolbar" />
+            android:id="@+id/include"
+            layout="@layout/main_toolbar" />
 
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parking\nSubcon"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/gabriela"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include"
+            android:layout_marginEnd="260dp"
+            android:layout_marginTop="80dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/tv">
+
+            <Button
+                android:id="@+id/rekap_masuk"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Parking\nSubcon"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gabriela"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/include"
-                android:layout_marginEnd="260dp"
-                android:layout_marginTop="80dp" />
+                android:layout_weight="1"
+                android:text="Rekap Masuk"
+                android:textAllCaps="false" />
 
-            <TextView
-                android:layout_marginTop="10dp"
-                android:id="@+id/main_masuk"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/rekap_keluar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tvmasuk"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.3"
-                android:textSize="50dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/fredoka_one" />
+                android:layout_weight="1"
+                android:text="Rekap Keluar"
+                android:textAllCaps="false" />
+        </LinearLayout>
 
-            <TextView
-                android:layout_marginTop="140dp"
-                android:id="@+id/tvmasuk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv"
-                app:layout_constraintEnd_toEndOf="@id/tvkeluar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.39"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gabriela"
-                android:text="Enter"/>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:id="@+id/main_keluar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tvkeluar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/main_masuk"
-                android:textSize="50dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/fredoka_one"/>
-
-            <TextView
-                android:layout_marginTop="140dp"
-                android:id="@+id/tvkeluar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv"
-                app:layout_constraintStart_toEndOf="@id/tvmasuk"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gabriela"
-                android:text="Leave"/>
-
-            <TextView
-                android:id="@+id/resetParkSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_masuk"
-                android:layout_marginTop="70dp"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/gabriela"
-                android:text="Reset"/>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_parksub"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"

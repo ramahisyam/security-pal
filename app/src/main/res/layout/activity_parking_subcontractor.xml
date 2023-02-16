@@ -20,6 +20,21 @@
         android:textColor="@color/white"
         android:fontFamily="@font/gabriela"
         android:layout_marginTop="70dp"/>
+
+    <ImageView
+        android:id="@+id/sign_out_parksub"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_logout"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv"
+        app:tint="@color/white" />
+
     <Button
         android:id="@+id/scanParksub"
         android:layout_width="130dp"
@@ -86,19 +101,19 @@
         android:fontFamily="@font/gabriela"
         android:text="Leave"/>
 
-<!--    <TextView-->
-<!--        android:id="@+id/resetParkSub"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/masuk"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/imageView4"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--        android:textSize="20dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:fontFamily="@font/gabriela"-->
-<!--        android:text="Reset"/>-->
+    <Button
+        android:id="@+id/resetParkSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/masuk"
+        app:layout_constraintBottom_toTopOf="@id/imageView4"
+        android:layout_marginTop="48dp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:background="#174887"
+        android:text="Reset"/>
 
     <ImageView
         android:id="@+id/imageView4"

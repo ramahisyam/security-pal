@@ -1,6 +1,8 @@
 package com.example.securityptpal;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,29 +10,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.adapter.SubconAdapter;
 import com.example.securityptpal.adapter.SubconEmployeeAdapter;
+import com.example.securityptpal.main.EditSubconPermitActivity;
 import com.example.securityptpal.model.Barang;
 import com.example.securityptpal.model.EmployeeSubcon;
 import com.example.securityptpal.model.Subcon;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailSubconActivity extends AppCompatActivity implements OnPermitListener {
+public class DetailSubconActivity extends AppCompatActivity implements OnPermitListener, OnPermitLongClick {
     TextView company, phone, necessity, division, department, startDate, finishDate;
     ProgressDialog progressDialog;
     Subcon subcon;
@@ -64,7 +72,7 @@ public class DetailSubconActivity extends AppCompatActivity implements OnPermitL
         startDate.setText(subcon.getStartDate());
         finishDate.setText(subcon.getFinishDate());
 
-        subconEmployeeAdapter = new SubconEmployeeAdapter(this, list, this);
+        subconEmployeeAdapter = new SubconEmployeeAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -112,5 +120,54 @@ public class DetailSubconActivity extends AppCompatActivity implements OnPermitL
         intent.putExtra("SUBCON_EMPLOYEE_DETAIL", list.get(position));
         intent.putExtra("SUBCON_DATA", subcon);
         startActivity(intent);
+    }
+
+    @Override
+    public void onLongCLickListener(int pos) {
+        final CharSequence[] dialogItem = {"Edit", "Delete"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(DetailSubconActivity.this);
+        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+                        Intent intentEdit = new Intent(getApplicationContext(), EditEmployeeSubconActivity.class);
+                        intentEdit.putExtra("EDIT_SUBCON_EMPLOYEE_PERMIT", list.get(pos));
+                        intentEdit.putExtra("SUBCON_DATA_EDIT", subcon);
+                        startActivity(intentEdit);
+                        break;
+                    case 1:
+                        deleteData(list.get(pos).getId(), list.get(pos).getImg());
+                        break;
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    private void deleteData(String id, String urlImage) {
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Deleting data...");
+        progressDialog.show();
+        db.collection("subcontractor").document(subcon.getId()).collection("employee").document(id)
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful()){
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            FirebaseStorage.getInstance().getReferenceFromUrl(urlImage).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(DetailSubconActivity.this, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
+                            });
+                        }
+                    }
+                });
     }
 }

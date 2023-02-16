@@ -36,6 +36,7 @@ import com.example.securityptpal.R;
 import com.example.securityptpal.UtamaDataBarang;
 import com.example.securityptpal.UtamaDataCheckup;
 import com.example.securityptpal.UtamaDataGuest;
+import com.example.securityptpal.UtamaDataParksub;
 import com.example.securityptpal.UtamaDataSubcon;
 import com.example.securityptpal.UtamaDataVisitor;
 import com.example.securityptpal.Utama_Data_Cometoolate;
@@ -131,21 +132,21 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
             }
         });
 
-        DocumentReference documentReference = db.collection("users").document(userID);
-        documentReference.addSnapshotListener(UtamaDataEmployee.this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value.getString("role").equals("security")) {
-                    imgSignOut.setVisibility(View.VISIBLE);
-                    imgSignOut.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            LogoutAccount.logout(UtamaDataEmployee.this);
-                        }
-                    });
-                }
-            }
-        });
+//        DocumentReference documentReference = db.collection("users").document(userID);
+//        documentReference.addSnapshotListener(UtamaDataEmployee.this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if (value.getString("role").equals("security")) {
+//                    imgSignOut.setVisibility(View.VISIBLE);
+//                    imgSignOut.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            LogoutAccount.logout(UtamaDataEmployee.this);
+//                        }
+//                    });
+//                }
+//            }
+//        });
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -632,6 +633,8 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
         AkunUtama.redirectActivity(this, Utama_Data_Cometoolate.class);
     }
     public void ClickCheckup(View view){ redirectActivity(this, UtamaDataCheckup.class); }
+
+    public void ClickParksub(View view){ redirectActivity(this, UtamaDataParksub.class); }
 
     public void ClickSubcon(View view){ redirectActivity(this, UtamaDataSubcon.class); }
 

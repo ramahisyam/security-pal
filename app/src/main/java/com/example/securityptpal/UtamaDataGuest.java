@@ -407,6 +407,8 @@ public class UtamaDataGuest extends AppCompatActivity implements OnPermitListene
 
     public void ClickSubcon(View view){ AkunUtama.redirectActivity(this, UtamaDataSubcon.class); }
 
+    public void ClickParksub(View view){ redirectActivity(this, UtamaDataParksub.class); }
+
     public void ClickGuest(View view){
         AkunUtama.redirectActivity(this, UtamaDataGuest.class);
     }

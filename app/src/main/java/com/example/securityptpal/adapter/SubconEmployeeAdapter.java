@@ -27,18 +27,20 @@ public class SubconEmployeeAdapter extends RecyclerView.Adapter<SubconEmployeeAd
     private List<EmployeeSubcon> list;
     Subcon subcon;
     private OnPermitListener mOnPermitListener;
+    private OnPermitLongClick mOnPermitLongClick;
 
-    public SubconEmployeeAdapter(Context context, List<EmployeeSubcon> list, OnPermitListener mOnPermitListener) {
+    public SubconEmployeeAdapter(Context context, List<EmployeeSubcon> list, OnPermitListener mOnPermitListener, OnPermitLongClick mOnPermitLongClick) {
         this.context = context;
         this.list = list;
         this.mOnPermitListener = mOnPermitListener;
+        this.mOnPermitLongClick = mOnPermitLongClick;
     }
 
     @NonNull
     @Override
     public SubconEmployeeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_subcon_employee, parent, false);
-        return new SubconEmployeeAdapter.SubconEmployeeViewHolder(itemView, mOnPermitListener);
+        return new SubconEmployeeAdapter.SubconEmployeeViewHolder(itemView, mOnPermitListener, mOnPermitLongClick);
     }
 
     @Override
@@ -55,42 +57,36 @@ public class SubconEmployeeAdapter extends RecyclerView.Adapter<SubconEmployeeAd
         return list.size();
     }
 
-//    public class SubconEmployeeViewHolder extends RecyclerView.ViewHolder {
-//        TextView name, nip, age, address, phone;
-//        ConstraintLayout download;
-//        public SubconEmployeeViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            name = itemView.findViewById(R.id.subcon_employee_name);
-//            nip = itemView.findViewById(R.id.subcon_employee_nip);
-//            age = itemView.findViewById(R.id.subcon_employee_age);
-//            address = itemView.findViewById(R.id.subcon_employee_address);
-//            phone = itemView.findViewById(R.id.subcon_employee_phone);
-//            download = itemView.findViewById(R.id.downloadidcard);
-//
-//            download.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(context, IdcardDetailSubcon.class);
-//                    intent.putExtra("SUBCON_IDCARD", list.get(getAdapterPosition()));
-//                    context.startActivity(intent);
-//                }
-//            });
 
-    public class SubconEmployeeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class SubconEmployeeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView name, nip;
         OnPermitListener onPermitListener;
-        public SubconEmployeeViewHolder(@NonNull View itemView, OnPermitListener onPermitListener) {
+        OnPermitLongClick onPermitLongClick;
+        public SubconEmployeeViewHolder(@NonNull View itemView, OnPermitListener onPermitListener, OnPermitLongClick onPermitLongClick) {
             super(itemView);
             name = itemView.findViewById(R.id.subcon_employee_name);
             nip = itemView.findViewById(R.id.subcon_employee_nip);
 
             this.onPermitListener = onPermitListener;
+            this.onPermitLongClick = onPermitLongClick;
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             onPermitListener.onPermitClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (onPermitLongClick != null) {
+                int pos = getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION){
+                    onPermitLongClick.onLongCLickListener(pos);
+                }
+            }
+            return true;
         }
     }
 }
