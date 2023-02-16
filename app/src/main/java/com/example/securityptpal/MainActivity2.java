@@ -62,7 +62,7 @@ public class MainActivity2 extends AppCompatActivity {
         parksub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, ParkingSubcontractor.class);
+                Intent intent = new Intent(MainActivity2.this, LoginParksubActivity.class);
                 startActivity(intent);
             }
         });

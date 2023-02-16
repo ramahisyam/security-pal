@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import com.example.securityptpal.model.ParkSub;
 import com.example.securityptpal.model.Subcon;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,7 +63,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ParkingSubcontractor extends AppCompatActivity {
 
-    Button scanParksub;
+    Button scanParksub, resetParkSub;
     TextView inputMasuk, inputKeluar, tvMasuk, tvKeluar;
     private int counter1, counter2;
     String masuk, keluar;
@@ -69,6 +71,9 @@ public class ParkingSubcontractor extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference dbRef;
     AlertDialog dialog;
+    FirebaseAuth mAuth;
+    String userID;
+    ImageView imgSignOut;
 
     private ProgressDialog progressDialog;
 
@@ -79,13 +84,30 @@ public class ParkingSubcontractor extends AppCompatActivity {
         progressDialog = new ProgressDialog(ParkingSubcontractor.this);
         mDatabase = FirebaseDatabase.getInstance("https://project-kp-ff0b3-default-rtdb.asia-southeast1.firebasedatabase.app/");
         dbRef = mDatabase.getReference().child("permission_parksub");
+        mAuth = FirebaseAuth.getInstance();
 
         inputMasuk = (TextView) findViewById(R.id.masuk);
         inputKeluar = (TextView) findViewById(R.id.keluar);
         tvMasuk = (TextView) findViewById(R.id.tvmasuk);
         tvKeluar = (TextView) findViewById(R.id.tvkeluar);
         scanParksub = findViewById(R.id.scanParksub);
-//        resetParkSub = findViewById(R.id.resetParkSub);
+        resetParkSub = findViewById(R.id.resetParkSub);
+        imgSignOut = findViewById(R.id.sign_out_parksub);
+
+        userID = mAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("users").document(userID);
+        documentReference.addSnapshotListener((value, error) -> {
+            if (value.getString("role").equals("subcon")){
+                resetParkSub.setVisibility(View.GONE);
+            } else if(value.getString("role").equals("main") || value.getString("role").equals("security")) {
+                resetParkSub.setVisibility(View.VISIBLE);
+            } else {
+                FirebaseAuth.getInstance().signOut();
+                Preferences.clearData(ParkingSubcontractor.this);
+                finish();
+                Toast.makeText(this, "U have no access", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         scanParksub.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,91 +120,15 @@ public class ParkingSubcontractor extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
-        Calendar calendar1 = Calendar.getInstance();
-        SimpleDateFormat formatter1 = new SimpleDateFormat("hh:mm aa");
-        String currentTime = formatter1.format(calendar1.getTime());
-        Log.d("TAG", "onCreate: " + currentTime);
-        String availableTime = "08:00 PM";
-        if (currentTime.compareTo(availableTime)>=0){
+        resetParkSub.setOnClickListener(view -> {
             dbRef.child("keluar").setValue(0);
             dbRef.child("masuk").setValue(0);
-            Log.d("TAG", "onCreate: higher");
-        } else {
-            Log.d("TAG", "onCreate: lower");
-        }
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
-//        SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mm aa");
-//        try {
-//            Date date = dateFormat.parse(time);
-//
-//            String out = dateFormat2.format(date);
-//            Log.d("TAG", "current Time : "+currentDate);
-////            Log.d("TAG", "Time : "+currentDate);
-//            if (currentDate.compareTo(out)>=0){
-////                dbRef.child("keluar").setValue(0);
-//                Log.d("TAG", "onCreate: " + "true");
-//            } else {
-//                Log.d("TAG", "onCreate: " + "false");
-//            }
-//        }catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+        });
 
+        imgSignOut.setOnClickListener(view -> {
+            LogoutAccount.logout(ParkingSubcontractor.this);
+        });
         getData();
-
-//        ParkSub parkSub = new ParkSub(
-//                db.collection("permission_parksub").document().getId(),
-//                masuk,
-//                keluar
-//        );
-
-
-//        resetParkSub.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                new SweetAlertDialog(ParkingSubcontractor.this, SweetAlertDialog.WARNING_TYPE)
-//                        .setTitleText("RESET")
-//                        .setContentText("Are you sure want to reset ?")
-//                        .setConfirmText("OK")
-//                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                            @Override
-//                            public void onClick(SweetAlertDialog sDialog) {
-//                                counter1 = 0;
-//                                counter2 = 0;
-//                                inputMasuk.setText(counter1 + "");
-//                                inputKeluar.setText(counter2 + "");
-//
-//                                masuk = inputMasuk.getText().toString();
-//                                keluar = inputKeluar.getText().toString();
-//
-//                                ParkSub parkSub = new ParkSub(
-//                                        db.collection("permission_parksub").document().getId(),
-//                                        masuk,
-//                                        keluar
-//                                );
-//                                db.collection("permission_parksub").add(parkSub).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                    @Override
-//                                    public void onSuccess(DocumentReference documentReference) {
-//                StyleableToast.makeText(getApplicationContext(),"Reset Successfully!", Toast.LENGTH_SHORT,R.style.logsuccess).show();
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-////                StyleableToast.makeText(getApplicationContext(),"Data Send Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
-//                                    }
-//                                });
-//                                sDialog.dismissWithAnimation();
-//                            }
-//                        })
-//                        .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
-//                            @Override
-//                            public void onClick(SweetAlertDialog sDialog) {
-//                                sDialog.dismissWithAnimation();
-//                            }
-//                        })
-//                        .show();
-//            }
-//        });
     }
 
     private void getData() {
