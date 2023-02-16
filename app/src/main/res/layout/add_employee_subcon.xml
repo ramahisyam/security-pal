@@ -17,7 +17,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-black"
-            android:text="Employee Photo\t\t\t\t\t\t\t:"
+            android:text="Employee Photo"
             android:textColor="#174887"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="Name\t\t\t\t\t\t\t:"
+                android:text="Name\t\t\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
 
@@ -129,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="Phone\t\t\t\t\t\t\t:"
+                android:text="Phone\t\t\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
 
@@ -189,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="Address\t\t\t\t\t\t\t:"
+                android:text="Address\t\t:"
                 android:textColor="#174887"
                 android:textSize="16sp" />
 

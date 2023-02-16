@@ -59,5 +59,9 @@ public class DetailSubconEmployeeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if (subcon.getDivision_approval().equals("Accepted") && subcon.getCenter_approval().equals("Accepted")) {
+            download.setVisibility(View.VISIBLE);
+        }
     }
 }

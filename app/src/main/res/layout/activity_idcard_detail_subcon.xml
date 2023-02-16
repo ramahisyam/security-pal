@@ -290,7 +290,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/textview8"
                         android:text="Join"
-                        android:textColor="#174887"/>
+                        android:textColor="#8BC34A"/>
 
                     <TextView
                         android:id="@+id/startdocsub"
@@ -300,7 +300,7 @@
                         android:text="Join"
                         android:textAlignment="textStart"
                         android:textSize="20dp"
-                        android:textColor="#174887"/>
+                        android:textColor="#8BC34A"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/ll9"
@@ -317,7 +317,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/textview9"
                         android:text="Exp"
-                        android:textColor="#174887"/>
+                        android:textColor="#E91E1E"/>
 
                     <TextView
                         android:id="@+id/finishdocsub"
@@ -327,7 +327,7 @@
                         android:text="Exp"
                         android:textAlignment="textStart"
                         android:textSize="20dp"
-                        android:textColor="#174887"/>
+                        android:textColor="#E91E1E"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/ll10"

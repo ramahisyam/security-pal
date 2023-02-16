@@ -35,18 +35,18 @@ import java.util.Locale;
 
 public class EditVisitorPermitActivity extends AppCompatActivity {
     Button submit;
-    Spinner spinner, spinner2;
+    Spinner spinner, spinner2, centerApprvSpinner, divApprvSpinner;
     ProgressDialog progressDialog;
     EditText edtNameVisitor, edtCompanyVisitor, edtNoHPVisitor, edtPICVisitor, edtNecessityVisitor, edtDateVisitor, edtTimeoutVisitor, edtTimeinVisitor;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ImageView dateVisitor, img_timeoutVisitor, img_timeinVisitor;
     int hour, minute;
-    ArrayList<String> divisionList, departmentList;
-    private ArrayAdapter divSpinnerAdapter, depSpinnerAdapter;
+    ArrayList<String> divisionList, departmentList, centerStatus, divStatus;
+    private ArrayAdapter divSpinnerAdapter, depSpinnerAdapter, centerSpinnerAdapter, diviSpinnerAdapter;
     private List<Division> departments;
-    TextView txtDiv, txtDep;
+    private TextView txtDiv, txtDep, divApproval, centerApproval;
     Visitor visitor;
-    String divItem, depItem;
+    String divItem, depItem, centerApprvItem, divApprvItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,10 @@ public class EditVisitorPermitActivity extends AppCompatActivity {
         dateVisitor = findViewById(R.id.dateVisitor);
         img_timeoutVisitor = findViewById(R.id.img_timeoutVisitor);
         img_timeinVisitor = findViewById(R.id.img_timeinVisitor);
+        divApproval = findViewById(R.id.main_vis_division_approval_status);
+        centerApproval = findViewById(R.id.main_edit_center_approval);
+        centerApprvSpinner = findViewById(R.id.main_edit_vis_permit_status_center);
+        divApprvSpinner = findViewById(R.id.main_edit_vis_permit_status_div);
 
         progressDialog = new ProgressDialog(EditVisitorPermitActivity.this);
 
@@ -144,6 +148,84 @@ public class EditVisitorPermitActivity extends AppCompatActivity {
             }
         });
 
+        centerStatus = new ArrayList<>();
+        centerStatus.add("Accepted");
+        centerStatus.add("Pending");
+        centerStatus.add("Rejected");
+
+        centerSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, centerStatus);
+        centerSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        centerApprvSpinner.setAdapter(centerSpinnerAdapter);
+        centerApprvSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                centerApprvItem = centerApprvSpinner.getSelectedItem().toString();
+                centerApproval.setText(centerApprvItem);
+                if (centerApprvItem.equals("Pending")){
+                    centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.main_orange_color));
+                } else if (centerApprvItem.equals("Accepted")){
+                    centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.main_green_color));
+                } else {
+                    centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.cardColorRed));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        divStatus = new ArrayList<>();
+        divStatus.add("Accepted");
+        divStatus.add("Pending");
+        divStatus.add("Rejected");
+
+        diviSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, divStatus);
+        diviSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        divApprvSpinner.setAdapter(diviSpinnerAdapter);
+        divApprvSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                divApprvItem = divApprvSpinner.getSelectedItem().toString();
+                divApproval.setText(divApprvItem);
+                if (divApprvItem.equals("Pending")){
+                    divApproval.setTextColor(divApproval.getResources().getColor(R.color.main_orange_color));
+                } else if (divApprvItem.equals("Accepted")){
+                    divApproval.setTextColor(divApproval.getResources().getColor(R.color.main_green_color));
+                } else {
+                    divApproval.setTextColor(divApproval.getResources().getColor(R.color.cardColorRed));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        if (visitor.getDivision_approval().equals("Pending")){
+            divApproval.setText(visitor.getDivision_approval());
+            divApproval.setTextColor(divApproval.getResources().getColor(R.color.main_orange_color));
+        } else if (visitor.getDivision_approval().equals("Accepted")){
+            divApproval.setText(visitor.getDivision_approval());
+            divApproval.setTextColor(divApproval.getResources().getColor(R.color.main_green_color));
+        } else {
+            divApproval.setText(visitor.getDivision_approval());
+            divApproval.setTextColor(divApproval.getResources().getColor(R.color.cardColorRed));
+        }
+
+        if (visitor.getCenter_approval().equals("Pending")){
+            centerApproval.setText(visitor.getCenter_approval());
+            centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.main_orange_color));
+        } else if (visitor.getCenter_approval().equals("Accepted")){
+            centerApproval.setText(visitor.getCenter_approval());
+            centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.main_green_color));
+        } else {
+            centerApproval.setText(visitor.getCenter_approval());
+            centerApproval.setTextColor(centerApproval.getResources().getColor(R.color.cardColorRed));
+        }
+
         submit.setOnClickListener(view -> {
             saveData();
         });
@@ -161,7 +243,9 @@ public class EditVisitorPermitActivity extends AppCompatActivity {
                         "necessity", edtNecessityVisitor.getText().toString(),
                         "date", edtDateVisitor.getText().toString(),
                         "timein", edtTimeinVisitor.getText().toString(),
-                        "timeout", edtTimeoutVisitor.getText().toString()
+                        "timeout", edtTimeoutVisitor.getText().toString(),
+                        "division_approval", divApproval.getText().toString(),
+                        "center_approval", centerApproval.getText().toString()
                 )
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

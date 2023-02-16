@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VisitorPermitActivity"
+    tools:context=".SubconPermitActivity"
     android:background="@drawable/bgutama">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refresh_div_vis_permit"
+        android:id="@+id/refresh_div_sub_permit"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -38,9 +38,9 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="125dp"
+                android:layout_marginTop="120dp"
                 android:fontFamily="@font/gabriela"
-                android:text="Visitor"
+                android:text="Subcon"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="25dp"
@@ -62,20 +62,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_visitor_permit"
+                    android:id="@+id/search_subcon_permit"
                     android:layout_width="330dp"
                     android:layout_height="40dp"
                     android:background="@drawable/gradasi"
                     android:layout_weight="1"/>
                 <ImageView
-                    android:id="@+id/div_filter_vis"
+                    android:id="@+id/div_filter_sub"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_baseline_filter_list_24"
                     android:layout_weight="1"/>
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_visitor_permission"
+                android:id="@+id/rv_subcon_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

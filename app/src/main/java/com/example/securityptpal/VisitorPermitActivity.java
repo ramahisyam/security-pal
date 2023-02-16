@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -72,6 +73,7 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
     int filterCode = 0;
     AlertDialog dialog;
     boolean isOpen = false;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
         recyclerView = findViewById(R.id.rv_visitor_permission);
         searchView = findViewById(R.id.search_visitor_permit);
         btnFilter = findViewById(R.id.div_filter_vis);
+        mSwipeRefreshLayout = findViewById(R.id.refresh_div_vis_permit);
         progressDialog = new ProgressDialog(VisitorPermitActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -109,6 +112,14 @@ public class VisitorPermitActivity extends AppCompatActivity implements VisitorA
             public boolean onQueryTextChange(String newText) {
 //                showDataDivision(EXTRA);
                 return false;
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showAllDataDesc(EXTRA);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 

@@ -249,6 +249,7 @@ public class UtamaDataEmployee extends AppCompatActivity implements OnPermitList
             }
         });
         filter(filterCode);
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

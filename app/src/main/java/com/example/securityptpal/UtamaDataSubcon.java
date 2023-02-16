@@ -489,12 +489,12 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {
-                                                        Toast.makeText(UtamaDataSubcon.this, "Success adding employee", Toast.LENGTH_SHORT).show();
+                                                        StyleableToast.makeText(UtamaDataSubcon.this, "Success adding employee", Toast.LENGTH_SHORT, R.style.logsuccess).show();
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(UtamaDataSubcon.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                        StyleableToast.makeText(UtamaDataSubcon.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT, R.style.resultfailed).show();
                                                     }
                                                 });
                                     }
@@ -642,28 +642,18 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
     @Override
     public void onLongCLickListener(int pos) {
         final CharSequence[] dialogItem = {"Add Employee","Edit", "Delete"};
-        AlertDialog.Builder dialog = new AlertDialog.Builder(UtamaDataSubcon.this);
-        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UtamaDataSubcon.this);
+        View layout = getLayoutInflater().inflate(R.layout.edit_subconmain, null);
+        Button btnEdit = layout.findViewById(R.id.btn_edt);
+        Button btnDelete = layout.findViewById(R.id.btn_dlt);
+        Button btnAdd = layout.findViewById(R.id.btn_add);
 
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i) {
-                    case 0:
-                        addEmployee(list, pos);
-                        break;
-                    case 1:
-                        Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
-                        intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
-                        startActivity(intentEdit);
-//                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        deleteData(list.get(pos).getId());
-                        break;
-                }
-            }
+        btnEdit.setOnClickListener(view1 -> {
+            Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
+            intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
+            startActivity(intentEdit);
         });
-        /*btnDelete.setOnClickListener(view1 -> {
+        btnDelete.setOnClickListener(view1 -> {
             new SweetAlertDialog(UtamaDataSubcon.this, SweetAlertDialog.WARNING_TYPE)
                     .setTitleText("Warning!!!")
                     .setContentText("Are you sure want to delete this data ?")
@@ -671,12 +661,12 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
-                            try{
+                            try {
                                 deleteData(list.get(pos).getId());
                                 sDialog.dismissWithAnimation();
                                 StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
                             } catch (Exception e) {
-                                Log.e("error",e.getMessage());
+                                Log.e("error", e.getMessage());
                             }
                         }
                     })
@@ -689,8 +679,63 @@ public class UtamaDataSubcon extends AppCompatActivity implements OnPermitListen
                     .show();
             dialog.dismiss();
         });
+        btnAdd.setOnClickListener(view -> {
+            addEmployee(list, pos);
+        });
         builder.setView(layout);
-        dialog = builder.create();*/
+        dialog = builder.create();
         dialog.show();
     }
+
+
+//        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                switch (i) {
+//                    case 0:
+//                        addEmployee(list, pos);
+//                        break;
+//                    case 1:
+//                        Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
+//                        intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
+//                        startActivity(intentEdit);
+////                                Toast.makeText(UtamaDataEmployee.this, "coming soon", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case 2:
+//                        deleteData(list.get(pos).getId());
+//                        break;
+//                }
+//            }
+//        });
+//        /*btnDelete.setOnClickListener(view1 -> {
+//            new SweetAlertDialog(UtamaDataSubcon.this, SweetAlertDialog.WARNING_TYPE)
+//                    .setTitleText("Warning!!!")
+//                    .setContentText("Are you sure want to delete this data ?")
+//                    .setConfirmText("OK")
+//                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                        @Override
+//                        public void onClick(SweetAlertDialog sDialog) {
+//                            try{
+//                                deleteData(list.get(pos).getId());
+//                                sDialog.dismissWithAnimation();
+//                                StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+//                            } catch (Exception e) {
+//                                Log.e("error",e.getMessage());
+//                            }
+//                        }
+//                    })
+//                    .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+//                        @Override
+//                        public void onClick(SweetAlertDialog sDialog) {
+//                            sDialog.dismissWithAnimation();
+//                        }
+//                    })
+//                    .show();
+//            dialog.dismiss();
+//        });
+//        builder.setView(layout);
+//        dialog = builder.create();*/
+//        dialog.show();
+
 }

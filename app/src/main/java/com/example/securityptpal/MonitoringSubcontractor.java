@@ -22,6 +22,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,6 +68,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MonitoringSubcontractor extends AppCompatActivity implements OnPermitListener, OnPermitLongClick{
     private RecyclerView recyclerView;
@@ -318,12 +321,12 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {
-                                                        Toast.makeText(MonitoringSubcontractor.this, "Success adding employee", Toast.LENGTH_SHORT).show();
+                                                        StyleableToast.makeText(MonitoringSubcontractor.this, "Success adding employee", Toast.LENGTH_SHORT, R.style.logsuccess).show();
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(MonitoringSubcontractor.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                StyleableToast.makeText(MonitoringSubcontractor.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT, R.style.resultfailed).show();
                                                     }
                                                 });
                                     }
@@ -394,27 +397,74 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
 
     @Override
     public void onLongCLickListener(int pos) {
-        final CharSequence[] dialogItem = {"Add Employee","Edit", "Delete"};
-        AlertDialog.Builder dialog = new AlertDialog.Builder(MonitoringSubcontractor.this);
-        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+        final CharSequence[] dialogItem = {"Add Employee", "Edit", "Delete"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(MonitoringSubcontractor.this);
+        View layout = getLayoutInflater().inflate(R.layout.edit_subconmain, null);
+        Button btnEdit = layout.findViewById(R.id.btn_edt);
+        Button btnDelete = layout.findViewById(R.id.btn_dlt);
+        Button btnAdd = layout.findViewById(R.id.btn_add);
 
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i) {
-                    case 0:
-                        addEmployee(list, pos);
-                        break;
-                    case 1:
-                        Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
-                        intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
-                        startActivity(intentEdit);
-                        break;
-                    case 2:
-                        deleteData(list.get(pos).getId());
-                        break;
-                }
-            }
+        btnEdit.setOnClickListener(view1 -> {
+            Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
+            intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
+            startActivity(intentEdit);
         });
+        btnDelete.setOnClickListener(view1 -> {
+            new SweetAlertDialog(MonitoringSubcontractor.this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Warning!!!")
+                    .setContentText("Are you sure want to delete this data ?")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            try {
+                                deleteData(list.get(pos).getId());
+                                sDialog.dismissWithAnimation();
+                                StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                            } catch (Exception e) {
+                                Log.e("error", e.getMessage());
+                            }
+                        }
+                    })
+                    .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                        }
+                    })
+                    .show();
+            dialog.dismiss();
+        });
+        btnAdd.setOnClickListener(view -> {
+            addEmployee(list, pos);
+        });
+        builder.setView(layout);
+        dialog = builder.create();
         dialog.show();
     }
 }
+
+
+//AlertDialog.Builder dialog = new AlertDialog.Builder(MonitoringSubcontractor.this);
+//        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                switch (i) {
+//                    case 0:
+//                        addEmployee(list, pos);
+//                        break;
+//                    case 1:
+//                        Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
+//                        intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
+//                        startActivity(intentEdit);
+//                        break;
+//                    case 2:
+//                        deleteData(list.get(pos).getId());
+//                        break;
+//                }
+//            }
+//        });
+//        dialog.show();
+//    }
+//}
