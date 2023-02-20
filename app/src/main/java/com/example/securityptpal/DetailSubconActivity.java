@@ -13,6 +13,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,23 +56,20 @@ public class DetailSubconActivity extends AppCompatActivity implements OnPermitL
 
         progressDialog = new ProgressDialog(DetailSubconActivity.this);
         company = findViewById(R.id.detail_company_subcon);
-        phone = findViewById(R.id.detail_phone_subcon);
+//        phone = findViewById(R.id.detail_phone_subcon);
         necessity = findViewById(R.id.detail_necessity_subcon);
         division = findViewById(R.id.detail_division_subcon);
         department = findViewById(R.id.detail_department_subcon);
-        startDate = findViewById(R.id.detail_start_date_subcon);
-        finishDate = findViewById(R.id.detail_finish_date_subcon);
+//        startDate = findViewById(R.id.detail_start_date_subcon);
+//        finishDate = findViewById(R.id.detail_finish_date_subcon);
         recyclerView = findViewById(R.id.rv_employee_list);
 
         subcon = getIntent().getParcelableExtra("SUBCON_DETAIL");
 
         company.setText(subcon.getCompany());
-        phone.setText(subcon.getPhone());
         necessity.setText(subcon.getNecessity());
         division.setText(subcon.getDivision());
         department.setText(subcon.getDepartment());
-        startDate.setText(subcon.getStartDate());
-        finishDate.setText(subcon.getFinishDate());
 
         subconEmployeeAdapter = new SubconEmployeeAdapter(this, list, this, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -96,10 +95,14 @@ public class DetailSubconActivity extends AppCompatActivity implements OnPermitL
                     for (QueryDocumentSnapshot document : value) {
                         EmployeeSubcon employeeSubcon = new EmployeeSubcon(
                                 document.getId(),
+                                document.getString("periode"),
                                 document.getString("name"),
-                                document.getString("age"),
+                                document.getString("ttl"),
                                 document.getString("phone"),
-                                document.getString("nip"),
+                                document.getString("position"),
+                                document.getString("location"),
+                                document.getString("start"),
+                                document.getString("finish"),
                                 document.getString("address"),
                                 document.getString("img")
                         );
@@ -157,12 +160,12 @@ public class DetailSubconActivity extends AppCompatActivity implements OnPermitL
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()){
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Data gagal di hapus!", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(getApplicationContext(), "Delete data Failed !!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                         } else {
                             FirebaseStorage.getInstance().getReferenceFromUrl(urlImage).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(DetailSubconActivity.this, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                    StyleableToast.makeText(DetailSubconActivity.this, "Delete Data Successfull !!", Toast.LENGTH_SHORT, R.style.logsuccess).show();
                                     progressDialog.dismiss();
                                 }
                             });

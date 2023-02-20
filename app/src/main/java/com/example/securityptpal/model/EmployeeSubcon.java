@@ -6,31 +6,43 @@ import android.os.Parcelable;
 public class EmployeeSubcon implements Parcelable {
     private String id;
     private String name;
-    private String age;
+    private String ttl;
     private String phone;
-    private String nip;
+    private String position;
+    private String location;
     private String address;
+    private String start;
+    private String finish;
+    private String periode;
     private String img;
 
     public EmployeeSubcon() {
     }
 
-    public EmployeeSubcon(String id, String name, String age, String phone, String nip, String address, String img) {
+    public EmployeeSubcon(String id, String periode, String name, String ttl, String phone, String position, String location, String start, String finish, String address, String img) {
         this.id = id;
+        this.periode = periode;
         this.name = name;
-        this.age = age;
+        this.ttl = ttl;
         this.phone = phone;
-        this.nip = nip;
+        this.position = position;
+        this.location = location;
+        this.start = start;
+        this.finish = finish;
         this.address = address;
         this.img = img;
     }
 
     protected EmployeeSubcon(Parcel in) {
         id = in.readString();
+        periode = in.readString();
         name = in.readString();
-        age = in.readString();
+        ttl = in.readString();
         phone = in.readString();
-        nip = in.readString();
+        position = in.readString();
+        location = in.readString();
+        start = in.readString();
+        finish = in.readString();
         address = in.readString();
         img = in.readString();
     }
@@ -55,6 +67,14 @@ public class EmployeeSubcon implements Parcelable {
         this.id = id;
     }
 
+    public String getPeriode() {
+        return periode;
+    }
+
+    public void setPeriode(String position) {
+        this.name = position;
+    }
+
     public String getName() {
         return name;
     }
@@ -63,12 +83,12 @@ public class EmployeeSubcon implements Parcelable {
         this.name = name;
     }
 
-    public String getAge() {
-        return age;
+    public String getTtl() {
+        return ttl;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setTtl(String age) {
+        this.ttl = age;
     }
 
     public String getPhone() {
@@ -79,12 +99,36 @@ public class EmployeeSubcon implements Parcelable {
         this.phone = phone;
     }
 
-    public String getNip() {
-        return nip;
+    public String getPosition() {
+        return position;
     }
 
-    public void setNip(String nip) {
-        this.nip = nip;
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getFinish() {
+        return finish;
+    }
+
+    public void setFinish(String finish) {
+        this.finish = finish;
     }
 
     public String getAddress() {
@@ -111,10 +155,14 @@ public class EmployeeSubcon implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
+        parcel.writeString(periode);
         parcel.writeString(name);
-        parcel.writeString(age);
+        parcel.writeString(ttl);
         parcel.writeString(phone);
-        parcel.writeString(nip);
+        parcel.writeString(position);
+        parcel.writeString(location);
+        parcel.writeString(start);
+        parcel.writeString(finish);
         parcel.writeString(address);
         parcel.writeString(img);
     }

@@ -37,8 +37,8 @@ public class MainSubconAdapter extends RecyclerView.Adapter<MainSubconAdapter.Ma
     @Override
     public void onBindViewHolder(@NonNull MainSubconAdapter.MainSubconViewHolder holder, int position) {
         holder.name.setText(list.get(position).getCompany());
-        holder.start.setText(list.get(position).getStartDate());
-        holder.end.setText(list.get(position).getFinishDate());
+        holder.div.setText(list.get(position).getDivision());
+        holder.dep.setText(list.get(position).getDepartment());
     }
 
     @Override
@@ -47,14 +47,14 @@ public class MainSubconAdapter extends RecyclerView.Adapter<MainSubconAdapter.Ma
     }
 
     public class MainSubconViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        TextView name, start, end;
+        TextView name, div, dep;
         OnPermitListener onPermitListener;
         OnPermitLongClick onPermitLongClick;
         public MainSubconViewHolder(@NonNull View itemView, OnPermitListener onPermitListener, OnPermitLongClick onPermitLongClick) {
             super(itemView);
             name = itemView.findViewById(R.id.company_subcon);
-            start = itemView.findViewById(R.id.start_subcon);
-            end = itemView.findViewById(R.id.end_subcon);
+            div = itemView.findViewById(R.id.division);
+            dep = itemView.findViewById(R.id.department);
 
             this.onPermitListener = onPermitListener;
             this.onPermitLongClick = onPermitLongClick;

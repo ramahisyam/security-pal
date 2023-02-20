@@ -129,7 +129,7 @@
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textview2"
-                        android:text="Company\t\t\t\t  :"
+                        android:text="Company\t\t\t\t"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -157,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/avatarview"
                         android:id="@+id/textview6"
-                        android:text="Phone\t\t\t\t\t\t\t  :"
+                        android:text="Phone\t\t\t\t\t\t\t"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -186,7 +186,7 @@
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textview3"
-                        android:text="Division\t\t\t\t\t  :"
+                        android:text="Division\t\t\t\t\t"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -214,7 +214,7 @@
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textview4"
-                        android:text="Department\t\t:"
+                        android:text="Department\t\t"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -242,7 +242,7 @@
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textview7"
-                        android:text="PIC\t\t\t\t\t\t\t\t\t\t  :"
+                        android:text="PIC\t\t\t\t\t\t\t\t\t\t"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -268,7 +268,7 @@
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/textview8"
-                        android:text="Necessity\t\t\t\t  :"
+                        android:text="Necessity\t\t\t\t"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -322,7 +322,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/textview11"
                         android:text="In"
-                        android:textColor="#174887"/>
+                        android:textColor="#8BC34A"/>
 
                     <TextView
                         android:id="@+id/startdocgu"
@@ -330,7 +330,7 @@
                         android:layout_height="match_parent"
                         android:text="In"
                         android:textAlignment="textStart"
-                        android:textColor="#174887"
+                        android:textColor="#8BC34A"
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -349,7 +349,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/textview9"
                         android:text="Out"
-                        android:textColor="#174887"/>
+                        android:textColor="#E91E1E"/>
 
                     <TextView
                         android:id="@+id/finishdocgu"
@@ -359,7 +359,7 @@
                         android:text="Out"
                         android:textAlignment="textStart"
                         android:textSize="20dp"
-                        android:textColor="#174887"/>
+                        android:textColor="#E91E1E"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/ll12"

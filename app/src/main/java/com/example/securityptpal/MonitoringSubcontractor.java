@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,12 +20,18 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.MonitoringGoodsPermitAdapter;
@@ -67,6 +74,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MonitoringSubcontractor extends AppCompatActivity implements OnPermitListener, OnPermitLongClick{
     private RecyclerView recyclerView;
@@ -137,12 +146,9 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                                 Subcon subcon = new Subcon(
                                         document.getId(),
                                         document.getString("company"),
-                                        document.getString("phone"),
                                         document.getString("necessity"),
                                         document.getString("division"),
                                         document.getString("department"),
-                                        document.getString("startDate"),
-                                        document.getString("finishDate"),
                                         document.getString("userID"),
                                         document.getString("division_approval"),
                                         document.getString("center_approval")
@@ -181,12 +187,9 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                         Subcon subcon = new Subcon(
                                 document.getId(),
                                 document.getString("company"),
-                                document.getString("phone"),
                                 document.getString("necessity"),
                                 document.getString("division"),
                                 document.getString("department"),
-                                document.getString("startDate"),
-                                document.getString("finishDate"),
                                 document.getString("userID"),
                                 document.getString("division_approval"),
                                 document.getString("center_approval")
@@ -227,14 +230,66 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
         builder.setTitle("Add Employee");
         View view = getLayoutInflater().inflate(R.layout.add_employee_subcon, null);
 
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        final int year = calendar.get(java.util.Calendar.YEAR);
+        final int month = calendar.get(java.util.Calendar.MONTH);
+        final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.spinner_periode);
+
+        ArrayList<String> periodList = new ArrayList<>();
+
+        periodList.add("Weekly");
+        periodList.add("Monthly");
+
+        spinner.setAdapter(new ArrayAdapter<>(MonitoringSubcontractor.this,
+                android.R.layout.simple_spinner_dropdown_item, periodList));
+
+        ImageView calStart = (ImageView) view.findViewById(R.id.calstartSub);
+        ImageView calFinish = (ImageView) view.findViewById(R.id.calfinishSub);
         EditText edtName = (EditText) view.findViewById(R.id.name_employee);
-        EditText edtAge = (EditText) view.findViewById(R.id.age_employee);
+        EditText edtPosition = (EditText) view.findViewById(R.id.pos_employee);
         EditText edtPhone = (EditText) view.findViewById(R.id.phone_employee);
-        EditText edtNip = (EditText) view.findViewById(R.id.nip_employee);
-        EditText edtAddress = (EditText) view.findViewById(R.id.address_employee);
+        EditText edtLocation = (EditText) view.findViewById(R.id.location_employee);
+        EditText edtttl = (EditText) view.findViewById(R.id.ttl_employee);
+        EditText edtaddress = (EditText) view.findViewById(R.id.address_employee);
+        EditText edtstart = (EditText) view.findViewById(R.id.startEmployee);
+        EditText edtfinish = (EditText) view.findViewById(R.id.finishEmployee);
         imageView = view.findViewById(R.id.img_employee_subcon);
         Button btnAddPhoto = view.findViewById(R.id.add_employee_photo);
         Button btnSubmit = view.findViewById(R.id.btn_add_employee);
+
+        calStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        MonitoringSubcontractor.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month + 1;
+                        String date = year+"/"+month+"/"+day;
+                        edtstart.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
+
+        calFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        MonitoringSubcontractor.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month + 1;
+                        String date = year+"/"+month+"/"+day;
+                        edtfinish.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
 
         btnAddPhoto.setOnClickListener(view1 -> {
             ActivityCompat.requestPermissions(
@@ -245,7 +300,7 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
         });
 
         btnSubmit.setOnClickListener(view1 -> {
-            if (TextUtils.isEmpty(edtName.getText().toString()) || TextUtils.isEmpty(edtAge.getText().toString())){
+            if (TextUtils.isEmpty(edtName.getText().toString()) || TextUtils.isEmpty(edtttl.getText().toString())|| TextUtils.isEmpty(edtPosition.getText().toString())|| TextUtils.isEmpty(edtPhone.getText().toString())|| TextUtils.isEmpty(edtLocation.getText().toString())|| TextUtils.isEmpty(edtstart.getText().toString())|| TextUtils.isEmpty(edtfinish.getText().toString())|| TextUtils.isEmpty(edtaddress.getText().toString())){
 //                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                 Alerter.create(MonitoringSubcontractor.this)
                         .setTitle("Add Data Failed!")
@@ -304,11 +359,15 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                                     public void onComplete(@NonNull Task<Uri> task) {
                                         EmployeeSubcon employeeSubcon = new EmployeeSubcon(
                                                 db.collection("subcontractor").document(subcons.get(pos).getId()).collection("employee").document().getId(),
+                                                spinner.getSelectedItem().toString(),
                                                 edtName.getText().toString(),
-                                                edtAge.getText().toString(),
+                                                edtttl.getText().toString(),
                                                 edtPhone.getText().toString(),
-                                                edtNip.getText().toString(),
-                                                edtAddress.getText().toString(),
+                                                edtPosition.getText().toString(),
+                                                edtLocation.getText().toString(),
+                                                edtstart.getText().toString(),
+                                                edtfinish.getText().toString(),
+                                                edtaddress.getText().toString(),
                                                 task.getResult().toString()
                                         );
                                         db.collection("subcontractor")
@@ -318,12 +377,12 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {
-                                                        Toast.makeText(MonitoringSubcontractor.this, "Success adding employee", Toast.LENGTH_SHORT).show();
+                                                        StyleableToast.makeText(MonitoringSubcontractor.this, "Success adding employee", Toast.LENGTH_SHORT, R.style.logsuccess).show();
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(MonitoringSubcontractor.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                StyleableToast.makeText(MonitoringSubcontractor.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT, R.style.resultfailed).show();
                                                     }
                                                 });
                                     }
@@ -394,27 +453,74 @@ public class MonitoringSubcontractor extends AppCompatActivity implements OnPerm
 
     @Override
     public void onLongCLickListener(int pos) {
-        final CharSequence[] dialogItem = {"Add Employee","Edit", "Delete"};
-        AlertDialog.Builder dialog = new AlertDialog.Builder(MonitoringSubcontractor.this);
-        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+        final CharSequence[] dialogItem = {"Add Employee", "Edit", "Delete"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(MonitoringSubcontractor.this);
+        View layout = getLayoutInflater().inflate(R.layout.edit_subconmain, null);
+        Button btnEdit = layout.findViewById(R.id.btn_edt);
+        Button btnDelete = layout.findViewById(R.id.btn_dlt);
+        Button btnAdd = layout.findViewById(R.id.btn_add);
 
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i) {
-                    case 0:
-                        addEmployee(list, pos);
-                        break;
-                    case 1:
-                        Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
-                        intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
-                        startActivity(intentEdit);
-                        break;
-                    case 2:
-                        deleteData(list.get(pos).getId());
-                        break;
-                }
-            }
+        btnEdit.setOnClickListener(view1 -> {
+            Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
+            intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
+            startActivity(intentEdit);
         });
+        btnDelete.setOnClickListener(view1 -> {
+            new SweetAlertDialog(MonitoringSubcontractor.this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Warning!!!")
+                    .setContentText("Are you sure want to delete this data ?")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            try {
+                                deleteData(list.get(pos).getId());
+                                sDialog.dismissWithAnimation();
+                                StyleableToast.makeText(getApplicationContext(), "Delete Successfully!!!", Toast.LENGTH_SHORT, R.style.result).show();
+                            } catch (Exception e) {
+                                Log.e("error", e.getMessage());
+                            }
+                        }
+                    })
+                    .setCancelButton("CANCEL", new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                        }
+                    })
+                    .show();
+            dialog.dismiss();
+        });
+        btnAdd.setOnClickListener(view -> {
+            addEmployee(list, pos);
+        });
+        builder.setView(layout);
+        dialog = builder.create();
         dialog.show();
     }
 }
+
+
+//AlertDialog.Builder dialog = new AlertDialog.Builder(MonitoringSubcontractor.this);
+//        dialog.setItems(dialogItem, new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                switch (i) {
+//                    case 0:
+//                        addEmployee(list, pos);
+//                        break;
+//                    case 1:
+//                        Intent intentEdit = new Intent(getApplicationContext(), EditSubconPermitActivity.class);
+//                        intentEdit.putExtra("MAIN_EDIT_SUBCON_PERMIT", list.get(pos));
+//                        startActivity(intentEdit);
+//                        break;
+//                    case 2:
+//                        deleteData(list.get(pos).getId());
+//                        break;
+//                }
+//            }
+//        });
+//        dialog.show();
+//    }
+//}

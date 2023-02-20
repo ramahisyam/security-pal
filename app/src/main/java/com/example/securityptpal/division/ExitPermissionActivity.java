@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -79,6 +80,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
     int filterCode = 0;
     AlertDialog dialog;
     boolean isOpen = false;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
         recyclerView = findViewById(R.id.rv_exit_permission);
         searchView = findViewById(R.id.search_exit_permit);
         btnFilter = findViewById(R.id.div_filter_exit);
+        mSwipeRefreshLayout = findViewById(R.id.refresh_div_exit_permit);
         progressDialog = new ProgressDialog(ExitPermissionActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -116,6 +119,14 @@ public class ExitPermissionActivity extends AppCompatActivity implements OnPermi
             public boolean onQueryTextChange(String newText) {
 //                    showDataDivision(EXTRA);
                 return false;
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showAllDataDesc(EXTRA);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 

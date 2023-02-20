@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.GuestAdapter;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.adapter.VisitorAdapter;
 import com.example.securityptpal.model.Guest;
 import com.example.securityptpal.model.Visitor;
@@ -68,6 +70,7 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
     int filterCode = 0;
     AlertDialog dialog;
     boolean isOpen = false;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
         recyclerView = findViewById(R.id.rv_guest_permission);
         searchView = findViewById(R.id.search_guest_permit);
         btnFilter = findViewById(R.id.div_filter_gu);
+        mSwipeRefreshLayout = findViewById(R.id.refresh_div_guest_permit);
         progressDialog = new ProgressDialog(GuestPermitActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -107,7 +111,16 @@ public class GuestPermitActivity extends AppCompatActivity implements GuestAdapt
                 return false;
             }
         });
-        guestAdapter = new GuestAdapter(this, list, this);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showAllDataDesc(EXTRA);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        guestAdapter = new GuestAdapter(this, list, this, (OnPermitLongClick) this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);

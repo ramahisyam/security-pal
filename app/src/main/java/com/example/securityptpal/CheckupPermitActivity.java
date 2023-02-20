@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -67,7 +68,7 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
         ImageView btnFilter;
         int filterCode = 0;
         AlertDialog dialog;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
         boolean isOpen = false;
 
         @Override
@@ -77,6 +78,7 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
             recyclerView = findViewById(R.id.rv_checkup_permission);
             searchView = findViewById(R.id.search_checkup_permit);
             btnFilter = findViewById(R.id.div_filter_checkup);
+            mSwipeRefreshLayout = findViewById(R.id.refresh_div_cu_permit);
             progressDialog = new ProgressDialog(CheckupPermitActivity.this);
             progressDialog.show();
             progressDialog.setContentView(R.layout.progress_dialog1);
@@ -106,6 +108,14 @@ public class CheckupPermitActivity extends AppCompatActivity implements CheckupA
                 public boolean onQueryTextChange(String newText) {
 //                    showDataDivision(EXTRA);
                     return false;
+                }
+            });
+
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    showAllDataDesc(EXTRA);
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
             });
 

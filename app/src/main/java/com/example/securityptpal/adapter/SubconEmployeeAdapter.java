@@ -46,7 +46,8 @@ public class SubconEmployeeAdapter extends RecyclerView.Adapter<SubconEmployeeAd
     @Override
     public void onBindViewHolder(@NonNull SubconEmployeeViewHolder holder, int position) {
         holder.name.setText(list.get(position).getName());
-        holder.nip.setText(list.get(position).getNip());
+        holder.id.setText(list.get(position).getId());
+        holder.period.setText(list.get(position).getPeriode());
 //        holder.age.setText(list.get(position).getName());
 //        holder.address.setText(list.get(position).getNip());
 //        holder.phone.setText(list.get(position).getName());
@@ -59,13 +60,14 @@ public class SubconEmployeeAdapter extends RecyclerView.Adapter<SubconEmployeeAd
 
 
     public class SubconEmployeeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        TextView name, nip;
+        TextView name, id, period;
         OnPermitListener onPermitListener;
         OnPermitLongClick onPermitLongClick;
         public SubconEmployeeViewHolder(@NonNull View itemView, OnPermitListener onPermitListener, OnPermitLongClick onPermitLongClick) {
             super(itemView);
             name = itemView.findViewById(R.id.subcon_employee_name);
-            nip = itemView.findViewById(R.id.subcon_employee_nip);
+            id = itemView.findViewById(R.id.subcon_employee_id);
+            period = itemView.findViewById(R.id.subcon_employee_period);
 
             this.onPermitListener = onPermitListener;
             this.onPermitLongClick = onPermitLongClick;

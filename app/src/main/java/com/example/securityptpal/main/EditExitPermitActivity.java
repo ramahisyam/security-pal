@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -273,13 +274,13 @@ public class EditExitPermitActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(EditExitPermitActivity.this, "Berhasil mengubah data", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(EditExitPermitActivity.this, "Edit Data Successfully !!", Toast.LENGTH_SHORT, R.style.logsuccess).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(EditExitPermitActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(EditExitPermitActivity.this, "Edit Data Failed !!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                         }
                     });
             finish();

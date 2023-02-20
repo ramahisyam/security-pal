@@ -145,8 +145,8 @@ public class IdcardDetailVisitor extends AppCompatActivity {
 
         //write document content
         String name = namedocv.getText().toString();
-        String comp = compdocv.getText().toString();
-        String targetPdf= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF" + File.separator + "Visitor_" + name + "_" + comp +".pdf";
+//        String comp = compdocv.getText().toString();
+        String targetPdf= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF" + File.separator + "Visitor_" + name +".pdf";
 //        File filepath=new File(targetPdf);
 
         File filepath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF");
@@ -211,13 +211,13 @@ public class IdcardDetailVisitor extends AppCompatActivity {
         String timeout=intent.getStringExtra("timeout");
 
         //set view
-        namedocv.setText(name.toString());
-        compdocv.setText(company.toString());
-        phonedocv.setText(phone.toString());
-        divdocv.setText(division.toString());
-        depdocv.setText(department.toString());
-        picdocv.setText(pic.toString());
-        necdocv.setText(necessity.toString());
+        namedocv.setText(" "+name.toString());
+        compdocv.setText(": "+company.toString());
+        phonedocv.setText(": "+phone.toString());
+        divdocv.setText(": "+division.toString());
+        depdocv.setText(": "+department.toString());
+        picdocv.setText(": "+pic.toString());
+        necdocv.setText(": "+necessity.toString());
         datedocv.setText(date.toString());
         startdocv.setText(timein.toString());
         finishdocv.setText(timeout.toString());
