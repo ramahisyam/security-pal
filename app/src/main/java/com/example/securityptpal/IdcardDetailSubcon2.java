@@ -38,7 +38,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.function.BiFunction;
 
-public class IdcardDetailSubcon extends AppCompatActivity {
+public class IdcardDetailSubcon2 extends AppCompatActivity {
     ImageView avatarview;
     TextView namedocsub,comdocsub,ttldocsub,divdocsub,depdocsub,posdocsub,iddocsub,phonedocsub,adddocsub,startdocsub,finishdocsub, locdocsub;
     ConstraintLayout constraintLayout;
@@ -53,7 +53,7 @@ public class IdcardDetailSubcon extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_idcard_detail_subcon);
+        setContentView(R.layout.activity_idcard_detail_subcon2);
         findId();
         viewData();
 //        savePdf();
@@ -258,7 +258,7 @@ public class IdcardDetailSubcon extends AppCompatActivity {
         posdocsub=(TextView)findViewById(R.id.posdocsub);
         locdocsub=(TextView)findViewById(R.id.locdocsub);
         constraintLayout=findViewById(R.id.lld);
-        bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.idcard);
+        bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.idcarddd);
         scaledbmp = Bitmap.createScaledBitmap(bitmap2,1080,2200,false);
 //        linearLayout2=findViewById(R.id.lld2);
 //        save=findViewById(R.id.save);

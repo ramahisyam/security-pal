@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.OnPermitLongClick;
 import com.example.securityptpal.adapter.SubconEmployeeAdapter;
 import com.example.securityptpal.model.EmployeeSubcon;
 import com.example.securityptpal.model.Guest;
@@ -36,7 +37,7 @@ import com.muddzdev.styleabletoast.StyleableToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailSubconPermitActivity extends AppCompatActivity implements OnPermitListener, AdapterView.OnItemSelectedListener {
+public class DetailSubconPermitActivity extends AppCompatActivity implements OnPermitListener, AdapterView.OnItemSelectedListener, OnPermitLongClick {
 
     private TextView company, phone, necessity, division, department, startDate, finishDate, division_approve, center_approve;
     ProgressDialog progressDialog;
@@ -58,12 +59,9 @@ public class DetailSubconPermitActivity extends AppCompatActivity implements OnP
         setContentView(R.layout.activity_detail_subcon_permit);
         progressDialog = new ProgressDialog(DetailSubconPermitActivity.this);
         company = findViewById(R.id.detail_company_subcon);
-        phone = findViewById(R.id.detail_phone_subcon);
         necessity = findViewById(R.id.detail_necessity_subcon);
         division = findViewById(R.id.detail_division_subcon);
         department = findViewById(R.id.detail_department_subcon);
-        startDate = findViewById(R.id.detail_start_date_subcon);
-        finishDate = findViewById(R.id.detail_finish_date_subcon);
         division_approve = findViewById(R.id.main_division_approval_status);
         center_approve = findViewById(R.id.main_center_approval);
         spinner = findViewById(R.id.main_guest_status_editable);
@@ -81,7 +79,7 @@ public class DetailSubconPermitActivity extends AppCompatActivity implements OnP
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        subconEmployeeAdapter = new SubconEmployeeAdapter(this, list, this);
+        subconEmployeeAdapter = new SubconEmployeeAdapter(this, list, this,this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -90,12 +88,9 @@ public class DetailSubconPermitActivity extends AppCompatActivity implements OnP
 
         subcon = getIntent().getParcelableExtra("MAIN_SUBCON_PERMIT");
         company.setText(subcon.getCompany());
-        phone.setText(subcon.getPhone());
         necessity.setText(subcon.getNecessity());
         division.setText(subcon.getDivision());
         department.setText(subcon.getDepartment());
-        startDate.setText(subcon.getStartDate());
-        finishDate.setText(subcon.getFinishDate());
 
         if (subcon.getDivision_approval().equals("Pending")){
             division_approve.setText(subcon.getDivision_approval());
@@ -172,10 +167,14 @@ public class DetailSubconPermitActivity extends AppCompatActivity implements OnP
                     for (QueryDocumentSnapshot document : value) {
                         EmployeeSubcon employeeSubcon = new EmployeeSubcon(
                                 document.getId(),
+                                document.getString("periode"),
                                 document.getString("name"),
-                                document.getString("age"),
+                                document.getString("ttl"),
                                 document.getString("phone"),
-                                document.getString("nip"),
+                                document.getString("position"),
+                                document.getString("location"),
+                                document.getString("start"),
+                                document.getString("finish"),
                                 document.getString("address"),
                                 document.getString("img")
                         );
@@ -200,6 +199,11 @@ public class DetailSubconPermitActivity extends AppCompatActivity implements OnP
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void onLongCLickListener(int pos) {
 
     }
 }

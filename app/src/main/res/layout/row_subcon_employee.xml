@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/subcon_employee_nip"
+        android:id="@+id/subcon_employee_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -32,6 +32,19 @@
         android:textColor="@color/main_blue_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subcon_employee_name" />
+
+    <TextView
+        android:id="@+id/subcon_employee_period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Monthly"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/cardColorYellow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subcon_employee_id" />
 
     <TextView
         android:visibility="gone"
@@ -45,7 +58,7 @@
         android:textSize="18sp"
         android:textColor="@color/main_blue_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subcon_employee_nip" />
+        app:layout_constraintTop_toBottomOf="@+id/subcon_employee_period" />
 
     <TextView
         android:visibility="gone"

@@ -647,6 +647,8 @@ public class Utama_Data_Cometoolate extends AppCompatActivity implements OnPermi
 
     public void ClickCheckup(View view){ AkunUtama.redirectActivity(this, UtamaDataCheckup.class); }
 
+    public void ClickParksub(View view){ redirectActivity(this, UtamaDataParksub.class); }
+
     public void ClickSubcon(View view){ AkunUtama.redirectActivity(this, UtamaDataSubcon.class); }
 
     public void ClickGuest(View view){

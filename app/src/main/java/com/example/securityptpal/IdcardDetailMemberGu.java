@@ -29,6 +29,7 @@ import com.example.securityptpal.model.Guest;
 import com.example.securityptpal.model.MemberGuest;
 import com.example.securityptpal.model.Subcon;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -151,7 +152,9 @@ public class IdcardDetailMemberGu extends AppCompatActivity {
         document.finishPage(page2);
 
         //write document content
-        String targetPdf= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF" + File.separator + "MemberGuest" + System.currentTimeMillis() + ".pdf";
+        String name = namedocgu.getText().toString();
+//        String com = comdocgu.getText().toString();
+        String targetPdf= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF" + File.separator + "MemberGuest_" + name + ".pdf";
 //        File filepath=new File(targetPdf);
 
         File filepath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF");
@@ -166,12 +169,12 @@ public class IdcardDetailMemberGu extends AppCompatActivity {
             document.writeTo(outputStream);
         }catch (IOException e){
             e.printStackTrace();
-            Toast.makeText(this, "something want wrong try again"+e.toString(), Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(this, "something want wrong try again"+e.toString(), Toast.LENGTH_SHORT, R.style.resultfailed).show();
         }
 
         //close document
         document.close();
-        Toast.makeText(this, "pdf created successfully", Toast.LENGTH_SHORT).show();
+        StyleableToast.makeText(this, "pdf created successfully", Toast.LENGTH_SHORT, R.style.logsuccess).show();
 //        openPdf();
     }
 

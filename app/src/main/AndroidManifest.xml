@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".IdcardDetailSubcon2"
+            android:exported="false" />
+        <activity
             android:name=".IdcardDetailMemberGu"
             android:exported="false" />
         <activity
@@ -32,7 +35,13 @@
             android:name=".SubconPermitActivity"
             android:exported="false" />
         <activity
+            android:name=".LoginParksubActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailSubconEmployeeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditEmployeeSubconActivity"
             android:exported="false" />
         <activity
             android:name=".IdcardDetailSubcon"

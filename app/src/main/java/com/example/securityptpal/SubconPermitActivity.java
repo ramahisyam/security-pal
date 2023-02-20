@@ -213,12 +213,9 @@ public class SubconPermitActivity extends AppCompatActivity implements OnPermitL
                                 Subcon subcon = new Subcon(
                                         document.getId(),
                                         document.getString("company"),
-                                        document.getString("phone"),
                                         document.getString("necessity"),
                                         document.getString("division"),
                                         document.getString("department"),
-                                        document.getString("startDate"),
-                                        document.getString("finishDate"),
                                         document.getString("userID"),
                                         document.getString("division_approval"),
                                         document.getString("center_approval")
@@ -250,12 +247,9 @@ public class SubconPermitActivity extends AppCompatActivity implements OnPermitL
                         Subcon subcon = new Subcon(
                                 document.getId(),
                                 document.getString("company"),
-                                document.getString("phone"),
                                 document.getString("necessity"),
                                 document.getString("division"),
                                 document.getString("department"),
-                                document.getString("startDate"),
-                                document.getString("finishDate"),
                                 document.getString("userID"),
                                 document.getString("division_approval"),
                                 document.getString("center_approval")
@@ -354,12 +348,9 @@ public class SubconPermitActivity extends AppCompatActivity implements OnPermitL
                                 Subcon subcon = new Subcon(
                                         document.getId(),
                                         document.getString("company"),
-                                        document.getString("phone"),
                                         document.getString("necessity"),
                                         document.getString("division"),
                                         document.getString("department"),
-                                        document.getString("startDate"),
-                                        document.getString("finishDate"),
                                         document.getString("userID"),
                                         document.getString("division_approval"),
                                         document.getString("center_approval")

@@ -6,12 +6,12 @@ import android.os.Parcelable;
 public class Subcon implements Parcelable {
     private String id;
     private String company;
-    private String phone;
+//    private String phone;
     private String necessity;
     private String division;
     private String department;
-    private String startDate;
-    private String finishDate;
+//    private String startDate;
+//    private String finishDate;
     private String userID;
     private String division_approval;
     private String center_approval;
@@ -19,15 +19,15 @@ public class Subcon implements Parcelable {
     public Subcon() {
     }
 
-    public Subcon(String id, String company, String phone, String necessity, String division, String department, String startDate, String finishDate, String userID, String division_approval, String center_approval) {
+    public Subcon(String id, String company, String necessity, String division, String department, String userID, String division_approval, String center_approval) {
         this.id = id;
         this.company = company;
-        this.phone = phone;
+//        this.phone = phone;
         this.necessity = necessity;
         this.division = division;
         this.department = department;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
+//        this.startDate = startDate;
+//        this.finishDate = finishDate;
         this.userID = userID;
         this.division_approval = division_approval;
         this.center_approval = center_approval;
@@ -36,12 +36,12 @@ public class Subcon implements Parcelable {
     protected Subcon(Parcel in) {
         id = in.readString();
         company = in.readString();
-        phone = in.readString();
+//        phone = in.readString();
         necessity = in.readString();
         division = in.readString();
         department = in.readString();
-        startDate = in.readString();
-        finishDate = in.readString();
+//        startDate = in.readString();
+//        finishDate = in.readString();
         userID = in.readString();
         division_approval = in.readString();
         center_approval = in.readString();
@@ -75,13 +75,13 @@ public class Subcon implements Parcelable {
         this.company = company;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+//    public String getPhone() {
+//        return phone;
+//    }
+//
+//    public void setPhone(String phone) {
+//        this.phone = phone;
+//    }
 
     public String getNecessity() {
         return necessity;
@@ -107,21 +107,21 @@ public class Subcon implements Parcelable {
         this.department = department;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(String finishDate) {
-        this.finishDate = finishDate;
-    }
+//    public String getStartDate() {
+//        return startDate;
+//    }
+//
+//    public void setStartDate(String startDate) {
+//        this.startDate = startDate;
+//    }
+//
+//    public String getFinishDate() {
+//        return finishDate;
+//    }
+//
+//    public void setFinishDate(String finishDate) {
+//        this.finishDate = finishDate;
+//    }
 
     public String getUserID() {
         return userID;
@@ -156,12 +156,12 @@ public class Subcon implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
         parcel.writeString(company);
-        parcel.writeString(phone);
+//        parcel.writeString(phone);
         parcel.writeString(necessity);
         parcel.writeString(division);
         parcel.writeString(department);
-        parcel.writeString(startDate);
-        parcel.writeString(finishDate);
+//        parcel.writeString(startDate);
+//        parcel.writeString(finishDate);
         parcel.writeString(userID);
         parcel.writeString(division_approval);
         parcel.writeString(center_approval);
