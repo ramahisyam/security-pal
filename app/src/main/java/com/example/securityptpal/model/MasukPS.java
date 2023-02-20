@@ -11,6 +11,11 @@ public class MasukPS implements Parcelable {
     private String queue;
 
     public MasukPS(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        nopol = in.readString();
+        date = in.readString();
+        queue = in.readString();
     }
 
     public MasukPS(String id, String name, String nopol, String date, String queue) {

@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".DetailParksubActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginParksubActivity"
             android:exported="false" />
         <activity
