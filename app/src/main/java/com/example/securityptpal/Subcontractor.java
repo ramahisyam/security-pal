@@ -48,8 +48,10 @@ import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Subcontractor extends AppCompatActivity {
-    ImageView calStart, calFinish, btAdd,btReset, imgSignOut;
-    EditText edtStart, edtFinish, editText, edtCompany, edtPhone, edtNecessity;
+    //ImageView calStart, calFinish;
+    ImageView btAdd,btReset, imgSignOut;
+    //EditText edtStart, edtFinish, editText, edtCompany, edtPhone, edtNecessity;
+    EditText editText,edtCompany, edtNecessity;
     Button monitoring, submit;
     DatePickerDialog.OnDateSetListener setListener;
     RecyclerView recyclerView;
@@ -78,12 +80,12 @@ public class Subcontractor extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getCurrentUser().getUid();
 
-        calStart = findViewById(R.id.calStartSubcon);
-        calFinish = findViewById(R.id.calFinishSubcon);
-        edtStart = findViewById(R.id.edtstartSubcon);
-        edtFinish = findViewById(R.id.edtFinishSubcon);
+//        calStart = findViewById(R.id.calStartSubcon);
+//        calFinish = findViewById(R.id.calFinishSubcon);
+//        edtStart = findViewById(R.id.edtstartSubcon);
+//        edtFinish = findViewById(R.id.edtFinishSubcon);
         edtCompany = findViewById(R.id.edtCompanySubcon);
-        edtPhone = findViewById(R.id.edtPhoneBosSubcon);
+//        edtPhone = findViewById(R.id.edtPhoneBosSubcon);
         edtNecessity = findViewById(R.id.edtNecessitySubcon);
         divSpinner = findViewById(R.id.spinner_division_subcon);
         monitoring = findViewById(R.id.gotoMonitoring);
@@ -141,37 +143,37 @@ public class Subcontractor extends AppCompatActivity {
             }
         });
 
-        calStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        Subcontractor.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month + 1;
-                        String date = year+"/"+month+"/"+day;
-                        edtStart.setText(date);
-                    }
-                },year,month,day);
-                datePickerDialog.show();
-            }
-        });
-
-        calFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        Subcontractor.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month + 1;
-                        String date = year+"/"+month+"/"+day;
-                        edtFinish.setText(date);
-                    }
-                },year,month,day);
-                datePickerDialog.show();
-            }
-        });
+//        calStart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(
+//                        Subcontractor.this, new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int day) {
+//                        month = month + 1;
+//                        String date = year+"/"+month+"/"+day;
+//                        edtStart.setText(date);
+//                    }
+//                },year,month,day);
+//                datePickerDialog.show();
+//            }
+//        });
+//
+//        calFinish.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(
+//                        Subcontractor.this, new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int day) {
+//                        month = month + 1;
+//                        String date = year+"/"+month+"/"+day;
+//                        edtFinish.setText(date);
+//                    }
+//                },year,month,day);
+//                datePickerDialog.show();
+//            }
+//        });
 
         imgSignOut.setOnClickListener(view -> {
             LogoutAccount.logout(Subcontractor.this);
@@ -204,7 +206,7 @@ public class Subcontractor extends AppCompatActivity {
 
         submit.setOnClickListener(view -> {
             try{
-                if (TextUtils.isEmpty(edtCompany.getText().toString()) || TextUtils.isEmpty(edtPhone.getText().toString()) || TextUtils.isEmpty(edtNecessity.getText().toString()) || TextUtils.isEmpty(edtStart.getText().toString()) || TextUtils.isEmpty(edtFinish.getText().toString())){
+                if (TextUtils.isEmpty(edtCompany.getText().toString()) || TextUtils.isEmpty(edtNecessity.getText().toString()) ){
 //                        StyleableToast.makeText(getApplicationContext(), "Please fill all the data!!!", Toast.LENGTH_SHORT, R.style.resultfailed).show();
                     Alerter.create(Subcontractor.this)
                             .setTitle("Add Data Failed!")
@@ -236,12 +238,12 @@ public class Subcontractor extends AppCompatActivity {
                             .show();
                 }else{
                     company = edtCompany.getText().toString();
-                    phone = edtPhone.getText().toString();
+//                    phone = edtPhone.getText().toString();
                     necessity = edtNecessity.getText().toString();
                     division = divSpinner.getSelectedItem().toString();
                     department = depSpinner.getSelectedItem().toString();
-                    timeStart = edtStart.getText().toString();
-                    timeFinish = edtFinish.getText().toString();
+//                    timeStart = edtStart.getText().toString();
+//                    timeFinish = edtFinish.getText().toString();
 
                     progressDialog = new ProgressDialog(Subcontractor.this);
                     progressDialog.show();
@@ -275,12 +277,9 @@ public class Subcontractor extends AppCompatActivity {
                     Subcon subcon = new Subcon(
                             db.collection("subcontractor").document().getId(),
                             company,
-                            phone,
                             necessity,
                             division,
                             department,
-                            timeStart,
-                            timeFinish,
                             userID,
                             "Pending",
                             "Pending"

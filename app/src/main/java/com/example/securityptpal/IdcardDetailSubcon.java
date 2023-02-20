@@ -1,6 +1,7 @@
 package com.example.securityptpal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
@@ -30,6 +31,7 @@ import com.bumptech.glide.Glide;
 import com.example.securityptpal.model.EmployeeSubcon;
 import com.example.securityptpal.model.Subcon;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,8 +40,8 @@ import java.util.function.BiFunction;
 
 public class IdcardDetailSubcon extends AppCompatActivity {
     ImageView avatarview;
-    TextView namedocsub,comdocsub,agedocsub,divdocsub,depdocsub,nipdocsub,phonedocsub,adddocsub,startdocsub,finishdocsub;
-    LinearLayout linearLayout, linearLayout2;
+    TextView namedocsub,comdocsub,ttldocsub,divdocsub,depdocsub,posdocsub,iddocsub,phonedocsub,adddocsub,startdocsub,finishdocsub, locdocsub;
+    ConstraintLayout constraintLayout;
     ImageButton save;
     EmployeeSubcon employeeSubcon;
     Subcon subcon;
@@ -76,8 +78,8 @@ public class IdcardDetailSubcon extends AppCompatActivity {
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("size",linearLayout.getWidth()+" "+linearLayout.getHeight());
-                bitmap=loadBitmapFromView(linearLayout,linearLayout.getWidth(),linearLayout.getHeight());
+                Log.d("size",constraintLayout.getWidth()+" "+constraintLayout.getHeight());
+                bitmap=loadBitmapFromView(constraintLayout,constraintLayout.getWidth(),constraintLayout.getHeight());
 //                Log.d("size",linearLayout2.getWidth()+" "+linearLayout2.getHeight());
 //                bitmap2=loadBitmapFromView2(linearLayout2,linearLayout2.getWidth(),linearLayout2.getHeight());
                 createPdf();
@@ -155,7 +157,9 @@ public class IdcardDetailSubcon extends AppCompatActivity {
         document.finishPage(page2);
 
         //write document content
-        String targetPdf= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF" + File.separator + "Subcon" + System.currentTimeMillis() + ".pdf";
+        String name = namedocsub.getText().toString();
+//        String com = comdocsub.getText().toString();
+        String targetPdf= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF" + File.separator + "Subcon_" + name + ".pdf";
 //        File filepath=new File(targetPdf);
 
         File filepath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF");
@@ -170,12 +174,12 @@ public class IdcardDetailSubcon extends AppCompatActivity {
             document.writeTo(outputStream);
         }catch (IOException e){
             e.printStackTrace();
-            Toast.makeText(this, "something want wrong try again"+e.toString(), Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(this, "something want wrong try again"+e.toString(), Toast.LENGTH_SHORT, R.style.resultfailed).show();
         }
 
         //close document
         document.close();
-        Toast.makeText(this, "pdf created successfully", Toast.LENGTH_SHORT).show();
+        StyleableToast.makeText(this, "pdf created successfully", Toast.LENGTH_SHORT, R.style.logsuccess).show();
 //        openPdf();
     }
 
@@ -192,7 +196,7 @@ public class IdcardDetailSubcon extends AppCompatActivity {
 //        }
 //    }
 
-    private Bitmap loadBitmapFromView(LinearLayout linearLayout, int width, int height) {
+    private Bitmap loadBitmapFromView(ConstraintLayout linearLayout, int width, int height) {
         bitmap=Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);
         Canvas canvas=new Canvas(bitmap);
         linearLayout.draw(canvas);
@@ -224,14 +228,18 @@ public class IdcardDetailSubcon extends AppCompatActivity {
 //        String docsub_address=intent.getStringExtra("docsub_address");
 
         //set view
-        namedocsub.setText(""+employeeSubcon.getName());
-        agedocsub.setText(": "+employeeSubcon.getAge());
-        nipdocsub.setText(": "+employeeSubcon.getNip());
+        namedocsub.setText(employeeSubcon.getName());
+        ttldocsub.setText(": "+employeeSubcon.getTtl());
+        iddocsub.setText(": "+employeeSubcon.getId());
         phonedocsub.setText(": "+employeeSubcon.getPhone());
         adddocsub.setText(": "+employeeSubcon.getAddress());
         comdocsub.setText(": "+subcon.getCompany());
-        startdocsub.setText(": "+subcon.getStartDate());
-        finishdocsub.setText(": "+subcon.getFinishDate());
+        divdocsub.setText(": "+subcon.getDivision());
+        depdocsub.setText(": "+subcon.getDepartment());
+        posdocsub.setText(": "+employeeSubcon.getPosition());
+        locdocsub.setText(": "+employeeSubcon.getLocation());
+        startdocsub.setText(": "+employeeSubcon.getStart());
+        finishdocsub.setText(": "+employeeSubcon.getFinish());
         Glide.with(this).load(employeeSubcon.getImg()).placeholder(R.drawable.pict).into(avatarview);
     }
 
@@ -239,13 +247,17 @@ public class IdcardDetailSubcon extends AppCompatActivity {
         avatarview=(ImageView)findViewById(R.id.avatarview);
         namedocsub=(TextView)findViewById(R.id.namedocsub);
         comdocsub=(TextView)findViewById(R.id.comdocsub);
-        agedocsub=(TextView)findViewById(R.id.agedocsub);
-        nipdocsub=(TextView)findViewById(R.id.nipdocsub);
+        ttldocsub=(TextView)findViewById(R.id.ttldocsub);
+        iddocsub=(TextView)findViewById(R.id.iddocsub);
         phonedocsub=(TextView)findViewById(R.id.phonedocsub);
         startdocsub=(TextView)findViewById(R.id.startdocsub);
         finishdocsub=(TextView)findViewById(R.id.finishdocsub);
         adddocsub=(TextView)findViewById(R.id.adddocsub);
-        linearLayout=findViewById(R.id.lld);
+        divdocsub=(TextView)findViewById(R.id.divdocsub);
+        depdocsub=(TextView)findViewById(R.id.depdocsub);
+        posdocsub=(TextView)findViewById(R.id.posdocsub);
+        locdocsub=(TextView)findViewById(R.id.locdocsub);
+        constraintLayout=findViewById(R.id.lld);
         bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.idcard);
         scaledbmp = Bitmap.createScaledBitmap(bitmap2,1080,2200,false);
 //        linearLayout2=findViewById(R.id.lld2);

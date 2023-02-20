@@ -21,6 +21,22 @@
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
             android:name=".DetailParksubActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".IdcardDetailSubcon2"
+            android:exported="false" />
+        <activity
+            android:name=".IdcardDetailMemberGu"
+            android:exported="false" />
+        <activity
+            android:name=".DetailGuestMemberActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".DetailSubconPermitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SubconPermitActivity"
             android:exported="false" />
         <activity
             android:name=".LoginParksubActivity"

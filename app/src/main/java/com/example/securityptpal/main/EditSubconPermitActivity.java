@@ -64,16 +64,11 @@ public class EditSubconPermitActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(EditSubconPermitActivity.this);
         company = findViewById(R.id.main_edit_subcon_permit_company);
-        phone = findViewById(R.id.main_edit_subcon_permit_phone);
         necessity = findViewById(R.id.main_edit_subcon_permit_necessity);
         divSpinner = findViewById(R.id.spinner_main_edit_subcon_permit_division);
         depSpinner = findViewById(R.id.spinner_main_edit_subcon_permit_depart);
         division = findViewById(R.id.main_edit_subcon_permit_division);
         department = findViewById(R.id.main_edit_subcon_permit_depart);
-        startDate = findViewById(R.id.main_edit_subcon_permit_start);
-        imgCalStart = findViewById(R.id.edit_cal_start_subcon);
-        finishDate = findViewById(R.id.main_edit_subcon_permit_finish);
-        imgCalFinish = findViewById(R.id.edit_cal_finish_subcon);
         divApproval = findViewById(R.id.subcon_edit_division_approval_status);
         centerApproval = findViewById(R.id.subcon_edit_center_approval);
         centerApprvSpinner = findViewById(R.id.main_edit_subcon_permit_status_center);
@@ -234,12 +229,9 @@ public class EditSubconPermitActivity extends AppCompatActivity {
         });
 
         company.setText(subcon.getCompany());
-        phone.setText(subcon.getPhone());
         necessity.setText(subcon.getNecessity());
         division.setText(subcon.getDivision());
         department.setText(subcon.getDepartment());
-        startDate.setText(subcon.getStartDate());
-        finishDate.setText(subcon.getFinishDate());
 
         if (subcon.getDivision_approval().equals("Pending")){
             divApproval.setText(subcon.getDivision_approval());

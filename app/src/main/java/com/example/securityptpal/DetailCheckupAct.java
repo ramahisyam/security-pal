@@ -36,7 +36,8 @@ public class DetailCheckupAct extends AppCompatActivity {
         textqr = findViewById(R.id.txtqr);
         qrCheckup = findViewById(R.id.qrCheckup);
 
-        qrCheckup.setEnabled(false);
+//        qrCheckup.setEnabled(false);
+
 
         qrCheckup.setOnClickListener(new View.OnClickListener() {
             @Override

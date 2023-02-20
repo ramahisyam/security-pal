@@ -50,6 +50,16 @@ public class MainGuestAdapter extends RecyclerView.Adapter<MainGuestAdapter.Main
         holder.name.setText(list.get(position).getName());
         holder.phone.setText(list.get(position).getPhone());
         holder.date.setText(list.get(position).getDate());
+        if (list.get(position).getDivision_approval().equals("Accepted") && list.get(position).getCenter_approval().equals("Accepted")){
+            holder.status.setText("Accepted");
+            holder.status.setTextColor(holder.status.getResources().getColor(R.color.main_green_color));
+        } else if (list.get(position).getDivision_approval().equals("Rejected") || list.get(position).getCenter_approval().equals("Rejected")) {
+            holder.status.setText("Rejected");
+            holder.status.setTextColor(holder.status.getResources().getColor(R.color.cardColorRed));
+        } else {
+            holder.status.setText("Pending");
+            holder.status.setTextColor(holder.status.getResources().getColor(R.color.main_orange_color));
+        }
     }
 
     @Override
@@ -58,7 +68,7 @@ public class MainGuestAdapter extends RecyclerView.Adapter<MainGuestAdapter.Main
     }
 
     public class MainGuestViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
-        TextView name, phone, date;
+        TextView name, phone, date, status;
         ImageView options;
         OnPermitListener onPermitListener;
         OnPermitLongClick onPermitLongClick;
@@ -67,6 +77,7 @@ public class MainGuestAdapter extends RecyclerView.Adapter<MainGuestAdapter.Main
             name = itemView.findViewById(R.id.main_guest_name);
             phone = itemView.findViewById(R.id.main_guest_phone);
             date = itemView.findViewById(R.id.main_guest_date);
+            status = itemView.findViewById(R.id.main_guest_status);
             options = itemView.findViewById(R.id.main_guest_settings);
             options.setOnClickListener(view -> {
                 if (dialog != null){

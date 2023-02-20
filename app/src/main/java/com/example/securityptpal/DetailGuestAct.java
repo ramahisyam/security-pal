@@ -1,36 +1,88 @@
 package com.example.securityptpal;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.securityptpal.adapter.GuestAdapter;
+import com.example.securityptpal.adapter.GuestMemberAdapter;
+import com.example.securityptpal.adapter.OnPermitListener;
+import com.example.securityptpal.adapter.SubconEmployeeAdapter;
+import com.example.securityptpal.model.EmployeeSubcon;
 import com.example.securityptpal.model.Guest;
+import com.example.securityptpal.model.MemberGuest;
+import com.example.securityptpal.model.Subcon;
 import com.example.securityptpal.model.Visitor;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.muddzdev.styleabletoast.StyleableToast;
+import com.tapadoo.alerter.Alerter;
+import com.tapadoo.alerter.OnHideAlertListener;
+import com.tapadoo.alerter.OnShowAlertListener;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class DetailGuestAct extends AppCompatActivity {
+public class DetailGuestAct extends AppCompatActivity implements OnPermitListener {
     private TextView name, company, phone, division, department, pic, necessity, date, timeIn, timeOut, division_approve, center_approve, textqr, textpdf;
     ImageView qrGuest, printpdf;
     public static final int REQUEST_STORAGE=101;
     String storagePermission[];
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private List<MemberGuest> list = new ArrayList<>();
+    private GuestMemberAdapter guestMemberAdapter;
+    private RecyclerView recyclerView;
+    Guest guest;
+    ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_guest);
 
+        progressDialog = new ProgressDialog(DetailGuestAct.this);
         findId();
         storagePermission=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         displayData();
@@ -49,6 +101,7 @@ public class DetailGuestAct extends AppCompatActivity {
         center_approve = findViewById(R.id.center_approval);
         textpdf = findViewById(R.id.textpdf);
         textqr = findViewById(R.id.textqr);
+        recyclerView = findViewById(R.id.rv_membergu_list);
 
         qrGuest = findViewById(R.id.qrGuest);
 
@@ -59,7 +112,7 @@ public class DetailGuestAct extends AppCompatActivity {
             }
         });
 
-        Guest guest = getIntent().getParcelableExtra("permission_gue");
+        guest = getIntent().getParcelableExtra("permission_gue");
         name.setText(guest.getName());
         company.setText(guest.getCompany());
         phone.setText(guest.getPhone());
@@ -195,6 +248,49 @@ public class DetailGuestAct extends AppCompatActivity {
             textqr.setVisibility(View.VISIBLE);
             textpdf.setVisibility(View.VISIBLE);
         }
+        guestMemberAdapter = new GuestMemberAdapter(this, list, this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(decoration);
+        recyclerView.setAdapter(guestMemberAdapter);
+        showAllData();
+    }
+
+    private void showAllData() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog1);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+        db.collection("permission_guest").document(guest.getId()).collection("members").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                if (value != null) {
+                    for (QueryDocumentSnapshot document : value) {
+                        MemberGuest memberGuest = new MemberGuest(
+                                document.getId(),
+                                document.getString("name")
+                        );
+                        list.add(memberGuest);
+                    }
+                    guestMemberAdapter.notifyDataSetChanged();
+                } else {
+                    StyleableToast.makeText(getApplicationContext(),"Load Data Failed!", Toast.LENGTH_SHORT,R.style.resultfailed).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void onPermitClick(int position) {
+        Intent intent = new Intent(DetailGuestAct.this, DetailGuestMemberActivity.class);
+        intent.putExtra("GUEST_MEMBER_DETAIL", list.get(position));
+        intent.putExtra("MEMBER_DATA", guest);
+        startActivity(intent);
     }
 
     private void displayData() {
@@ -239,6 +335,5 @@ public class DetailGuestAct extends AppCompatActivity {
         date = (TextView) findViewById(R.id.date_guest);
         timeIn = (TextView) findViewById(R.id.timein_guest);
         timeOut = (TextView) findViewById(R.id.timeout_guest);
-
     }
 }

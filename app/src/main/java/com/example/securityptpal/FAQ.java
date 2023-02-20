@@ -42,30 +42,39 @@ public class FAQ extends AppCompatActivity {
         nestedList2.add("Employee -> Monitoring -> Enter your NIP in searchview");
         nestedList2.add("Cometoolate -> Monitoring -> Enter your NIP in searchview");
         nestedList2.add("Check Up -> Monitoring -> Enter your NIP in searchview");
-        nestedList2.add("Subcontractor -> Monitoring -> Enter the permission code that you received when you did permission");
-        nestedList2.add("Guest -> Monitoring -> Enter the permission code that you received when you did permission");
-        nestedList2.add("Visitor -> Monitoring -> Enter the permission code that you received when you did permission");
-        nestedList2.add("Goods -> Monitoring -> Enter the permission code that you received when you did permission");
+        nestedList2.add("Subcontractor -> Monitoring -> Enter your Company Name in searcview");
+        nestedList2.add("Guest -> Monitoring -> Enter your Name in searchview");
+        nestedList2.add("Visitor -> Monitoring -> Enter your Name in searchview");
+        nestedList2.add("Goods -> Monitoring -> Enter the Goods Name in searchview");
 
         List<String> nestedList3 = new ArrayList<>();
-        nestedList3.add("Screenshot QR code is allowed to be used as a valid document at the time of scanning");
+        nestedList3.add("Screenshot QR code is not allowed to be used as a valid document at the time of scanning");
 
         List<String> nestedList4 = new ArrayList<>();
         nestedList4.add("Call your Advisor");
 
         List<String> nestedList5 = new ArrayList<>();
         nestedList5.add("Remember Login");
-        nestedList5.add("QRCode Scanner");
+        nestedList5.add("Capture Image and Set Image");
         nestedList5.add("Zoom In Image");
-        nestedList5.add("Update Data from List Employee Subcon");
-        nestedList5.add("Delete Data from List Employee Subcon");
+        nestedList5.add("Global Positioning System (GPS)");
+        nestedList5.add("Update and Delete Data");
+        nestedList5.add("Create QRCode");
+        nestedList5.add("Create ID Card");
+        nestedList5.add("Export Data to .xls file from Main and Division Account");
+        nestedList5.add("Filter Data from Oldest to Newest and Vice Versa");
+        nestedList5.add("Search Data");
         nestedList5.add("FAQ");
 
-        mList.add(new DataModel(nestedList1 , "How to know your permit approved ?"));
-        mList.add(new DataModel( nestedList2,"How to check permission status ?"));
-        mList.add(new DataModel( nestedList3,"QR Code screenshot be used for scanning ?"));
-        mList.add(new DataModel( nestedList4,"How to make permission changes ?"));
-        mList.add(new DataModel( nestedList5,"Application Features"));
+        List<String> nestedList6 = new ArrayList<>();
+        nestedList6.add("You can go to montoring and enter your company name in searchview, then long press on data, the option to add members will appear");
+
+        mList.add(new DataModel(nestedList1, "How to know your permit approved ?"));
+        mList.add(new DataModel(nestedList2,"How to check permission status ?"));
+        mList.add(new DataModel(nestedList3,"QR Code screenshot be used for scanning ?"));
+        mList.add(new DataModel(nestedList4,"How to make permission changes ?"));
+        mList.add(new DataModel(nestedList5,"Application Features"));
+        mList.add(new DataModel(nestedList6,"How to add Subcon members ?"));
 
         adapter = new ItemAdapter(mList);
         recyclerView.setAdapter(adapter);

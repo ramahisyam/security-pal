@@ -144,8 +144,8 @@ public class IdcardDetailGuest extends AppCompatActivity {
 
         //write document content
         String name = namedocgu.getText().toString();
-        String com = comdocgu.getText().toString();
-        String targetPdf= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF" + File.separator + "Guest_" + name + "_" + com + ".pdf";
+//        String com = comdocgu.getText().toString();
+        String targetPdf= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF" + File.separator + "Guest_" + name + ".pdf";
 //        File filepath=new File(targetPdf);
 
         File filepath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "Import PDF");
@@ -211,12 +211,12 @@ public class IdcardDetailGuest extends AppCompatActivity {
 
         //set view
         namedocgu.setText(docgu_name.toString());
-        comdocgu.setText(docgu_comp.toString());
-        phonedocgu.setText(docgu_phone.toString());
-        divdocgu.setText(docgu_div.toString());
-        depdocgu.setText(docgu_dep.toString());
-        picdocgu.setText(docgu_pic.toString());
-        necdocgu.setText(docgu_nec.toString());
+        comdocgu.setText(": "+docgu_comp.toString());
+        phonedocgu.setText(": "+docgu_phone.toString());
+        divdocgu.setText(": "+docgu_div.toString());
+        depdocgu.setText(": "+docgu_dep.toString());
+        picdocgu.setText(": "+docgu_pic.toString());
+        necdocgu.setText(": "+docgu_nec.toString());
         datedocgu.setText(": "+docgu_date.toString());
         startdocgu.setText(": "+docgu_in.toString());
         finishdocgub.setText(": "+docgu_out.toString());

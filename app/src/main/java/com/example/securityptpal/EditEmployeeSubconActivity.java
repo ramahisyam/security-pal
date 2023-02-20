@@ -7,8 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -26,11 +29,13 @@ import com.google.firebase.storage.UploadTask;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.zolad.zoominimageview.ZoomInImageView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 public class EditEmployeeSubconActivity extends AppCompatActivity {
-    private EditText name, age, phone, nip, address;
+    private EditText name, phone, pos, ttl, address, startDate, finishDate, loc;
+    private TextView period;
     private Button save, changeImage;
     private EmployeeSubcon employeeSubcon;
     private ZoomInImageView photo;
@@ -39,6 +44,8 @@ public class EditEmployeeSubconActivity extends AppCompatActivity {
     Subcon subcon;
     int PICK_IMAGE_CODE = 200;
     Uri selectedImage;
+    Spinner spinner;
+    String periode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +53,44 @@ public class EditEmployeeSubconActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_employee_subcon);
 
         name = findViewById(R.id.edit_subcon_employee_name);
-        age = findViewById(R.id.edit_subcon_employee_age);
         phone = findViewById(R.id.edit_subcon_employee_phone);
-        nip = findViewById(R.id.edit_subcon_employee_nip);
         address = findViewById(R.id.edit_subcon_employee_address);
         save = findViewById(R.id.submit_edit_subcon_employee);
         photo = findViewById(R.id.edit_photo_employee_subcon);
         changeImage = findViewById(R.id.edit_employee_photo);
+        loc = findViewById(R.id.edit_subcon_employee_loc);
+//        id = findViewById(R.id.detail_id_employee_subcon);
+        period = findViewById(R.id.edit_subcon_employee_periode);
+        spinner = findViewById(R.id.spinner_periode);
+        pos = findViewById(R.id.edit_subcon_employee_pos);
+        ttl = findViewById(R.id.edit_subcon_employee_ttl);
+        startDate = findViewById(R.id.edit_subcon_employee_start);
+        finishDate = findViewById(R.id.edit_subcon_employee_finish);
 
         employeeSubcon = getIntent().getParcelableExtra("EDIT_SUBCON_EMPLOYEE_PERMIT");
         subcon = getIntent().getParcelableExtra("SUBCON_DATA_EDIT");
 
+        period.setText(employeeSubcon.getPeriode());
         name.setText(employeeSubcon.getName());
-        age.setText(employeeSubcon.getAge());
         phone.setText(employeeSubcon.getPhone());
-        nip.setText(employeeSubcon.getNip());
+        pos.setText(employeeSubcon.getPosition());
+        ttl.setText(employeeSubcon.getTtl());
         address.setText(employeeSubcon.getAddress());
+        startDate.setText(employeeSubcon.getStart());
+        finishDate.setText(employeeSubcon.getFinish());
+        loc.setText(employeeSubcon.getLocation());
         Glide.with(this).load(employeeSubcon.getImg()).placeholder(R.drawable.pict).into(photo);
+
+        ArrayList<String> periodList = new ArrayList<>();
+
+        periodList.add("Weekly");
+        periodList.add("Monthly");
+
+        spinner.setAdapter(new ArrayAdapter<>(EditEmployeeSubconActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, periodList));
+
+        periode = spinner.getSelectedItem().toString();
+        period.setText(periode);
 
         changeImage.setOnClickListener(view1 -> {
             Intent intentImage = new Intent();
@@ -74,11 +102,16 @@ public class EditEmployeeSubconActivity extends AppCompatActivity {
         save.setOnClickListener(view -> {
             db.collection("subcontractor").document(subcon.getId()).collection("employee").document(employeeSubcon.getId())
                     .update(
+                            "period", period.getText().toString(),
                             "name", name.getText().toString(),
-                            "age", age.getText().toString(),
+                            "ttl", ttl.getText().toString(),
                             "phone", phone.getText().toString(),
-                            "nip", nip.getText().toString(),
+                            "position", pos.getText().toString(),
+                            "location", loc.getText().toString(),
+                            "start", startDate.getText().toString(),
+                            "finish", finishDate.getText().toString(),
                             "address", address.getText().toString()
+//                            "img", photo.getText().toString(),
                     )
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -72,6 +73,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
     int filterCode = 0;
     AlertDialog dialog;
     boolean isOpen = false;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
         recyclerView = findViewById(R.id.rv_div_late_permit);
         searchView = findViewById(R.id.div_search_late_permission);
         btnFilter = findViewById(R.id.div_filter_late);
+        mSwipeRefreshLayout = findViewById(R.id.refresh_div_late_permit);
         progressDialog = new ProgressDialog(DivisionLatePermitActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog1);
@@ -119,6 +122,14 @@ public class DivisionLatePermitActivity extends AppCompatActivity implements Lat
             public boolean onQueryTextChange(String newText) {
 //                showDataDivision(EXTRA);
                 return false;
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showAllDataDesc(EXTRA);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
