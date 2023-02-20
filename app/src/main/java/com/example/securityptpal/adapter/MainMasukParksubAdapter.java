@@ -12,12 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.securityptpal.R;
 import com.example.securityptpal.model.MasukPS;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainMasukParksubAdapter extends RecyclerView.Adapter<MainMasukParksubAdapter.MainMasukParksubViewHolder>{
     private Context context;
     private List<MasukPS> list;
     private OnPermitListener mOnPermitListener;
+//    Locale id = new Locale("in", "ID");
+//    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, d MMM yyyy", id);
 
     public MainMasukParksubAdapter(Context context, List<MasukPS> list, OnPermitListener mOnPermitListener) {
         this.context = context;
@@ -37,6 +43,11 @@ public class MainMasukParksubAdapter extends RecyclerView.Adapter<MainMasukParks
         holder.name.setText(list.get(position).getName());
         holder.nopol.setText(list.get(position).getNopol());
         holder.date.setText(list.get(position).getDate());
+//        try {
+//            holder.date.setText((CharSequence) simpleDateFormat.parse(list.get(position).getDate()));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
