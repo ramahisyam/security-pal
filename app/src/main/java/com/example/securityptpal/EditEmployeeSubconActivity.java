@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,7 +63,7 @@ public class EditEmployeeSubconActivity extends AppCompatActivity {
         loc = findViewById(R.id.edit_subcon_employee_loc);
 //        id = findViewById(R.id.detail_id_employee_subcon);
         period = findViewById(R.id.edit_subcon_employee_periode);
-        spinner = findViewById(R.id.spinner_periode);
+        spinner = findViewById(R.id.edit_subcon_employee_spinner);
         pos = findViewById(R.id.edit_subcon_employee_pos);
         ttl = findViewById(R.id.edit_subcon_employee_ttl);
         startDate = findViewById(R.id.edit_subcon_employee_start);
@@ -89,8 +91,18 @@ public class EditEmployeeSubconActivity extends AppCompatActivity {
         spinner.setAdapter(new ArrayAdapter<>(EditEmployeeSubconActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, periodList));
 
-        periode = spinner.getSelectedItem().toString();
-        period.setText(periode);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                periode = spinner.getSelectedItem().toString();
+                period.setText(periode);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         changeImage.setOnClickListener(view1 -> {
             Intent intentImage = new Intent();

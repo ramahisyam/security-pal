@@ -52,7 +52,6 @@ public class EditSubconPermitActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private ArrayAdapter<String> centerSpinnerAdapter, divSpinnerAdapter, divisionAdapter, departmentAdapter;
     private List<Division> departments;
-    ImageView imgCalStart, imgCalFinish;
     FirebaseAuth mAuth;
     String userID;
 
@@ -186,45 +185,6 @@ public class EditSubconPermitActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
-
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        final int year = calendar.get(java.util.Calendar.YEAR);
-        final int month = calendar.get(java.util.Calendar.MONTH);
-        final int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-
-        imgCalStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        EditSubconPermitActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        calendar.set(year, month, day);
-                        month = month + 1;
-                        String date = year+"/"+month+"/"+day;
-                        startDate.setText(date);
-                    }
-                },year,month,day);
-                datePickerDialog.show();
-            }
-        });
-
-        imgCalFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        EditSubconPermitActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        calendar.set(year, month, day);
-                        month = month + 1;
-                        String date = year+"/"+month+"/"+day;
-                        finishDate.setText(date);
-                    }
-                },year,month,day);
-                datePickerDialog.show();
             }
         });
 
